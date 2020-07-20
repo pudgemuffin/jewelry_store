@@ -5,7 +5,7 @@ class detail extends CI_Model
     function empdata()
     {
         $query = "SELECT * FROM employee";
-        
+        //Something!
         return $this->db->query($query)->result();
     }
 
