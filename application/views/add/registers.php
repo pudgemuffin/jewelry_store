@@ -93,7 +93,7 @@
                                             <?php } ?>
                                         </select>
 
-                                        <label>ลายละเอียด :</label>
+                                        <label>รายละเอียด :</label>
                                         <textarea class="form-control" name="cusaddress" id="cusaddress">
 
                                         </textarea>

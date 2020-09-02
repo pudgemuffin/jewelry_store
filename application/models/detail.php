@@ -9,13 +9,6 @@ class detail extends CI_Model
         return $this->db->query($query)->result();
     }
 
-    function Depts()
-    {
-        $query = "SELECT * FROM department";
-
-        return $this->db->query($query)->result();
-    }
-
     function Position()
     {
         $query = "SELECT * FROM job";

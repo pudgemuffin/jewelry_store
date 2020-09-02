@@ -14,7 +14,7 @@
 </head>
 
 <body class="sb-nav-fixed">
-    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark"style="background-color: #820115;">
         <a class="navbar-brand" href="index.php">Start Bootstrap</a>
         <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
         <!-- Navbar Search-->
@@ -35,26 +35,27 @@
     <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                <div class="sb-sidenav-menu">
+                <div class="sb-sidenav-menu"style="background-color: #820115;">
                     <div class="nav">
-                        <div class="sb-sidenav-menu-heading">Core</div>
+                        <!-- <div class="sb-sidenav-menu-heading">Core</div> 
                         <a class="nav-link" href="index.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Dashboard
-                        </a>
+                        </a> -->
                         <div class="sb-sidenav-menu-heading">Interface</div>
-                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                            Data
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts" >
+                            <!-- <div class="nav-link-icon" style="color:#ffffff;"><i class="fas fa-columns"></i></div> -->
+                            <p style="color:#ffffff;font-size:18px;">ข้อมูล</p>
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"style="font-size:18px;color:#ffffff;"></i></div>
                         </a>
-                        <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                        <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion"style="background-color: #CD3838;" >
                             <nav class="sb-sidenav-menu-nested nav">
                                 <!-- <a class="nav-link" href="<?php echo site_url('Welcome/lay'); ?>">Static Navigation</a> -->
-                                <a class="nav-link" href="<?php echo site_url('Welcome/index'); ?>">Employee</a>
-                                <a class="nav-link" href="<?php echo site_url('Welcome/viewcust'); ?>">Customer</a>
-                                <a class="nav-link" href="<?php echo site_url('company/partner'); ?>">Partner</a>
-                                <a class="nav-link" href="<?php echo site_url('Welcome/viewposition'); ?>">Position</a>
+                                <a class="nav-link" href="<?php echo site_url('Welcome/index'); ?>" style="background-color: #CD3838;">พนักงาน</a>
+                                <a class="nav-link" href="<?php echo site_url('Welcome/viewcust'); ?>">ลูกค้า</a>
+                                <a class="nav-link" href="<?php echo site_url('company/partner'); ?>">บริษัทคู่ค้า</a>
+                                <a class="nav-link" href="<?php echo site_url('Welcome/viewposition'); ?>">ตำแหน่ง</a>
+                                <a class="nav-link" href="<?php echo site_url('Regis/register'); ?>">Register</a>
                                 <?//ต้องส่งไปcontroller แล้วเรียกview?>
                             </nav>
                         </div>
@@ -72,7 +73,7 @@
                                 <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
                                     <nav class="sb-sidenav-menu-nested nav">
                                         <a class="nav-link" href="login.php">Login</a>
-                                        <a class="nav-link" href="<?php echo site_url('Regis/register'); ?>">Register</a>
+                                        
                                         <a class="nav-link" href="password.php">Forgot Password</a>
                                     </nav>
                                 </div>
@@ -100,7 +101,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="sb-sidenav-footer">
+                <div class="sb-sidenav-footer" style="background-color: #820115;">
                     <div class="small">Logged in as:</div>
                     Start Bootstrap
                 </div>

@@ -27,7 +27,6 @@ class Regis extends CI_Controller
 
     public function insert()
     {
-        $data['depts'] = $this->detail->Depts();
         $data['pos']   = $this->detail->Position();
         $data['province'] = $this->detail->Province();
         $data['amphur'] = $this->detail->Amphur();

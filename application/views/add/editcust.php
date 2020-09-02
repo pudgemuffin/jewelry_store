@@ -102,7 +102,7 @@
                                             <?php } ?>
                                         </select>
 
-                                        <label>ลายละเอียด :</label>
+                                        <label>รายละเอียด :</label>
                                         <textarea class="form-control" name="cusaddress" id="cusaddress" >
                                         <?php echo $e->Cus_Address?>
                                         </textarea>

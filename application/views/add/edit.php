@@ -208,7 +208,7 @@
             
             <div class="row justify-content-center">
                 <div class="col-5">
-                    <label>ลายละเอียด :</label>
+                    <label>รายละเอียด :</label>
                     <textarea class="form-control" name="det" id="det">
                     <?php echo $r->Address; ?>
                     </textarea>

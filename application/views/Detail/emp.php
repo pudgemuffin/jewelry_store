@@ -80,7 +80,7 @@
 </head>
 
 <body>
-<a class="btn btn-info" target="_blank" href="<?php echo site_url('Regis/insert');?>">Add Employee</a>
+<a class="btn btn-primary" target="_blank" href="<?php echo site_url('Regis/insert');?>">Add Employee</a>
 <br>
     <center>
         <div>

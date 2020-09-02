@@ -89,8 +89,15 @@
             
             <div class="row justify-content-center">
                 <div class="col-5">
-                    <label>ว/ด/ป :</label>
+                    <label>ว/ด/ป เกิด:</label>
                     <input class="form-control" type="date" name="empdate" id="empdate">
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-5">
+                    <label>Email :</label>
+                    <input class="form-control" type="email" name="email" id="email" size="40" required>
                 </div>
             </div>
 
@@ -100,30 +107,6 @@
                     <input class="form-control" type="text" name="pnum" id="pnum" size="40" maxlength="11" required>
                 </div>
             </div>
-
-
-            <div class="row justify-content-center">
-                <div class="col-5">
-                    <label>Email :</label>
-                    <input class="form-control" type="email" name="email" id="email" size="40" required>
-                </div>
-            </div>
-
-
-            <div class="row justify-content-center">
-                <div class="col-5">
-                    <label>แผนก :</label>
-                    <select class="form-control" id="depts" name="depts" onchange="dept()">
-                        <option value="">แผนก</option>
-                        <?php foreach ($depts as $d) { ?>
-                            <option value="<?php echo $d->Dep_Id; ?>">
-                                <?php echo $d->dept; ?>
-                            </option>
-                        <?php } ?>
-                    </select>
-                </div>
-            </div>
-
 
             <div class="row justify-content-center">
                 <div class="col-5">
@@ -197,7 +180,7 @@
 
             <div class="row justify-content-center">
                 <div class="col-5">
-                    <label>ลายละเอียด :</label>
+                    <label>รายละเอียด :</label>
                     <textarea class="form-control" name="det" id="det">
                     
                     </textarea>
