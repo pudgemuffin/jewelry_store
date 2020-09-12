@@ -27,34 +27,37 @@
                                 <div class="card-body">
                                     <form action="<?php echo site_url('Regis/cusregis') ?>" method="post">
                                         <div class="form-group">
-                                            <label>Username</label>
-                                            <input class="form-control py-4" id="cususer" name="cususer" type="text" placeholder="Enter Username" />
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Password</label>
-                                            <input class="form-control py-4" id="cuspass" name="cuspass" type="password" placeholder="Enter password" />
-                                        </div>
-                                        <div class="form-group">
-                                            <label>First Name</label>
+                                            <label>ชื่อ :</label>
                                             <input class="form-control py-4" id="cusfname" name="cusfname" type="text" placeholder="Enter first name" />
                                         </div>
                                         <div class="form-group">
-                                            <label>Last Name</label>
+                                            <label>นามสกุล :</label>
                                             <input class="form-control py-4" id="cuslname" name="cuslname" type="text" placeholder="Enter last name" />
                                         </div>
                                         <div class="form-group">
                                             <label>เพศ :</label>
-                                            <input type="radio" name="cusgender" id="cusgender" value="M"> ชาย
-                                            <input type="radio" name="cusgender" id="cusgender" value="F"> หญิง<br>
+                                            <input type="radio" name="cusgender" id="cusgender" value="ชาย"> ชาย
+                                            <input type="radio" name="cusgender" id="cusgender" value="หญิง"> หญิง<br>
                                         </div>
+
                                         <div class="form-group">
-                                            <label>Email</label>
+                                            <label>ว/ด/ป เกิด :</label>
+                                            <input class="form-control py-4" type="date" name="cusbdate" id="cusbdate">
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label>อีเมล :</label>
                                             <input class="form-control py-4" id="cusemail" name="cusemail" type="email" aria-describedby="emailHelp" placeholder="Enter email address" />
                                         </div>
                                         <div class="form-group">
-                                            <label>Telephone</label>
-                                            <input class="form-control py-4" id="custel" name="custel" type="text" placeholder="Telephone" />
-                                        </div>
+                                        <table id="tel">
+                        <tr>
+                            <label>เบอร์โทร :</label>
+                            <td><input class="form-control py-4" type="text" name="cus_tel[]" id="cus_tel" size="40" maxlength="11" required></td>
+                            <td><button type="button" name="add" id="add" class="btn btn-success"><i class="fa fa-plus"></i></button></td>
+                        </tr>
+                    </table>
                                         <label>จังหวัด :</label>
                                         <select class="form-control" id="province" name="province" onchange="am()">
                                             <option value="">จังหวัด</option>
@@ -133,6 +136,26 @@
 </html>
 
 <script>
+
+$(document).ready(function() {
+        var i = 1;
+        $('#add').click(function() {
+            i++;
+            var tel = '<tr id="newtel' + i + '"><td><input type="text" name="cus_tel[]"  class="form-control" maxlength="10" minlength="10"/></td>  <td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">X</button></td></tr>'
+            $('table').append(tel);
+        });
+        $(document).on('click', '.btn_remove', function() {
+            var button_id = $(this).attr("id");
+            $('#newtel' + button_id + '').remove();
+        });
+
+        $(function() {
+            $("input[name='cus_tel[]']").on('input', function(e) {
+                $(this).val($(this).val().replace(/[^0-9]/g, ''));
+            });
+        });
+    });
+
     function am() {
         var datas = "province=" + document.getElementById('province').value;
 

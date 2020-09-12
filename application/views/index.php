@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Dashboard - SB Admin</title>
+    <title>Gold - Store</title>
     <link href="<?php echo base_url('assets/css/styles.css')?>" rel="stylesheet" />
     <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
@@ -44,19 +44,31 @@
                         </a> -->
                         <div class="sb-sidenav-menu-heading">Interface</div>
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts" >
-                            <!-- <div class="nav-link-icon" style="color:#ffffff;"><i class="fas fa-columns"></i></div> -->
+                            
                             <p style="color:#ffffff;font-size:18px;">ข้อมูล</p>
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"style="font-size:18px;color:#ffffff;"></i></div>
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down" style="font-size:18px;color:#ffffff;"></i></div>
                         </a>
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion"style="background-color: #CD3838;" >
                             <nav class="sb-sidenav-menu-nested nav">
                                 <!-- <a class="nav-link" href="<?php echo site_url('Welcome/lay'); ?>">Static Navigation</a> -->
-                                <a class="nav-link" href="<?php echo site_url('Welcome/index'); ?>" style="background-color: #CD3838;">พนักงาน</a>
-                                <a class="nav-link" href="<?php echo site_url('Welcome/viewcust'); ?>">ลูกค้า</a>
-                                <a class="nav-link" href="<?php echo site_url('company/partner'); ?>">บริษัทคู่ค้า</a>
-                                <a class="nav-link" href="<?php echo site_url('Welcome/viewposition'); ?>">ตำแหน่ง</a>
-                                <a class="nav-link" href="<?php echo site_url('Regis/register'); ?>">Register</a>
+                                <a class="nav-link" href="<?php echo site_url('Welcome/index'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;">พนักงาน</a>
+                                <a class="nav-link" href="<?php echo site_url('Welcome/viewcust'); ?>"style="background-color: #CD3838;font-size:16px;color:#ffffff;">ลูกค้า</a>
+                                <a class="nav-link" href="<?php echo site_url('company/partner'); ?>"style="background-color: #CD3838;font-size:16px;color:#ffffff;">บริษัทคู่ค้า</a>
+                                <a class="nav-link" href="<?php echo site_url('Welcome/viewposition'); ?>"style="background-color: #CD3838;font-size:16px;color:#ffffff;">ตำแหน่ง</a>
+                                <a class="nav-link" href="<?php echo site_url('Regis/register'); ?>"style="background-color: #CD3838;font-size:16px;color:#ffffff;">Register</a>
                                 <?//ต้องส่งไปcontroller แล้วเรียกview?>
+                            </nav>
+                        </div>
+
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsegoldtype" aria-expanded="false" aria-controls="collapseLayouts" >
+                            
+                            <p style="color:#ffffff;font-size:18px;">กลุ่มสินค้า</p>
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down" style="font-size:18px;color:#ffffff;"></i></div>
+                        </a>
+                        <div class="collapse" id="collapsegoldtype" aria-labelledby="headingOne" data-parent="#sidenavAccordion"style="background-color: #CD3838;" >
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="<?php echo site_url('Welcome/index'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;">ทองคํารูปพรรณ</a>
+                                <a class="nav-link" href="<?php echo site_url('Welcome/viewcust'); ?>"style="background-color: #CD3838;font-size:16px;color:#ffffff;">ทองคำแท่ง</a>                               
                             </nav>
                         </div>
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
@@ -110,10 +122,10 @@
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid">
-                    <h1 class="mt-4">Dashboard</h1>
-                    <ol class="breadcrumb mb-4">
+                    <h1 class="mt-4">ยินดีต้อนรับ</h1>
+                    <!-- <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item active">Dashboard</li>
-                    </ol>
+                    </ol> -->
                     <div class="row">
                         <div class="col-xl-3 col-md-6">
                             <div class="card bg-primary text-white mb-4">
@@ -164,7 +176,7 @@
                             </div>
                         
                     
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="col-xl-6">
                             <div class="card mb-4">
                                 <div class="card-header">
@@ -184,7 +196,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </main>
             <footer class="py-4 bg-light mt-auto">
                 <div class="container-fluid">

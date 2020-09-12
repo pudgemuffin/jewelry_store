@@ -84,15 +84,14 @@
                     <thead>
                    
                         <tr>
-                            <th class="tableFixHead">User</th>
-                            <th class="tableFixHead">Firstname</th>
-                            <th class="tableFixHead">Surname</th>
-                            <th class="tableFixHead">Gender</th>
-                            <th class="tableFixHead">Email</th>
-                            <th class="tableFixHead">Phone </th>
-                            <th class="tableFixHead">Address</th>
-                            <th class="tableFixHead">Edit</th>
-                            <th class="tableFixHead">Delete</th>
+                            <th class="tableFixHead">รหัสลูกค้า</th>
+                            <th class="tableFixHead">ชื่อ</th>
+                            <th class="tableFixHead">นามสุกล</th>
+                            <th class="tableFixHead">เพศ</th>
+                            <th class="tableFixHead">อีเมล</th>
+                            <th class="tableFixHead">รายละเอียด</th>
+                            <th class="tableFixHead">แก้ไข</th>
+                            <th class="tableFixHead">ลบ</th>
                             <!-- <th class="tableFixHead">Excel</th>
                             <th class="tableFixHead">PDF</th> -->
                         </tr>
@@ -101,12 +100,11 @@
                         <?php foreach ($result as $r) { ?>
 
                             <tr nowrap>
-                                <td nowrap> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->Cus_User); ?> </td>
+                                <td nowrap> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->Cus_Id); ?> </td>
                                 <td nowrap> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->Cus_fname); ?> </td>
                                 <td nowrap> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->Cus_lname); ?> </td>
                                 <td nowrap> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->Cus_Gender); ?> </td>
                                 <td nowrap> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->Cus_Email); ?></td>
-                                <td nowrap> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->Cus_Tel); ?> </td>
                                 <td nowrap> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->Cus_Address); ?> </td>
 
                                 <td>

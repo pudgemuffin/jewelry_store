@@ -2,23 +2,16 @@
 
 class detail extends CI_Model
 {
-    function empdata()
+    function empdata($txtsearch)
     {
-        $query = "SELECT * FROM employee";
-        //Something!
+        $query = "SELECT * FROM employee WHERE Id like'%$txtsearch%' or Firstname like'%$txtsearch%' or Surname like '%$txtsearch%'";
+        
         return $this->db->query($query)->result();
     }
 
     function Position()
     {
         $query = "SELECT * FROM job";
-
-        return $this->db->query($query)->result();
-    }
-    
-    function Positionc($depts)
-    {
-        $query = "SELECT * FROM job where Job_Id like '%%' $depts order by Job_Id";
 
         return $this->db->query($query)->result();
     }
@@ -106,15 +99,56 @@ class detail extends CI_Model
         return $this->db->query($query)->result();
     }
 
-    function insertemp($idcard,$nametitle,$fname,
-    $lname,$gender,$religion,$blood,$empdate,$pnum,$email,$depts,$pos,$province,$amphur,$district,$postcode,$det)
+    function insertemp($id,$idcard,$nametitle,$fname,
+    $lname,$gender,$religion,$blood,$empdate,$email,$pos,$province,$amphur,$district,$postcode,$det,$status,$startdate,$salary,$national,$filename)
     {
-        $query = "INSERT INTO employee (Idcard,Nametitle,Firstname,Surname,Gender,Religion,Blood,empdate,Pnum,Email,Depts,Jobs,Provinces,Countys,Districts,Postcodes,Address)
+        $query = "INSERT INTO employee (Id,Idcard,Nametitle,Firstname,Surname,Gender,Religion,Blood,empdate,Email,Jobs,Provinces,Countys,Districts,Postcodes,Address,Status,Startdate,Salary,National,Image)
         values
-                                       ('$idcard','$nametitle','$fname','$lname','$gender','$religion','$blood','$empdate','$pnum','$email','$depts','$pos','$province','$amphur','$district','$postcode','$det')"; //
+                                       ('$id','$idcard','$nametitle','$fname','$lname','$gender','$religion','$blood','$empdate','$email','$pos','$province','$amphur','$district','$postcode','$det','$status','$startdate','$salary','$national','$filename')"; //
         return $this->db->query($query);                                                                
     }
 
+    function insertempimg($data)
+    {       
+        $this->db->insert('employee',$data);
+    }
+
+    function emptel($Id,$emp_tel)
+    {
+        $query = "INSERT INTO emp_telephone(Id,emp_tel)
+                  values
+                  ('$Id','$emp_tel')";
+        return $this->db->query($query); 
+    }
+    function empteldel($id)
+    {
+        $query = "DELETE FROM emp_telephone WHERE Id = '$id'";
+        return $this->db->query($query);
+    }
+    function emptelupdate($id,$emp_tel)
+    {
+        $query = "INSERT INTO emp_telephone(Id,emp_tel)
+                     values
+                    ('$id','$emp_tel')";
+        return $this->db->query($query);
+    }
+
+    function emptelbyid($id)
+    {
+        $query = "SELECT emp_tel FROM emp_telephone WHERE Id = '$id'";
+
+        return $this->db->query($query)->result();
+    }
+
+    function maxid()
+    {
+        $query = "SELECT max(id) as Id FROM employee";
+        $result = $this->db->query($query)->result();
+        foreach($result as $re){
+            return $re->Id;
+        }
+         
+    }
     function displaybyid($id)
     {
         $query = "SELECT * FROM employee WHERE Id = '$id'";
@@ -122,18 +156,20 @@ class detail extends CI_Model
         return $this->db->query($query)->result();
     }
 
-    function update($id,$idcard,$nametitle,$fname,$lname,$gender,$religion,$blood,$empdate,$pnum,$email,$pos,$province,$amphur,$district,$postcode,$det)
+    function update($id,$idcard,$nametitle,$fname,$lname,$gender,$religion,$blood,$empdate,$email,$pos,$province,$amphur,$district,$postcode,$det,$status,$startdate,$salary,$national)
     {
         $query = "UPDATE employee SET Idcard = '$idcard',Nametitle = '$nametitle',Firstname = '$fname',Surname = '$lname',Gender = '$gender',Religion = '$religion',Blood = '$blood'  
-        ,empdate = '$empdate',Pnum = '$pnum',Email = '$email',Jobs = '$pos',Provinces = '$province',Countys = '$amphur',Districts = '$district',Postcodes = '$postcode',Address = '$det' WHERE Id = '$id'";
+        ,empdate = '$empdate',Email = '$email',Jobs = '$pos',Provinces = '$province',Countys = '$amphur',Districts = '$district',Postcodes = '$postcode',Address = '$det',Status = '$status',Startdate = '$startdate',Salary = '$salary',National = '$national' WHERE Id = '$id'";
 
         return $this->db->query($query);
     }
 
-    function delete($idcard)
+    function delete($Id)
     {
-        $query = "DELETE FROM employee WHERE Idcard ='$idcard'";
+        $query = "UPDATE employee SET Status = '0' WHERE Id ='$Id'";
         return $this->db->query($query);
     }
+
+    
 }
 ?>

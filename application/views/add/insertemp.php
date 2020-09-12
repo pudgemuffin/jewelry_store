@@ -11,31 +11,42 @@
     <!-- <link href="assets/css/styles.css" rel="stylesheet" /> -->
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
-    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
 </head>
 <center>
-    <h2>Insert</h2>
+    <h2>เพิ่มข้อมูลพนักงาน</h2>
 </center>
 
 <body>
 
-    <form action="<?php echo site_url('Regis/addemp') ?>" method="post">
+    <form action="<?php echo site_url('Regis/addemp') ?>" method="post" enctype="multipart/form-data">
         <?php echo validation_errors(); ?>
         <div style="margin-left: 20px">
             <div class="row justify-content-center">
                 <div class="col-5">
-                    <label>รหัสบัตรประชาชน</label>
-                    <input class="form-control" type=text name="idcard" id="idcard" required>
+                    <label>รูปภาพพนักงาน</label>
+                    <input type="file" name="empim" id="empim" require accept="image/*">
                 </div>
             </div>
+
+            <Br>
+            <div class="row justify-content-center">
+                <div class="col-5">
+                    <label>รหัสบัตรประชาชน :</label>
+                    <input class="form-control" type=text name="idcard" id="idcard" required onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                </div>
+            </div>
+
 
             <div class="row justify-content-center">
                 <div class="col-5">
                     <label>คำนำหน้าชื่อ : </label>
                     <select class="form-control" name="nametitle" id="nametitle">
-                        <option value="1">นาย</option>
-                        <option value="2">นางสาว</option>
-                        <option value="3">นาง</option>
+                        <option value="นาย">นาย</option>
+                        <option value="นางสาว">นางสาว</option>
+                        <option value="นาง">นาง</option>
                     </select>
                 </div>
             </div>
@@ -57,8 +68,8 @@
             <div class="row justify-content-center">
                 <div class="col-5">
                     <label>เพศ :</label>
-                    <input type="radio" name="gender" id="gender" value="M"> ชาย
-                    <input type="radio" name="gender" id="gender" value="F"> หญิง<br>
+                    <input type="radio" name="gender" id="gender" value="ชาย"> ชาย
+                    <input type="radio" name="gender" id="gender" value="หญิง"> หญิง<br>
                 </div>
             </div>
 
@@ -86,7 +97,14 @@
                     </select>
                 </div>
             </div>
-            
+
+            <div class="row justify-content-center">
+                <div class="col-5">
+                    <label>สัญชาติ :</label>
+                    <input class="form-control" type="text" name="national" id="national">
+                </div>
+            </div>
+
             <div class="row justify-content-center">
                 <div class="col-5">
                     <label>ว/ด/ป เกิด:</label>
@@ -103,8 +121,35 @@
 
             <div class="row justify-content-center">
                 <div class="col-5">
-                    <label>เบอร์โทร :</label>
-                    <input class="form-control" type="text" name="pnum" id="pnum" size="40" maxlength="11" required>
+                    <table id="tel">
+                        <tr>
+                            <label>เบอร์โทร :</label>
+                            <td><input class="form-control" type="text" name="emp_tel[]" id="emp_tel" size="40" maxlength="10" required></td>
+                            <td><button type="button" name="add" id="add" class="btn btn-success"><i class="fa fa-plus"></i></button></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-5">
+                    <label>ว/ด/ป เริ่มทำงาน:</label>
+                    <input class="form-control" type="date" name="empsdate" id="empsdate">
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-5">
+                    <label>สถานะการทำงาน:</label>
+                    <input type="radio" name="status" id="status" value="1"> ทำงาน
+                    <input type="radio" name="status" id="status" value="0"> ลาออก<br>
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-5">
+                    <label>เงินเดือน :</label>
+                    <input class="form-control" type="text" name="salary" id="salary">
                 </div>
             </div>
 
@@ -182,10 +227,21 @@
                 <div class="col-5">
                     <label>รายละเอียด :</label>
                     <textarea class="form-control" name="det" id="det">
-                    
+
                     </textarea>
                 </div>
-            </div><br>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-5">
+                    <label>Username :</label>
+                    <input class="form-control" type="text" name="user" id="user" size="40">
+                    <label>Password :</label>
+                    <input class="form-control" type="text" name="pass" id="pass" size="40">
+                </div>
+            </div>
+
+            <br>
 
             <div class="row justify-content-center">
                 <div class="col-5">
@@ -206,6 +262,32 @@
 
 </html>
 <script>
+    $(document).ready(function() {
+        var i = 1;
+        $('#add').click(function() {
+            i++;
+            var tel = '<tr id="newtel' + i + '"><td><input type="text" name="emp_tel[]"  class="form-control" maxlength="10" minlength="10"/></td>  <td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">X</button></td></tr>'
+            $('table').append(tel);
+        });
+        $(document).on('click', '.btn_remove', function() {
+            var button_id = $(this).attr("id");
+            $('#newtel' + button_id + '').remove();
+        });
+
+        $(function() {
+            $("input[name='emp_tel[]']").on('input', function(e) {
+                $(this).val($(this).val().replace(/[^0-9]/g, ''));
+            });
+        });
+    });
+        $(function() {
+            $("input[name='emp_tel[]']").on('input', function(e) {
+                $(this).val($(this).val().replace(/[^0-9]/g, ''));
+            });
+        });
+    
+
+
     // $(document).ready(function() {
     //     var elements = document.getElementsByName("idemp");
     //     for (var i = 0; i < elements.length; i++) {
@@ -334,7 +416,7 @@
     function am() {
         var datas = "province=" + document.getElementById('province').value;
 
-      //  alert(datas);
+        //  alert(datas);
 
         $.ajax({
             type: "POST",
@@ -367,7 +449,7 @@
 
         var datas = "district=" + document.getElementById('district').value;
 
-       // alert(datas);
+        // alert(datas);
 
         $.ajax({
             type: "POST",

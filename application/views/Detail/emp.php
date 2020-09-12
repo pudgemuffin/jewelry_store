@@ -50,7 +50,10 @@
         .tableFixHead {
             overflow-y: auto;
         }
-
+        td{
+            text-align:center;
+            vertical-align: middle;
+        }
         .tableFixHead {
             position: sticky;
             top: 0;
@@ -80,51 +83,75 @@
 </head>
 
 <body>
-<a class="btn btn-primary" target="_blank" href="<?php echo site_url('Regis/insert');?>">Add Employee</a>
-<br>
+
+    <div class="card">
+        <div class="card-body">
+            <h1 style="text-align: center;">
+                ข้อมูลพนักงาน
+            </h1>
+            <form action="<?php echo site_url('find/searchemp') ?>" method="post">
+                <div class="row" style="padding-bottom: 1px;padding-left:5px;">
+                    <div class="col-3">
+
+                        <input type="text" name="semp" id="semp" class="form-control">
+                    </div>
+                    <div class="col-2">
+                        <button type="submit" class = "btn btn-secondary">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+
+                </div><br>
+                <a class="btn btn-primary" target="_blank" href="<?php echo site_url('Regis/insert'); ?>">เพิ่มพนักงาน</a>
+        </div>
+
+    </div>
+
     <center>
         <div>
             <div class="table-responsive">
 
                 <table id="user_data" border="1" style="background-color: white;" class="table table-striped table  table-hover">
                     <thead>
-                   
+
                         <tr>
-                            <th class="tableFixHead">Id</th>
-                            <th class="tableFixHead">Idcard</th>
-                            <th class="tableFixHead">Nametitle</th>
-                            <th class="tableFixHead">Firstname</th>
-                            <th class="tableFixHead">Surname </th>
-                            <th class="tableFixHead">Gender</th>
-                            <th class="tableFixHead">Email</th>
-                            <th class="tableFixHead">Religion</th>
-                            <th class="tableFixHead">BDate</th>
-                            <th class="tableFixHead">Edit</th>
-                            <th class="tableFixHead">Delete</th>
+                            <th class="tableFixHead">รูปภาพ</th>
+                            <th class="tableFixHead">รหัสพนักงาน</th>
+                            <!-- <th class="tableFixHead">Idcard</th> -->
+                            <!-- <th class="tableFixHead">Nametitle</th> -->
+                            <th class="tableFixHead">ชื่อ</th>
+                            <th class="tableFixHead">นามสุกล </th>
+                            <th class="tableFixHead">เพศ</th>
+                            <th class="tableFixHead">อีเมล</th>
+                            <th class="tableFixHead">ศาสนา</th>
+                            <th class="tableFixHead">วันเกิด</th>
+                            <th class="tableFixHead">แก้ไข</th>
+                            <th class="tableFixHead">ลบ</th>
                             <!-- <th class="tableFixHead">Excel</th>
                             <th class="tableFixHead">PDF</th> -->
                         </tr>
-                        </thead>
-                        <tbody>
+                    </thead>
+                    <tbody>
                         <?php foreach ($result as $r) { ?>
 
                             <tr nowrap>
-                                <td nowrap> <?php echo $r->Id; ?></td>
-                                <td nowrap> <?php echo $r->Idcard; ?></td>
-                                <td nowrap> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->Nametitle); ?> </td>
-                                <td nowrap> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->Firstname); ?> </td>
-                                <td nowrap> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->Surname); ?> </td>
-                                <td nowrap> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->Gender); ?></td>
-                                <td nowrap> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->Email); ?> </td>
-                                <td nowrap> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->Religion); ?> </td>
-                                <td nowrap> <?php echo$r->empdate; ?> </td>
+                                <td nowrap style="text-align:center; vertical-align: middle;"> <img style="width: 100px; height:100px;" src="<?php echo base_url('/img/'.$r->Image);?>"></td>
+                                <td nowrap style="text-align:center; vertical-align: middle;"> <?php echo $r->Id; ?></td>
+                           
+                                <td nowrap style="text-align:center; vertical-align: middle;"> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->Firstname); ?> </td>
+                                <td nowrap style="text-align:center; vertical-align: middle;"> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->Surname); ?> </td>
+                                <td nowrap style="text-align:center; vertical-align: middle;"> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->Gender); ?></td>
+                                <td nowrap style="text-align:center; vertical-align: middle;"> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->Email); ?> </td>
+                                <td nowrap style="text-align:center; vertical-align: middle;"> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->Religion); ?> </td>
+                                <td nowrap style="text-align:center; vertical-align: middle;"> <?php echo $r->empdate; ?> </td>
 
-                                <td>
+                                <td  style="text-align:center; vertical-align: middle;">
                                     <!-- <button type="button" class="btn btn-warning btn-sm " name="edit"data-toggle="modal" data-target="#edit" onclick="edit1(id='<?php echo $r->Id ?>')"><i class="fa fa-user"></i></button> -->
-                                    <a class="btn btn-warning" href="<?php echo site_url('Regis/edit/').$r->Id?>"><i class="fa fa-cog"></i></a>
+                                    <a class="btn btn-warning" href="<?php echo site_url('Regis/edit/') . $r->Id ?>"><i class="fa fa-cog"></i></a>
                                 </td>
                                 <td nowrap style="text-align:center; vertical-align: middle;">
-                                    <button type="button" class="btn btn-danger btn-sm " name="delete" onclick="delete1(id='<?php echo $r->Idcard ?>')"><i class="fa fa-trash"></i></button>
+                                    <button type="button" class="btn btn-danger btn-sm " name="delete" onclick="delete1(id='<?php echo $r->Id ?>')"><i class="fa fa-trash"></i></button>
 
                                 </td>
                                 <!-- <td>
@@ -140,42 +167,42 @@
                                 </td> -->
 
                             <?php } ?>
-                            
+
                 </table>
             </div>
         </div>
-        
+
     </center>
     <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h3 class="modal-title" id="ex">Employee</h3>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body" id="edit1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="ex">Employee</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="edit1">
 
-                    </div>
                 </div>
             </div>
         </div>
+    </div>
 </body>
 
 </html>
 <script>
-    function delete1(idcard) {
-        var datas = "idcard=" + idcard;
-        if (confirm("คุณต้องการลบข้อมูลนี้ หรือไม่")){
-        $.ajax({
-            type: "POST",
-            url: "<?php echo site_url('Regis/delete') ?>",
-            data: datas,
-        }).done(function(data) {
-            $('#user_data').html(data);
-        });
-    }
+    function delete1(Id) {
+        var datas = "idcard=" + Id;
+        if (confirm("คุณต้องการลบข้อมูลนี้ หรือไม่")) {
+            $.ajax({
+                type: "POST",
+                url: "<?php echo site_url('Regis/delete') ?>",
+                data: datas,
+            }).done(function(data) {
+                $('#user_data').html(data);
+            });
+        }
     }
 
     function edit1(id) {
@@ -191,7 +218,4 @@
             $('#edit1').html(data);
         });
     }
-
-    
-
 </script>

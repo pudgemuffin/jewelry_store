@@ -34,7 +34,8 @@ class Welcome extends CI_Controller {
 	
 	public function index()
 	{
-		$data['result'] = $this->detail->empdata();
+		$search = '';
+		$data['result'] = $this->detail->empdata($search);
 		$data['view'] = "Detail/emp";
 		$this->load->view('index',$data);
 	}

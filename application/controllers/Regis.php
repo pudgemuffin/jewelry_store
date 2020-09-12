@@ -33,8 +33,25 @@ class Regis extends CI_Controller
         $data['district'] = $this->detail->District();
         $this->load->view('add/insertemp', $data);
     }
-    public function addemp()
+    public function empidgen()
     {
+        $max = $this->detail->maxid();
+        $str = substr($max,4)+1;
+        $txt = "EMP";
+        if($str<10){
+            $empid = $txt."00".$str;
+        }elseif($str >= 10 && $str <= 99 ){
+            $empid = $txt."0".$str;
+        }elseif($str <= 100){
+            $empid = $txt.$str;
+        }
+        
+        return $empid;
+    }
+
+    public function addemp()
+    {        
+        $id = $this->empidgen();
         $idcard = $this->input->post('idcard');
         $nametitle = $this->input->post('nametitle');
         $fname = $this->input->post('fname');
@@ -43,25 +60,47 @@ class Regis extends CI_Controller
         $religion = $this->input->post('religion');
         $blood = $this->input->post('blood');
         $empdate = $this->input->post('empdate');
-        $pnum = $this->input->post('pnum');
+        $emp_tel = $this->input->post('emp_tel');
         $email = $this->input->post('email');
-        $depts = $this->input->post('depts');
         $pos = $this->input->post('pos');
         $province = $this->input->post('province');
         $amphur = $this->input->post('amphur');
         $district = $this->input->post('district');
         $postcode = $this->input->post('postcode');
         $det = $this->input->post('det');
+        $status = $this->input->post('status');
+        $startdate = $this->input->post('empsdate');
+        $salary = $this->input->post('salary');
+        $national = $this->input->post('national');
         $this->input->post('detail');
+        
 
+        
+        $config['upload_path'] = './img/';
+        $config['allowed_types'] = 'gif|jpg|png';
+        $config['max_size'] = '2000';
+        $config['max_width'] = '3000';
+        $config['max_height'] = '3000';
+        $this->load->library('upload',$config);
+
+        if(!$this->upload->do_upload('empim'))
+        {
+            echo $this->upload->display_errors();
+        }else{
+            $data = $this->upload->data();
+            $filename = $data['file_name'];
+        }        
+        
         
         $data1['getcheck'] = $this->detail->checkinsert($idcard);
 
+        
         foreach ($data1['getcheck'] as $value) {
             $count = $value->COUNT;
             if ($count == 0) {
 
                 $data['insert'] = $this->detail->insertemp(
+                    $id,
                     $idcard,
                     $nametitle,
                     $fname,
@@ -70,24 +109,34 @@ class Regis extends CI_Controller
                     $religion,
                     $blood,
                     $empdate,
-                    $pnum,
                     $email,
-                    $depts,
                     $pos,
                     $province,
                     $amphur,
                     $district,
                     $postcode,
-                    $det
+                    $det,
+                    $status,
+                    $startdate,
+                    $salary,
+                    $national,
+                    $filename
                 );
-
+                $Id = $this->detail->maxid();
+                
+               
+                foreach($emp_tel as $tel){
+                $data['inserttel'] = $this->detail->emptel(
+                    $Id,
+                    $tel
+                );
+            }
                 echo "<script> alert('Record Saved');
 						window.location.href='/ER_GOLDV1/index.php';
 						</script>";
             } else {
                 echo "<script> alert ('พบพนักงานแล้ว')</script>";
 
-                $data['depts'] = $this->detail->Depts();
                 $data['pos']   = $this->detail->Position();
                 $data['province'] = $this->detail->Province();
                 $data['amphur'] = $this->detail->Amphur();
@@ -101,6 +150,7 @@ class Regis extends CI_Controller
     {
         
         $data['edit'] = $this->detail->displaybyid($id);
+        $data['edittel'] = $this->detail->emptelbyid($id);
         $data['province'] = $this->detail->Province();
         $data['amphur'] = $this->detail->Amphur();
         $data['district'] = $this->detail->District();
@@ -121,7 +171,7 @@ class Regis extends CI_Controller
         $religion = $this->input->post('religion');
         $blood = $this->input->post('blood');
         $empdate = $this->input->post('empdate');
-        $pnum = $this->input->post('pnum');
+        $emp_tel = $this->input->post('emp_tel');
         $email = $this->input->post('email');
         $pos = $this->input->post('pos');
         $province = $this->input->post('province');
@@ -129,78 +179,115 @@ class Regis extends CI_Controller
         $district = $this->input->post('district');
         $postcode = $this->input->post('postcode');
         $det = $this->input->post('det');
+        $status = $this->input->post('status');
+        $startdate = $this->input->post('empsdate');
+        $salary = $this->input->post('salary');
+        $national = $this->input->post('national');
 
-        $this->detail->update($id,$idcard,$nametitle,$fname,$lname,$gender,$religion,$blood,$empdate,$pnum,$email,$pos,$province,$amphur,$district,$postcode,$det);
+        $this->detail->update($id,$idcard,$nametitle,$fname,$lname,$gender,$religion,$blood,$empdate,$email,$pos,$province,$amphur,$district,$postcode,$det,$status,$startdate,$salary,$national);
 
+        $this->detail->empteldel($id);
+        foreach($emp_tel as $tel){
+            $data['updateemptel'] = $this->detail->emptelupdate(
+                $id,
+                $tel
+            );
+            
         echo "<script> alert('Record Updated');
 							window.location.href='/ER_GOLDV1/index.php';
 							</script>";
     }
+}
 
     public function delete()
     {
-        $idcard = $this->input->post('idcard');
-        $this->detail->delete($idcard);
+        $Id = $this->input->post('Id');
+        $this->detail->delete($Id);
 
             echo "<script> alert('Record Deleted');
 		 					window.location.href='/ER_GOLDV1/index.php';
 							 </script>";
 
     }
+    
+    public function cusidgen()
+    {
+        $this->load->model('customer');
+        $max = $this->customer->maxid();
+        $str = substr($max,4)+1;
+        $txt = "CUS";
+        if($str<10){
+            $cusid = $txt."00".$str;
+        }elseif($str >= 10 && $str <= 99 ){
+            $cusid = $txt."0".$str;
+        }elseif($str <= 100){
+            $cusid = $txt.$str;
+        }
+        
+        return $cusid;
+    }
 
     public function cusregis()
     {
         $this->load->model('customer');
-        $cususer = $this->input->post('cususer');
-        $cuspass = $this->input->post('cuspass');
+        $cusid = $this->cusidgen();
         $cusfname = $this->input->post('cusfname');
         $cuslname = $this->input->post('cuslname');
         $cusgender = $this->input->post('cusgender');
         $cusemail = $this->input->post('cusemail');
-        $custel = $this->input->post('custel');
+        $cus_tel = $this->input->post('cus_tel');
         $province = $this->input->post('province');
         $amphur = $this->input->post('amphur');
         $district = $this->input->post('district');
         $postcode = $this->input->post('postcode');
         $cusaddress = $this->input->post('cusaddress');
+        $cusbdate = $this->input->post('cusbdate');
         $this->input->post('customer');
 
-        $data1['getcheck'] = $this->customer->checkinsertcus($cususer);
-        foreach ($data1['getcheck'] as $value) {
-            $count = $value->COUNT;
-            if ($count == 0) {
 
-                $data['insert'] = $this->customer->insertcus(
-                    $cususer,
-                    $cuspass,
-                    $cusfname,
-                    $cuslname,
-                    $cusgender,
-                    $cusemail,
-                    $custel,
-                    $province,
-                    $amphur,
-                    $district,
-                    $postcode,
-                    $cusaddress
+        $data['insert'] = $this->customer->insertcus(
+            $cusid,
+            $cusfname,
+            $cuslname,
+            $cusgender,
+            $cusemail,
+            $province,
+            $amphur,
+            $district,
+            $postcode,
+            $cusaddress,
+            $cusbdate
+        );
+
+        $CusId = $this->customer->maxid();
+
+        foreach($cus_tel as $tel){
+             $data['inserttel'] = $this->customer->custel(
+                    $CusId,
+                    $tel
                 );
-
-                echo "<script> alert('สมัครสำเร็จ');
-						window.location.href='/ER_GOLDV1/index.php';
-						</script>";
-            }else {
-                echo "<script> alert ('พบชื่อ User ');
-                window.history.back();           
-                    </script>";
-
-                $data['depts'] = $this->detail->Depts();
-                $data['pos']   = $this->detail->Position();
-                $data['province'] = $this->detail->Province();
-                $data['amphur'] = $this->detail->Amphur();
-                $data['district'] = $this->detail->District();
-                $this->load->view('add/registers', $data);
             }
-        }
+        echo "<script> alert('สมัครสำเร็จ');
+                        window.location.href='/ER_GOLDV1/index.php';
+                        </script>";
+
+        // $data1['getcheck'] = $this->customer->checkinsertcus();
+        // foreach ($data1['getcheck'] as $value) {
+        //     $count = $value->COUNT;
+        //     if ($count == 0) {        
+        //     }else {
+        //         echo "<script> alert ('พบชื่อ User ');
+        //         window.history.back();           
+        //             </script>";
+
+        //         $data['depts'] = $this->detail->Depts();
+        //         $data['pos']   = $this->detail->Position();
+        //         $data['province'] = $this->detail->Province();
+        //         $data['amphur'] = $this->detail->Amphur();
+        //         $data['district'] = $this->detail->District();
+        //         $this->load->view('add/registers', $data);
+        //     }
+        // }
         
     }
 
