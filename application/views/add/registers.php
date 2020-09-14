@@ -28,27 +28,27 @@
                                     <form action="<?php echo site_url('Regis/cusregis') ?>" method="post">
                                         <div class="form-group">
                                             <label>ชื่อ :</label>
-                                            <input class="form-control py-4" id="cusfname" name="cusfname" type="text" placeholder="Enter first name" />
+                                            <input class="form-control py-4" id="cusfname" name="cusfname" type="text" placeholder="Enter first name" required/>
                                         </div>
                                         <div class="form-group">
                                             <label>นามสกุล :</label>
-                                            <input class="form-control py-4" id="cuslname" name="cuslname" type="text" placeholder="Enter last name" />
+                                            <input class="form-control py-4" id="cuslname" name="cuslname" type="text" placeholder="Enter last name" required/>
                                         </div>
                                         <div class="form-group">
                                             <label>เพศ :</label>
-                                            <input type="radio" name="cusgender" id="cusgender" value="ชาย"> ชาย
+                                            <input type="radio" name="cusgender" id="cusgender" value="ชาย" <?php echo "checked" ?>> ชาย
                                             <input type="radio" name="cusgender" id="cusgender" value="หญิง"> หญิง<br>
                                         </div>
 
                                         <div class="form-group">
                                             <label>ว/ด/ป เกิด :</label>
-                                            <input class="form-control py-4" type="date" name="cusbdate" id="cusbdate">
+                                            <input class="form-control py-4" type="date" name="cusbdate" id="cusbdate" required>
                                         </div>
 
 
                                         <div class="form-group">
                                             <label>อีเมล :</label>
-                                            <input class="form-control py-4" id="cusemail" name="cusemail" type="email" aria-describedby="emailHelp" placeholder="Enter email address" />
+                                            <input class="form-control py-4" id="cusemail" name="cusemail" type="email" aria-describedby="emailHelp" placeholder="Enter email address" required/>
                                         </div>
                                         <div class="form-group">
                                         <table id="tel">

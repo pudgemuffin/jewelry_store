@@ -22,13 +22,23 @@
     <?php foreach ($edit as $r) { ?>
 
         <form action="<?php echo site_url('Regis/update') ?>" method="post">
+        <div style="margin-left: 20px">
+            <div class="row justify-content-center">
+                <div class="col-5">
+                    <label>รูปภาพพนักงาน</label>
+                    <input type="file" name="empim" id="empim" require accept="image/*" value="<?php echo $r->Image; ?>" onchange="loadimg(event)">
+                    <img id = "preimage" width="150px" height="150px">
+                </div>
+                
+            </div>
 
+            <Br>
 
             <div style="margin-left: 20px">
                 <div class="row justify-content-center">
                     <div class="col-5">
                         <label>รหัสบัตรประชาชน</label>
-                        <input class="form-control" type=text name="idcard" id="idcard" value="<?php echo $r->Idcard; ?>">
+                        <input class="form-control" type=text name="idcard" id="idcard" onkeypress="return numberonly(event)" value="<?php echo $r->Idcard; ?>">
                     </div>
                 </div>
 
@@ -134,7 +144,7 @@
                                 <tr id="newtel<?php echo $i; ?>">
                                     <label>เบอร์โทร :</label>
                                     <td>
-                                        <input class="form-control" type="text" name="emp_tel[]" id="emp_tel" size="40" maxlength="11" value="<?php echo $et->emp_tel; ?>">
+                                        <input class="form-control" type="text" name="emp_tel[]" onkeypress="return numberonly(event)" id="emp_tel" size="40" maxlength="11" value="<?php echo $et->emp_tel; ?>">
                                     </td>
                                     <td>
                                         <?php if ($i == 1) { ?><button type="button" name="add" id="add" class="btn btn-success"><i class="fa fa-plus"></i></button>
@@ -285,7 +295,7 @@
         var i = 1;
         $('#add').click(function() {
             i++;
-            var tel = '<tr id="newtel' + i + '"><td><input type="text" name="emp_tel[]"  class="form-control" maxlength="10" minlength="10"/></td>  <td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">X</button></td></tr>'
+            var tel = '<tr id="newtel' + i + '"><td><input type="text" name="emp_tel[]" onkeypress="return numberonly(event)" class="form-control" maxlength="10" minlength="10"/></td>  <td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">X</button></td></tr>'
             $('table').append(tel);
         });
         $(document).on('click', '.btn_remove', function() {
@@ -298,8 +308,16 @@
           });
       });
     });
-    // $('.btn-remove').on('click',function(){
-    //     var button_id = $(this).attr("id");
-    //     $('#newtel' + button_id).remove();
-    // });
+    function numberonly(evt)
+      {
+         var charCode = (evt.which) ? evt.which : event.keyCode
+         if (charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+
+         return true;
+      }
+    function loadimg(event){
+        var output = document.getElementById('preimage');
+        output.src = URL.createObjectURL(event.target.files[0]);
+    }
 </script>

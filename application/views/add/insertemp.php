@@ -70,7 +70,7 @@
             <div class="row justify-content-center">
                 <div class="col-5">
                     <label>เพศ :</label>
-                    <input type="radio" name="gender" id="gender" value="ชาย"> ชาย
+                    <input type="radio" name="gender" id="gender" value="ชาย" <?php echo "checked"?>> ชาย
                     <input type="radio" name="gender" id="gender" value="หญิง"> หญิง<br>
                 </div>
             </div>
@@ -136,14 +136,14 @@
             <div class="row justify-content-center">
                 <div class="col-5">
                     <label>ว/ด/ป เริ่มทำงาน:</label>
-                    <input class="form-control" type="date" name="empsdate" id="empsdate">
+                    <input class="form-control" type="date" name="empsdate" id="empsdate" required>
                 </div>
             </div>
 
             <div class="row justify-content-center">
                 <div class="col-5">
                     <label>สถานะการทำงาน:</label>
-                    <input type="radio" name="status" id="status" value="1"> ทำงาน
+                    <input type="radio" name="status" id="status" value="1" <?php echo "checked"?>> ทำงาน
                     <input type="radio" name="status" id="status" value="0"> ลาออก<br>
                 </div>
             </div>

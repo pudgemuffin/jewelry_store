@@ -81,15 +81,15 @@
 <div class="card">
         <div class="card-body">
             <h1 style="text-align: center;">
-                ข้อมูลพนักงาน
+                    ข้อมูลลูกค้า
             </h1>
                     <div class="row" style="padding-bottom: 1px;padding-left:5px;">
                     <div class="col-3">
 
-                        <input type="text" name="semp" id="semp" class="form-control">
+                        <input type="text" name="scus" id="scus" class="form-control">
                     </div>
                     <div class="col-2">
-                        <button type="button" onclick="search()" class = "btn btn-secondary">
+                        <button type="button" onclick="searchcus()" class = "btn btn-secondary">
                             <i class="fa fa-search"></i>
                         </button>
                     </div>
@@ -119,6 +119,7 @@
                         </tr>
                         </thead>
                         <tbody>
+                        <?php if($count_all > 0){?>
                         <?php foreach ($result as $r) { ?>
 
                             <tr nowrap>
@@ -149,12 +150,52 @@
                                     <a class="btn btn-outline-danger btn-sm" type="submit" target="_blank" href="<?php echo site_url('Welcome/pdf1?AutoIDEmp=') . iconv('TIS-620', 'UTF-8', $r->Cus_Id); ?>"><button type="button" class="btn btn-danger btn-sm" name="pdf1"><i class="fa fa-file-pdf-o"></i></button>
                                 </td> -->
 
-                            <?php } ?>
+                                <?php } ?>
+                        <tr>   
+
+                        </tr>                    
+                        <?php }else{?>
+                    <tr>
+                        <td colspan="8">ไม่พบรายการข้อมูล</td>
+                    </tr>
+                    <?php }?>
                             
                 </table>
+                <div style="width: 100%;" class="text-center">
+            <?php
+            $total_record = $count_all;
+            $total_page =  ceil($total_record / $pageend); ?>
+            <!-- สูตรคำนวนหาจำนวนหน้า -->
+
+            <p class="card-description"> เลือกหน้า
+                <select id="pageing_cus" oninput="pageing123_cus()">
+                    <option style="display: none;" value="<?php echo $numpage; ?>"><?php echo $numpage; ?></option>
+                    <?php for ($i = 1; $i <= $total_page; $i++) { ?>
+                        <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                    <?php } ?>
+                </select>
+                ทั้งหมด <?php echo $i - 1; ?> หน้า </p>
+        </div>
+        </div>
             </div>
         
 <script>
+
+function searchcus() {
+        
+        var datas = "scus=" + document.getElementById('scus').value
+             alert(datas);
+       
+        $.ajax({
+            type: "POST",
+            url: "<?php echo site_url('Welcome/pagingmain_cus') ?>",
+            data: datas,
+        }).done(function(data) {
+             $('#all').html(data);        
+        });
+        
+
+    }
 
 function deletecust(cusid) {
         var datas = "Cus_Id=" + cusid;

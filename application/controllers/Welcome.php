@@ -53,8 +53,6 @@ class Welcome extends CI_Controller {
 
 	public function pagingmain_emp()
     {
-
-		
 		$page = $this->input->get('num_page');
 		
         $pageend1 = 3;
@@ -90,10 +88,57 @@ class Welcome extends CI_Controller {
 	public function viewcust()
 	{
 		$this->load->model('customer');
-		$data['result'] = $this->customer->allcust();
+		$start = 0;
+        $pageend = 3;
+        $data['numpage'] = 1;
+        $data['pageend'] = $pageend;
+        $search = '';
+
+        $count_all = $this->customer->count_all_customer($search);
+        foreach ($count_all as $value) {
+            $data['count_all'] = $value->Count;
+        }
+
+		$data['result'] = $this->customer->allcust($start, $pageend,  $search);
+
 		$data['view'] = "Detail/cust";
 		$this->load->view('index',$data);
 	}
+
+	public function pagingmain_cus()
+    {
+		$this->load->model('customer');
+		$page = $this->input->get('num_page');
+		
+        $pageend1 = 3;
+        if ($page != '') {
+            $page = $page;
+        } else {
+            $page = 1;
+		}		
+        $start = ($page - 1) * $pageend1;
+        $pageend = $page * $pageend1;
+        $data['numpage'] = $page;
+		$data['pageend'] = $pageend1;
+		
+
+        $txtsearch = $this->input->post('scus');
+        if($txtsearch != ''){
+            $txtsearch = "and Cus_Id like '%$txtsearch%' or Cus_fname like '%$txtsearch%' or Cus_lname like '%$txtsearch%' or Cus_Gender like '%$txtsearch%' or Cus_Email like '%$txtsearch%' or Cus_Address like '%$txtsearch%'";
+        }else{
+            $txtsearch = '';
+        }
+		$search = $txtsearch;
+
+
+        $count_all = $this->customer->count_all_customer($search);
+        foreach ($count_all as $value) {
+            $data['count_all'] = $value->Count;
+        }
+
+		$data['result'] = $this->customer->allcust($start, $pageend,  $search);
+        $this->load->view('Detail/cust', $data);
+    }
 
 	public function viewposition()
     {

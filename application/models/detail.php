@@ -4,7 +4,7 @@ class detail extends CI_Model
 {
     function empdata($start,$pageend,$search)
     {
-        $query = " SELECT * from( SELECT ROW_NUMBER()OVER ( ORDER By e.Id )as row ,e.Image,e.Id,e.Firstname,e.Surname,e.Gender,e.Email,e.Religion,e.empdate,j.job as posi
+        $query = "SELECT * from( SELECT ROW_NUMBER()OVER ( ORDER By e.Id )as row ,e.Image,e.Id,e.Firstname,e.Surname,e.Gender,e.Email,e.Religion,e.empdate,j.job as posi
         FROM employee e
                       INNER JOIN job j ON e.Jobs = j.Job_Id 
                   WHERE e.Status = '1' $search )AA

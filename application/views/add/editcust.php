@@ -28,33 +28,43 @@
                                 <?php foreach ($editcust as $e){?>
                                     <form action="<?php echo site_url('Regis/updatecust') ?>" method="post">
                                         <div class="form-group">
-                                            <label>Username</label>
-                                            <input class="form-control py-4" id="cususer" name="cususer" type="text" placeholder="Enter Username" value="<?php echo $e->Cus_User?>" />
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Password</label>
-                                            <input class="form-control py-4" id="cuspass" name="cuspass" type="password" placeholder="Enter password" value="<?php echo $e->Cus_Pass?>" />
-                                        </div>
-                                        <div class="form-group">
-                                            <label>First Name</label>
+                                            <label>ชื่อ :</label>
                                             <input class="form-control py-4" id="cusfname" name="cusfname" type="text" placeholder="Enter first name" value="<?php echo $e->Cus_fname ?>" />
                                         </div>
                                         <div class="form-group">
-                                            <label>Last Name</label>
+                                            <label>นามสกุล :</label>
                                             <input class="form-control py-4" id="cuslname" name="cuslname" type="text" placeholder="Enter last name" value="<?php echo $e->Cus_lname ?>" />
                                         </div>
                                         <div class ="form-group">
                                         <label>เพศ :</label>
-                                            <input type="radio" name="cusgender" id="cusgender" value="M"<?php if($e->Cus_Gender == "M"){ echo "checked";}?>> ชาย
-                                            <input type="radio" name="cusgender" id="cusgender" value="F"<?php if($e->Cus_Gender =="F"){ echo "checked";}?>> หญิง<br>
+                                            <input type="radio" name="cusgender" id="cusgender" value="ชาย"<?php if($e->Cus_Gender == "ชาย"){ echo "checked";}?>> ชาย
+                                            <input type="radio" name="cusgender" id="cusgender" value="หญิง"<?php if($e->Cus_Gender =="หญิง"){ echo "checked";}?>> หญิง<br>
                                         </div>
                                         <div class="form-group">
-                                            <label>Email</label>
+                                            <label>อีเมล :</label>
                                             <input class="form-control py-4" id="cusemail" name="cusemail" type="email" aria-describedby="emailHelp" placeholder="Enter email address" value="<?php echo $e->Cus_Email ?>" />
                                         </div>
                                         <div class="form-group">
-                                            <label>Telephone</label>
-                                            <input class="form-control py-4" id="custel" name="custel" type="text" placeholder="Telephone" value="<?php echo $e->Cus_Tel ?>"/>
+                                        <table id="tel">
+                            <?php
+                            $i = 1;
+                            foreach ($edittel as $et) { ?>
+                                <tr id="newtel<?php echo $i; ?>">
+                                    <label>เบอร์โทร :</label>
+                                    <td>
+                                        <input class="form-control" type="text" name="cus_tel[]" onkeypress="return numberonly(event)" id="cus_tel"  maxlength="11" value="<?php echo $et->cus_tel; ?>">
+                                    </td>
+                                    <td>
+                                        <?php if ($i == 1) { ?><button type="button" name="add" id="add" class="btn btn-success"><i class="fa fa-plus"></i></button>
+                                        <?php } else { ?>
+                                            <button type="button" name="remove" id="<?php echo $i; ?>" class="btn btn-danger btn_remove">X</button>
+                                        <?php } ?>
+                                    </td>
+                                </tr>
+                            <?php
+                                $i++;
+                            } ?>
+                        </table>
                                         </div>
                                         <label>จังหวัด :</label>
                                         <select class="form-control" id="province" name="province" onchange="am()">
@@ -144,6 +154,35 @@
 </html>
 
 <script>
+    $(document).ready(function() {
+        var i = 1;
+        $('#add').click(function() {
+            i++;
+            var tel = '<tr id="newtel' + i + '"><td><input type="text" name="cus_tel[]" onkeypress="return numberonly(event)" class="form-control" maxlength="10" minlength="10"/></td>  <td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">X</button></td></tr>'
+            $('table').append(tel);
+        });
+        $(document).on('click', '.btn_remove', function() {
+            var button_id = $(this).attr("id");
+            $('#newtel' + button_id + '').remove();
+        });
+        $(function(){
+          $("input[name='cus_tel[]']").on('input',function(e){
+              $(this).val($(this).val().replace(/[^0-9]/g,''));
+          });
+      });
+    });
+    function numberonly(evt)
+      {
+         var charCode = (evt.which) ? evt.which : event.keyCode
+         if (charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+
+         return true;
+      }
+
+
+
+
     function am() {
         var datas = "province=" + document.getElementById('province').value;
 

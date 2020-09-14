@@ -104,13 +104,15 @@
                 </div><br>
                 <a class="btn btn-primary" target="_blank" href="<?php echo site_url('Regis/insert'); ?>">เพิ่มพนักงาน</a>
         </div>
-
+        <p style="text-align: right;">ข้อมูลพนักงานทั้งหมด <?php echo $count_all; ?></p>
     </div>
 
     <center>
+    
         <div>
+        
             <div class="table-responsive">
-
+            
                 <table id="user_data" border="1" style="background-color: white;" class="table table-striped table  table-hover">
                     <thead>
 

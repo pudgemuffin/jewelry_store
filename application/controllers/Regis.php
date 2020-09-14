@@ -268,7 +268,7 @@ class Regis extends CI_Controller
                 );
             }
         echo "<script> alert('สมัครสำเร็จ');
-                        window.location.href='/ER_GOLDV1/index.php';
+                        window.location.href='/ER_GOLDV1/index.php/Welcome/viewcust';
                         </script>";
 
         // $data1['getcheck'] = $this->customer->checkinsertcus();
@@ -295,20 +295,19 @@ class Regis extends CI_Controller
     {
         $this->load->model('customer');
         $data['editcust'] = $this->customer->displaybyid($id);
+        $data['edittel'] = $this->customer->custelbyid($id);
         $data['province'] = $this->detail->Province();
         $data['amphur'] = $this->detail->Amphur();
         $data['district'] = $this->detail->District();
         
         
-         $this->load->view('add/editcust',$data);
+        $this->load->view('add/editcust',$data);
     }
 
     public function updatecust()
     {
         $this->load->model('customer');
         $cusid = $this->input->post('Updateacc');
-        $cususer = $this->input->post('cususer');
-        $cuspass = $this->input->post('cuspass');
         $cusfname = $this->input->post('cusfname');
         $cuslname = $this->input->post('cuslname');
         $cusgender = $this->input->post('cusgender');
@@ -319,10 +318,18 @@ class Regis extends CI_Controller
         $district = $this->input->post('district');
         $postcode = $this->input->post('postcode');
         $cusaddress = $this->input->post('cusaddress');
+        $cus_tel = $this->input->post('cus_tel');
 
-        $this->customer->editcust($cusid,$cususer,$cuspass,$cusfname,$cuslname,$cusgender,$cusemail,$custel,$province,$amphur,$district,$postcode,$cusaddress); //ไปทำModelต่อ
+        $this->customer->editcust($cusid,$cusfname,$cuslname,$cusgender,$cusemail,$custel,$province,$amphur,$district,$postcode,$cusaddress); //ไปทำModelต่อ
 
-        echo "<script> alert('Record Updated');
+        $this->customer->custeldel($cusid);
+        foreach($cus_tel as $tel){
+            $data['updatecustel'] = $this->customer->updatecustel(
+                $cusid,
+                $tel
+            );
+        }
+        echo "<script> alert('แก้ไขข้อมูลลูกค้าสำเร็จ');
 							window.location.href='/ER_GOLDV1/index.php/Welcome/viewcust';
 							</script>";
     }
