@@ -27,15 +27,17 @@
             <div class="row justify-content-center">
                 <div class="col-5">
                     <label>รูปภาพพนักงาน</label>
-                    <input type="file" name="empim" id="empim" require accept="image/*">
+                    <input type="file" name="empim" id="empim" require accept="image/*" onchange="loadimg(event)">
+                    <img id = "preimage" width="150px" height="150px">
                 </div>
+                
             </div>
 
             <Br>
             <div class="row justify-content-center">
                 <div class="col-5">
                     <label>รหัสบัตรประชาชน :</label>
-                    <input class="form-control" type=text name="idcard" id="idcard" required onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                    <input class="form-control" type=text name="idcard" id="idcard" maxlength="13" minlength="13" onkeypress="return numberonly(event)" required>
                 </div>
             </div>
 
@@ -124,7 +126,7 @@
                     <table id="tel">
                         <tr>
                             <label>เบอร์โทร :</label>
-                            <td><input class="form-control" type="text" name="emp_tel[]" id="emp_tel" size="40" maxlength="10" required></td>
+                            <td><input class="form-control" type="text" name="emp_tel[]" id="emp_tel" size="40" maxlength="10" onkeypress="return numberonly(event)" required></td>
                             <td><button type="button" name="add" id="add" class="btn btn-success"><i class="fa fa-plus"></i></button></td>
                         </tr>
                     </table>
@@ -266,7 +268,7 @@
         var i = 1;
         $('#add').click(function() {
             i++;
-            var tel = '<tr id="newtel' + i + '"><td><input type="text" name="emp_tel[]"  class="form-control" maxlength="10" minlength="10"/></td>  <td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">X</button></td></tr>'
+            var tel = '<tr id="newtel' + i + '"><td><input type="text" name="emp_tel[]" onkeypress="return numberonly(event)"  class="form-control" maxlength="10" minlength="10"/></td>  <td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">X</button></td></tr>'
             $('table').append(tel);
         });
         $(document).on('click', '.btn_remove', function() {
@@ -280,12 +282,18 @@
             });
         });
     });
-        $(function() {
-            $("input[name='emp_tel[]']").on('input', function(e) {
-                $(this).val($(this).val().replace(/[^0-9]/g, ''));
-            });
-        });
-    
+    function numberonly(evt)
+      {
+         var charCode = (evt.which) ? evt.which : event.keyCode
+         if (charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+
+         return true;
+      }
+    function loadimg(event){
+        var output = document.getElementById('preimage');
+        output.src = URL.createObjectURL(event.target.files[0]);
+    }
 
 
     // $(document).ready(function() {

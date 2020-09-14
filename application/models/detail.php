@@ -2,10 +2,25 @@
 
 class detail extends CI_Model
 {
-    function empdata($txtsearch)
+    function empdata($start,$pageend,$search)
     {
-        $query = "SELECT * FROM employee WHERE Id like'%$txtsearch%' or Firstname like'%$txtsearch%' or Surname like '%$txtsearch%'";
+        $query = " SELECT * from( SELECT ROW_NUMBER()OVER ( ORDER By e.Id )as row ,e.Image,e.Id,e.Firstname,e.Surname,e.Gender,e.Email,e.Religion,e.empdate,j.job as posi
+        FROM employee e
+                      INNER JOIN job j ON e.Jobs = j.Job_Id 
+                  WHERE e.Status = '1' $search )AA
+       where row > $start AND row <=$pageend order by row";
         
+        return $this->db->query($query)->result();
+    }
+
+    function count_all_emp($search)
+    {
+        $query = "SELECT COUNT(*) as Count from( 
+            SELECT ROW_NUMBER()OVER ( ORDER By e.Id )as row ,e.Image,e.Id,e.Firstname,e.Surname,e.Gender,e.Email,e.Religion,e.empdate,j.job as posi
+                    FROM employee e 
+                            INNER JOIN job j ON e.Jobs = j.Job_Id
+                            WHERE e.Status = '1' $search)AA";
+
         return $this->db->query($query)->result();
     }
 

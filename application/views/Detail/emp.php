@@ -89,14 +89,13 @@
             <h1 style="text-align: center;">
                 ข้อมูลพนักงาน
             </h1>
-            <form action="<?php echo site_url('find/searchemp') ?>" method="post">
-                <div class="row" style="padding-bottom: 1px;padding-left:5px;">
+                    <div class="row" style="padding-bottom: 1px;padding-left:5px;">
                     <div class="col-3">
 
                         <input type="text" name="semp" id="semp" class="form-control">
                     </div>
                     <div class="col-2">
-                        <button type="submit" class = "btn btn-secondary">
+                        <button type="button" onclick="search()" class = "btn btn-secondary">
                             <i class="fa fa-search"></i>
                         </button>
                     </div>
@@ -133,6 +132,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                    <?php if($count_all > 0){?>
                         <?php foreach ($result as $r) { ?>
 
                             <tr nowrap>
@@ -154,22 +154,35 @@
                                     <button type="button" class="btn btn-danger btn-sm " name="delete" onclick="delete1(id='<?php echo $r->Id ?>')"><i class="fa fa-trash"></i></button>
 
                                 </td>
-                                <!-- <td>
-                                <form action="<?php echo site_url('Regis/delete') ?>?id=<?php echo $r->Idcard; ?>" method="POST">
-                                    <button type="submit" class="btn btn-danger " name="delete" id="delete" onclick="return confirm('ต้องการลบข้อมูลนี้ใช่ไหม');"><i class="fa fa-trash"></i></button>
-                                </form>
-                                </td> -->
-                                <!-- <td nowrap style="text-align:center; vertical-align: middle;">
-                                    <a class="btn btn-outline-success btn-sm" type="submit" href="<?php echo site_url('Welcome/excel1?AutoIDEmp=') . iconv('TIS-620', 'UTF-8', $r->Id); ?>"><button type="button" class="btn btn-success btn-sm" name="excel1"><i class="fa fa-file-excel-o"></i></button>
-                                </td>
-                                <td nowrap style="text-align:center; vertical-align: middle;">
-                                    <a class="btn btn-outline-danger btn-sm" type="submit" target="_blank" href="<?php echo site_url('Welcome/pdf1?AutoIDEmp=') . iconv('TIS-620', 'UTF-8', $r->Id); ?>"><button type="button" class="btn btn-danger btn-sm" name="pdf1"><i class="fa fa-file-pdf-o"></i></button>
-                                </td> -->
+                                
 
-                            <?php } ?>
+                                <?php } ?>
+                        <tr>   
+
+                        </tr>                    
+                        <?php }else{?>
+                    <tr>
+                        <td colspan="10">ไม่พบรายการข้อมูล</td>
+                    </tr>
+                    <?php }?>
 
                 </table>
             </div>
+            <div style="width: 100%;" class="text-center">
+            <?php
+            $total_record = $count_all;
+            $total_page =  ceil($total_record / $pageend); ?>
+            <!-- สูตรคำนวนหาจำนวนหน้า -->
+
+            <p class="card-description"> เลือกหน้า
+                <select id="pageing_emp" oninput="pageing123_emp()">
+                    <option style="display: none;" value="<?php echo $numpage; ?>"><?php echo $numpage; ?></option>
+                    <?php for ($i = 1; $i <= $total_page; $i++) { ?>
+                        <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                    <?php } ?>
+                </select>
+                ทั้งหมด <?php echo $i - 1; ?> หน้า </p>
+        </div>
         </div>
 
     </center>
@@ -192,6 +205,23 @@
 
 </html>
 <script>
+
+function search() {
+        
+        var datas = "semp=" + document.getElementById('semp').value
+            // alert(datas);
+       
+        $.ajax({
+            type: "POST",
+            url: "<?php echo site_url('Welcome/pagingmain_emp') ?>",
+            data: datas,
+        }).done(function(data) {
+             $('#all').html(data);        
+        });
+        
+
+    }
+
     function delete1(Id) {
         var datas = "idcard=" + Id;
         if (confirm("คุณต้องการลบข้อมูลนี้ หรือไม่")) {

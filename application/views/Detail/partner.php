@@ -78,6 +78,28 @@
         }
     </style>
 </head>
+<div class="card">
+        <div class="card-body">
+            <h1 style="text-align: center;">
+                ข้อมูลพนักงาน
+            </h1>
+                    <div class="row" style="padding-bottom: 1px;padding-left:5px;">
+                    <div class="col-3">
+
+                        <input type="text" name="semp" id="semp" class="form-control">
+                    </div>
+                    <div class="col-2">
+                        <button type="button" onclick="search()" class = "btn btn-secondary">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+
+                </div><br>
+                <a class="btn btn-primary" target="_blank" href="<?php echo site_url('company/addpartner');?>">เพิ่มบริษัทคู่ค้า</a>
+        </div>
+
+    </div>
             <div class="table-responsive">
 
                 <table id="user_data" border="1" style="background-color: white;" class="table table-striped table  table-hover">

@@ -34,11 +34,58 @@ class Welcome extends CI_Controller {
 	
 	public function index()
 	{
-		$search = '';
-		$data['result'] = $this->detail->empdata($search);
+		$this->load->model('detail');
+        $start = 0;
+        $pageend = 3;
+        $data['numpage'] = 1;
+        $data['pageend'] = $pageend;
+        $search = "and e.Id like '%%'";
+
+        $count_all = $this->detail->count_all_emp($search);
+        foreach ($count_all as $value) {
+            $data['count_all'] = $value->Count;
+        }
+
+		$data['result'] = $this->detail->empdata($start, $pageend,  $search);
 		$data['view'] = "Detail/emp";
 		$this->load->view('index',$data);
 	}
+
+	public function pagingmain_emp()
+    {
+
+		
+		$page = $this->input->get('num_page');
+		
+        $pageend1 = 3;
+        if ($page != '') {
+            $page = $page;
+        } else {
+            $page = 1;
+		}		
+        $start = ($page - 1) * $pageend1;
+        $pageend = $page * $pageend1;
+        $data['numpage'] = $page;
+		$data['pageend'] = $pageend1;
+		
+
+        $txtsearch = $this->input->post('semp');
+        if($txtsearch != ''){
+            $txtsearch = "and e.Id like'%$txtsearch%' or e.Firstname like'%$txtsearch%'or e.Surname like '%$txtsearch%' or e.Email like'%$txtsearch%'or e.Religion like'%$txtsearch%'";
+        }else{
+            $txtsearch = '';
+        }
+		$search = $txtsearch;
+
+
+        $count_all = $this->detail->count_all_emp($search);
+        foreach ($count_all as $value) {
+            $data['count_all'] = $value->Count;
+		}
+        $data['result'] = $this->detail->empdata($start, $pageend, $search);
+		
+        $this->load->view('Detail/emp', $data);
+    }
 
 	public function viewcust()
 	{
