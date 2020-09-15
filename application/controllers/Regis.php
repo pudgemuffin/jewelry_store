@@ -15,14 +15,14 @@ class Regis extends CI_Controller
         $this->load->database();
     }
 
-   
+
     public function register()
     {
-      
+
         $data['province'] = $this->detail->Province();
         $data['amphur'] = $this->detail->Amphur();
         $data['district'] = $this->detail->District();
-        $this->load->view('add/registers',$data);
+        $this->load->view('add/registers', $data);
     }
 
     public function insert()
@@ -36,21 +36,21 @@ class Regis extends CI_Controller
     public function empidgen()
     {
         $max = $this->detail->maxid();
-        $str = substr($max,4)+1;
+        $str = substr($max, 4) + 1;
         $txt = "EMP";
-        if($str<10){
-            $empid = $txt."00".$str;
-        }elseif($str >= 10 && $str <= 99 ){
-            $empid = $txt."0".$str;
-        }elseif($str <= 100){
-            $empid = $txt.$str;
+        if ($str < 10) {
+            $empid = $txt . "00" . $str;
+        } elseif ($str >= 10 && $str <= 99) {
+            $empid = $txt . "0" . $str;
+        } elseif ($str <= 100) {
+            $empid = $txt . $str;
         }
-        
+
         return $empid;
     }
 
     public function addemp()
-    {        
+    {
         $id = $this->empidgen();
         $idcard = $this->input->post('idcard');
         $nametitle = $this->input->post('nametitle');
@@ -73,91 +73,96 @@ class Regis extends CI_Controller
         $salary = $this->input->post('salary');
         $national = $this->input->post('national');
         $this->input->post('detail');
-        
 
-        
+
+
         $config['upload_path'] = './img/';
         $config['allowed_types'] = 'gif|jpg|png';
         $config['max_size'] = '2000';
         $config['max_width'] = '3000';
         $config['max_height'] = '3000';
-        $this->load->library('upload',$config);
+        $this->load->library('upload', $config);
 
-        if(!$this->upload->do_upload('empim'))
-        {
-            echo $this->upload->display_errors();
-        }else{
+        if (!$this->upload->do_upload('empim')) {
+            // echo $this->upload->display_errors();
+            echo "<script> alert ('ไฟล์รูปภาพไม่ถูกต้อง')</script>";
+
+            $data['pos']   = $this->detail->Position();
+            $data['province'] = $this->detail->Province();
+            $data['amphur'] = $this->detail->Amphur();
+            $data['district'] = $this->detail->District();
+            $this->load->view('add/insertemp', $data);
+        } else {
             $data = $this->upload->data();
             $filename = $data['file_name'];
-        }        
-        
-        
-        $data1['getcheck'] = $this->detail->checkinsert($idcard);
 
-        
-        foreach ($data1['getcheck'] as $value) {
-            $count = $value->COUNT;
-            if ($count == 0) {
+            $data1['getcheck'] = $this->detail->checkinsert($idcard);
 
-                $data['insert'] = $this->detail->insertemp(
-                    $id,
-                    $idcard,
-                    $nametitle,
-                    $fname,
-                    $lname,
-                    $gender,
-                    $religion,
-                    $blood,
-                    $empdate,
-                    $email,
-                    $pos,
-                    $province,
-                    $amphur,
-                    $district,
-                    $postcode,
-                    $det,
-                    $status,
-                    $startdate,
-                    $salary,
-                    $national,
-                    $filename
-                );
-                $Id = $this->detail->maxid();
-                
-               
-                foreach($emp_tel as $tel){
-                $data['inserttel'] = $this->detail->emptel(
-                    $Id,
-                    $tel
-                );
-            }
-                echo "<script> alert('Record Saved');
+
+            foreach ($data1['getcheck'] as $value) {
+                $count = $value->COUNT;
+                if ($count == 0) {
+
+                    $data['insert'] = $this->detail->insertemp(
+                        $id,
+                        $idcard,
+                        $nametitle,
+                        $fname,
+                        $lname,
+                        $gender,
+                        $religion,
+                        $blood,
+                        $empdate,
+                        $email,
+                        $pos,
+                        $province,
+                        $amphur,
+                        $district,
+                        $postcode,
+                        $det,
+                        $status,
+                        $startdate,
+                        $salary,
+                        $national,
+                        $filename
+                    );
+                    $Id = $this->detail->maxid();
+
+
+                    foreach ($emp_tel as $tel) {
+                        $data['inserttel'] = $this->detail->emptel(
+                            $Id,
+                            $tel
+                        );
+                    }
+                    echo "<script> alert('เพิ่มข้อมูลพนักงานสำเร็จ');
 						window.location.href='/ER_GOLDV1/index.php';
 						</script>";
-            } else {
-                echo "<script> alert ('พบพนักงานแล้ว')</script>";
+                } else {
+                    echo "<script> alert ('พบพนักงานแล้ว')</script>";
 
-                $data['pos']   = $this->detail->Position();
-                $data['province'] = $this->detail->Province();
-                $data['amphur'] = $this->detail->Amphur();
-                $data['district'] = $this->detail->District();
-                $this->load->view('add/insertemp', $data);
+                    $data['pos']   = $this->detail->Position();
+                    $data['province'] = $this->detail->Province();
+                    $data['amphur'] = $this->detail->Amphur();
+                    $data['district'] = $this->detail->District();
+                    $this->load->view('add/insertemp', $data);
+                }
             }
         }
     }
 
     public function edit($id)
     {
-        
+
         $data['edit'] = $this->detail->displaybyid($id);
         $data['edittel'] = $this->detail->emptelbyid($id);
         $data['province'] = $this->detail->Province();
         $data['amphur'] = $this->detail->Amphur();
         $data['district'] = $this->detail->District();
         $data['position'] = $this->detail->position();
-        
-        
-         $this->load->view('add/edit',$data);
+
+
+        $this->load->view('add/edit', $data);
     }
 
     public function update()
@@ -184,46 +189,81 @@ class Regis extends CI_Controller
         $salary = $this->input->post('salary');
         $national = $this->input->post('national');
 
-        $this->detail->update($id,$idcard,$nametitle,$fname,$lname,$gender,$religion,$blood,$empdate,$email,$pos,$province,$amphur,$district,$postcode,$det,$status,$startdate,$salary,$national);
 
+        if(empty($_FILES['empim']['name'])){
+            
+            $filename = $this->input->post('oldimg');
+            $this->detail->update($id, $idcard, $nametitle, $fname, $lname, $gender, $religion, $blood, $empdate, $email, $pos, $province, $amphur, $district, $postcode, $det, $status, $startdate, $salary, $national,$filename);
+        } else {
+          
+            $config['upload_path'] = './img/';
+            $config['allowed_types'] = 'gif|jpg|png';
+            $config['max_size'] = '2000';
+            $config['max_width'] = '3000';
+            $config['max_height'] = '3000';
+            $this->load->library('upload', $config);
+            if (!$this->upload->do_upload('empim')) {
+                // echo $this->upload->display_errors();
+                echo "<script> alert ('ไฟล์รูปภาพไม่ถูกต้อง')</script>";
+
+                $data['pos']   = $this->detail->Position();
+                $data['province'] = $this->detail->Province();
+                $data['amphur'] = $this->detail->Amphur();
+                $data['district'] = $this->detail->District();
+                $this->load->view('add/insertemp', $data);
+            } else {
+                $data = $this->upload->data();
+                $filename = $data['file_name'];
+                $oldImg = $this->input->post('oldImg');
+                $this->detail->update($id, $idcard, $nametitle, $fname, $lname, $gender, $religion, $blood, $empdate, $email, $pos, $province, $amphur, $district, $postcode, $det, $status, $startdate, $salary, $national, $filename);
+                
+            }
+            unlink('./img/'.$oldImg);
+        }
         $this->detail->empteldel($id);
-        foreach($emp_tel as $tel){
+        foreach ($emp_tel as $tel) {
             $data['updateemptel'] = $this->detail->emptelupdate(
                 $id,
                 $tel
             );
-            
-        echo "<script> alert('Record Updated');
-							window.location.href='/ER_GOLDV1/index.php';
-							</script>";
+            echo "<script> alert('แก้ไขข้อมูลพนักงานสำเร็จ');
+                                window.location.href='/ER_GOLDV1/index.php';
+                                </script>";
+        }
+        
     }
-}
+
+    public function test()
+    {
+        unlink('./img/week2.jpg');
+    }
+
+
 
     public function delete()
     {
         $Id = $this->input->post('Id');
         $this->detail->delete($Id);
 
-            echo "<script> alert('Record Deleted');
+        echo "<script> alert('ลบข้อมูลสำเร็จ');
 		 					window.location.href='/ER_GOLDV1/index.php';
 							 </script>";
-
     }
-    
+
     public function cusidgen()
     {
         $this->load->model('customer');
         $max = $this->customer->maxid();
-        $str = substr($max,4)+1;
+        $str = substr($max, 4) + 1;
         $txt = "CUS";
-        if($str<10){
-            $cusid = $txt."00".$str;
-        }elseif($str >= 10 && $str <= 99 ){
-            $cusid = $txt."0".$str;
-        }elseif($str <= 100){
-            $cusid = $txt.$str;
+        if ($str < 10) {
+            $cusid = $txt . "00" . $str;
+        } elseif ($str >= 10 && $str <= 99) {
+            $cusid = $txt . "0" . $str;
+        } elseif ($str <= 100) {
+            $cusid = $txt . $str;
         }
-        
+
         return $cusid;
     }
 
@@ -261,12 +301,12 @@ class Regis extends CI_Controller
 
         $CusId = $this->customer->maxid();
 
-        foreach($cus_tel as $tel){
-             $data['inserttel'] = $this->customer->custel(
-                    $CusId,
-                    $tel
-                );
-            }
+        foreach ($cus_tel as $tel) {
+            $data['inserttel'] = $this->customer->custel(
+                $CusId,
+                $tel
+            );
+        }
         echo "<script> alert('สมัครสำเร็จ');
                         window.location.href='/ER_GOLDV1/index.php/Welcome/viewcust';
                         </script>";
@@ -288,7 +328,7 @@ class Regis extends CI_Controller
         //         $this->load->view('add/registers', $data);
         //     }
         // }
-        
+
     }
 
     public function editcust($id)
@@ -299,9 +339,9 @@ class Regis extends CI_Controller
         $data['province'] = $this->detail->Province();
         $data['amphur'] = $this->detail->Amphur();
         $data['district'] = $this->detail->District();
-        
-        
-        $this->load->view('add/editcust',$data);
+
+
+        $this->load->view('add/editcust', $data);
     }
 
     public function updatecust()
@@ -320,10 +360,10 @@ class Regis extends CI_Controller
         $cusaddress = $this->input->post('cusaddress');
         $cus_tel = $this->input->post('cus_tel');
 
-        $this->customer->editcust($cusid,$cusfname,$cuslname,$cusgender,$cusemail,$custel,$province,$amphur,$district,$postcode,$cusaddress); //ไปทำModelต่อ
+        $this->customer->editcust($cusid, $cusfname, $cuslname, $cusgender, $cusemail, $custel, $province, $amphur, $district, $postcode, $cusaddress); //ไปทำModelต่อ
 
         $this->customer->custeldel($cusid);
-        foreach($cus_tel as $tel){
+        foreach ($cus_tel as $tel) {
             $data['updatecustel'] = $this->customer->updatecustel(
                 $cusid,
                 $tel
@@ -340,26 +380,24 @@ class Regis extends CI_Controller
         $cusid = $this->input->post('Cus_Id');
         $this->customer->delete($cusid);
 
-            echo "<script> alert('Record Deleted');
+        echo "<script> alert('Record Deleted');
 		 					window.location.href='/ER_GOLDV1/index.php/Welcome/viewcust';
 							 </script>";
-
     }
 
     public function insertviewposi()
     {
         $this->load->view('add/insertposition');
-        
     }
 
     public function addposi()
     {
-       $this->load->model('detail');
-       $posi = $this->input->post('posi');
+        $this->load->model('detail');
+        $posi = $this->input->post('posi');
 
-       $this->detail->insertposition($posi);
+        $this->detail->insertposition($posi);
 
-       echo "<script> alert('เพิ่มตำแหน่งสำเร็จ');
+        echo "<script> alert('เพิ่มตำแหน่งสำเร็จ');
 						window.location.href='/ER_GOLDV1/index.php/Welcome/viewposition';
 						</script>";
     }
@@ -369,10 +407,7 @@ class Regis extends CI_Controller
         $this->load->model('detail');
         $data['editjob'] = $this->detail->displayjobid($jobid);
 
-        $this->load->view('add/editposition',$data);
-
-        
-
+        $this->load->view('add/editposition', $data);
     }
 
     public function updatejob()
@@ -380,7 +415,7 @@ class Regis extends CI_Controller
         $this->load->model('detail');
         $jobid = $this->input->post('updatejob');
         $posi = $this->input->post('posi');
-        $this->detail->updatejob($jobid,$posi);
+        $this->detail->updatejob($jobid, $posi);
 
         echo "<script> alert('Record Updated');
 							window.location.href='/ER_GOLDV1/index.php/Welcome/viewposition';

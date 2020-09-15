@@ -21,13 +21,14 @@
 
     <?php foreach ($edit as $r) { ?>
 
-        <form action="<?php echo site_url('Regis/update') ?>" method="post">
+        <form action="<?php echo site_url('Regis/update') ?>" method="post" enctype="multipart/form-data">
         <div style="margin-left: 20px">
             <div class="row justify-content-center">
                 <div class="col-5">
                     <label>รูปภาพพนักงาน</label>
-                    <input type="file" name="empim" id="empim" require accept="image/*" value="<?php echo $r->Image; ?>" onchange="loadimg(event)">
-                    <img id = "preimage" width="150px" height="150px">
+                    <input type="file" name="empim" id="empim" require accept="image/*"onchange="loadimg(event)">
+                    <img id = "preimage" width="150px" height="150px" src="<?php echo base_url('/img/'.$r->Image);?>">
+                    <input type="text" name="oldImg" id="oldImg" value="<?php echo $r->Image; ?>"hidden>
                 </div>
                 
             </div>
@@ -38,7 +39,7 @@
                 <div class="row justify-content-center">
                     <div class="col-5">
                         <label>รหัสบัตรประชาชน</label>
-                        <input class="form-control" type=text name="idcard" id="idcard" onkeypress="return numberonly(event)" value="<?php echo $r->Idcard; ?>">
+                        <input class="form-control" type=text name="idcard" id="idcard" maxlength="13" minlength="13" onkeypress="return numberonly(event)" value="<?php echo $r->Idcard; ?>">
                     </div>
                 </div>
 
@@ -72,10 +73,10 @@
                 <div class="row justify-content-center">
                     <div class="col-5">
                         <label>เพศ :</label>
-                        <input type="radio" name="gender" id="gender" value="M" <?php if ($r->Gender == "ชาย") {
+                        <input type="radio" name="gender" id="gender" value="ชาย" <?php if ($r->Gender == "ชาย") {
                                                                                     echo "checked";
                                                                                 } ?>> ชาย
-                        <input type="radio" name="gender" id="gender" value="F" <?php if ($r->Gender == "หญิง") {
+                        <input type="radio" name="gender" id="gender" value="หญิง" <?php if ($r->Gender == "หญิง") {
                                                                                     echo "checked";
                                                                                 } ?>> หญิง<br>
                     </div>
@@ -269,9 +270,7 @@
                 <div class="row justify-content-center">
                     <div class="col-5">
                         <label>รายละเอียด :</label>
-                        <textarea class="form-control" name="det" id="det">
-                    <?php echo $r->Address; ?>
-                    </textarea>
+                        <textarea class="form-control" name="det" id="det"><?php echo $r->Address; ?></textarea>
                     </div>
                 </div><br>
 

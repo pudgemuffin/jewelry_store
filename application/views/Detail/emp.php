@@ -104,7 +104,7 @@
                 </div><br>
                 <a class="btn btn-primary" target="_blank" href="<?php echo site_url('Regis/insert'); ?>">เพิ่มพนักงาน</a>
         </div>
-        <p style="text-align: right;">ข้อมูลพนักงานทั้งหมด <?php echo $count_all; ?></p>
+        <p style="text-align: right;">ข้อมูลพนักงานทั้งหมด <?php echo $count_all; ?> คน</p>
     </div>
 
     <center>
@@ -119,18 +119,14 @@
                         <tr>
                             <th class="tableFixHead">รูปภาพ</th>
                             <th class="tableFixHead">รหัสพนักงาน</th>
-                            <!-- <th class="tableFixHead">Idcard</th> -->
-                            <!-- <th class="tableFixHead">Nametitle</th> -->
-                            <th class="tableFixHead">ชื่อ</th>
-                            <th class="tableFixHead">นามสุกล </th>
+                            <th class="tableFixHead">ชื่อ - 
+                            นามสุกล </th>
                             <th class="tableFixHead">เพศ</th>
                             <th class="tableFixHead">อีเมล</th>
                             <th class="tableFixHead">ศาสนา</th>
                             <th class="tableFixHead">วันเกิด</th>
                             <th class="tableFixHead">แก้ไข</th>
-                            <th class="tableFixHead">ลบ</th>
-                            <!-- <th class="tableFixHead">Excel</th>
-                            <th class="tableFixHead">PDF</th> -->
+                            <th class="tableFixHead">ลบ</th>                            
                         </tr>
                     </thead>
                     <tbody>
@@ -141,8 +137,8 @@
                                 <td nowrap style="text-align:center; vertical-align: middle;"> <img style="width: 100px; height:100px;" src="<?php echo base_url('/img/'.$r->Image);?>"></td>
                                 <td nowrap style="text-align:center; vertical-align: middle;"> <?php echo $r->Id; ?></td>
                            
-                                <td nowrap style="text-align:center; vertical-align: middle;"> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->Firstname); ?> </td>
-                                <td nowrap style="text-align:center; vertical-align: middle;"> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->Surname); ?> </td>
+                                <td nowrap style="text-align:center; vertical-align: middle;"> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->Firstname); ?> 
+                                <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->Surname); ?> </td>
                                 <td nowrap style="text-align:center; vertical-align: middle;"> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->Gender); ?></td>
                                 <td nowrap style="text-align:center; vertical-align: middle;"> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->Email); ?> </td>
                                 <td nowrap style="text-align:center; vertical-align: middle;"> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->Religion); ?> </td>
