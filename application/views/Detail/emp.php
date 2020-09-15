@@ -121,6 +121,7 @@
                             <th class="tableFixHead">รหัสพนักงาน</th>
                             <th class="tableFixHead">ชื่อ - 
                             นามสุกล </th>
+                            <th class="tableFixHead">ตำแหน่ง</th>
                             <th class="tableFixHead">เพศ</th>
                             <th class="tableFixHead">อีเมล</th>
                             <th class="tableFixHead">ศาสนา</th>
@@ -139,6 +140,7 @@
                            
                                 <td nowrap style="text-align:center; vertical-align: middle;"> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->Firstname); ?> 
                                 <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->Surname); ?> </td>
+                                <td nowrap style="text-align:center; vertical-align: middle;"> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->posi); ?></td>
                                 <td nowrap style="text-align:center; vertical-align: middle;"> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->Gender); ?></td>
                                 <td nowrap style="text-align:center; vertical-align: middle;"> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->Email); ?> </td>
                                 <td nowrap style="text-align:center; vertical-align: middle;"> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->Religion); ?> </td>

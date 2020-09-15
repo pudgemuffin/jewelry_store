@@ -278,8 +278,8 @@
                 <div class="row justify-content-center">
                     <div class="col-5">
 
-                        <button type="submit" class="btn btn-info" value="<?php echo $r->Id; ?>" name="updateId">Update</button>
-                        <a class="btn btn-danger" href="<?php echo site_url('') ?>">Cancel</a>
+                        <button type="submit" class="btn btn-info" value="<?php echo $r->Id; ?>" name="updateId">แก้ไขข้อมูล</button>
+                        <a class="btn btn-danger" href="<?php echo site_url('') ?>">ยกเลิก</a>
 
                     </div>
                 </div>

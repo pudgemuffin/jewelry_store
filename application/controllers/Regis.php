@@ -81,6 +81,7 @@ class Regis extends CI_Controller
         $config['max_size'] = '2000';
         $config['max_width'] = '3000';
         $config['max_height'] = '3000';
+        $config['file_name'] = $id;
         $this->load->library('upload', $config);
 
         if (!$this->upload->do_upload('empim')) {
@@ -192,8 +193,12 @@ class Regis extends CI_Controller
 
         if(empty($_FILES['empim']['name'])){
             
-            $filename = $this->input->post('oldimg');
-            $this->detail->update($id, $idcard, $nametitle, $fname, $lname, $gender, $religion, $blood, $empdate, $email, $pos, $province, $amphur, $district, $postcode, $det, $status, $startdate, $salary, $national,$filename);
+            
+            $this->detail->updatenoimg($id, $idcard, $nametitle, $fname, $lname, $gender, $religion, $blood, $empdate, $email, $pos, $province, $amphur, $district, $postcode, $det, $status, $startdate, $salary, $national);
+
+            echo "<script> alert('แก้ไขข้อมูลพนักงานสำเร็จ');
+            window.location.href='/ER_GOLDV1/index.php';
+            </script>";
         } else {
           
             $config['upload_path'] = './img/';
@@ -202,33 +207,44 @@ class Regis extends CI_Controller
             $config['max_width'] = '3000';
             $config['max_height'] = '3000';
             $this->load->library('upload', $config);
+            $config['file_name'] = $id;
             if (!$this->upload->do_upload('empim')) {
+                $oldImg = $this->input->post('oldImg');
                 // echo $this->upload->display_errors();
-                echo "<script> alert ('ไฟล์รูปภาพไม่ถูกต้อง')</script>";
+                echo "<script> alert ('ไฟล์รูปภาพไม่ถูกต้อง')
+                window.history.back();
+                </script>";
 
-                $data['pos']   = $this->detail->Position();
-                $data['province'] = $this->detail->Province();
-                $data['amphur'] = $this->detail->Amphur();
-                $data['district'] = $this->detail->District();
-                $this->load->view('add/insertemp', $data);
+                // $data['edit'] = $this->detail->displaybyid($id);
+                // $data['edittel'] = $this->detail->emptelbyid($id);
+                // $data['province'] = $this->detail->Province();
+                // $data['amphur'] = $this->detail->Amphur();
+                // $data['district'] = $this->detail->District();
+                // $data['position'] = $this->detail->position();
+
+
+                //  $this->load->view('add/edit', $data);
             } else {
                 $data = $this->upload->data();
                 $filename = $data['file_name'];
                 $oldImg = $this->input->post('oldImg');
                 $this->detail->update($id, $idcard, $nametitle, $fname, $lname, $gender, $religion, $blood, $empdate, $email, $pos, $province, $amphur, $district, $postcode, $det, $status, $startdate, $salary, $national, $filename);
-                
+                unlink('./img/'.$oldImg);
+        
             }
-            unlink('./img/'.$oldImg);
-        }
-        $this->detail->empteldel($id);
-        foreach ($emp_tel as $tel) {
+           
+            $this->detail->empteldel($id);
+            foreach ($emp_tel as $tel) {
             $data['updateemptel'] = $this->detail->emptelupdate(
                 $id,
                 $tel
             );
-            echo "<script> alert('แก้ไขข้อมูลพนักงานสำเร็จ');
-                                window.location.href='/ER_GOLDV1/index.php';
-                                </script>";
+        }
+        echo "<script> alert('แก้ไขข้อมูลพนักงานสำเร็จ');
+        window.location.href='/ER_GOLDV1/index.php';
+        </script>";
+        
+            
         }
         
     }

@@ -27,7 +27,7 @@
             <div class="row justify-content-center">
                 <div class="col-5">
                     <label>รูปภาพพนักงาน</label>
-                    <input type="file" name="empim" id="empim" require accept="image/*" onchange="loadimg(event)">
+                    <input type="file" name="empim" id="empim" required accept="image/*" onchange="loadimg(event)">
                     <img id = "preimage" width="150px" height="150px">
                 </div>
                 

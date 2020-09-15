@@ -36,7 +36,7 @@ class Welcome extends CI_Controller {
 	{
 		$this->load->model('detail');
         $start = 0;
-        $pageend = 3;
+        $pageend = 4;
         $data['numpage'] = 1;
         $data['pageend'] = $pageend;
         $search = "and e.Id like '%%'";
@@ -55,7 +55,7 @@ class Welcome extends CI_Controller {
     {
 		$page = $this->input->get('num_page');
 		
-        $pageend1 = 3;
+        $pageend1 = 4;
         if ($page != '') {
             $page = $page;
         } else {
