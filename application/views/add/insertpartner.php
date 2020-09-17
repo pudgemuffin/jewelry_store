@@ -1,20 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>Page Title - SB Admin</title>
-    <!-- <link href="assets/css/styles.css" rel="stylesheet" /> -->
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/styles.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
-    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-</head>
+<style>
+body{
+    background-color: #f1f1f1;
+}
+</style>
 <center>
-    <h2>Insert</h2>
+    <h2>เพิ่มข้อมูลบริษัทคู่ค้า</h2>
 </center>
 
 <body>
@@ -43,7 +33,7 @@
                 </div>
             </div>
 
-            <!-- <div class="row justify-content-center">
+            <div class="row justify-content-center">
                 <div class="col-5">
                     <label>จังหวัด :</label>
                     <select class="form-control" id="province" name="province" onchange="am()">
@@ -97,7 +87,7 @@
                         <?php } ?>
                     </select>
                 </div>
-            </div> -->
+            </div>
 
             <div class="row justify-content-center">
                 <div class="col-5">
@@ -109,7 +99,7 @@
             </div><br>
 
             <div class="row justify-content-center">
-                <div class="col-5">
+                <div class="col-5" style="margin-bottom: 15px;">
 
                     <button type="submit" class="btn btn-info">Insert</button>
                     <a class="btn btn-danger" href="<?php echo site_url('company/partner') ?>">Cancel</a>
@@ -127,114 +117,6 @@
 
 </html>
 <script>
-    // $(document).ready(function() {
-    //     var elements = document.getElementsByName("idemp");
-    //     for (var i = 0; i < elements.length; i++) {
-    //         elements[i].oninvalid = function(e) {
-    //             e.target.setCustomValidity("");
-    //             if (!e.target.validity.valid) {
-    //                 e.target.setCustomValidity("กรุณากรอกรหัสพนักงาน");
-    //             }
-    //         }
-    //         elements[i].oninput = function(e) {
-    //             e.target.setCustomValidity("");
-    //         }
-    //     }
-    // });
-
-    // $(document).ready(function() {
-    //     var elements = document.getElementsByName("code");
-    //     for (var i = 0; i < elements.length; i++) {
-    //         elements[i].oninvalid = function(e) {
-    //             e.target.setCustomValidity("");
-    //             if (!e.target.validity.valid) {
-    //                 e.target.setCustomValidity("กรุณากรอกรCode");
-    //             }
-    //         }
-    //         elements[i].oninput = function(e) {
-    //             e.target.setCustomValidity("");
-    //         }
-    //     }
-    // });
-
-    // $(document).ready(function() {
-    //     var elements = document.getElementsByName("nameemp");
-    //     for (var i = 0; i < elements.length; i++) {
-    //         elements[i].oninvalid = function(e) {
-    //             e.target.setCustomValidity("");
-    //             if (!e.target.validity.valid) {
-    //                 e.target.setCustomValidity("กรุณากรอกชื่อ");
-    //             }
-    //         }
-    //         elements[i].oninput = function(e) {
-    //             e.target.setCustomValidity("");
-    //         }
-    //     }
-    // });
-
-    // $(document).ready(function() {
-    //     var elements = document.getElementsByName("pass");
-    //     for (var i = 0; i < elements.length; i++) {
-    //         elements[i].oninvalid = function(e) {
-    //             e.target.setCustomValidity("");
-    //             if (!e.target.validity.valid) {
-    //                 e.target.setCustomValidity("กรุณากรอกรหัสผ่าน");
-    //             }
-    //         }
-    //         elements[i].oninput = function(e) {
-    //             e.target.setCustomValidity("");
-    //         }
-    //     }
-    // });
-
-    // $(document).ready(function() {
-    //     var elements = document.getElementsByName("tel");
-    //     for (var i = 0; i < elements.length; i++) {
-    //         elements[i].oninvalid = function(e) {
-    //             e.target.setCustomValidity("");
-    //             if (!e.target.validity.valid) {
-    //                 e.target.setCustomValidity("กรุณากรอกเบอร์โทรศัพท์");
-    //             }
-    //         }
-    //         elements[i].oninput = function(e) {
-    //             e.target.setCustomValidity("");
-    //         }
-    //     }
-    // });
-
-
-    // $(document).ready(function(){
-    // 			var elements = document.getElementsByName("level");
-    // 			for(var i = 0; i < elements.length; i++){
-    // 				elements[i].oninvalid = function(e){
-    // 					e.target.setCustomValidity("");
-    // 					if(!e.target.validity.valid){
-    // 						e.target.setCustomValidity("กรุณากรอกLevel");
-    // 					}
-    // 				}
-    // 				elements[i].oninput = function(e){
-    // 					e.target.setCustomValidity("");
-    // 				}
-    // 			}
-    // 		});
-
-
-
-    // $(document).ready(function() {
-    //     var elements = document.getElementsByName("comcode");
-    //     for (var i = 0; i < elements.length; i++) {
-    //         elements[i].oninvalid = function(e) {
-    //             e.target.setCustomValidity("");
-    //             if (!e.target.validity.valid) {
-    //                 e.target.setCustomValidity("กรุณากรอกรหัสบริษัท");
-    //             }
-    //         }
-    //         elements[i].oninput = function(e) {
-    //             e.target.setCustomValidity("");
-    //         }
-    //     }
-    // });
-
     function dept() {
 
         var datas = "depts=" + document.getElementById('depts').value;

@@ -1,24 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <title>All Report</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
-    <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
-
-
-
-    <!-- 
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/util.css">
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/main.css"> -->
-
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
     <style>
         body {
             margin: 0;
@@ -107,8 +86,8 @@
                    
                         <tr>
                             <th class="tableFixHead">รหัสลูกค้า</th>
-                            <th class="tableFixHead">ชื่อ</th>
-                            <th class="tableFixHead">นามสุกล</th>
+                            <th class="tableFixHead">ชื่อ -
+                            นามสุกล</th>
                             <th class="tableFixHead">เพศ</th>
                             <th class="tableFixHead">อีเมล</th>
                             <th class="tableFixHead">รายละเอียด</th>
@@ -124,8 +103,8 @@
 
                             <tr nowrap>
                                 <td nowrap> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->Cus_Id); ?> </td>
-                                <td nowrap> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->Cus_fname); ?> </td>
-                                <td nowrap> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->Cus_lname); ?> </td>
+                                <td nowrap> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->Cus_fname); ?> 
+                                <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->Cus_lname); ?> </td>
                                 <td nowrap> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->Cus_Gender); ?> </td>
                                 <td nowrap> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->Cus_Email); ?></td>
                                 <td nowrap> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->Cus_Address); ?> </td>

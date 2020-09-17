@@ -32,8 +32,17 @@
                 </div>
                 
             </div>
+        </div>
 
             <Br>
+            <div style="margin-left: 20px">
+                <div class="row justify-content-center">
+                    <div class="col-5">
+                        <label>รหัสพนักงาน</label>
+                        <input class="form-control" style="color: red;" type=text value="<?php echo $r->Id; ?>"disabled>
+                    </div>
+                </div>
+            </div>
 
             <div style="margin-left: 20px">
                 <div class="row justify-content-center">

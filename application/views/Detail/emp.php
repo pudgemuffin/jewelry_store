@@ -1,23 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <title>All Report</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
-    <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
-
-
-
-    <!-- 
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/util.css">
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/main.css"> -->
-
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <style>
         body {
@@ -124,6 +104,7 @@
                             <th class="tableFixHead">ตำแหน่ง</th>
                             <th class="tableFixHead">เพศ</th>
                             <th class="tableFixHead">อีเมล</th>
+                            <th class="tableFixHead">เบอร์โทรศัพท์</th>
                             <th class="tableFixHead">ศาสนา</th>
                             <th class="tableFixHead">วันเกิด</th>
                             <th class="tableFixHead">แก้ไข</th>
@@ -143,8 +124,9 @@
                                 <td nowrap style="text-align:center; vertical-align: middle;"> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->posi); ?></td>
                                 <td nowrap style="text-align:center; vertical-align: middle;"> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->Gender); ?></td>
                                 <td nowrap style="text-align:center; vertical-align: middle;"> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->Email); ?> </td>
+                                <td nowrap style="text-align:center; vertical-align: middle;"> <?php echo $r->emptel; ?> </td>
                                 <td nowrap style="text-align:center; vertical-align: middle;"> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->Religion); ?> </td>
-                                <td nowrap style="text-align:center; vertical-align: middle;"> <?php echo $r->empdate; ?> </td>
+                                <td nowrap style="text-align:center; vertical-align: middle;"> <?php echo (new DateTime($r->empdate))->format("d/m/Y"); ?> </td>
 
                                 <td  style="text-align:center; vertical-align: middle;">
                                     <!-- <button type="button" class="btn btn-warning btn-sm " name="edit"data-toggle="modal" data-target="#edit" onclick="edit1(id='<?php echo $r->Id ?>')"><i class="fa fa-user"></i></button> -->

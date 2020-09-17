@@ -132,7 +132,6 @@
                     
                             <div id = "all" class="content">
                                 <?php $this->load->view($view);?>
-
                             </div>
                     </div>
                         

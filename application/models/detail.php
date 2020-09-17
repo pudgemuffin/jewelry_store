@@ -4,10 +4,12 @@ class detail extends CI_Model
 {
     function empdata($start,$pageend,$search)
     {
-        $query = "SELECT * from( SELECT ROW_NUMBER()OVER ( ORDER By e.Id )as row ,e.Image,e.Id,e.Firstname,e.Surname,e.Gender,e.Email,e.Religion,e.empdate,j.job as posi
+        $query = "SELECT * from( SELECT ROW_NUMBER()OVER ( ORDER By e.Id )as row ,e.Image,e.Id,e.Firstname,e.Surname,e.Gender,e.Email,e.Religion,e.empdate,j.job as posi , et.emp_tel as emptel
         FROM employee e
-                      INNER JOIN job j ON e.Jobs = j.Job_Id 
-                  WHERE e.Status = '1' $search )AA
+                    INNER JOIN job j ON e.Jobs = j.Job_Id 
+					INNER JOIN emp_telephone et on e.Id = et.Id
+                    WHERE e.Status = '1' $search
+					GROUP BY e.Id  )AA
        where row > $start AND row <=$pageend order by row";
         
         return $this->db->query($query)->result();
@@ -24,6 +26,18 @@ class detail extends CI_Model
         return $this->db->query($query)->result();
     }
 
+    function count_emp_tel($id,$emp_tel)
+    {
+        $query = "SELECT COUNT(*) as Count from emp_telephone where Id = '$id' and emp_tel = '$emp_tel'";
+
+        $result =  $this->db->query($query)->result();
+       
+        foreach($result as $re){
+            return $re->Count;
+        }
+        
+    }
+    
     function Position()
     {
         $query = "SELECT * FROM job";
@@ -115,11 +129,11 @@ class detail extends CI_Model
     }
 
     function insertemp($id,$idcard,$nametitle,$fname,
-    $lname,$gender,$religion,$blood,$empdate,$email,$pos,$province,$amphur,$district,$postcode,$det,$status,$startdate,$salary,$national,$filename)
+    $lname,$gender,$religion,$blood,$empdate,$email,$pos,$province,$amphur,$district,$postcode,$det,$status,$startdate,$salary,$national,$filename,$user,$pass)
     {
-        $query = "INSERT INTO employee (Id,Idcard,Nametitle,Firstname,Surname,Gender,Religion,Blood,empdate,Email,Jobs,Provinces,Countys,Districts,Postcodes,Address,Status,Startdate,Salary,National,Image)
+        $query = "INSERT INTO employee (Id,Idcard,Nametitle,Firstname,Surname,Gender,Religion,Blood,empdate,Email,Jobs,Provinces,Countys,Districts,Postcodes,Address,Status,Startdate,Salary,National,Image,Username,Password)
         values
-                                       ('$id','$idcard','$nametitle','$fname','$lname','$gender','$religion','$blood','$empdate','$email','$pos','$province','$amphur','$district','$postcode','$det','$status','$startdate','$salary','$national','$filename')"; //
+                                       ('$id','$idcard','$nametitle','$fname','$lname','$gender','$religion','$blood','$empdate','$email','$pos','$province','$amphur','$district','$postcode','$det','$status','$startdate','$salary','$national','$filename','$user','$pass')"; //
         return $this->db->query($query);                                                                
     }
 

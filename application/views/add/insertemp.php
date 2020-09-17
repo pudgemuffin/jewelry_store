@@ -11,24 +11,31 @@
     <!-- <link href="assets/css/styles.css" rel="stylesheet" /> -->
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="<?php echo base_url(); ?>assets/js/scripts.js"></script>
 </head>
+<!-- <style>
+body{
+    background-color: #f1f1f1;
+}
+</style> -->
+
 <center>
-    <h2>เพิ่มข้อมูลพนักงาน</h2>
+    <h2 style="margin-top: 5px;">เพิ่มข้อมูลพนักงาน</h2><Br>
 </center>
 
-<body>
 
+<body>
     <form action="<?php echo site_url('Regis/addemp') ?>" method="post" enctype="multipart/form-data">
         <?php echo validation_errors(); ?>
         <div style="margin-left: 20px">
             <div class="row justify-content-center">
                 <div class="col-5">
+                <img id = "preimage" width="150px" height="150px">
                     <label>รูปภาพพนักงาน</label>
-                    <input type="file" name="empim" id="empim" required accept="image/*" onchange="loadimg(event)">
-                    <img id = "preimage" width="150px" height="150px">
+                    <input type="file" name="empim" id="empim"accept="image/*" onchange="loadimg(event)" required oninvalid="this.setCustomValidity('กรุณาเลือกรูป')" oninput="setCustomValidity('')">
+                    
                 </div>
                 
             </div>
@@ -37,7 +44,7 @@
             <div class="row justify-content-center">
                 <div class="col-5">
                     <label>รหัสบัตรประชาชน :</label>
-                    <input class="form-control" type=text name="idcard" id="idcard" maxlength="13" minlength="13" onkeypress="return numberonly(event)" required>
+                    <input class="form-control" type=text name="idcard" id="idcard" maxlength="13" minlength="13" onkeypress="return numberonly(event)" required oninvalid="this.setCustomValidity('กรุณากรอกให้ครบ13หลัก')" oninput="setCustomValidity('')">
                 </div>
             </div>
 
@@ -56,14 +63,14 @@
             <div class="row justify-content-center">
                 <div class="col-5">
                     <label>ชื่อ :</label>
-                    <input class="form-control" type="text" name="fname" id="fname" size="40" required>
+                    <input class="form-control" type="text" name="fname" id="fname" size="40" required oninvalid="this.setCustomValidity('กรุณากรอกชื่อ')" oninput="setCustomValidity('')">
                 </div>
             </div>
 
             <div class="row justify-content-center">
                 <div class="col-5">
                     <label>นามสุกล :</label>
-                    <input class="form-control" type="text" name="lname" id="lname" size="40" required>
+                    <input class="form-control" type="text" name="lname" id="lname" size="40" required oninvalid="this.setCustomValidity('กรุณากรอกนามสุกล')" oninput="setCustomValidity('')">
                 </div>
             </div>
 
@@ -103,21 +110,21 @@
             <div class="row justify-content-center">
                 <div class="col-5">
                     <label>สัญชาติ :</label>
-                    <input class="form-control" type="text" name="national" id="national">
+                    <input class="form-control" type="text" name="national" id="national" required oninvalid="this.setCustomValidity('กรุณากรอกสัญชาติ')" oninput="setCustomValidity('')">
                 </div>
             </div>
 
             <div class="row justify-content-center">
                 <div class="col-5">
                     <label>ว/ด/ป เกิด:</label>
-                    <input class="form-control" type="date" name="empdate" id="empdate">
+                    <input class="form-control" type="date" name="empdate" id="empdate" required oninvalid="this.setCustomValidity('กรุณาใส่ ว/ด/ป เกิด')" oninput="setCustomValidity('')">
                 </div>
             </div>
 
             <div class="row justify-content-center">
                 <div class="col-5">
                     <label>Email :</label>
-                    <input class="form-control" type="email" name="email" id="email" size="40" required>
+                    <input class="form-control" type="email" name="email" id="email" size="40" required oninvalid="this.setCustomValidity('กรุณากรอกอีเมลให้ถูกต้อง')" oninput="setCustomValidity('')">
                 </div>
             </div>
 
@@ -126,7 +133,7 @@
                     <table id="tel">
                         <tr>
                             <label>เบอร์โทร :</label>
-                            <td><input class="form-control" type="text" name="emp_tel[]" id="emp_tel" size="40" maxlength="10" onkeypress="return numberonly(event)" required></td>
+                            <td><input class="form-control" type="text"  name="emp_tel[]" id="emp_tel" minlength="10" maxlength="10" onkeypress="return numberonly(event)" required oninvalid="this.setCustomValidity('กรุณากรอกเบอร์โทรให้ครบ 10 หลัก')" oninput="setCustomValidity('')"></td>
                             <td><button type="button" name="add" id="add" class="btn btn-success"><i class="fa fa-plus"></i></button></td>
                         </tr>
                     </table>
@@ -136,18 +143,10 @@
             <div class="row justify-content-center">
                 <div class="col-5">
                     <label>ว/ด/ป เริ่มทำงาน:</label>
-                    <input class="form-control" type="date" name="empsdate" id="empsdate" required>
+                    <input class="form-control" type="date" name="empsdate" id="empsdate" required oninvalid="this.setCustomValidity('กรุณาใส่วันเข้าทำงาน')" oninput="setCustomValidity('')">
                 </div>
             </div>
-
-            <div class="row justify-content-center">
-                <div class="col-5">
-                    <label>สถานะการทำงาน:</label>
-                    <input type="radio" name="status" id="status" value="1" <?php echo "checked"?>> ทำงาน
-                    <input type="radio" name="status" id="status" value="0"> ลาออก<br>
-                </div>
-            </div>
-
+                    
             <div class="row justify-content-center">
                 <div class="col-5">
                     <label>เงินเดือน :</label>
@@ -158,7 +157,7 @@
             <div class="row justify-content-center">
                 <div class="col-5">
                     <label>ตำแหน่ง :</label>
-                    <select class="form-control" id="pos" name="pos">
+                    <select class="form-control" id="pos" name="pos" required oninvalid="this.setCustomValidity('กรุณาเลือกตำแหน่ง')" oninput="setCustomValidity('')">
                         <option value="">ตำแหน่ง</option>
                         <?php foreach ($pos as $p) { ?>
                             <option value="<?php echo $p->Job_Id; ?>">
@@ -172,7 +171,7 @@
             <div class="row justify-content-center">
                 <div class="col-5">
                     <label>จังหวัด :</label>
-                    <select class="form-control" id="province" name="province" onchange="am()">
+                    <select class="form-control" id="province" name="province" onchange="am()" required oninvalid="this.setCustomValidity('กรุณาเลือกจังหวัด')" oninput="setCustomValidity('')">
                         <option value="">จังหวัด</option>
                         <?php foreach ($province as $p) { ?>
                             <option value="<?php echo $p->PROVINCE_ID; ?>">
@@ -186,7 +185,7 @@
             <div class="row justify-content-center">
                 <div class="col-5">
                     <label>เขต :</label>
-                    <select class="form-control" id="amphur" name="amphur" onchange="dis()">
+                    <select class="form-control" id="amphur" name="amphur" onchange="dis()" required oninvalid="this.setCustomValidity('กรุณาเลือก เขต/อำเภอ')" oninput="setCustomValidity('')">
                         <option value="">เขต</option>
                         <?php foreach ($amphur as $a) { ?>
                             <option value="<?php echo $a->AMPHUR_ID; ?>">
@@ -200,7 +199,7 @@
             <div class="row justify-content-center">
                 <div class="col-5">
                     <label>แขวง :</label>
-                    <select class="form-control" id="district" name="district" onchange="posc()">
+                    <select class="form-control" id="district" name="district" onchange="posc()" required oninvalid="this.setCustomValidity('กรุณาเลือก แขวง/ตำบล')" oninput="setCustomValidity('')">
                         <option value="">แขวง</option>
                         <?php foreach ($district as $d) { ?>
                             <option value="<?php echo $d->DISTRICT_ID; ?>">
@@ -214,7 +213,7 @@
             <div class="row justify-content-center">
                 <div class="col-5">
                     <label>รหัสไปรษณีย์ :</label>
-                    <select class="form-control" id="postcode" name="postcode">
+                    <select class="form-control" id="postcode" name="postcode"required oninvalid="this.setCustomValidity('กรุณาใส่รหัสไปรษณีย์')" oninput="setCustomValidity('')">
                         <option value="">รหัสไปรษณีย์</option>
                         <?php foreach ($district as $posc) { ?>
                             <option value="<?php echo $posc->POSTCODE; ?>">
@@ -233,23 +232,12 @@
                     </textarea>
                 </div>
             </div>
-
-            <div class="row justify-content-center">
-                <div class="col-5">
-                    <label>Username :</label>
-                    <input class="form-control" type="text" name="user" id="user" size="40">
-                    <label>Password :</label>
-                    <input class="form-control" type="text" name="pass" id="pass" size="40">
-                </div>
-            </div>
-
             <br>
-
             <div class="row justify-content-center">
-                <div class="col-5">
+                <div class="col-5" style="margin-bottom: 15px;">
 
-                    <button type="submit" class="btn btn-info">Insert</button>
-                    <a class="btn btn-danger" href="<?php echo site_url('') ?>">Cancel</a>
+                    <button type="submit"  class="btn btn-info">เพิ่มข้อมูลพนักงาน</button>
+                    <a class="btn btn-danger"  href="<?php echo site_url('') ?>">ยกเลิก</a>
 
                 </div>
             </div>
@@ -258,30 +246,30 @@
 
 
     </form>
+    </body>
 
-</body>
-
+    
 
 </html>
 <script>
+    empdate.max = new Date().toISOString().split("T")[0];
+    empsdate.max = new Date().toISOString().split("T")[0];
+
+ 
+
     $(document).ready(function() {
         var i = 1;
         $('#add').click(function() {
             i++;
-            var tel = '<tr id="newtel' + i + '"><td><input type="text" name="emp_tel[]" onkeypress="return numberonly(event)"  class="form-control" maxlength="10" minlength="10"/></td>  <td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">X</button></td></tr>'
+            var tel = '<tr id="newtel' + i + '"><td><input type="text" name="emp_tel[]" onkeypress="return numberonly(event)"  class="form-control" maxlength="10" minlength="10" required ></td>  <td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">X</button></td></tr>'
             $('table').append(tel);
         });
         $(document).on('click', '.btn_remove', function() {
             var button_id = $(this).attr("id");
             $('#newtel' + button_id + '').remove();
         });
-
-        $(function() {
-            $("input[name='emp_tel[]']").on('input', function(e) {
-                $(this).val($(this).val().replace(/[^0-9]/g, ''));
-            });
-        });
     });
+
     function numberonly(evt)
       {
          var charCode = (evt.which) ? evt.which : event.keyCode

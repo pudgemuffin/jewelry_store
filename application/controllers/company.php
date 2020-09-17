@@ -16,7 +16,12 @@ class company extends CI_Controller
     }
     public function addpartner()
     {
-        $this->load->view('add/insertpartner');
+        $this->load->model('detail');
+        $data['province'] = $this->detail->Province();
+        $data['amphur'] = $this->detail->Amphur();
+        $data['district'] = $this->detail->District();
+        $data['view'] = "add/insertpartner";
+		$this->load->view('index',$data);
     }
 
     public function insertpart()

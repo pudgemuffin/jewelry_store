@@ -31,8 +31,10 @@ class Regis extends CI_Controller
         $data['province'] = $this->detail->Province();
         $data['amphur'] = $this->detail->Amphur();
         $data['district'] = $this->detail->District();
+        // $data['view'] = "add/insertemp";
         $this->load->view('add/insertemp', $data);
     }
+
     public function empidgen()
     {
         $max = $this->detail->maxid();
@@ -60,7 +62,7 @@ class Regis extends CI_Controller
         $religion = $this->input->post('religion');
         $blood = $this->input->post('blood');
         $empdate = $this->input->post('empdate');
-        $emp_tel = $this->input->post('emp_tel');
+
         $email = $this->input->post('email');
         $pos = $this->input->post('pos');
         $province = $this->input->post('province');
@@ -68,10 +70,12 @@ class Regis extends CI_Controller
         $district = $this->input->post('district');
         $postcode = $this->input->post('postcode');
         $det = $this->input->post('det');
-        $status = $this->input->post('status');
+        $status = 1;
         $startdate = $this->input->post('empsdate');
         $salary = $this->input->post('salary');
         $national = $this->input->post('national');
+        $user = $id;
+        $pass = $id;
         $this->input->post('detail');
 
 
@@ -100,6 +104,7 @@ class Regis extends CI_Controller
             $data1['getcheck'] = $this->detail->checkinsert($idcard);
 
 
+
             foreach ($data1['getcheck'] as $value) {
                 $count = $value->COUNT;
                 if ($count == 0) {
@@ -125,16 +130,22 @@ class Regis extends CI_Controller
                         $startdate,
                         $salary,
                         $national,
-                        $filename
+                        $filename,
+                        $user,
+                        $pass
                     );
                     $Id = $this->detail->maxid();
+                    $emp_tel = $this->input->post('emp_tel');
 
-
-                    foreach ($emp_tel as $tel) {
-                        $data['inserttel'] = $this->detail->emptel(
-                            $Id,
-                            $tel
+                    foreach ($emp_tel as $et) {
+                        $data = array(
+                            'emp_tel' => $et,
+                            'Id' => $Id
                         );
+                        $checktel = $this->detail->count_emp_tel($id, $et);
+                        if ($checktel == 0) {
+                            $this->detail->emptel($id,$et);
+                        }
                     }
                     echo "<script> alert('เพิ่มข้อมูลพนักงานสำเร็จ');
 						window.location.href='/ER_GOLDV1/index.php';
@@ -146,6 +157,7 @@ class Regis extends CI_Controller
                     $data['province'] = $this->detail->Province();
                     $data['amphur'] = $this->detail->Amphur();
                     $data['district'] = $this->detail->District();
+                    // $data['view'] = "add/insertemp";
                     $this->load->view('add/insertemp', $data);
                 }
             }
@@ -191,16 +203,16 @@ class Regis extends CI_Controller
         $national = $this->input->post('national');
 
 
-        if(empty($_FILES['empim']['name'])){
-            
-            
+        if (empty($_FILES['empim']['name'])) {
+
+
             $this->detail->updatenoimg($id, $idcard, $nametitle, $fname, $lname, $gender, $religion, $blood, $empdate, $email, $pos, $province, $amphur, $district, $postcode, $det, $status, $startdate, $salary, $national);
 
             echo "<script> alert('แก้ไขข้อมูลพนักงานสำเร็จ');
             window.location.href='/ER_GOLDV1/index.php';
             </script>";
         } else {
-          
+
             $config['upload_path'] = './img/';
             $config['allowed_types'] = 'gif|jpg|png';
             $config['max_size'] = '2000';
@@ -229,24 +241,29 @@ class Regis extends CI_Controller
                 $filename = $data['file_name'];
                 $oldImg = $this->input->post('oldImg');
                 $this->detail->update($id, $idcard, $nametitle, $fname, $lname, $gender, $religion, $blood, $empdate, $email, $pos, $province, $amphur, $district, $postcode, $det, $status, $startdate, $salary, $national, $filename);
-                unlink('./img/'.$oldImg);
-        
+                unlink('./img/' . $oldImg);
             }
-           
+
             $this->detail->empteldel($id);
-            foreach ($emp_tel as $tel) {
-            $data['updateemptel'] = $this->detail->emptelupdate(
-                $id,
-                $tel
-            );
-        }
-        echo "<script> alert('แก้ไขข้อมูลพนักงานสำเร็จ');
+            $data2['emptel'] = $this->detail->count_emp_tel($emp_tel);
+            $emp_tel = $this->input->post('emp_tel');
+
+                    foreach ($emp_tel as $et) {
+                        $data = array(
+                            'emp_tel' => $et,
+                            'Id' => $id
+                        );
+                        $checktel = $this->detail->count_emp_tel($id, $et);
+                        if ($checktel == 0) {
+                            $this->detail->emptel($id,$et);
+                        }
+                    
+
+                echo "<script> alert('แก้ไขข้อมูลพนักงานสำเร็จ');
         window.location.href='/ER_GOLDV1/index.php';
         </script>";
-        
-            
+            }
         }
-        
     }
 
     public function test()
@@ -259,6 +276,7 @@ class Regis extends CI_Controller
     public function delete()
     {
         $Id = $this->input->post('Id');
+
         $this->detail->delete($Id);
 
         echo "<script> alert('ลบข้อมูลสำเร็จ');
