@@ -144,7 +144,7 @@ class Regis extends CI_Controller
                         );
                         $checktel = $this->detail->count_emp_tel($id, $et);
                         if ($checktel == 0) {
-                            $this->detail->emptel($id,$et);
+                            $this->detail->emptel($id, $et);
                         }
                     }
                     echo "<script> alert('เพิ่มข้อมูลพนักงานสำเร็จ');
@@ -201,6 +201,7 @@ class Regis extends CI_Controller
         $startdate = $this->input->post('empsdate');
         $salary = $this->input->post('salary');
         $national = $this->input->post('national');
+        $emp_tel = $this->input->post('emp_tel');
 
 
         if (empty($_FILES['empim']['name'])) {
@@ -208,6 +209,18 @@ class Regis extends CI_Controller
 
             $this->detail->updatenoimg($id, $idcard, $nametitle, $fname, $lname, $gender, $religion, $blood, $empdate, $email, $pos, $province, $amphur, $district, $postcode, $det, $status, $startdate, $salary, $national);
 
+            $this->detail->empteldel($id);           
+            foreach ($emp_tel as $et) {
+                $data = array(
+                    'emp_tel' => $et,
+                    'Id' => $id
+                );
+                $checktel = $this->detail->count_emp_tel($id, $et);
+                if ($checktel == 0) {
+                    $this->detail->emptel($id, $et);
+                }
+            }
+            
             echo "<script> alert('แก้ไขข้อมูลพนักงานสำเร็จ');
             window.location.href='/ER_GOLDV1/index.php';
             </script>";
@@ -244,31 +257,43 @@ class Regis extends CI_Controller
                 unlink('./img/' . $oldImg);
             }
 
-            $this->detail->empteldel($id);
-            $data2['emptel'] = $this->detail->count_emp_tel($emp_tel);
-            $emp_tel = $this->input->post('emp_tel');
-
-                    foreach ($emp_tel as $et) {
-                        $data = array(
-                            'emp_tel' => $et,
-                            'Id' => $id
-                        );
-                        $checktel = $this->detail->count_emp_tel($id, $et);
-                        if ($checktel == 0) {
-                            $this->detail->emptel($id,$et);
-                        }
-                    
-
-                echo "<script> alert('แก้ไขข้อมูลพนักงานสำเร็จ');
-        window.location.href='/ER_GOLDV1/index.php';
-        </script>";
+            $this->detail->empteldel($id);           
+            foreach ($emp_tel as $et) {
+                $data = array(
+                    'emp_tel' => $et,
+                    'Id' => $id
+                );
+                $checktel = $this->detail->count_emp_tel($id, $et);
+                if ($checktel == 0) {
+                    $this->detail->emptel($id, $et);
+                }
             }
+
+
+        // echo "<script> alert('แก้ไขข้อมูลพนักงานสำเร็จ');
+        // window.location.href='/ER_GOLDV1/index.php';
+        // </script>";
         }
     }
 
     public function test()
     {
-        unlink('./img/week2.jpg');
+
+        $ye = substr(date("Y"), 2) . date("m");
+        $this->load->model('customer');
+        $max = $this->customer->maxid();
+        $str = substr($max, 4) + 1;
+        $txt = "CUS";
+        if ($str < 10) {
+            $cusid = $txt . $ye . "00" . $str;
+        } elseif ($str >= 10 && $str <= 99) {
+            $cusid = $txt . "0" . $str;
+        } elseif ($str <= 100) {
+            $cusid = $txt . $str;
+        }
+
+        // return $cusid;
+        echo $cusid;
     }
 
 

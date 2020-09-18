@@ -26,7 +26,7 @@
             <div class="row justify-content-center">
                 <div class="col-5">
                     <label>รูปภาพพนักงาน</label>
-                    <input type="file" name="empim" id="empim" require accept="image/*"onchange="loadimg(event)">
+                    <input type="file" name="empim" id="empim" accept="image/*"onchange="loadimg(event)" >
                     <img id = "preimage" width="150px" height="150px" src="<?php echo base_url('/img/'.$r->Image);?>">
                     <input type="text" name="oldImg" id="oldImg" value="<?php echo $r->Image; ?>"hidden>
                 </div>
@@ -154,7 +154,7 @@
                                 <tr id="newtel<?php echo $i; ?>">
                                     <label>เบอร์โทร :</label>
                                     <td>
-                                        <input class="form-control" type="text" name="emp_tel[]" onkeypress="return numberonly(event)" id="emp_tel" size="40" maxlength="11" value="<?php echo $et->emp_tel; ?>">
+                                        <input class="form-control" type="text" name="emp_tel[]" onkeypress="return numberonly(event)" id="emp_tel" size="40" maxlength="10" required oninvalid="this.setCustomValidity('กรุณากรอกเบอร์โทรให้ครบ 10 หลัก')" oninput="setCustomValidity('')" value="<?php echo $et->emp_tel; ?>">
                                     </td>
                                     <td>
                                         <?php if ($i == 1) { ?><button type="button" name="add" id="add" class="btn btn-success"><i class="fa fa-plus"></i></button>
