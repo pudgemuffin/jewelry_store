@@ -65,10 +65,10 @@
                     <div class="row" style="padding-bottom: 1px;padding-left:5px;">
                     <div class="col-3">
 
-                        <input type="text" name="semp" id="semp" class="form-control">
+                        <input type="text" name="spart" id="spart" class="form-control">
                     </div>
                     <div class="col-2">
-                        <button type="button" onclick="search()" class = "btn btn-secondary">
+                        <button type="button" onclick="searchpart()" class = "btn btn-secondary">
                             <i class="fa fa-search"></i>
                         </button>
                     </div>
@@ -85,50 +85,79 @@
                     <thead>
                    
                         <tr>
-                            <th class="tableFixHead">Name</th>
-                            <th class="tableFixHead">Email</th>
-                            <th class="tableFixHead">Telephone</th>
-                            <th class="tableFixHead">Address</th>
-                            <th class="tableFixHead">Edit</th>
-                            <th class="tableFixHead">Delete</th>
+                            <th class="tableFixHead">รหัสบริษัท</th>
+                            <th class="tableFixHead">ชื่อบริษัท</th>
+                            <th class="tableFixHead">อีเมล</th>
+                            <th class="tableFixHead">เบอร์โทร</th>
+                            <th class="tableFixHead">รายละเอียด</th>
+                            <th class="tableFixHead">แก้ไข</th>
+                            <th class="tableFixHead">ลบ</th>
                             <!-- <th class="tableFixHead">Excel</th>
                             <th class="tableFixHead">PDF</th> -->
                         </tr>
                         </thead>
                         <tbody>
-                        <?php foreach ($partner as $p) { ?>
+                        <?php if($count_all > 0){?>
+                        <?php foreach ($result as $p) { ?>
 
                             <tr nowrap>
+                                <td nowrap> <?php echo $p->Part_Id; ?> </td>
                                 <td nowrap> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $p->Part_Name); ?> </td>
                                 <td nowrap> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $p->Part_Email); ?> </td>
-                                <td nowrap> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $p->Part_Tel); ?> </td>
+                                <td nowrap> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $p->tel); ?> </td>
                                 <td nowrap> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $p->Part_Address); ?> </td>
                                 <td>
-                                    <!-- <button type="button" class="btn btn-warning btn-sm " name="edit"data-toggle="modal" data-target="#edit" onclick="edit1(id='<?php echo $p->Cus_Id ?>')"><i class="fa fa-user"></i></button> -->
                                     <a class="btn btn-warning" name ="editpart" id="editpart"href="<?php echo site_url('company/editpart/').$p->Part_Id?>"><i class="fa fa-cog"></i></a>
                                 </td>
                                 <td nowrap style="text-align:center; vertical-align: middle;">
                                     <button type="button" class="btn btn-danger btn-sm " name="delete" onclick="deletepartner(id='<?php echo $p->Part_Id ?>')"><i class="fa fa-trash"></i></button>
 
                                 </td>
-                                <!-- <td>
-                                <form action="<?php echo site_url('Regis/delete') ?>?id=<?php echo $p->Part_Id; ?>" method="POST">
-                                    <button type="submit" class="btn btn-danger " name="delete" id="delete" onclick="return confirm('ต้องการลบข้อมูลนี้ใช่ไหม');"><i class="fa fa-trash"></i></button>
-                                </form>
-                                </td> -->
-                                <!-- <td nowrap style="text-align:center; vertical-align: middle;">
-                                    <a class="btn btn-outline-success btn-sm" type="submit" href="<?php echo site_url('Welcome/excel1?AutoIDEmp=') . iconv('TIS-620', 'UTF-8', $p->Cus_Id); ?>"><button type="button" class="btn btn-success btn-sm" name="excel1"><i class="fa fa-file-excel-o"></i></button>
-                                </td>
-                                <td nowrap style="text-align:center; vertical-align: middle;">
-                                    <a class="btn btn-outline-danger btn-sm" type="submit" target="_blank" href="<?php echo site_url('Welcome/pdf1?AutoIDEmp=') . iconv('TIS-620', 'UTF-8', $r->Cus_Id); ?>"><button type="button" class="btn btn-danger btn-sm" name="pdf1"><i class="fa fa-file-pdf-o"></i></button>
-                                </td> -->
+                                <?php } ?>
+                        <tr>   
 
-                            <?php } ?>
+                        </tr>                    
+                        <?php }else{?>
+                    <tr>
+                        <td colspan="7">ไม่พบรายการข้อมูล</td>
+                    </tr>
+                    <?php }?>
                             
                 </table>
-            </div>
+            <div style="width: 100%;" class="text-center">
+            <?php
+            $total_record = $count_all;
+            $total_page =  ceil($total_record / $pageend); ?>
+            <!-- สูตรคำนวนหาจำนวนหน้า -->
+
+            <p class="card-description"> เลือกหน้า
+                <select id="pageing_part" oninput="pageing123_part()">
+                    <option style="display: none;" value="<?php echo $numpage; ?>"><?php echo $numpage; ?></option>
+                    <?php for ($i = 1; $i <= $total_page; $i++) { ?>
+                        <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                    <?php } ?>
+                </select>
+                ทั้งหมด <?php echo $i - 1; ?> หน้า </p>
+        </div>
+        </div>
         
 <script>
+
+function searchpart() {
+        
+        var datas = "spart=" + document.getElementById('spart').value
+            // alert(datas);
+       
+        $.ajax({
+            type: "POST",
+            url: "<?php echo site_url('Welcome/pagingmain_part') ?>",
+            data: datas,
+        }).done(function(data) {
+             $('#all').html(data);        
+        });
+        
+
+    }                    
 
     function deletepartner(partid) {
             var datas = "Part_Id=" + partid;

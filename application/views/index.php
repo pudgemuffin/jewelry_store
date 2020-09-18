@@ -53,7 +53,7 @@
                                 <!-- <a class="nav-link" href="<?php echo site_url('Welcome/lay'); ?>">Static Navigation</a> -->
                                 <a class="nav-link" href="<?php echo site_url('Welcome/index'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;">พนักงาน</a>
                                 <a class="nav-link" href="<?php echo site_url('Welcome/viewcust'); ?>"style="background-color: #CD3838;font-size:16px;color:#ffffff;">ลูกค้า</a>
-                                <a class="nav-link" href="<?php echo site_url('company/partner'); ?>"style="background-color: #CD3838;font-size:16px;color:#ffffff;">บริษัทคู่ค้า</a>
+                                <a class="nav-link" href="<?php echo site_url('Welcome/partner'); ?>"style="background-color: #CD3838;font-size:16px;color:#ffffff;">บริษัทคู่ค้า</a>
                                 <a class="nav-link" href="<?php echo site_url('Welcome/viewposition'); ?>"style="background-color: #CD3838;font-size:16px;color:#ffffff;">ตำแหน่ง</a>
                                 <a class="nav-link" href="<?php echo site_url('Regis/register'); ?>"style="background-color: #CD3838;font-size:16px;color:#ffffff;">Register</a>
                                 <?//ต้องส่งไปcontroller แล้วเรียกview?>
@@ -225,6 +225,20 @@ function pageing123_emp() {
         $.ajax({
             type: "POST",
             url: "<?php echo site_url('Welcome/pagingmain_cus?num_page=') ?>" + num_page,
+            data: $("#search_form").serialize(),
+        }).done(function(data) {
+            console.log(data);
+             $('#all').html(data);
+
+        });
+    }
+
+    function pageing123_part() {
+        var num_page = document.getElementById('pageing_part').value;
+           alert(num_page);
+        $.ajax({
+            type: "POST",
+            url: "<?php echo site_url('Welcome/pagingmain_part?num_page=') ?>" + num_page,
             data: $("#search_form").serialize(),
         }).done(function(data) {
             console.log(data);

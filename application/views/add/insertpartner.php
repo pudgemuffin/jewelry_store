@@ -1,8 +1,21 @@
-<style>
-body{
-    background-color: #f1f1f1;
-}
-</style>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Page Title - SB Admin</title>
+    <!-- <link href="assets/css/styles.css" rel="stylesheet" /> -->
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="<?php echo base_url(); ?>assets/js/scripts.js"></script>
+</head>
+
 <center>
     <h2>เพิ่มข้อมูลบริษัทคู่ค้า</h2>
 </center>
@@ -21,15 +34,20 @@ body{
 
             <div class="row justify-content-center">
                 <div class="col-5">
-                    <label>Email :</label>
+                    <label>อีเมล :</label>
                     <input class="form-control" type="email" name="partemail" id="partemail" size="40" required>
                 </div>
             </div>
            
             <div class="row justify-content-center">
                 <div class="col-5">
-                    <label>เบอร์โทร :</label>
-                    <input class="form-control" type="text" name="parttel" id="parttel" size="40" maxlength="11" required>
+                    <table id="tel">
+                        <tr>
+                            <label>เบอร์โทร :</label>
+                            <td><input class="form-control" type="text"  name="part_tel[]" id="part_tel" minlength="10" maxlength="10" onkeypress="return numberonly(event)" required oninvalid="this.setCustomValidity('กรุณากรอกเบอร์โทรให้ครบ 10 หลัก')" oninput="setCustomValidity('')"></td>
+                            <td><button type="button" name="add" id="add" class="btn btn-success"><i class="fa fa-plus"></i></button></td>
+                        </tr>
+                    </table>
                 </div>
             </div>
 
@@ -117,6 +135,28 @@ body{
 
 </html>
 <script>
+$(document).ready(function() {
+        var i = 1;
+        $('#add').click(function() {
+            i++;
+            var tel = '<tr id="newtel' + i + '"><td><input type="text" name="part_tel[]" onkeypress="return numberonly(event)"  class="form-control" maxlength="10" minlength="10" required ></td>  <td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">X</button></td></tr>'
+            $('table').append(tel);
+        });
+        $(document).on('click', '.btn_remove', function() {
+            var button_id = $(this).attr("id");
+            $('#newtel' + button_id + '').remove();
+        });
+    });
+
+    function numberonly(evt)
+      {
+         var charCode = (evt.which) ? evt.which : event.keyCode
+         if (charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+
+         return true;
+      }
+
     function dept() {
 
         var datas = "depts=" + document.getElementById('depts').value;

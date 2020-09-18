@@ -163,7 +163,7 @@
 function searchcus() {
         
         var datas = "scus=" + document.getElementById('scus').value
-             alert(datas);
+            //  alert(datas);
        
         $.ajax({
             type: "POST",

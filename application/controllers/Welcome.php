@@ -142,11 +142,67 @@ class Welcome extends CI_Controller {
 
 	public function viewposition()
     {
+        
 		$this->load->model('detail');
         $data['position'] = $this->detail->position();
         $data['view'] = "detail/position";
         $this->load->view('index',$data);
     }
+
+    public function partner()
+    {
+        $this->load->model('partner');
+        $start = 0;
+        $pageend = 4;
+        $data['numpage'] = 1;
+        $data['pageend'] = $pageend;
+        $search = "";
+
+        $count_all = $this->partner->count_partner($search);
+        foreach ($count_all as $value) {
+            $data['count_all'] = $value->Count;
+        }
+
+        $data['result'] = $this->partner->allpartner($start, $pageend,  $search);
+        $data['view'] = "detail/partner";
+        $this->load->view('index',$data);
+    }
+
+    public function pagingmain_part()
+    {
+		$this->load->model('partner');
+		$page = $this->input->get('num_page');
+		
+        $pageend1 = 4;
+        if ($page != '') {
+            $page = $page;
+        } else {
+            $page = 1;
+		}		
+        $start = ($page - 1) * $pageend1;
+        $pageend = $page * $pageend1;
+        $data['numpage'] = $page;
+		$data['pageend'] = $pageend1;
+		
+
+        $txtsearch = $this->input->post('spart');
+        if($txtsearch != ''){
+            $txtsearch = "and p.Part_Id like '%$txtsearch%' or p.Part_Name like '%$txtsearch%' or p.Part_Email like '%$txtsearch%' or pt.Part_tel like '%$txtsearch%' or p.Part_Address like '%$txtsearch%'";
+        }else{
+            $txtsearch = '';
+        }
+		$search = $txtsearch;
+
+
+        $count_all = $this->partner->count_partner($search);
+        foreach ($count_all as $value) {
+            $data['count_all'] = $value->Count;
+        }
+
+        $data['result'] = $this->partner->allpartner($start, $pageend,  $search);
+        $this->load->view('Detail/partner', $data);
+    }
+
 
 	public function lay()
 	{

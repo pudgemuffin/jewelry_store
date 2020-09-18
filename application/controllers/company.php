@@ -20,14 +20,36 @@ class company extends CI_Controller
         $data['province'] = $this->detail->Province();
         $data['amphur'] = $this->detail->Amphur();
         $data['district'] = $this->detail->District();
-        $data['view'] = "add/insertpartner";
-		$this->load->view('index',$data);
+        // $data['view'] = "add/insertpartner";
+		$this->load->view('add/insertpartner',$data);
+    }
+
+    public function partgenid()
+    {
+        
+        $max = $this->partner->maxparterid();
+        $str = substr($max, 5) + 1;
+        $txt = "PART";
+        if ($str < 10) {
+            $partid = $txt . "00" . $str;
+        } elseif ($str >= 10 && $str <= 99) {
+            $partid = $txt . "0" . $str;
+        } elseif ($str <= 100) {
+            $partid = $txt . $str;
+        }
+
+        return $partid;
     }
 
     public function insertpart()
     {
+        $partid = $this->partgenid();
         $partname = $this->input->post('partname');
         $partemail = $this->input->post('partemail');
+        $province = $this->input->post('province');
+        $amphur = $this->input->post('amphur');
+        $district = $this->input->post('district');
+        $postcode = $this->input->post('postcode');
         $parttel = $this->input->post('parttel');
         $partaddress = $this->input->post('partaddress');
 
@@ -36,14 +58,31 @@ class company extends CI_Controller
             $count = $value->COUNT;
             if ($count == 0) {
                 $data['insert'] = $this->partner->insertpart(
+                    $partid,
                     $partname,
                     $partemail,
-                    $parttel,
+                    $province,
+                    $amphur,
+                    $district,
+                    $postcode,
                     $partaddress
                     
                 );
+                $Id = $this->partner->maxparterid();
+                $parttel = $this->input->post('part_tel');
+
+                    foreach ($parttel as $pt) {
+                        $data = array(
+                            'Part_tel' => $pt,
+                            'Part_Id' => $Id
+                        );
+                        $checktel = $this->partner->count_partner_tel($partid, $pt);
+                        if ($checktel == 0) {
+                            $this->partner->parttel($partid, $pt);
+                        }
+                    }
                 echo "<script> alert('เพิ่มบริษัทสำเร็จ');
-						window.location.href='/ER_GOLDV1/index.php/company/partner';
+						window.location.href='/ER_GOLDV1/index.php/Welcome/partner';
 						</script>";
             }else{
                 echo "<script> alert ('พบชื่อ บริษัทซ้ำ ');
@@ -51,23 +90,24 @@ class company extends CI_Controller
                     </script>";
 
             
-                $this->load->view('add/insertpart');
+                // $this->load->view('add/insertpart');
             }
         }
     }
 
-    public function partner()
-    {
-        $data['partner'] = $this->partner->allpartner();
-        $data['view'] = "detail/partner";
-        $this->load->view('index',$data);
-    }
+    
 
     public function editpart($id)
     {
-    
+        $this->load->model('detail');
         $data['partner'] = $this->partner->displaybyid($id);
+        $data['edittel'] = $this->partner->parttelbyid($id);
+        $data['province'] = $this->detail->Province();
+        $data['amphur'] = $this->detail->Amphur();
+        $data['district'] = $this->detail->District();
+        
         $this->load->view('add/editpartner',$data);
+
     }
     
     public function updatepart()
@@ -75,7 +115,7 @@ class company extends CI_Controller
         $partid = $this->input->post('updatepart');
         $partname = $this->input->post('partname');
         $partemail = $this->input->post('partemail');
-        $parttel = $this->input->post('parttel');
+        $parttel = $this->input->post('part_tel');
         $partaddress = $this->input->post('partaddress');
 
         $this->partner->updatepart($partid,$partname,$partemail,$parttel,$partaddress);
