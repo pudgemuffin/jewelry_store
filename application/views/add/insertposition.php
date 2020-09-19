@@ -14,7 +14,7 @@
     <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 </head>
 <center>
-    <h2>Insert</h2>
+    <h2>เพิ่มตำแหน่ง</h2>
 </center>
 
 <body>
@@ -31,7 +31,7 @@
             <div class="row justify-content-center">
                 <div class="col-5">
 
-                    <button type="submit" class="btn btn-info">Insert</button>
+                    <button type="submit" class="btn btn-info">เพิ่มตำแหน่ง</button>
                     <a class="btn btn-danger" href="<?php echo site_url('Welcome/viewposition') ?>">Cancel</a>
 
                 </div>

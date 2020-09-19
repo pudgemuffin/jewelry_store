@@ -50,7 +50,7 @@ class company extends CI_Controller
         $amphur = $this->input->post('amphur');
         $district = $this->input->post('district');
         $postcode = $this->input->post('postcode');
-        $parttel = $this->input->post('parttel');
+        $parttel = $this->input->post('part_tel');
         $partaddress = $this->input->post('partaddress');
 
         $data1['getcheck'] = $this->partner->checkinsertpart($partname);
@@ -115,13 +115,28 @@ class company extends CI_Controller
         $partid = $this->input->post('updatepart');
         $partname = $this->input->post('partname');
         $partemail = $this->input->post('partemail');
+        $province = $this->input->post('province');
+        $amphur = $this->input->post('amphur');
+        $district = $this->input->post('district');
+        $postcode = $this->input->post('postcode');
         $parttel = $this->input->post('part_tel');
         $partaddress = $this->input->post('partaddress');
 
-        $this->partner->updatepart($partid,$partname,$partemail,$parttel,$partaddress);
+        $this->partner->updatepart($partid,$partname,$partemail, $province,$amphur,$district,$postcode,$partaddress);
+        $this->partner->partteldel($partid);
+        foreach ($parttel as $pt) {
+            $data = array(
+                'Part_tel' => $pt,
+                'Part_Id' => $partid
+            );
+            $checktel = $this->partner->count_partner_tel($partid, $pt);
+            if ($checktel == 0) {
+                $this->partner->parttel($partid, $pt);
+            }
+        }
 
-        echo "<script> alert('Record Updated');
-							window.location.href='/ER_GOLDV1/index.php/company/partner';
+        echo "<script> alert('แก้ไขข้อมูลบริษัทสำเร็จ');
+							window.location.href='/ER_GOLDV1/index.php/Welcome/partner';
 							</script>";
     }
 
@@ -131,7 +146,7 @@ class company extends CI_Controller
         $this->partner->deletepartner($partid);
 
             echo "<script> alert('Record Deleted');
-		 					window.location.href='/ER_GOLDV1/index.php/company/partner';
+		 					window.location.href='/ER_GOLDV1/index.php/Welcome/partner';
 							 </script>";
 
     }

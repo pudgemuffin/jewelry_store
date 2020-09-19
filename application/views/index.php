@@ -247,6 +247,21 @@ function pageing123_emp() {
         });
     }
 
+
+    function pageing123_pos() {
+        var num_page = document.getElementById('pageing_pos').value;
+           alert(num_page);
+        $.ajax({
+            type: "POST",
+            url: "<?php echo site_url('Welcome/pagingmain_pos?num_page=') ?>" + num_page,
+            data: $("#search_form").serialize(),
+        }).done(function(data) {
+            console.log(data);
+             $('#all').html(data);
+
+        });
+    }
+
         
         
         

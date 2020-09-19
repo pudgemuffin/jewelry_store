@@ -81,15 +81,15 @@
 <div class="card">
         <div class="card-body">
             <h1 style="text-align: center;">
-                ข้อมูลพนักงาน
+                ข้อมูลตำแหน่ง
             </h1>
                     <div class="row" style="padding-bottom: 1px;padding-left:5px;">
                     <div class="col-3">
 
-                        <input type="text" name="semp" id="semp" class="form-control">
+                        <input type="text" name="spos" id="spos" class="form-control">
                     </div>
                     <div class="col-2">
-                        <button type="button" onclick="search()" class = "btn btn-secondary">
+                        <button type="button" onclick="searchposi()" class = "btn btn-secondary">
                             <i class="fa fa-search"></i>
                         </button>
                     </div>
@@ -109,31 +109,54 @@
                     <thead>
                    
                         <tr>
-                            <th class="tableFixHead">Id</th>
-                            <th class="tableFixHead">Name</th>
-                            <th class="tableFixHead">Edit</th>
-                            <th class="tableFixHead">Delete</th>
+                            <th class="tableFixHead">รหัสตำแหน่ง</th>
+                            <th class="tableFixHead">ชื่อตำแหน่ง</th>
+                            <th class="tableFixHead">แก้ไข</th>
+                            <th class="tableFixHead">ลบ</th>
                             <!-- <th class="tableFixHead">Excel</th>
                             <th class="tableFixHead">PDF</th> -->
                         </tr>
                         </thead>
                         <tbody>
+                        <?php if($count_all > 0){?>
                         <?php foreach ($position as $r) { ?>
 
                             <tr nowrap>
                                 <td nowrap> <?php echo $r->Job_Id; ?></td>
                                 <td nowrap> <?php echo $r->job; ?></td>
                                 <td>
-                                    <!-- <button type="button" class="btn btn-warning btn-sm " name="edit"data-toggle="modal" data-target="#edit" onclick="edit1(id='<?php echo $r->Id ?>')"><i class="fa fa-user"></i></button> -->
                                     <a class="btn btn-warning" href="<?php echo site_url('Regis/editjob/').$r->Job_Id?>"><i class="fa fa-cog"></i></a>
                                 </td>
                                 <td nowrap style="text-align:center; vertical-align: middle;">
                                     <button type="button" class="btn btn-danger btn-sm " name="delete" onclick="deletejob(id='<?php echo $r->Job_Id ?>')"><i class="fa fa-trash"></i></button>
                         </td>
-                            <?php } ?>
+                        <?php } ?>
+                        <tr>   
+
+                        </tr>                    
+                        <?php }else{?>
+                    <tr>
+                        <td colspan="4">ไม่พบรายการข้อมูล</td>
+                    </tr>
+                    <?php }?>
                             
                 </table>
             </div>
+            <div style="width: 100%;" class="text-center">
+            <?php
+            $total_record = $count_all;
+            $total_page =  ceil($total_record / $pageend); ?>
+            <!-- สูตรคำนวนหาจำนวนหน้า -->
+
+            <p class="card-description"> เลือกหน้า
+                <select id="pageing_pos" oninput="pageing123_pos()">
+                    <option style="display: none;" value="<?php echo $numpage; ?>"><?php echo $numpage; ?></option>
+                    <?php for ($i = 1; $i <= $total_page; $i++) { ?>
+                        <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                    <?php } ?>
+                </select>
+                ทั้งหมด <?php echo $i - 1; ?> หน้า </p>
+        </div>
         </div>
         
     </center>
@@ -141,6 +164,22 @@
 
 </html>
 <script>
+
+function searchposi() {
+        
+        var datas = "spos=" + document.getElementById('spos').value
+            alert(datas);
+       
+        $.ajax({
+            type: "POST",
+            url: "<?php echo site_url('Welcome/pagingmain_pos') ?>",
+            data: datas,
+        }).done(function(data) {
+             $('#all').html(data);        
+        });
+        
+
+    }                     
 
     function deletejob(Job_Id) {
         var datas = "Job_Id=" + Job_Id;
@@ -155,18 +194,18 @@
     }
     }
 
-    function edit1(id) {
-        var datas = "id=" + id;
-        alert(datas);
+    // function edit1(id) {
+    //     var datas = "id=" + id;
+    //     alert(datas);
 
-        $.ajax({
-            type: "POST",
-            url: "<?php echo site_url('Regis/edit') ?>",
-            data: datas,
-        }).done(function(data) {
+    //     $.ajax({
+    //         type: "POST",
+    //         url: "<?php echo site_url('Regis/edit') ?>",
+    //         data: datas,
+    //     }).done(function(data) {
             
-        });
-    }
+    //     });
+    // }
 
     
 

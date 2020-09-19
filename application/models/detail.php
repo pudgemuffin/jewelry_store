@@ -38,18 +38,42 @@ class detail extends CI_Model
         
     }
     
-    function Position()
+    function Position($start,$pageend,$search)
     {
-        $query = "SELECT * FROM job";
+        $query = "SELECT * from( SELECT ROW_NUMBER()OVER ( ORDER By Job_Id )as row ,Job_Id,job
+                    FROM job
+                    WHERE Job_Id like '%%' $search
+                    )AA
+                    where row > $start AND row <=$pageend order by row";
 
         return $this->db->query($query)->result();
     }
 
-    function insertposition($posi)
+    function count_all_position($search)
     {
-        $query = "INSERT INTO job (job)
+        $query = "SELECT COUNT(*) as Count from( SELECT ROW_NUMBER()OVER ( ORDER By Job_Id )as row ,job
+                    FROM job
+                    WHERE Job_Id like '%%' $search )AA";
+
+        return $this->db->query($query)->result();
+    }
+
+    function maxidpos()
+    {
+        $query = "SELECT max(Job_Id) as Id FROM job";
+        $result = $this->db->query($query)->result();
+        foreach($result as $re){
+            return $re->Id;
+        }
+         
+    }
+
+
+    function insertposition($posid,$posi)
+    {
+        $query = "INSERT INTO job (Job_Id,job)
         values
-        ('$posi')";
+        ('$posid','$posi')";
 
         return $this->db->query($query);
     }

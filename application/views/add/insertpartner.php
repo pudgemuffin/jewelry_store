@@ -119,8 +119,8 @@
             <div class="row justify-content-center">
                 <div class="col-5" style="margin-bottom: 15px;">
 
-                    <button type="submit" class="btn btn-info">Insert</button>
-                    <a class="btn btn-danger" href="<?php echo site_url('company/partner') ?>">Cancel</a>
+                    <button type="submit" class="btn btn-info">เพิ่มข้อมูลบริษัท</button>
+                    <a class="btn btn-danger" href="<?php echo site_url('') ?>">ยกเลิก</a>
 
                 </div>
             </div>

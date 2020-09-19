@@ -449,12 +449,30 @@ class Regis extends CI_Controller
         $this->load->view('add/insertposition');
     }
 
+    public function posgenid()
+    {
+        $max = $this->detail->maxidpos();
+        $str = substr($max, 4) + 1;
+        $txt = "POS";
+        if ($str < 10) {
+            $posid = $txt . "00" . $str;
+        } elseif ($str >= 10 && $str <= 99) {
+            $posid = $txt . "0" . $str;
+        } elseif ($str <= 100) {
+            $posid = $txt . $str;
+        }
+
+        return $posid;
+        
+    }
+
     public function addposi()
     {
         $this->load->model('detail');
+        $posid = $this->posgenid();
         $posi = $this->input->post('posi');
 
-        $this->detail->insertposition($posi);
+        $this->detail->insertposition($posid,$posi);
 
         echo "<script> alert('เพิ่มตำแหน่งสำเร็จ');
 						window.location.href='/ER_GOLDV1/index.php/Welcome/viewposition';

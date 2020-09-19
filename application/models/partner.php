@@ -88,9 +88,9 @@ class partner extends CI_Model
         return $this->db->query($query)->result();
     }
 
-    function updatepart($partid, $partname, $partemail, $parttel, $partaddress)
+    function updatepart($partid, $partname, $partemail,$province,$amphur, $district,$postcode, $partaddress)
     {
-        $query = "UPDATE partner SET Part_Name = '$partname',Part_Email = '$partemail',Part_Tel = '$parttel',Part_Address = '$partaddress'
+        $query = "UPDATE partner SET Part_Name = '$partname',Part_Email = '$partemail',Part_Province = '$province',Part_Amphur = '$amphur',Part_District = '$district',Part_Postcode = '$postcode' ,Part_Address = '$partaddress'
             WHERE Part_Id = '$partid'";
 
         return $this->db->query($query);
