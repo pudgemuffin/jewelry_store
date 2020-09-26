@@ -145,7 +145,7 @@ class Welcome extends CI_Controller {
         
 		$this->load->model('detail');
         $start = 0;
-        $pageend = 3;
+        $pageend = 4;
         $data['numpage'] = 1;
         $data['pageend'] = $pageend;
         $search = '';
@@ -209,7 +209,7 @@ class Welcome extends CI_Controller {
         }
 
         $data['result'] = $this->partner->allpartner($start, $pageend,  $search);
-        $data['view'] = "detail/partner";
+        $data['view'] = "Detail/partner";
         $this->load->view('index',$data);
     }
 
@@ -247,7 +247,114 @@ class Welcome extends CI_Controller {
         $data['result'] = $this->partner->allpartner($start, $pageend,  $search);
         $this->load->view('Detail/partner', $data);
     }
+    public function protype()
+    {
+        $this->load->model('ergold');
+        $start = 0;
+        $pageend = 3;
+        $data['numpage'] = 1;
+        $data['pageend'] = $pageend;
+        $search = '';
 
+        $count_all = $this->ergold->count_protype($search);
+        foreach ($count_all as $value) {
+            $data['count_all'] = $value->Count;
+        }
+
+		$data['result'] = $this->ergold->allprotype($start, $pageend,  $search);
+        $data['view'] = "Detail/protype";
+        $this->load->view('index',$data);
+    }
+
+    public function pagingmain_type()
+    {
+		$this->load->model('ergold');
+		$page = $this->input->get('num_page');
+		
+        $pageend1 = 3;
+        if ($page != '') {
+            $page = $page;
+        } else {
+            $page = 1;
+		}		
+        $start = ($page - 1) * $pageend1;
+        $pageend = $page * $pageend1;
+        $data['numpage'] = $page;
+		$data['pageend'] = $pageend1;
+		
+
+        $txtsearch = $this->input->post('stype');
+        if($txtsearch != ''){
+            $txtsearch = "and  Prot_Id like '%$txtsearch%' or Prot_Name like '%$txtsearch%'";
+        }else{
+            $txtsearch = '';
+        }
+		$search = $txtsearch;
+
+
+        $count_all = $this->ergold->count_protype($search);
+        foreach ($count_all as $value) {
+            $data['count_all'] = $value->Count;
+        }
+
+        $data['result'] = $this->ergold->allprotype($start, $pageend,  $search);
+        $this->load->view('Detail/protype', $data);
+    }
+
+
+    public function product()
+    {
+        $this->load->model('ergold');
+        $start = 0;
+        $pageend = 3;
+        $data['numpage'] = 1;
+        $data['pageend'] = $pageend;
+        $search = '';
+
+        $count_all = $this->ergold->count_product($search);
+        foreach ($count_all as $value) {
+            $data['count_all'] = $value->Count;
+        }
+
+		$data['result'] = $this->ergold->allproduct($start, $pageend,  $search);
+        $data['view'] = "Detail/product";
+        $this->load->view('index',$data);
+    }
+
+    public function pagingmain_product()
+    {
+		$this->load->model('ergold');
+		$page = $this->input->get('num_page');
+		
+        $pageend1 = 3;
+        if ($page != '') {
+            $page = $page;
+        } else {
+            $page = 1;
+		}		
+        $start = ($page - 1) * $pageend1;
+        $pageend = $page * $pageend1;
+        $data['numpage'] = $page;
+		$data['pageend'] = $pageend1;
+		
+
+        $txtsearch = $this->input->post('spro');
+        if($txtsearch != ''){
+            $txtsearch = "and  p.Prod_Id LIKE '%$txtsearch%' or p.Prod_Name LIKE '%$txtsearch%' or p.Prod_Gram LIKE '%$txtsearch%' or t.Prot_Name LIKE '%$txtsearch%' or w.Weight_Name like '%$txtsearch%' or Fee like '%$txtsearch%' ";
+        }else{
+            $txtsearch = '';
+        }
+		$search = $txtsearch;
+
+
+        $count_all = $this->ergold->count_product($search);
+        foreach ($count_all as $value) {
+            $data['count_all'] = $value->Count;
+        }
+
+        $data['result'] = $this->ergold->allproduct($start, $pageend,  $search);
+        $this->load->view('Detail/product', $data);
+    }
 
 	public function lay()
 	{

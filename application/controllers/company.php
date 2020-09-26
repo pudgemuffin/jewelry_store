@@ -28,13 +28,13 @@ class company extends CI_Controller
     {
         
         $max = $this->partner->maxparterid();
-        $str = substr($max, 5) + 1;
+        $str = substr($max, 4) + 1;
         $txt = "PART";
         if ($str < 10) {
             $partid = $txt . "00" . $str;
         } elseif ($str >= 10 && $str <= 99) {
             $partid = $txt . "0" . $str;
-        } elseif ($str <= 100) {
+        } elseif ($str >= 100) {
             $partid = $txt . $str;
         }
 

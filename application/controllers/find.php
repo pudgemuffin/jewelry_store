@@ -14,12 +14,12 @@ class find extends CI_Controller
         $this->load->model('detail');
         $this->load->database();
     }
-    public function searchemp()
-    {
-        $txtsearch = $this->input->post('semp');
-        $data['result'] = $this->detail->empdata($txtsearch);
-        $data['view'] = "Detail/emp";
-		$this->load->view('index',$data);
-    }
+    // public function searchemp()
+    // {
+    //     $txtsearch = $this->input->post('semp');
+    //     $data['result'] = $this->detail->empdata($txtsearch);
+    //     $data['view'] = "Detail/emp";
+	// 	$this->load->view('index',$data);
+    // }
 }
 ?>

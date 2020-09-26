@@ -60,6 +60,19 @@ class customer extends CI_Model
 
         return $this->db->query($query)->result();
     }
+
+    function count_cus_tel($id,$cus_tel)
+    {
+        $query = "SELECT COUNT(*) as Count from cus_telephone where Id = '$id' and cus_tel = '$cus_tel'";
+
+        $result =  $this->db->query($query)->result();
+       
+        foreach($result as $re){
+            return $re->Count;
+        }
+        
+    }
+
     function custeldel($cusid)
     {
         $query = "DELETE FROM cus_telephone WHERE Id = '$cusid'";

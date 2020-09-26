@@ -55,7 +55,8 @@
                                 <a class="nav-link" href="<?php echo site_url('Welcome/viewcust'); ?>"style="background-color: #CD3838;font-size:16px;color:#ffffff;">ลูกค้า</a>
                                 <a class="nav-link" href="<?php echo site_url('Welcome/partner'); ?>"style="background-color: #CD3838;font-size:16px;color:#ffffff;">บริษัทคู่ค้า</a>
                                 <a class="nav-link" href="<?php echo site_url('Welcome/viewposition'); ?>"style="background-color: #CD3838;font-size:16px;color:#ffffff;">ตำแหน่ง</a>
-                                <a class="nav-link" href="<?php echo site_url('Regis/register'); ?>"style="background-color: #CD3838;font-size:16px;color:#ffffff;">Register</a>
+                                <a class="nav-link" href="<?php echo site_url('Welcome/product'); ?>"style="background-color: #CD3838;font-size:16px;color:#ffffff;">สินค้า</a>
+                                
                                 <?//ต้องส่งไปcontroller แล้วเรียกview?>
                             </nav>
                         </div>
@@ -67,8 +68,8 @@
                         </a>
                         <div class="collapse" id="collapsegoldtype" aria-labelledby="headingOne" data-parent="#sidenavAccordion"style="background-color: #CD3838;" >
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="<?php echo site_url('Welcome/index'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;">ทองคํารูปพรรณ</a>
-                                <a class="nav-link" href="<?php echo site_url('Welcome/viewcust'); ?>"style="background-color: #CD3838;font-size:16px;color:#ffffff;">ทองคำแท่ง</a>                               
+                                <a class="nav-link" href="<?php echo site_url('Welcome/protype'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;">ประเภททองคำ</a>
+                                <a class="nav-link" href="<?php echo site_url('Welcome/viewcust'); ?>"style="background-color: #CD3838;font-size:16px;color:#ffffff;">ทองคำหลุดจำนำ</a>                               
                             </nav>
                         </div>
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
@@ -136,27 +137,7 @@
                     </div>
                         
                             </form>
-                    <!-- <div class="row">
-                        <div class="col-xl-6">
-                            <div class="card mb-4">
-                                <div class="card-header">
-                                    <i class="fas fa-chart-area mr-1"></i>
-                                    Area Chart Example
-                                </div>
-                                <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
-                            </div>
-                        </div>
-                        <div class="col-xl-6">
-                            <div class="card mb-4">
-                                <div class="card-header">
-                                    <i class="fas fa-chart-bar mr-1"></i>
-                                    Bar Chart Example
-                                </div>
-                                <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
+                   
             </main>
             <footer class="py-4 bg-light mt-auto">
                 <div class="container-fluid">
@@ -182,11 +163,11 @@
     <script src="<?php echo base_url('assets/demo/datatables-demo.js')?>"></script>
     
 
-    <!-- <div class="modal fade" id="Add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- <div class="modal fade" id="Addprotype" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h3 class="modal-title" id="exampleModalLabel">Add Employee</h3>
+                        <h3 class="modal-title" id="exampleModalLabel">Add protype</h3>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -254,6 +235,20 @@ function pageing123_emp() {
         $.ajax({
             type: "POST",
             url: "<?php echo site_url('Welcome/pagingmain_pos?num_page=') ?>" + num_page,
+            data: $("#search_form").serialize(),
+        }).done(function(data) {
+            console.log(data);
+             $('#all').html(data);
+
+        });
+    }
+
+    function pageing123_type() {
+        var num_page = document.getElementById('pageing_type').value;
+           alert(num_page);
+        $.ajax({
+            type: "POST",
+            url: "<?php echo site_url('Welcome/pagingmain_type?num_page=') ?>" + num_page,
             data: $("#search_form").serialize(),
         }).done(function(data) {
             console.log(data);

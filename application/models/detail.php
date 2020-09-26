@@ -37,6 +37,8 @@ class detail extends CI_Model
         }
         
     }
+
+    
     
     function Position($start,$pageend,$search)
     {
@@ -46,6 +48,12 @@ class detail extends CI_Model
                     )AA
                     where row > $start AND row <=$pageend order by row";
 
+        return $this->db->query($query)->result();
+    }
+    
+    function callposition()
+    {
+        $query = "SELECT Job_Id,job from job";
         return $this->db->query($query)->result();
     }
 

@@ -27,7 +27,7 @@ class Regis extends CI_Controller
 
     public function insert()
     {
-        $data['pos']   = $this->detail->Position();
+        $data['pos']   = $this->detail->callposition();
         $data['province'] = $this->detail->Province();
         $data['amphur'] = $this->detail->Amphur();
         $data['district'] = $this->detail->District();
@@ -38,13 +38,15 @@ class Regis extends CI_Controller
     public function empidgen()
     {
         $max = $this->detail->maxid();
-        $str = substr($max, 4) + 1;
+        $str = substr($max, 3) + 1;
         $txt = "EMP";
-        if ($str < 10) {
+        if($str == ''){
+            $empid = "EMP001";
+        }elseif ($str < 10) {
             $empid = $txt . "00" . $str;
         } elseif ($str >= 10 && $str <= 99) {
             $empid = $txt . "0" . $str;
-        } elseif ($str <= 100) {
+        } elseif ($str >= 100) {
             $empid = $txt . $str;
         }
 
@@ -172,7 +174,7 @@ class Regis extends CI_Controller
         $data['province'] = $this->detail->Province();
         $data['amphur'] = $this->detail->Amphur();
         $data['district'] = $this->detail->District();
-        $data['position'] = $this->detail->position();
+        $data['position'] = $this->detail->callposition();
 
 
         $this->load->view('add/edit', $data);
@@ -206,7 +208,7 @@ class Regis extends CI_Controller
 
         if (empty($_FILES['empim']['name'])) {
 
-
+            
             $this->detail->updatenoimg($id, $idcard, $nametitle, $fname, $lname, $gender, $religion, $blood, $empdate, $email, $pos, $province, $amphur, $district, $postcode, $det, $status, $startdate, $salary, $national);
 
             $this->detail->empteldel($id);           
@@ -231,8 +233,8 @@ class Regis extends CI_Controller
             $config['max_size'] = '2000';
             $config['max_width'] = '3000';
             $config['max_height'] = '3000';
-            $this->load->library('upload', $config);
             $config['file_name'] = $id;
+            $this->load->library('upload', $config);
             if (!$this->upload->do_upload('empim')) {
                 $oldImg = $this->input->post('oldImg');
                 // echo $this->upload->display_errors();
@@ -270,9 +272,9 @@ class Regis extends CI_Controller
             }
 
 
-        // echo "<script> alert('แก้ไขข้อมูลพนักงานสำเร็จ');
-        // window.location.href='/ER_GOLDV1/index.php';
-        // </script>";
+        echo "<script> alert('แก้ไขข้อมูลพนักงานสำเร็จ');
+        window.location.href='/ER_GOLDV1/index.php';
+        </script>";
         }
     }
 
@@ -282,18 +284,22 @@ class Regis extends CI_Controller
         $ye = substr(date("Y"), 2) . date("m");
         $this->load->model('customer');
         $max = $this->customer->maxid();
-        $str = substr($max, 4) + 1;
+        $str = substr($max, 3) +1;
         $txt = "CUS";
-        if ($str < 10) {
+        if($str == ''){
+            $cusid = "CUS".$ye."001";
+        }elseif ($str < 10) {
             $cusid = $txt . $ye . "00" . $str;
         } elseif ($str >= 10 && $str <= 99) {
-            $cusid = $txt . "0" . $str;
-        } elseif ($str <= 100) {
-            $cusid = $txt . $str;
+            $cusid = $txt . $ye ."0" . $str;
+        } elseif ($str >= 100) {
+            $cusid = $txt . $ye . $str;
         }
-
-        // return $cusid;
         echo $cusid;
+        return $cusid;
+        
+        
+        
     }
 
 
@@ -311,18 +317,21 @@ class Regis extends CI_Controller
 
     public function cusidgen()
     {
+        $ye = substr(date("Y"), 2) . date("m");
         $this->load->model('customer');
         $max = $this->customer->maxid();
-        $str = substr($max, 4) + 1;
+        $str = substr($max, 3) +1;
         $txt = "CUS";
-        if ($str < 10) {
-            $cusid = $txt . "00" . $str;
+        if($str == ''){
+            $cusid = "CUS".$ye."001";
+        }elseif ($str < 10) {
+            $cusid = $txt . $ye . "00" . $str;
         } elseif ($str >= 10 && $str <= 99) {
-            $cusid = $txt . "0" . $str;
-        } elseif ($str <= 100) {
-            $cusid = $txt . $str;
+            $cusid = $txt . $ye ."0" . $str;
+        } elseif ($str >= 100) {
+            $cusid = $txt . $ye . $str;
         }
-
+        
         return $cusid;
     }
 
@@ -360,11 +369,17 @@ class Regis extends CI_Controller
 
         $CusId = $this->customer->maxid();
 
-        foreach ($cus_tel as $tel) {
-            $data['inserttel'] = $this->customer->custel(
-                $CusId,
-                $tel
+        $cus_tel = $this->input->post('cus_tel');
+
+        foreach ($cus_tel as $et) {
+            $data = array(
+                'cus_tel' => $et,
+                'Id' => $CusId
             );
+            $checktel = $this->customer->count_cus_tel($CusId, $et);
+            if ($checktel == 0) {
+                $this->customer->custel($CusId, $et);
+            }
         }
         echo "<script> alert('สมัครสำเร็จ');
                         window.location.href='/ER_GOLDV1/index.php/Welcome/viewcust';
@@ -422,11 +437,17 @@ class Regis extends CI_Controller
         $this->customer->editcust($cusid, $cusfname, $cuslname, $cusgender, $cusemail, $custel, $province, $amphur, $district, $postcode, $cusaddress); //ไปทำModelต่อ
 
         $this->customer->custeldel($cusid);
-        foreach ($cus_tel as $tel) {
-            $data['updatecustel'] = $this->customer->updatecustel(
-                $cusid,
-                $tel
+        $cus_tel = $this->input->post('cus_tel');
+
+        foreach ($cus_tel as $et) {
+            $data = array(
+                'cus_tel' => $et,
+                'Id' => $cusid
             );
+            $checktel = $this->customer->count_cus_tel($cusid, $et);
+            if ($checktel == 0) {
+                $this->customer->custel($cusid, $et);
+            }
         }
         echo "<script> alert('แก้ไขข้อมูลลูกค้าสำเร็จ');
 							window.location.href='/ER_GOLDV1/index.php/Welcome/viewcust';
@@ -452,13 +473,15 @@ class Regis extends CI_Controller
     public function posgenid()
     {
         $max = $this->detail->maxidpos();
-        $str = substr($max, 4) + 1;
+        $str = substr($max, 3) + 1;
         $txt = "POS";
-        if ($str < 10) {
+        if($str == ''){
+            $posid = "POS001";
+        }elseif ($str < 10) {
             $posid = $txt . "00" . $str;
         } elseif ($str >= 10 && $str <= 99) {
             $posid = $txt . "0" . $str;
-        } elseif ($str <= 100) {
+        } elseif ($str >= 100) {
             $posid = $txt . $str;
         }
 
@@ -561,4 +584,6 @@ class Regis extends CI_Controller
         $data['result'] = $this->detail->postcodec($district);
         $this->load->view('change/changepos', $data);
     }
+
+    
 }
