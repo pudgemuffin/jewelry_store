@@ -130,12 +130,53 @@ class ergold extends CI_Model
         return $this->db->query($query)->result();
     }
 
+    function prodbyid($prodid)
+    {
+        $query = "SELECT * from product where Prod_Id = '$prodid'";
+        return $this->db->query($query)->result();
+    }
+    function ringbyid($prodid)
+    {
+        $query = "SELECT r.Prod_Id,r.Size as size,p.Prod_Name,p.Prod_Type as Type,p.Prod_Weight,p.Prod_Gram,p.Fee,Prod_Img from rings r 
+        INNER JOIN product p on p.Prod_Id = r.Prod_Id
+        Where r.Prod_Id = '$prodid'";
+        return $this->db->query($query)->result();
+    }
+
+    function ring()
+    {
+        $query = "SELECT Prot_Id,Prot_Name FROM protype WHERE Prot_Name like '%แหวน%'";
+        return $this->db->query($query)->result();
+    }
+
+    function checkprodring($prodid)
+    {
+        $query = "SELECT count(*) as COUNT
+            from rings where Prod_Id = '$prodid'";
+        return $this->db->query($query)->result();
+    }
+
+    function size()
+    {
+        $query = "SELECT Id,Size FROM size";
+        return $this->db->query($query)->result();
+    }
+
     function insertprod($prodid,$prodtype,$prodname,$prodweight,$prodgram,$fee,$filename)
     {
         $query = "INSERT INTO product (Prod_Id,Prod_Type,Prod_Name,Prod_Weight,Prod_Gram,Fee,Prod_Img)
                     values
                     ('$prodid','$prodtype','$prodname','$prodweight','$prodgram','$fee','$filename')";
         return $this->db->query($query); 
+    }
+
+    function insertring($prodid,$size)
+    {
+        $query = "INSERT INTO rings (Prod_Id,Size)
+                    values
+                    ('$prodid','$size')";
+
+        return $this->db->query($query);
     }
 
     

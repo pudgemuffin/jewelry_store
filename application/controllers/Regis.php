@@ -33,6 +33,7 @@ class Regis extends CI_Controller
         $data['district'] = $this->detail->District();
         // $data['view'] = "add/insertemp";
         $this->load->view('add/insertemp', $data);
+        // $this->load->view('index',$data);
     }
 
     public function empidgen()
@@ -150,8 +151,10 @@ class Regis extends CI_Controller
                         }
                     }
                     echo "<script> alert('เพิ่มข้อมูลพนักงานสำเร็จ');
-						window.location.href='/ER_GOLDV1/index.php';
-						</script>";
+						window.location.href='/ER_GOLDV1/index.php/Welcome/employee';
+                    	</script>";
+                    // $this->load->helper('url');
+                    // redirect('employee', 'refresh');
                 } else {
                     echo "<script> alert ('พบพนักงานแล้ว')</script>";
 
@@ -176,7 +179,8 @@ class Regis extends CI_Controller
         $data['district'] = $this->detail->District();
         $data['position'] = $this->detail->callposition();
 
-
+        // $data['view'] = "add/edit";
+        // $this->load->view('index',$data);
         $this->load->view('add/edit', $data);
     }
 
@@ -224,8 +228,10 @@ class Regis extends CI_Controller
             }
             
             echo "<script> alert('แก้ไขข้อมูลพนักงานสำเร็จ');
-            window.location.href='/ER_GOLDV1/index.php';
+            window.location.href='/ER_GOLDV1/index.php/Welcome/employee';
             </script>";
+        
+
         } else {
 
             $config['upload_path'] = './img/';
@@ -273,7 +279,7 @@ class Regis extends CI_Controller
 
 
         echo "<script> alert('แก้ไขข้อมูลพนักงานสำเร็จ');
-        window.location.href='/ER_GOLDV1/index.php';
+        window.location.href='/ER_GOLDV1/index.php/Welcome/employee';
         </script>";
         }
     }

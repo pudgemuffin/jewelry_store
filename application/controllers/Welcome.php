@@ -34,7 +34,12 @@ class Welcome extends CI_Controller {
 	
 	public function index()
 	{
-		$this->load->model('detail');
+		$this->load->view('login.php');
+    }
+    
+    public function employee()
+    {
+        $this->load->model('detail');
         $start = 0;
         $pageend = 4;
         $data['numpage'] = 1;
@@ -49,7 +54,7 @@ class Welcome extends CI_Controller {
 		$data['result'] = $this->detail->empdata($start, $pageend,  $search);
 		$data['view'] = "Detail/emp";
 		$this->load->view('index',$data);
-	}
+    }
 
 	public function pagingmain_emp()
     {

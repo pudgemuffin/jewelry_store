@@ -94,6 +94,14 @@ class product extends CI_Controller
         $this->load->view('add/insertproduct', $data);
     }
 
+    public function addring()
+    {
+        $data['protype'] = $this->ergold->ring();
+        $data['size'] = $this->ergold->size();
+        $data['weight'] = $this->ergold->weight();
+        $this->load->view('add/insertring', $data);
+    }
+
     public function grams()
     {
         $prodweight = $this->input->post('prodweight');
@@ -186,7 +194,7 @@ class product extends CI_Controller
                         $filename
                     );
                     echo "<script> alert('เพิ่มข้อมูลสินค้าสำเร็จ');
-						window.location.href='/ER_GOLDV1/index.php';
+						window.location.href='/ER_GOLDV1/index.php/Welcome/product';
 						</script>";
                 } else {
                     echo "<script> alert ('พบชื่อสินค้าซ้ำ')</script>";
@@ -198,5 +206,106 @@ class product extends CI_Controller
                 }
             }
         }
+    }
+    public function insertring()
+    {
+        $prodid = $this->genidproduct();
+        $prodtype = $this->input->post('prodtype');
+        $prodname = $this->input->post('prodname');
+        $prodweight = $this->input->post('prodweight');
+        $prodgram = $this->input->post('prodgram');
+        $fee = $this->input->post('fee');
+        $size = $this->input->post('size');
+
+        // echo $prodid."<br>";
+        // echo $prodtype."<br>";
+        // echo $prodname."<br>";
+        // echo $prodweight."<br>";
+        // echo $prodgram."<br>";
+        // echo $fee."<br>";
+
+        $config['upload_path'] = './img/product';
+        $config['allowed_types'] = 'gif|jpg|png';
+        $config['max_size'] = '2000';
+        $config['max_width'] = '3000';
+        $config['max_height'] = '3000';
+        $config['file_name'] = $prodid;
+        $this->load->library('upload', $config);
+
+
+        if (!$this->upload->do_upload('prodim')) {
+            // echo $this->upload->display_errors();
+            echo "<script> alert ('ไฟล์รูปภาพไม่ถูกต้อง')</script>";
+
+            $data['protype'] = $this->ergold->protype();
+            $data['weight'] = $this->ergold->weight();
+            $this->load->view('add/insertproduct', $data);
+        } else {
+            $data = $this->upload->data();
+            $filename = $data['file_name'];
+
+            $data1['getcheck'] = $this->ergold->checkinsertprod($prodname);
+            foreach ($data1['getcheck'] as $value) {
+                $count = $value->COUNT;
+                if ($count == 0) {
+
+                    $data['insert'] = $this->ergold->insertprod(
+                        $prodid,
+                        $prodtype,
+                        $prodname,
+                        $prodweight,
+                        $prodgram,
+                        $fee,
+                        $filename
+                    );
+                    $data['insert1'] = $this->ergold->insertring(
+                        $prodid,
+                        $size
+                    );
+                    echo "<script> alert('เพิ่มข้อมูลสินค้าสำเร็จ');
+						window.location.href='/ER_GOLDV1/index.php/Welcome/product';
+						</script>";
+                } else {
+                    echo "<script> alert ('พบชื่อสินค้าซ้ำ')</script>";
+
+                    $data['size'] = $this->ergold->size();
+                    $data['protype'] = $this->ergold->protype();
+                    $data['weight'] = $this->ergold->weight();
+                    $this->load->view('add/insertproduct', $data);
+                }
+            }
+        }
+    }
+
+    public function editbutton($prodid)
+    {
+        $data['getcheck'] = $this->ergold->checkprodring($prodid);
+        foreach ($data['getcheck'] as $value) {
+            $count = $value->COUNT;
+            if ($count == 0) {
+
+                $data['editprod'] = $this->ergold->prodbyid($prodid);
+                $data['protype'] = $this->ergold->protype();
+                $data['weight'] = $this->ergold->weight();
+                // $data['view'] = "add/editproduct";
+                // $this->load->view('index', $data);
+                $this->load->view('add/editproduct',$data);
+
+            }else{
+                $data['editprod'] = $this->ergold->ringbyid($prodid);
+                $data['protype'] = $this->ergold->protype();
+                $data['weight'] = $this->ergold->weight();
+                $data['size'] = $this->ergold->size();
+                // $data['view'] = "add/editring";
+                // $this->load->view('index', $data);
+                $this->load->view('add/editring',$data);
+            }
+        }
+
+    }
+    
+    public function editproduct()
+    {
+
     }
 }

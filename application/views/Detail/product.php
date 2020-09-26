@@ -67,7 +67,7 @@
     <div class="card">
         <div class="card-body">
             <h1 style="text-align: center;">
-                ข้อมูลพนักงาน
+                ข้อมูลสินค้า
             </h1>
                     <div class="row" style="padding-bottom: 1px;padding-left:5px;">
                     <div class="col-3">
@@ -83,8 +83,9 @@
 
                 </div><br>
                 <a class="btn btn-primary" target="_blank" href="<?php echo site_url('product/addproduct'); ?>">เพิ่มสินค้า</a>
+                <a class="btn btn-info" target="_blank" href="<?php echo site_url('product/addring'); ?>">เพิ่มสินค้าแหวน</a>
         </div>
-        <p style="text-align: right;">ข้อมูลพนักงานทั้งหมด <?php echo $count_all; ?> คน</p>
+        <p style="text-align: right;">ข้อมูลสินค้าทั้งหมด <?php echo $count_all; ?></p>
     </div>
 
     <center>
@@ -124,7 +125,7 @@
 
                                 <td  style="text-align:center; vertical-align: middle;">
                                     <!-- <button type="button" class="btn btn-warning btn-sm " name="edit"data-toggle="modal" data-target="#edit" onclick="edit1(id='<?php echo $r->Id ?>')"><i class="fa fa-user"></i></button> -->
-                                    <a class="btn btn-warning" href="<?php echo site_url('Regis/edit/') . $r->Prod_Id ?>"><i class="fa fa-cog"></i></a>
+                                    <a class="btn btn-warning" href="<?php echo site_url('product/editbutton/') . $r->Prod_Id ?>"><i class="fa fa-cog"></i></a>
                                 </td>
                                 <td nowrap style="text-align:center; vertical-align: middle;">
                                     <button type="button" class="btn btn-danger btn-sm " name="delete" onclick="delete1(id='<?php echo $r->Prod_Id ?>')"><i class="fa fa-trash"></i></button>

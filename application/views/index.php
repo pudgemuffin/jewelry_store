@@ -51,7 +51,7 @@
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion"style="background-color: #CD3838;" >
                             <nav class="sb-sidenav-menu-nested nav">
                                 <!-- <a class="nav-link" href="<?php echo site_url('Welcome/lay'); ?>">Static Navigation</a> -->
-                                <a class="nav-link" href="<?php echo site_url('Welcome/index'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;">พนักงาน</a>
+                                <a class="nav-link" href="<?php echo site_url('Welcome/employee'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;">พนักงาน</a>
                                 <a class="nav-link" href="<?php echo site_url('Welcome/viewcust'); ?>"style="background-color: #CD3838;font-size:16px;color:#ffffff;">ลูกค้า</a>
                                 <a class="nav-link" href="<?php echo site_url('Welcome/partner'); ?>"style="background-color: #CD3838;font-size:16px;color:#ffffff;">บริษัทคู่ค้า</a>
                                 <a class="nav-link" href="<?php echo site_url('Welcome/viewposition'); ?>"style="background-color: #CD3838;font-size:16px;color:#ffffff;">ตำแหน่ง</a>
