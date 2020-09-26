@@ -34,7 +34,22 @@ class Welcome extends CI_Controller {
 	
 	public function index()
 	{
-		$this->load->view('login.php');
+        // $this->load->view('login.php');
+        $this->load->model('detail');
+        $start = 0;
+        $pageend = 4;
+        $data['numpage'] = 1;
+        $data['pageend'] = $pageend;
+        $search = "and e.Id like '%%'";
+
+        $count_all = $this->detail->count_all_emp($search);
+        foreach ($count_all as $value) {
+            $data['count_all'] = $value->Count;
+        }
+
+		$data['result'] = $this->detail->empdata($start, $pageend,  $search);
+		$data['view'] = "Detail/emp";
+		$this->load->view('index',$data);
     }
     
     public function employee()

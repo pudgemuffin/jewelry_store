@@ -179,6 +179,28 @@ class ergold extends CI_Model
         return $this->db->query($query);
     }
 
+    function updatepronoimg($prodid,$prodtype,$prodname,$prodweight,$prodgram,$fee)
+    {
+        $query = "UPDATE product SET  Prod_Type = '$prodtype', Prod_Name = '$prodname', Prod_Weight = '$prodweight'
+                  ,Prod_Gram = '$prodgram', Fee = '$fee' WHERE Prod_Id = '$prodid' ";
+        return $this->db->query($query);
+    }
+    function updatepro($prodid,$prodtype,$prodname,$prodweight,$prodgram,$fee,$filename)
+    {
+        $query = "UPDATE product SET  Prod_Type = '$prodtype', Prod_Name = '$prodname', Prod_Weight = '$prodweight'
+                  ,Prod_Gram = '$prodgram', Fee = '$fee',Prod_Img = '$filename' WHERE Prod_Id = '$prodid' ";
+        return $this->db->query($query);
+    }
+    function ringdel($prodid)
+    {
+        $query = "DELETE FROM rings WHERE Prod_Id = '$prodid'";
+        return $this->db->query($query);
+    }
+    function updatering($prodid,$size)
+    {
+        $query = "UPDATE rings SET Size = '$size' WHERE Prod_Id = '$prodid'";
+        return $this->db->query($query);
+    }
     
 }
 

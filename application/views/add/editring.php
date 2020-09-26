@@ -21,16 +21,16 @@
     <center>
         <h2 style="margin-top: 5px;">แก้ไขข้อมูลสินค้า</h2><Br>
     </center>
-    <form action="<?php echo site_url('product/editproduct') ?>" method="post" enctype="multipart/form-data">
+    <form action="<?php echo site_url('product/updatering') ?>" method="post" enctype="multipart/form-data">
         <?php echo validation_errors(); ?>
         <?php foreach($editprod as $ed){ ?>
         <div style="margin-left: 20px">
             <div class="row justify-content-center">
                 <div class="col-5">
-                <input type="text" name="oldImg" id="oldImg" value="<?php echo $ed->Prod_Img; ?>"hidden>
                 <img id = "preimage" width="150px" height="150px" src="<?php echo base_url('/img/product/'.$ed->Prod_Img);?>">
                     <label>รูปภาพสินค้า</label>
-                    <input type="file" name="prodim" id="prodim" accept="image/*" onchange="loadimg(event)" required oninvalid="this.setCustomValidity('กรุณาเลือกรูป')" oninput="setCustomValidity('')">
+                    <input type="file" name="prodim" id="prodim" accept="image/*" onchange="loadimg(event)"  oninvalid="this.setCustomValidity('กรุณาเลือกรูป')" oninput="setCustomValidity('')">
+                    <input type="text" name="oldImg" id="oldImg" value="<?php echo $ed->Prod_Img; ?>"hidden>
                 </div>
             </div>
             <div class="row justify-content-center">
@@ -100,7 +100,7 @@
             <div class="row justify-content-center">
                 <div class="col-5" style="margin-bottom: 15px;">
 
-                    <button type="submit"  class="btn btn-info" value="<?php echo $ed->Prod_Id; ?>">เพิ่มข้อมูลสินค้า</button>
+                    <button type="submit"  class="btn btn-info" name="updateRing" id="updateRing" value="<?php echo $ed->Prod_Id; ?>">แก้ไขข้อมูลสินค้า</button>
                     <a class="btn btn-danger"  href="<?php echo site_url('') ?>">ยกเลิก</a>
 
                 </div>
