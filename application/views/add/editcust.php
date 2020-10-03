@@ -26,7 +26,7 @@
                                 </div>
                                 <div class="card-body">
                                 <?php foreach ($editcust as $e){?>
-                                    <form action="<?php echo site_url('Regis/updatecust') ?>" method="post">
+                                    <form action="<?php echo site_url('customercon/updatecust') ?>" method="post">
                                         <div class="form-group">
                                             <label>ชื่อ :</label>
                                             <input class="form-control py-4" id="cusfname" name="cusfname" type="text" placeholder="Enter first name" value="<?php echo $e->Cus_fname ?>" />
@@ -118,7 +118,7 @@
                                         </textarea>
                                         <div class="form-group mt-4 mb-0">
                                                 
-                                        <button type="submit" class="btn btn-primary btn-block" value="<?php echo $e->Cus_Id;?>" name="Updateacc">Update Account</button>
+                                        <button type="submit" class="btn btn-primary btn-block" value="<?php echo $e->Cus_Id;?>" name="Updateacc">แก้ไขข้อมูลลูกค้า</button>
                                     </div>
                                     </form>
                                             <?php } ?>

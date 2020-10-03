@@ -19,20 +19,20 @@
 
 <body>
     <?php foreach ($editjob as $e){?>
-    <form action="<?php echo site_url('Regis/updatejob') ?>" method="post">
+    <form action="<?php echo site_url('positioncon/updatejob') ?>" method="post">
         <?php echo validation_errors(); ?>
         <div style="margin-left: 20px">
             <div class="row justify-content-center">
                 <div class="col-5">
                     <label>ชื่อตำแหน่ง</label>
-                    <input class="form-control" type=text name="posi" id="posi" value = "<?php echo $e->job;?>"required>
+                    <input class="form-control" type=text name="posi" id="posi" value = "<?php echo $e->Pos_Name;?>">
                 </div>
             </div><br>
             <div class="row justify-content-center">
                 <div class="col-5">
 
-                    <button type="submit" class="btn btn-info" name="updatejob" value="<?php echo $e->Job_Id;?>">Update</button>
-                    <a class="btn btn-danger" href="<?php echo site_url('Welcome/viewposition') ?>">Cancel</a>
+                    <button type="submit" class="btn btn-info" name="updatejob" value="<?php echo $e->Pos_Id;?>">แก้ไขตำแหน่ง</button>
+                    <a class="btn btn-danger" href="<?php echo site_url('Welcome/viewposition') ?>">ยกเลิก</a>
 
                 </div>
             </div>

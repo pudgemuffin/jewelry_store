@@ -19,23 +19,85 @@
 
 <body>
 
-    <form action="<?php echo site_url('Regis/addposi') ?>" method="post">
+    <form action="<?php echo site_url('positioncon/addposi') ?>" method="POST">
         <?php echo validation_errors(); ?>
         <div style="margin-left: 20px">
             <div class="row justify-content-center">
                 <div class="col-5">
                     <label>ชื่อตำแหน่ง</label>
-                    <input class="form-control" type=text name="posi" id="posi" required>
+                    <input class="form-control" type=text name="posi" id="posi" >
+                    <div class = "error"></div>
                 </div>
             </div><br>
             <div class="row justify-content-center">
+                <label>ชื่อตำแหน่ง</label>
+                <div class="col-2">
+                    <div class="checkbox">
+                        <input type="hidden" name="box1" id="box1" value="0">
+                        <label><input type="checkbox" name="box1" id="box1" value="1">การจัดการข้อมูลพนักงาน</label>      
+                    </div>
+                    <div class="checkbox">
+                        <input type="hidden" name="box2" id="box2" value="0" >
+                        <label><input type="checkbox" name="box2" id="box2" value="1">การจัดการข้อมูลลูกค้า</label>
+                    </div>
+                    <div class="checkbox">
+                        <input type="hidden" name="box3" id="box3" value="0" >
+                        <label><input type="checkbox" name="box3" id="box3" value="1" >การจัดการข้อมูลบริษัทคู่ค้า</label>
+                    </div>
+                    <div class="checkbox">
+                        <input type="hidden" name="box4" id="box4" value="0" >
+                        <label><input type="checkbox" name="box4" id="box4" value="1" >การจัดการข้อมูลตำแหน่ง</label>
+                    </div>
+                    <div class="checkbox">
+                        <input type="hidden" name="box5" id="box5" value="0" >
+                        <label><input type="checkbox" name="box5" id="box5" value="1" >การจัดการข้อมูลสินค้า</label>
+                    </div>
+                    
+                </div>
+                <div class="col-3">
+                    <div class="checkbox">
+                        <input type="hidden" name="box6" id="box6" value="0" >
+                        <label><input type="checkbox" name="box6" id="box6" value="1">การจำนำ</label>
+                    </div>
+                    <div class="checkbox">
+                        <input type="hidden" name="box7" id="box7" value="0" >
+                        <label><input type="checkbox" name="box7" id="box7" value="1">การขายสินค้า</label>
+                    </div>
+                    <div class="checkbox">
+                        <input type="hidden" name="box8" id="box8" value="0" >
+                        <label><input type="checkbox" name="box8" id="box8" value="1" >การสั่งซื้อสินค้า</label>
+                    </div>
+                    <div class="checkbox">
+                        <input type="hidden" name="box9" id="box9" value="0" >
+                        <label><input type="checkbox" name="box9" id="box9" value="1" >การออกรายงาน</label>
+                    </div>
+                    <div class="checkbox">
+                        <input type="hidden" name="box10" id="box10" value="0" >
+                        <label><input type="checkbox" name="box10" id="box10" value="1" >ทั้งหมด</label>
+                    </div>
+                </div>
+            </div><br>
+
+            <div class="row justify-content-center">
                 <div class="col-5">
 
-                    <button type="submit" class="btn btn-info">เพิ่มตำแหน่ง</button>
-                    <a class="btn btn-danger" href="<?php echo site_url('Welcome/viewposition') ?>">Cancel</a>
+                    <button type="submit" id="insert" class="btn btn-info">เพิ่มตำแหน่ง</button>
+                    <a class="btn btn-danger" href="<?php echo site_url('Welcome/viewposition') ?>">ยกเลิก</a>
 
                 </div>
             </div>
+            <br>
         </div>
     </form>
 </body>
+<script>
+$(document).ready(function() {
+  $('#insert').click(function() {
+    if (!$('#posi').val()) {
+      $('.error').css('color','red');
+      $('.error').html('ไอ้สัสแตม');
+      return false;
+    }
+  })
+});
+</script>

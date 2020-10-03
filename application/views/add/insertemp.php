@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Page Title - SB Admin</title>
+    <title>เพิ่มข้อมูลพนักงาน</title>
     <!-- <link href="assets/css/styles.css" rel="stylesheet" /> -->
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
@@ -117,7 +117,7 @@ body{
             <div class="row justify-content-center">
                 <div class="col-5">
                     <label>ว/ด/ป เกิด:</label>
-                    <input class="form-control" type="date" name="empdate" id="empdate" required oninvalid="this.setCustomValidity('กรุณาใส่ ว/ด/ป เกิด')" oninput="setCustomValidity('')">
+                    <input class="form-control" type="date" name="empdate" id="empdate"  required oninvalid="this.setCustomValidity('กรุณาใส่ ว/ด/ป เกิด')" oninput="setCustomValidity('')">
                 </div>
             </div>
 

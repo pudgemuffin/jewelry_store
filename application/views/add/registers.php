@@ -22,17 +22,17 @@
                         <div class="col-lg-8">
                             <div class="card shadow-lg border-0 rounded-lg mt-5">
                                 <div class="card-header">
-                                    <h3 class="text-center font-weight-light my-4">Create Account</h3>
+                                    <h3 class="text-center font-weight-light my-4">เพิ่มข้อมูลลูกค้า</h3>
                                 </div>
                                 <div class="card-body">
-                                    <form action="<?php echo site_url('Regis/cusregis') ?>" method="post">
+                                    <form action="<?php echo site_url('customercon/cusregis') ?>" method="post">
                                         <div class="form-group">
                                             <label>ชื่อ :</label>
                                             <input class="form-control py-4" id="cusfname" name="cusfname" type="text" required=""  oninvalid="this.setCustomValidity('กรุณากรอกชื่อ')" oninput="setCustomValidity('')">
                                         </div>
                                         <div class="form-group">
                                             <label>นามสกุล :</label>
-                                            <input class="form-control py-4" id="cuslname" name="cuslname" type="text" placeholder="Enter last name" required />
+                                            <input class="form-control py-4" id="cuslname" name="cuslname" type="text" required=""  oninvalid="this.setCustomValidity('กรุณากรอกนามสกุล')" oninput="setCustomValidity('')" />
                                         </div>
                                         <div class="form-group">
                                             <label>เพศ :</label>
@@ -42,19 +42,19 @@
 
                                         <div class="form-group">
                                             <label>ว/ด/ป เกิด :</label>
-                                            <input class="form-control py-4" type="date" name="cusbdate" id="cusbdate" required>
+                                            <input class="form-control py-4" type="date" name="cusbdate" id="cusbdate" required oninvalid="this.setCustomValidity('กรุณาใส่ ว/ด/ป เกิด')" oninput="setCustomValidity('')">
                                         </div>
 
 
                                         <div class="form-group">
                                             <label>อีเมล :</label>
-                                            <input class="form-control py-4" id="cusemail" name="cusemail" type="email" aria-describedby="emailHelp" placeholder="Enter email address" required />
+                                            <input class="form-control py-4" id="cusemail" name="cusemail" type="email" aria-describedby="emailHelp"   required oninvalid="this.setCustomValidity('กรุณากรอกอีเมลให้ถูกต้อง')" oninput="setCustomValidity('')" />
                                         </div>
                                         <div class="form-group">
                                             <table id="tel">
                                                 <tr>
                                                     <label>เบอร์โทร :</label>
-                                                    <td><input class="form-control py-4" type="text" name="cus_tel[]" id="cus_tel" size="40" maxlength="11" required></td>
+                                                    <td><input class="form-control" type="text" name="cus_tel[]" id="cus_tel" size="40" minlength="10" maxlength="10" onkeypress="return numberonly(event)" required oninvalid="this.setCustomValidity('กรุณากรอกเบอร์โทรให้ครบ 10 หลัก')" oninput="setCustomValidity('')" ></td>
                                                     <td><button type="button" name="add" id="add" class="btn btn-success"><i class="fa fa-plus"></i></button></td>
                                                 </tr>
                                             </table>
@@ -100,12 +100,12 @@
                                             <textarea class="form-control" name="cusaddress" id="cusaddress">
 
                                         </textarea>
-                                            <div class="form-group mt-4 mb-0"><button type="submit" class="btn btn-primary btn-block">Create Account</button></div>
+                                            <div class="form-group mt-4 mb-0"><button type="submit" class="btn btn-primary btn-block">เพิ่มข้อมูลลูกค้า</button></div>
                                     </form>
                                 </div>
-                                <div class="card-footer text-center">
+                                <!-- <div class="card-footer text-center">
                                     <div class="small"><a href="login.html">Have an account? Go to login</a></div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -141,7 +141,7 @@
         var i = 1;
         $('#add').click(function() {
             i++;
-            var tel = '<tr id="newtel' + i + '"><td><input type="text" name="cus_tel[]"  class="form-control" maxlength="10" minlength="10"/></td>  <td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">X</button></td></tr>'
+            var tel = '<tr id="newtel' + i + '"><td><input type="text" name="cus_tel[]"  class="form-control" onkeypress="return numberonly(event)" maxlength="10" minlength="10" required/></td>  <td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">X</button></td></tr>'
             $('table').append(tel);
         });
         $(document).on('click', '.btn_remove', function() {
@@ -155,6 +155,15 @@
             });
         });
     });
+
+    function numberonly(evt)
+      {
+         var charCode = (evt.which) ? evt.which : event.keyCode
+         if (charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+
+         return true;
+      }
 
     function am() {
         var datas = "province=" + document.getElementById('province').value;

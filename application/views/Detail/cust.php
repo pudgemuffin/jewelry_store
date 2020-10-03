@@ -75,9 +75,9 @@
 
 
                 </div><br>
-                <a class="btn btn-primary" target="_blank" href="<?php echo site_url('Regis/register'); ?>">เพิ่มลูกค้า</a>
+                <a class="btn btn-primary" target="_blank" href="<?php echo site_url('customercon/register'); ?>">เพิ่มลูกค้า</a>
         </div>
-
+        <p style="text-align: right;">ข้อมูลลูกค้าทั้งหมด <?php echo $count_all; ?> คน</p>
     </div>
             <div class="table-responsive">
 
@@ -111,7 +111,7 @@
 
                                 <td>
                                     <!-- <button type="button" class="btn btn-warning btn-sm " name="edit"data-toggle="modal" data-target="#edit" onclick="edit1(id='<?php echo $r->Cus_Id ?>')"><i class="fa fa-user"></i></button> -->
-                                    <a class="btn btn-warning" href="<?php echo site_url('Regis/editcust/').$r->Cus_Id?>"><i class="fa fa-cog"></i></a>
+                                    <a class="btn btn-warning" href="<?php echo site_url('customercon/editcust/').$r->Cus_Id?>"><i class="fa fa-cog"></i></a>
                                 </td>
                                 <td nowrap style="text-align:center; vertical-align: middle;">
                                     <button type="button" class="btn btn-danger btn-sm " name="delete" onclick="deletecust(id='<?php echo $r->Cus_Id ?>')"><i class="fa fa-trash"></i></button>
@@ -160,15 +160,31 @@
         
 <script>
 
+function pageing123_cus() {
+        var num_page = document.getElementById('pageing_cus').value;
+        var txtsearch = document.getElementById('hidesearch').value;
+        //    alert(num_page);
+        $.ajax({
+            type: "POST",
+            url: "<?php echo site_url('Welcome/pagingmain_cus?num_page=') ?>" + num_page,
+            data: $("#search_form").serialize(),
+        }).done(function(data) {
+            console.log(data);
+            $('#all').html(data);
+
+        });
+    }
+
 function searchcus() {
         
-        var datas = "scus=" + document.getElementById('scus').value
-            //  alert(datas);
-       
+        // var datas = "scus=" + document.getElementById('scus').value
+        //  alert(datas);
+        var txtsearch = document.getElementById('scus').value;
+        document.getElementById('hidesearch').value = txtsearch;
         $.ajax({
             type: "POST",
             url: "<?php echo site_url('Welcome/pagingmain_cus') ?>",
-            data: datas,
+            data: {hidesearch : txtsearch},
         }).done(function(data) {
              $('#all').html(data);        
         });
@@ -181,7 +197,7 @@ function deletecust(cusid) {
         if (confirm("คุณต้องการลบข้อมูลนี้ หรือไม่")){
         $.ajax({
             type: "POST",
-            url: "<?php echo site_url('Regis/deletecust') ?>",
+            url: "<?php echo site_url('customercon/deletecust') ?>",
             data: datas,
         }).done(function(data) {
             $('#user_data').html(data);

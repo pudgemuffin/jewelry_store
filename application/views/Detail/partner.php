@@ -60,7 +60,7 @@
 <div class="card">
         <div class="card-body">
             <h1 style="text-align: center;">
-                ข้อมูลพนักงาน
+                ข้อมูลบริษัทคู่ค้า
             </h1>
                     <div class="row" style="padding-bottom: 1px;padding-left:5px;">
                     <div class="col-3">
@@ -77,6 +77,7 @@
                 </div><br>
                 <a class="btn btn-primary" target="_blank" href="<?php echo site_url('company/addpartner');?>">เพิ่มบริษัทคู่ค้า</a>
         </div>
+        <p style="text-align: right;">ข้อมูลบริษัทคู่ค้าทั้งหมด <?php echo $count_all; ?> บริษัท</p>
 
     </div>
             <div class="table-responsive">
@@ -143,15 +144,31 @@
         
 <script>
 
+function pageing123_part() {
+        var num_page = document.getElementById('pageing_part').value;
+        var txtsearch = document.getElementById('hidesearch').value;
+        //    alert(num_page);
+        $.ajax({
+            type: "POST",
+            url: "<?php echo site_url('Welcome/pagingmain_part?num_page=') ?>" + num_page,
+            data: $("#search_form").serialize(),
+        }).done(function(data) {
+            // console.log(data);
+            $('#all').html(data);
+
+        });
+    }
+
 function searchpart() {
         
-        var datas = "spart=" + document.getElementById('spart').value
+        // var datas = "spart=" + document.getElementById('spart').value
             // alert(datas);
-       
+        var txtsearch = document.getElementById('spart').value;
+        document.getElementById('hidesearch').value = txtsearch;
         $.ajax({
             type: "POST",
             url: "<?php echo site_url('Welcome/pagingmain_part') ?>",
-            data: datas,
+            data: {hidesearch : txtsearch},
         }).done(function(data) {
              $('#all').html(data);        
         });

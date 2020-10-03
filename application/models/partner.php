@@ -61,6 +61,27 @@ class partner extends CI_Model
         }
     }
 
+    function allcost($start,$pageend,$search)
+    {
+        $query = "SELECT * from( SELECT ROW_NUMBER()OVER ( ORDER By pt.Part_Id )as row ,pt.Part_Id,pt.Part_Name
+                    FROM partner pt
+                    where pt.Part_Id like '%%' $search
+                    GROUP BY pt.Part_Id   )AA
+                where row > $start AND row <=$pageend order by row";
+
+        return $this->db->query($query)->result();
+    }
+
+    function count_cost($search)
+    {
+        $query = "SELECT COUNT(*) as Count from( SELECT ROW_NUMBER()OVER ( ORDER By pt.Part_Id )as row ,pt.Part_Id,pt.Part_Name
+                    FROM partner pt
+                    where pt.Part_Id like '%%' $search
+                    GROUP BY pt.Part_Id   )AA";
+
+        return $this->db->query($query)->result();
+    }
+
     function parttel($partid,$part_tel)
     {
         $query = "INSERT INTO part_telephone(Part_Id,Part_tel)
@@ -79,6 +100,14 @@ class partner extends CI_Model
         $query = "SELECT * FROM partner WHERE Part_Id = '$id'";
 
         return $this->db->query($query)->result();
+    }
+    
+    function countpart($partid)
+    {
+        $query = "SELECT COUNT(*) as Count FROM cost where Part_Id = '$partid'";
+
+        return $this->db->query($query)->result();
+
     }
 
     function parttelbyid($id)
@@ -102,4 +131,31 @@ class partner extends CI_Model
 
         return $this->db->query($query);
     }
-}
+
+    function partnerdetail()
+    {
+        $query = "SELECT Part_Id,Part_Name FROM partner";
+
+        return $this->db->query($query)->result();
+    }
+
+    function count_partner_prod($partid, $prodid)
+    {
+        $query = "SELECT COUNT(*) as Count from cost where Part_Id = '$partid' and Prod_Id = '$prodid'";
+
+        $result =  $this->db->query($query)->result();
+
+        foreach ($result as $re) {
+            return $re->Count;
+        }
+    }
+
+    function partnerbyid($partid)
+    {
+        $query = "SELECT * FROM partner WHERE Part_Id = '$partid'";
+
+        return $this->db->query($query)->result();
+    }
+
+}   
+

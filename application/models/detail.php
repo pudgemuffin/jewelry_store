@@ -4,9 +4,9 @@ class detail extends CI_Model
 {
     function empdata($start,$pageend,$search)
     {
-        $query = "SELECT * from( SELECT ROW_NUMBER()OVER ( ORDER By e.Id )as row ,e.Image,e.Id,e.Firstname,e.Surname,e.Gender,e.Email,e.Religion,e.empdate,j.job as posi , et.emp_tel as emptel
+        $query = "SELECT * from( SELECT ROW_NUMBER()OVER ( ORDER By e.Id )as row ,e.Image,e.Id,e.Firstname,e.Surname,e.Gender,e.Email,e.Religion,e.empdate,j.Pos_Name as posi , et.emp_tel as emptel
         FROM employee e
-                    INNER JOIN job j ON e.Jobs = j.Job_Id 
+                    INNER JOIN job j ON e.Jobs = j.Pos_Id 
 					INNER JOIN emp_telephone et on e.Id = et.Id
                     WHERE e.Status = '1' $search
 					GROUP BY e.Id  )AA
@@ -18,9 +18,9 @@ class detail extends CI_Model
     function count_all_emp($search)
     {
         $query = "SELECT COUNT(*) as Count from( 
-            SELECT ROW_NUMBER()OVER ( ORDER By e.Id )as row ,e.Image,e.Id,e.Firstname,e.Surname,e.Gender,e.Email,e.Religion,e.empdate,j.job as posi
+            SELECT ROW_NUMBER()OVER ( ORDER By e.Id )as row ,e.Image,e.Id,e.Firstname,e.Surname,e.Gender,e.Email,e.Religion,e.empdate,j.Pos_Name as posi
                     FROM employee e 
-                            INNER JOIN job j ON e.Jobs = j.Job_Id
+                            INNER JOIN job j ON e.Jobs = j.Pos_Id
                             WHERE e.Status = '1' $search)AA";
 
         return $this->db->query($query)->result();
@@ -42,9 +42,9 @@ class detail extends CI_Model
     
     function Position($start,$pageend,$search)
     {
-        $query = "SELECT * from( SELECT ROW_NUMBER()OVER ( ORDER By Job_Id )as row ,Job_Id,job
+        $query = "SELECT * from( SELECT ROW_NUMBER()OVER ( ORDER By Pos_Id )as row ,Pos_Id,Pos_Name
                     FROM job
-                    WHERE Job_Id like '%%' $search
+                    WHERE Pos_Id like '%%' $search
                     )AA
                     where row > $start AND row <=$pageend order by row";
 
@@ -53,22 +53,22 @@ class detail extends CI_Model
     
     function callposition()
     {
-        $query = "SELECT Job_Id,job from job";
+        $query = "SELECT Pos_Id,Pos_Name from job";
         return $this->db->query($query)->result();
     }
 
     function count_all_position($search)
     {
-        $query = "SELECT COUNT(*) as Count from( SELECT ROW_NUMBER()OVER ( ORDER By Job_Id )as row ,job
+        $query = "SELECT COUNT(*) as Count from( SELECT ROW_NUMBER()OVER ( ORDER By Pos_Id )as row ,Pos_Name
                     FROM job
-                    WHERE Job_Id like '%%' $search )AA";
+                    WHERE Pos_Id like '%%' $search )AA";
 
         return $this->db->query($query)->result();
     }
 
     function maxidpos()
     {
-        $query = "SELECT max(Job_Id) as Id FROM job";
+        $query = "SELECT max(Pos_Id) as Id FROM job";
         $result = $this->db->query($query)->result();
         foreach($result as $re){
             return $re->Id;
@@ -77,32 +77,32 @@ class detail extends CI_Model
     }
 
 
-    function insertposition($posid,$posi)
+    function insertposition($posid,$posi,$permit)
     {
-        $query = "INSERT INTO job (Job_Id,job)
+        $query = "INSERT INTO job (Pos_Id,Pos_Name,permit)
         values
-        ('$posid','$posi')";
+        ('$posid','$posi','$permit')";
 
         return $this->db->query($query);
     }
 
     function deletejob($jobid)
     {
-        $query = "DELETE FROM job WHERE Job_Id = '$jobid'";
+        $query = "DELETE FROM job WHERE Pos_Id = '$jobid'";
 
         return $this->db->query($query);
     }
 
     function displayjobid($jobid)
     {
-        $query = "SELECT * FROM job WHERE Job_Id = '$jobid'";
+        $query = "SELECT * FROM job WHERE Pos_Id = '$jobid'";
 
         return $this->db->query($query)->result();
     }
 
-    function updatejob($jobid,$posi)
+    function updatejob($jobid,$posi,$permit)
     {
-        $query = "UPDATE job SET job = '$posi' WHERE Job_Id = '$jobid'";
+        $query = "UPDATE job SET Pos_Name = '$posi',permit = '$permit' WHERE Pos_Id = '$jobid'";
 
         return $this->db->query($query);
     }

@@ -97,9 +97,9 @@ class ergold extends CI_Model
         return $this->db->query($query);
     }
 
-    function deletetype()
+    function deletetype($protid)
     {
-        $query = "";
+        $query = "DELETE FROM protype WHERE Prot_Id = '$protid'";
         
         return $this->db->query($query);
 
@@ -201,7 +201,21 @@ class ergold extends CI_Model
         $query = "UPDATE rings SET Size = '$size' WHERE Prod_Id = '$prodid'";
         return $this->db->query($query);
     }
-    
+    function product()
+    {
+        $query = "SELECT Prod_Id,Prod_Name FROM product";
+
+        return $this->db->query($query)->result();
+    }
+
+    function productcostbyid($partid)
+    {
+        $query = "SELECT p.Prod_Id,p.Prod_Name FROM product p
+                    INNER JOIN cost c ON p.Prod_Id = c.Prod_Id
+                    WHERE c.Part_Id = '$partid'";
+
+        return $this->db->query($query)->result();
+    }
 }
 
 

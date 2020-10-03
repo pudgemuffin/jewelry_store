@@ -96,9 +96,9 @@
 
 
                 </div><br>
-                <a class="btn btn-primary" target="_blank" href="<?php echo site_url('Regis/insertviewposi');?>">เพิ่มตำแหน่ง</a>
+                <a class="btn btn-primary" target="_blank" href="<?php echo site_url('positioncon/insertviewposi');?>">เพิ่มตำแหน่ง</a>
         </div>
-
+        <p style="text-align: right;">ข้อมูลตำแหน่งทั้งหมด <?php echo $count_all; ?> ตำแหน่ง</p>
     </div>
 <body>
     <center>
@@ -122,13 +122,13 @@
                         <?php foreach ($position as $r) { ?>
 
                             <tr nowrap>
-                                <td nowrap> <?php echo $r->Job_Id; ?></td>
-                                <td nowrap> <?php echo $r->job; ?></td>
+                                <td nowrap> <?php echo $r->Pos_Id; ?></td>
+                                <td nowrap> <?php echo $r->Pos_Name; ?></td>
                                 <td>
-                                    <a class="btn btn-warning" href="<?php echo site_url('Regis/editjob/').$r->Job_Id?>"><i class="fa fa-cog"></i></a>
+                                    <a class="btn btn-warning" href="<?php echo site_url('positioncon/editjob/').$r->Pos_Id?>"><i class="fa fa-cog"></i></a>
                                 </td>
                                 <td nowrap style="text-align:center; vertical-align: middle;">
-                                    <button type="button" class="btn btn-danger btn-sm " name="delete" onclick="deletejob(id='<?php echo $r->Job_Id ?>')"><i class="fa fa-trash"></i></button>
+                                    <button type="button" class="btn btn-danger btn-sm " name="delete" onclick="deletejob(id='<?php echo $r->Pos_Id ?>')"><i class="fa fa-trash"></i></button>
                         </td>
                         <?php } ?>
                         <tr>   
@@ -165,15 +165,32 @@
 </html>
 <script>
 
+function pageing123_pos() {
+        var num_page = document.getElementById('pageing_pos').value;
+        var txtsearch = document.getElementById('hidesearch').value;
+        //    alert(num_page);
+        $.ajax({
+            type: "POST",
+            url: "<?php echo site_url('Welcome/pagingmain_pos?num_page=') ?>" + num_page,
+            data: $("#search_form").serialize(),
+        }).done(function(data) {
+            console.log(data);
+            $('#all').html(data);
+
+        });
+    }
+
 function searchposi() {
         
-        var datas = "spos=" + document.getElementById('spos').value
-            alert(datas);
+        // var datas = "spos=" + document.getElementById('spos').value
+        // alert(datas);
+        var txtsearch = document.getElementById('spos').value;
+        document.getElementById('hidesearch').value = txtsearch;
        
         $.ajax({
             type: "POST",
             url: "<?php echo site_url('Welcome/pagingmain_pos') ?>",
-            data: datas,
+            data: {hidesearch : txtsearch},
         }).done(function(data) {
              $('#all').html(data);        
         });
@@ -181,12 +198,12 @@ function searchposi() {
 
     }                     
 
-    function deletejob(Job_Id) {
-        var datas = "Job_Id=" + Job_Id;
+    function deletejob(Pos_Id) {
+        var datas = "Pos_Id=" + Pos_Id;
         if (confirm("คุณต้องการลบตำแหน่งนี้ หรือไม่")){
         $.ajax({
             type: "POST",
-            url: "<?php echo site_url('Regis/deletejob') ?>",
+            url: "<?php echo site_url('positioncon/deletejob') ?>",
             data: datas,
         }).done(function(data) {
             $('#user_data').html(data);

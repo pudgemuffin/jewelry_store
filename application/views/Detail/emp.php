@@ -69,7 +69,7 @@
             <h1 style="text-align: center;">
                 ข้อมูลพนักงาน
             </h1>
-                    <div class="row" style="padding-bottom: 1px;padding-left:5px;">
+            <div class="row" style="padding-bottom: 1px;padding-left:5px;">
                     <div class="col-3">
 
                         <input type="text" name="semp" id="semp" class="form-control">
@@ -78,7 +78,7 @@
                         <button type="button" onclick="search()" class = "btn btn-secondary">
                             <i class="fa fa-search"></i>
                         </button>
-                    </div>
+                    </div>  
 
 
                 </div><br>
@@ -116,7 +116,7 @@
                         <?php foreach ($result as $r) { ?>
 
                             <tr nowrap>
-                                <td nowrap style="text-align:center; vertical-align: middle;"> <img style="width: 100px; height:100px;" src="<?php echo base_url('/img/'.$r->Image);?>"></td>
+                                <td nowrap style="text-align:center; vertical-align: middle;"> <img style="width: 100px; height:100px;" src="<?php echo base_url('/img/EMP/'.$r->Image);?>"></td>
                                 <td nowrap style="text-align:center; vertical-align: middle;"> <?php echo $r->Id; ?></td>
                            
                                 <td nowrap style="text-align:center; vertical-align: middle;"> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->Firstname); ?> 
@@ -188,21 +188,38 @@
 </html>
 <script>
 
-function search() {
+function pageing123_emp() {
+        var num_page = document.getElementById('pageing_emp').value;
+        var txtsearch = document.getElementById('hidesearch').value;
+        $.ajax({
+            type: "POST",
+            url: "<?php echo site_url('Welcome/pagingmain_emp?num_page=') ?>" + num_page,
+            data: $("#search_form").serialize(),
+        }).done(function(data) {
+            // console.log(data);
+            $('#all').html(data);
+
+        });
+    }
+
+
+    function search() {
         
-        var datas = "semp=" + document.getElementById('semp').value
+        // var datas = "semp=" + document.getElementById('semp').value
             // alert(datas);
-       
+        var txtsearch = document.getElementById('semp').value;
+        document.getElementById('hidesearch').value = txtsearch;
         $.ajax({
             type: "POST",
             url: "<?php echo site_url('Welcome/pagingmain_emp') ?>",
-            data: datas,
+            data: {hidesearch : txtsearch},
         }).done(function(data) {
              $('#all').html(data);        
         });
         
 
     }
+
 
     function delete1(Id) {
         var datas = "idcard=" + Id;

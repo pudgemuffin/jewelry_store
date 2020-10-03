@@ -75,7 +75,7 @@ class product extends CI_Controller
         foreach ($data1['checkname'] as $value) {
             $count = $value->COUNT;
             if ($count == 0) {
-                $this->ergold->inserttype($typeid, $typename);
+                $this->ergold->updatetype($typeid, $typename);
 
                 echo "<script> alert('แก้ไขข้อมูลประเภทสำเร็จ');
 						window.location.href='/ER_GOLDV1/index.php/Welcome/protype';
@@ -86,6 +86,17 @@ class product extends CI_Controller
 						</script>";
             }
         }
+    }
+
+    public function deletetype()
+    {
+        $protid = $this->input->post('Prot_Id');
+        $this->partner->deletetype($protid);
+
+            echo "<script> alert('Record Deleted');
+		 					window.location.href='/ER_GOLDV1/index.php/Welcome/protype';
+							 </script>";
+
     }
     public function addproduct()
     {
@@ -164,7 +175,7 @@ class product extends CI_Controller
         $config['max_size'] = '2000';
         $config['max_width'] = '3000';
         $config['max_height'] = '3000';
-        $config['file_name'] = $prodid;
+        $config['file_name'] = $prodid.".jpg";
         $this->load->library('upload', $config);
 
 
@@ -229,7 +240,7 @@ class product extends CI_Controller
         $config['max_size'] = '2000';
         $config['max_width'] = '3000';
         $config['max_height'] = '3000';
-        $config['file_name'] = $prodid;
+        $config['file_name'] = $prodid.".jpg";
         $this->load->library('upload', $config);
 
 
@@ -326,7 +337,8 @@ class product extends CI_Controller
             $config['max_size'] = '2000';
             $config['max_width'] = '3000';
             $config['max_height'] = '3000';
-            $config['file_name'] = $prodid;
+            $config["overwrite"] = TRUE;
+            $config['file_name'] = $prodid.".jpg";
             $this->load->library('upload', $config);
             if (!$this->upload->do_upload('prodim')) {
                 // echo $this->upload->display_errors();
@@ -341,9 +353,9 @@ class product extends CI_Controller
             }else{
                 $data = $this->upload->data();
                 $filename = $data['file_name'];
-                $oldImg = $this->input->post('oldImg');
+                // $oldImg = $this->input->post('oldImg');
                 $this->ergold->updatepro($prodid,$prodtype,$prodname,$prodweight,$prodgram,$fee,$filename);
-                unlink('./img/product/' . $oldImg);
+                // unlink('./img/product/' . $oldImg);
             }
         }
         echo "<script> alert('แก้ไขข้อมูลสินค้าสำเร็จ');
@@ -382,8 +394,10 @@ class product extends CI_Controller
             $config['max_size'] = '2000';
             $config['max_width'] = '3000';
             $config['max_height'] = '3000';
-            $config['file_name'] = $prodid;
+            $config["overwrite"] = TRUE;
+            $config['file_name'] = $prodid.".jpg";
             $this->load->library('upload', $config);
+            $this->upload->initialize($config);
             if (!$this->upload->do_upload('prodim')) {
                 // echo $this->upload->display_errors();
                 echo "<script> alert ('ไฟล์รูปภาพไม่ถูกต้อง')</script>";
@@ -396,27 +410,30 @@ class product extends CI_Controller
                 // $this->load->view('index', $data);
                 $this->load->view('add/editring',$data);
             }else{
+                $this->upload->initialize($config);
+                // $filename = $data['file_name'] = $prodid.".jpg";
                 $data = $this->upload->data();
-                // $data['file_name'] = $prodid.".jpg";
                 $filename = $data['file_name'];
-                $oldImg = $this->input->post('oldImg');
-                unlink('./img/product/' . $oldImg);
-                // $this->ergold->updatepro($prodid,$prodtype,$prodname,$prodweight,$prodgram,$fee,$filename);
-                // $this->ergold->updatering($prodid,$size);
+                // $oldImg = $this->input->post('oldImg');
+                // unlink('./img/product/' . $oldImg);
+                $this->ergold->updatepro($prodid,$prodtype,$prodname,$prodweight,$prodgram,$fee,$filename);
+                $this->ergold->updatering($prodid,$size);
                 
             }
 
-            echo $prodid."<br>";
-            echo $prodtype."<br>";
-            echo $prodname."<br>";
-            echo $prodweight."<br>";
-            echo $prodgram."<br>";
-            echo $fee."<br>";
-            echo $oldImg."<br>";
-            echo $filename."<br>";
-            // echo "<script> alert('แก้ไขข้อมูลสินค้าสำเร็จ');
-			// 			window.location.href='/ER_GOLDV1/index.php/Welcome/product';
-			// 			</script>";
+            // echo $prodid."<br>";
+            // echo $prodtype."<br>";
+            // echo $prodname."<br>";
+            // echo $prodweight."<br>";
+            // echo $prodgram."<br>";
+            // echo $fee."<br>";
+            // echo $oldImg."<br>";
+            // echo $data."<br>";
+            // echo $filename."<br>";
+
+            echo "<script> alert('แก้ไขข้อมูลสินค้าสำเร็จ');
+						window.location.href='/ER_GOLDV1/index.php/Welcome/product';
+						</script>";
         }
         
     }

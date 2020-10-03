@@ -27,7 +27,7 @@
                 <div class="col-5">
                     <label>รูปภาพพนักงาน</label>
                     <input type="file" name="empim" id="empim" accept="image/*"onchange="loadimg(event)" >
-                    <img id = "preimage" width="150px" height="150px" src="<?php echo base_url('/img/'.$r->Image);?>">
+                    <img id = "preimage" width="150px" height="150px" src="<?php echo base_url('/img/EMP/'.$r->Image);?>">
                     <input type="text" name="oldImg" id="oldImg" value="<?php echo $r->Image; ?>"hidden>
                 </div>
                 
@@ -202,10 +202,10 @@
                         <select class="form-control" id="pos" name="pos">
                             <option value="">ตำแหน่ง</option>
                             <?php foreach ($position as $p) { ?>
-                                <option value="<?php echo $p->Job_Id; ?>" <?php if ($r->Jobs == $p->Job_Id) {
+                                <option value="<?php echo $p->Pos_Id; ?>" <?php if ($r->Jobs == $p->Pos_Id) {
                                                                                 echo "selected";
                                                                             } ?>>
-                                    <?php echo $p->job; ?>
+                                    <?php echo $p->Pos_Name; ?>
                                 </option>
                             <?php } ?>
                         </select>
@@ -327,5 +327,53 @@
     function loadimg(event){
         var output = document.getElementById('preimage');
         output.src = URL.createObjectURL(event.target.files[0]);
+    }
+
+    function am() {
+        var datas = "province=" + document.getElementById('province').value;
+
+        //  alert(datas);
+
+        $.ajax({
+            type: "POST",
+            url: "<?php echo site_url('Regis/amphur') ?>",
+            data: datas,
+        }).done(function(data) {
+            console.log(data);
+            $('#amphur').html(data);
+        });
+    }
+
+
+    function dis() {
+
+        var datas = "amphur=" + document.getElementById('amphur').value;
+
+        //alert(datas);
+
+        $.ajax({
+            type: "POST",
+            url: "<?php echo site_url('Regis/district') ?>",
+            data: datas,
+        }).done(function(data) {
+            console.log(data);
+            $('#district').html(data);
+        });
+    }
+
+    function posc() {
+
+        var datas = "district=" + document.getElementById('district').value;
+
+        // alert(datas);
+
+        $.ajax({
+            type: "POST",
+            url: "<?php echo site_url('Regis/postcode') ?>",
+            data: datas,
+        }).done(function(data) {
+            console.log(data);
+            $('#postcode').html(data);
+        });
     }
 </script>

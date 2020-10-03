@@ -140,16 +140,31 @@
         
 <script>
 
+function pageing123_type() {
+        var num_page = document.getElementById('pageing_type').value;
+        var txtsearch = document.getElementById('hidesearch').value;
+        //    alert(num_page);
+        $.ajax({
+            type: "POST",
+            url: "<?php echo site_url('Welcome/pagingmain_type?num_page=') ?>" + num_page,
+            data: $("#search_form").serialize(),
+        }).done(function(data) {
+            console.log(data);
+            $('#all').html(data);
+
+        });
+    }
 
 function searchtype() {
         
-        var datas = "stype=" + document.getElementById('stype').value
-            //  alert(datas);
-       
+        // var datas = "stype=" + document.getElementById('stype').value
+        //  alert(datas);
+        var txtsearch = document.getElementById('stype').value;
+        document.getElementById('hidesearch').value = txtsearch;
         $.ajax({
             type: "POST",
             url: "<?php echo site_url('Welcome/pagingmain_type') ?>",
-            data: datas,
+            data: {hidesearch : txtsearch},
         }).done(function(data) {
              $('#all').html(data);        
         });
@@ -157,12 +172,12 @@ function searchtype() {
 
     }
 
-function deletecust(cusid) {
-        var datas = "Cus_Id=" + cusid;
+function deletetype(protid) {
+        var datas = "Prot_Id=" + protid;
         if (confirm("คุณต้องการลบข้อมูลนี้ หรือไม่")){
         $.ajax({
             type: "POST",
-            url: "<?php echo site_url('Regis/deletecust') ?>",
+            url: "<?php echo site_url('product/deletetype') ?>",
             data: datas,
         }).done(function(data) {
             $('#user_data').html(data);

@@ -124,7 +124,7 @@
                                 <td nowrap style="text-align:center; vertical-align: middle;"> <?php echo $r->Fee; ?> </td>
 
                                 <td  style="text-align:center; vertical-align: middle;">
-                                    <!-- <button type="button" class="btn btn-warning btn-sm " name="edit"data-toggle="modal" data-target="#edit" onclick="edit1(id='<?php echo $r->Id ?>')"><i class="fa fa-user"></i></button> -->
+                                    <!-- <button type="button" class="btn btn-warning btn-sm " name="edit"data-toggle="modal" data-target="#edit" onclick="edit1(id='<?php $r->Prod_Id ?>')"><i class="fa fa-user"></i></button> -->
                                     <a class="btn btn-warning" href="<?php echo site_url('product/editbutton/') . $r->Prod_Id ?>"><i class="fa fa-cog"></i></a>
                                 </td>
                                 <td nowrap style="text-align:center; vertical-align: middle;">
@@ -167,7 +167,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="modal-title" id="ex">Employee</h3>
+                    <h3 class="modal-title" id="ex">Product</h3>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -183,15 +183,31 @@
 </html>
 <script>
 
+function pageing123_prod() {
+        var num_page = document.getElementById('pageing_prod').value;
+        var txtsearch = document.getElementById('hidesearch').value;
+        //    alert(num_page);
+        $.ajax({
+            type: "POST",
+            url: "<?php echo site_url('Welcome/pagingmain_product?num_page=') ?>" + num_page,
+            data: $("#search_form").serialize(),
+        }).done(function(data) {
+            console.log(data);
+            $('#all').html(data);
+
+        });
+    }
+
 function searchpro() {
         
-        var datas = "spro=" + document.getElementById('spro').value
-            // alert(datas);
-       
+        // var datas = "spro=" + document.getElementById('spro').value
+        // alert(datas);
+        var txtsearch = document.getElementById('spro').value;
+        document.getElementById('hidesearch').value = txtsearch;
         $.ajax({
             type: "POST",
             url: "<?php echo site_url('Welcome/pagingmain_product') ?>",
-            data: datas,
+            data: {hidesearch : txtsearch},
         }).done(function(data) {
              $('#all').html(data);        
         });
@@ -212,13 +228,13 @@ function searchpro() {
         }
     }
 
-    function edit1(id) {
-        var datas = "id=" + id;
+    function edit1(Prod_Id) {
+        var datas = "Prod_Id=" + Prod_Id;
         alert(datas);
 
         $.ajax({
             type: "POST",
-            url: "<?php echo site_url('Regis/edit') ?>",
+            url: "<?php echo site_url('product/editbutton') ?>",
             data: datas,
         }).done(function(data) {
             // console.log(data);

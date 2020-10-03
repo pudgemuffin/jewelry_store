@@ -20,8 +20,9 @@ class company extends CI_Controller
         $data['province'] = $this->detail->Province();
         $data['amphur'] = $this->detail->Amphur();
         $data['district'] = $this->detail->District();
-        // $data['view'] = "add/insertpartner";
-		$this->load->view('add/insertpartner',$data);
+        $data['view'] = "add/insertpartner";
+        // $this->load->view('add/insertpartner',$data);
+        $this->load->view('actionindex', $data);
     }
 
     public function partgenid()
@@ -105,9 +106,9 @@ class company extends CI_Controller
         $data['province'] = $this->detail->Province();
         $data['amphur'] = $this->detail->Amphur();
         $data['district'] = $this->detail->District();
-        
-        $this->load->view('add/editpartner',$data);
-
+        $data['view'] = "add/editpartner";
+        // $this->load->view('add/editpartner',$data);
+        $this->load->view('actionindex', $data);
     }
     
     public function updatepart()
@@ -145,9 +146,40 @@ class company extends CI_Controller
         $partid = $this->input->post('Part_Id');
         $this->partner->deletepartner($partid);
 
-            echo "<script> alert('Record Deleted');
+            echo "<script> alert('ลบข้อมูลบริษัทสำเร็จ');
 		 					window.location.href='/ER_GOLDV1/index.php/Welcome/partner';
 							 </script>";
+
+    }
+
+    public function cost($partid)
+    {
+        $this->load->model('ergold');
+        $data1['getcheck'] = $this->partner->countpart($partid);
+        foreach ($data1['getcheck'] as $value) {
+            $count = $value->Count;
+            if ($count == 0) {
+                
+                $data['partnerbyid'] = $this->partner->partnerbyid($partid); 
+                $data['product'] = $this->ergold->product();
+                $data['view'] = "add/cost";
+                $this->load->view('actionindex', $data);
+
+            }else{
+                $data['partner'] = $this->partner->partnerbyid($partid); 
+                $data['productbyid'] = $this->ergold->productcostbyid($partid);
+                $data['product'] = $this->ergold->product();
+                $data['view'] = "add/costpro";
+                $this->load->view('actionindex', $data);
+            }
+        }
+        
+    }
+
+    public function addcost()
+    {
+        // $partid = $this->input->post('partid');
+        $prodid = $this->input->post('prodid');
 
     }
 }
