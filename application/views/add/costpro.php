@@ -16,9 +16,9 @@
 <center>
     <h2>ราคาทุน</h2>
 </center>
-<?php foreach ($partnerbyid as $p) { ?>
-    <?php foreach ($productbyid as $pdi) { ?>
-        <form action="<?php echo site_url('company/addcost') ?>" method="post" enctype="multipart/form-data">
+<?php foreach ($partner as $p) { ?>
+    
+        <form action="<?php echo site_url('company/existcost') ?>" method="post" enctype="multipart/form-data">
             <div class="row justify-content-center">
                 <div class="col-5">
                     <label>บริษัทคู่ค้า :</label>
@@ -34,13 +34,14 @@
                             <label>สินค้า :</label>
                             <td><select class="form-control" id="prodid[]" name="prodid[]" required oninvalid="this.setCustomValidity('กรุณาเลือกสินค้า')" oninput="setCustomValidity('')">
                                     <option value="">กรุณาเลือกสินค้า</option>
+                                    <?php foreach ($productbyid as $pdi) { ?>
                                     <?php foreach ($product as $pr) { ?>
                                         <option value="<?php echo $pr->Prod_Id; ?>" <?php if ($pdi->Prod_Id == $pr->Prod_Id) {
                                                                                         echo "selected";
                                                                                     } ?>>
                                             <?php echo $pr->Prod_Name; ?>
                                         </option>
-
+                                        <?php } ?>
                                 </select></td>
                             <td><?php if ($i == 1) { ?><button type="button" name="add" id="add" class="btn btn-success"><i class="fa fa-plus"></i></button>
                                 <?php } else { ?>
@@ -64,14 +65,14 @@
             </div>
 
         </form>
-    <?php } ?>
+    
 <?php } ?>
 <script>
     $(document).ready(function() {
         var i = 1;
         $('#add').click(function() {
             i++;
-            var prod = '<tr id="newprod' + i + '"><td><select class="form-control" id="prodname[]" name="prodname[]" required "><option value="">กรุณาเลือกสินค้า</option><?php foreach ($product as $pr) { ?><option value="<?php echo $pr->Prod_Id; ?>"><?php echo $pr->Prod_Name; ?></option><?php } ?></select></td>  <td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">X</button></td></tr>'
+            var prod = '<tr id="newprod' + i + '"><td><select class="form-control" id="prodid[]" name="prodid[]" required "><option value="">กรุณาเลือกสินค้า</option><?php foreach ($product as $pr) { ?><option value="<?php echo $pr->Prod_Id; ?>"><?php echo $pr->Prod_Name; ?></option><?php } ?></select></td>  <td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">X</button></td></tr>'
             $('table').append(prod);
         });
         $(document).on('click', '.btn_remove', function() {

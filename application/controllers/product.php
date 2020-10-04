@@ -16,7 +16,9 @@ class product extends CI_Controller
     }
     public function insertprotype()
     {
-        $this->load->view('add/insertprotype');
+        // $this->load->view('add/insertprotype');
+        $data['view'] = "add/insertprotype";
+        $this->load->view('actionindex', $data);
     }
 
     public function genprotype()
@@ -52,8 +54,10 @@ class product extends CI_Controller
 						</script>";
             } else {
                 echo "<script> alert ('ประเภทสิ้นค้าซ้ำ')</script>";
-
-                $this->load->view('add/insertprotype');
+                
+                // $this->load->view('add/insertprotype');
+                $data['view'] = "add/insertprotype";
+                $this->load->view('actionindex', $data);
             }
         }
     }
@@ -61,8 +65,9 @@ class product extends CI_Controller
     public function editprotype($Prot_Id)
     {
         $data['edittype'] = $this->ergold->displaytype($Prot_Id);
-
-        $this->load->view('add/edittype', $data);
+        $data['view'] = "add/edittype";
+        // $this->load->view('add/edittype', $data);
+        $this->load->view('actionindex', $data);
     }
 
     public function updatetype()
@@ -102,7 +107,9 @@ class product extends CI_Controller
     {
         $data['protype'] = $this->ergold->protype();
         $data['weight'] = $this->ergold->weight();
-        $this->load->view('add/insertproduct', $data);
+        $data['view'] = "add/insertproduct";
+        // $this->load->view('add/insertproduct', $data);
+        $this->load->view('actionindex', $data);
     }
 
     public function addring()
@@ -110,7 +117,10 @@ class product extends CI_Controller
         $data['protype'] = $this->ergold->ring();
         $data['size'] = $this->ergold->size();
         $data['weight'] = $this->ergold->weight();
-        $this->load->view('add/insertring', $data);
+        $data['view'] = "add/insertring";
+        // $this->load->view('add/insertring', $data);
+        $this->load->view('actionindex', $data);
+        
     }
 
     public function grams()
@@ -185,7 +195,9 @@ class product extends CI_Controller
 
             $data['protype'] = $this->ergold->protype();
             $data['weight'] = $this->ergold->weight();
-            $this->load->view('add/insertproduct', $data);
+            $data['view'] = "add/insertproduct";
+            // $this->load->view('add/insertproduct', $data);
+            $this->load->view('actionindex', $data);
         } else {
             $data = $this->upload->data();
             $filename = $data['file_name'];
@@ -213,7 +225,9 @@ class product extends CI_Controller
 
                     $data['protype'] = $this->ergold->protype();
                     $data['weight'] = $this->ergold->weight();
-                    $this->load->view('add/insertproduct', $data);
+                    $data['view'] = "add/insertproduct";
+                    // $this->load->view('add/insertproduct', $data);
+                    $this->load->view('actionindex', $data);
                 }
             }
         }
@@ -282,7 +296,9 @@ class product extends CI_Controller
                     $data['size'] = $this->ergold->size();
                     $data['protype'] = $this->ergold->ring();
                     $data['weight'] = $this->ergold->weight();
-                    $this->load->view('add/insertring', $data);
+                    $data['view'] = "add/insertring";
+                    // $this->load->view('add/insertring', $data);
+                    $this->load->view('actionindex', $data);
                 }
             }
         }
@@ -298,18 +314,18 @@ class product extends CI_Controller
                 $data['editprod'] = $this->ergold->prodbyid($prodid);
                 $data['protype'] = $this->ergold->protype();
                 $data['weight'] = $this->ergold->weight();
-                // $data['view'] = "add/editproduct";
-                // $this->load->view('index', $data);
-                $this->load->view('add/editproduct',$data);
+                $data['view'] = "add/editproduct";
+                // $this->load->view('add/editproduct',$data);
+                $this->load->view('actionindex', $data);
 
             }else{
                 $data['editprod'] = $this->ergold->ringbyid($prodid);
                 $data['protype'] = $this->ergold->ring();
                 $data['weight'] = $this->ergold->weight();
                 $data['size'] = $this->ergold->size();
-                // $data['view'] = "add/editring";
-                // $this->load->view('index', $data);
-                $this->load->view('add/editring',$data);
+                $data['view'] = "add/editring";
+                // $this->load->view('add/editring',$data);
+                $this->load->view('actionindex', $data);
             }
         }
 
@@ -347,9 +363,10 @@ class product extends CI_Controller
                 $data['editprod'] = $this->ergold->prodbyid($prodid);
                 $data['protype'] = $this->ergold->protype();
                 $data['weight'] = $this->ergold->weight();
-                // $data['view'] = "add/editproduct";
+                $data['view'] = "add/editproduct";
                 // $this->load->view('index', $data);
-                $this->load->view('add/editproduct',$data);
+                // $this->load->view('add/editproduct',$data);
+                $this->load->view('actionindex', $data);
             }else{
                 $data = $this->upload->data();
                 $filename = $data['file_name'];
@@ -406,9 +423,10 @@ class product extends CI_Controller
                 $data['protype'] = $this->ergold->ring();
                 $data['weight'] = $this->ergold->weight();
                 $data['size'] = $this->ergold->size();
-                // $data['view'] = "add/editring";
+                $data['view'] = "add/editring";
+                $this->load->view('actionindex', $data);
                 // $this->load->view('index', $data);
-                $this->load->view('add/editring',$data);
+                // $this->load->view('add/editring',$data);
             }else{
                 $this->upload->initialize($config);
                 // $filename = $data['file_name'] = $prodid.".jpg";

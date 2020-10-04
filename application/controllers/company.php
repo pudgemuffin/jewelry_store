@@ -178,8 +178,38 @@ class company extends CI_Controller
 
     public function addcost()
     {
-        // $partid = $this->input->post('partid');
+        $partid = $this->input->post('partid');
         $prodid = $this->input->post('prodid');
+        // echo $partid."<br>";
+        // print_r($prodid);
+        foreach($prodid as $pd){
+            $data = array(
+                'Prod_Id' => $pd,
+                'Part_Id' => $partid
+            );
+            $checkcost = $this->partner->count_cost_check($partid,$pd);
+            if($checkcost == 0){
+                $this->partner->insertcost($partid,$pd);
+            }
+        }
+
+    }
+
+    public function existcost()
+    {
+        $partid = $this->input->post('partid');
+        $prodid = $this->input->post('prodid');
+        $this->partner->deletecost($partid);
+        foreach($prodid as $pd){
+            $data = array(
+                'Prod_Id' => $pd,
+                'Part_Id' => $partid
+            );
+            $checkcost = $this->partner->count_cost_check($partid,$pd);
+            if($checkcost == 0){
+                $this->partner->insertcost($partid,$pd);
+            }
+        }
 
     }
 }

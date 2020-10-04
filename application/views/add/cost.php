@@ -21,7 +21,8 @@
         <div class="row justify-content-center">
             <div class="col-5">
                 <label>บริษัทคู่ค้า :</label>
-                <input class="form-control" style="color: red;" type=text value="<?php echo $p->Part_Name; ?>"disabled>
+                <input class="form-control" style="color: red;" type=text value="<?php echo $p->Part_Name; ?>"readonly>
+                <input type="text" name="partid" id="partid" value="<?php echo $p->Part_Id; ?>"hidden>
             </div>
         </div>
 
@@ -60,7 +61,7 @@
         var i = 1;
         $('#add').click(function() {
             i++;
-            var prod = '<tr id="newprod' + i + '"><td><select class="form-control" id="prodname[]" name="prodname[]" required "><option value="">กรุณาเลือกสินค้า</option><?php foreach ($product as $pr) { ?><option value="<?php echo $pr->Prod_Id; ?>"><?php echo $pr->Prod_Name; ?></option><?php } ?></select></td>  <td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">X</button></td></tr>'
+            var prod = '<tr id="newprod' + i + '"><td><select class="form-control" id="prodid[]" name="prodid[]" required "><option value="">กรุณาเลือกสินค้า</option><?php foreach ($product as $pr) { ?><option value="<?php echo $pr->Prod_Id; ?>"><?php echo $pr->Prod_Name; ?></option><?php } ?></select></td>  <td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">X</button></td></tr>'
             $('table').append(prod);
         });
         $(document).on('click', '.btn_remove', function() {

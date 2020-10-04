@@ -139,22 +139,37 @@ class partner extends CI_Model
         return $this->db->query($query)->result();
     }
 
-    function count_partner_prod($partid, $prodid)
-    {
-        $query = "SELECT COUNT(*) as Count from cost where Part_Id = '$partid' and Prod_Id = '$prodid'";
-
-        $result =  $this->db->query($query)->result();
-
-        foreach ($result as $re) {
-            return $re->Count;
-        }
-    }
 
     function partnerbyid($partid)
     {
         $query = "SELECT * FROM partner WHERE Part_Id = '$partid'";
 
         return $this->db->query($query)->result();
+    }
+
+    function count_cost_check($partid,$prodid)
+    {
+        $query = "SELECT COUNT(*) as Count from cost where Part_Id = '$partid' and Prod_Id = '$prodid'";
+  
+        $result =  $this->db->query($query)->result();
+       
+        foreach($result as $re){
+            return $re->Count;
+        }
+    }
+    function insertcost($partid,$prodid)
+    {
+        $query = "INSERT INTO cost(Part_Id,Prod_Id)
+                    VALUES
+                    ('$partid','$prodid')";
+
+        return $this->db->query($query);            
+    }
+    function deletecost($partid)
+    {
+        $query = "DELETE FROM cost WHERE Part_Id = '$partid'";
+
+        return $this->db->query($query);
     }
 
 }   
