@@ -24,9 +24,10 @@ class Regis extends CI_Controller
         $data['province'] = $this->detail->Province();
         $data['amphur'] = $this->detail->Amphur();
         $data['district'] = $this->detail->District();
-        // $data['view'] = "add/insertemp";
-        $this->load->view('add/insertemp', $data);
+        $data['view'] = "add/insertemp";
+        // $this->load->view('add/insertemp', $data);
         // $this->load->view('index',$data);
+        $this->load->view('actionindex', $data);
     }
 
     public function empidgen()
@@ -72,6 +73,7 @@ class Regis extends CI_Controller
         $national = $this->input->post('national');
         $user = $id;
         $pass = $id;
+        // echo $gender;
         $this->input->post('detail');
 
 
@@ -87,13 +89,15 @@ class Regis extends CI_Controller
 
         if (!$this->upload->do_upload('empim')) {
             // echo $this->upload->display_errors();
-            echo "<script> alert ('ไฟล์รูปภาพไม่ถูกต้อง')</script>";
+            echo "<script> alert ('ไฟล์รูปภาพไม่ถูกต้อง')
+            window.history.back();
+            </script>";
 
-            $data['pos']   = $this->detail->Position();
-            $data['province'] = $this->detail->Province();
-            $data['amphur'] = $this->detail->Amphur();
-            $data['district'] = $this->detail->District();
-            $this->load->view('add/insertemp', $data);
+            // $data['pos']   = $this->detail->Position();
+            // $data['province'] = $this->detail->Province();
+            // $data['amphur'] = $this->detail->Amphur();
+            // $data['district'] = $this->detail->District();
+            // $this->load->view('add/insertemp', $data);
         } else {
             $data = $this->upload->data();
             $filename = $data['file_name'];
@@ -150,14 +154,17 @@ class Regis extends CI_Controller
                     // $this->load->helper('url');
                     // redirect('employee', 'refresh');
                 } else {
-                    echo "<script> alert ('พบพนักงานแล้ว')</script>";
+                    echo "<script> alert ('พบพนักงานแล้ว')
+                    window.history.back();
+                    </script>";
 
-                    $data['pos']   = $this->detail->Position();
-                    $data['province'] = $this->detail->Province();
-                    $data['amphur'] = $this->detail->Amphur();
-                    $data['district'] = $this->detail->District();
+                    // $data['pos']   = $this->detail->Position();
+                    // $data['province'] = $this->detail->Province();
+                    // $data['amphur'] = $this->detail->Amphur();
+                    // $data['district'] = $this->detail->District();
                     // $data['view'] = "add/insertemp";
-                    $this->load->view('add/insertemp', $data);
+                    // $this->load->view('actionindex', $data);
+                    // $this->load->view('add/insertemp', $data);
                 }
             }
         }
@@ -173,9 +180,9 @@ class Regis extends CI_Controller
         $data['district'] = $this->detail->District();
         $data['position'] = $this->detail->callposition();
 
-        // $data['view'] = "add/edit";
-        // $this->load->view('index',$data);
-        $this->load->view('add/edit', $data);
+        $data['view'] = "add/edit";
+        // $this->load->view('add/edit', $data);
+        $this->load->view('actionindex', $data);
     }
 
     public function update()

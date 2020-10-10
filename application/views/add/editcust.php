@@ -25,105 +25,110 @@
                                     <h3 class="text-center font-weight-light my-4">Edit Account</h3>
                                 </div>
                                 <div class="card-body">
-                                <?php foreach ($editcust as $e){?>
-                                    <form action="<?php echo site_url('customercon/updatecust') ?>" method="post">
-                                        <div class="form-group">
-                                            <label>ชื่อ :</label>
-                                            <input class="form-control py-4" id="cusfname" name="cusfname" type="text" placeholder="Enter first name" value="<?php echo $e->Cus_fname ?>" />
-                                        </div>
-                                        <div class="form-group">
-                                            <label>นามสกุล :</label>
-                                            <input class="form-control py-4" id="cuslname" name="cuslname" type="text" placeholder="Enter last name" value="<?php echo $e->Cus_lname ?>" />
-                                        </div>
-                                        <div class ="form-group">
-                                        <label>เพศ :</label>
-                                            <input type="radio" name="cusgender" id="cusgender" value="ชาย"<?php if($e->Cus_Gender == "ชาย"){ echo "checked";}?>> ชาย
-                                            <input type="radio" name="cusgender" id="cusgender" value="หญิง"<?php if($e->Cus_Gender =="หญิง"){ echo "checked";}?>> หญิง<br>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>อีเมล :</label>
-                                            <input class="form-control py-4" id="cusemail" name="cusemail" type="email" aria-describedby="emailHelp" placeholder="Enter email address" value="<?php echo $e->Cus_Email ?>" />
-                                        </div>
-                                        <div class="form-group">
-                                        <table id="tel">
-                            <?php
-                            $i = 1;
-                            foreach ($edittel as $et) { ?>
-                                <tr id="newtel<?php echo $i; ?>">
-                                    <label>เบอร์โทร :</label>
-                                    <td>
-                                        <input class="form-control" type="text" name="cus_tel[]" onkeypress="return numberonly(event)" id="cus_tel"  maxlength="11" value="<?php echo $et->cus_tel; ?>">
-                                    </td>
-                                    <td>
-                                        <?php if ($i == 1) { ?><button type="button" name="add" id="add" class="btn btn-success"><i class="fa fa-plus"></i></button>
-                                        <?php } else { ?>
-                                            <button type="button" name="remove" id="<?php echo $i; ?>" class="btn btn-danger btn_remove">X</button>
-                                        <?php } ?>
-                                    </td>
-                                </tr>
-                            <?php
-                                $i++;
-                            } ?>
-                        </table>
-                                        </div>
-                                        <label>จังหวัด :</label>
-                                        <select class="form-control" id="province" name="province" onchange="am()">
-                                            <option value="">จังหวัด</option>
-                                            <?php foreach ($province as $p) { ?>
-                                                <option value="<?php echo $p->PROVINCE_ID; ?>"<?php if($e->Cus_Province == $p->PROVINCE_ID){
-                                                    echo "selected";
-                                                }?>>
-                                                    <?php echo $p->PROVINCE_NAME; ?>
-                                                </option>
-                                            <?php } ?>
-                                        </select>
-                                        <label>เขต :</label>
-                                        <select class="form-control" id="amphur" name="amphur" onchange="dis()">
-                                            <option value="">เขต</option>
-                                            <?php foreach ($amphur as $a) { ?>
-                                                <option value="<?php echo $a->AMPHUR_ID; ?>"<?php if($e->Cus_Amphur == $a->AMPHUR_ID){
-                                                    echo "selected";
-                                                    }?>>
-                                                    <?php echo $a->AMPHUR_NAME; ?>
-                                                </option>
-                                            <?php } ?>
-                                        </select>
-                                        <label>แขวง :</label>
-                                        <select class="form-control" id="district" name="district" onchange="posc()">
-                                            <option value="">แขวง</option>
-                                            <?php foreach ($district as $d) { ?>
-                                                <option value="<?php echo $d->DISTRICT_ID; ?>"<?php if($e->Cus_District == $d->DISTRICT_ID){
-                                                    echo "selected";
-                                                }?>>
-                                                    <?php echo $d->DISTRICT_NAME; ?>
-                                                </option>
-                                            <?php } ?>
-                                        </select>
+                                    <?php foreach ($editcust as $e) { ?>
+                                        <form action="<?php echo site_url('customercon/updatecust') ?>" method="post">
+                                            <div class="form-group">
+                                                <label>ชื่อ :</label>
+                                                <input class="form-control py-4" id="cusfname" name="cusfname" type="text" placeholder="Enter first name" value="<?php echo $e->Cus_fname ?>" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label>นามสกุล :</label>
+                                                <input class="form-control py-4" id="cuslname" name="cuslname" type="text" placeholder="Enter last name" value="<?php echo $e->Cus_lname ?>" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label>เพศ :</label>
+                                                <input type="radio" name="cusgender" id="cusgender" value="ชาย" <?php if ($e->Cus_Gender == "ชาย") {
+                                                                                                                    echo "checked";
+                                                                                                                } ?>> ชาย
+                                                <input type="radio" name="cusgender" id="cusgender" value="หญิง" <?php if ($e->Cus_Gender == "หญิง") {
+                                                                                                                        echo "checked";
+                                                                                                                    } ?>> หญิง<br>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>อีเมล :</label>
+                                                <input class="form-control py-4" id="cusemail" name="cusemail" type="email" aria-describedby="emailHelp" placeholder="Enter email address" value="<?php echo $e->Cus_Email ?>" />
+                                            </div>
+                                            <div class="form-group">
+                                                <table id="tel">
+                                                    <label>เบอร์โทร :</label>
+                                                    <?php
+                                                    $i = 1;
+                                                    foreach ($edittel as $et) { ?>
+                                                        <tr id="newtel<?php echo $i; ?>">
 
-                                        <label>รหัสไปรษณีย์ :</label>
-                                        <select class="form-control" id="postcode" name="postcode">
-                                            <option value="">รหัสไปรษณีย์</option>
-                                            <?php foreach ($district as $posc) { ?>
-                                                <option value="<?php echo $posc->POSTCODE; ?>"<?php if($e->Cus_Postcode == $posc->POSTCODE){
-                                                    echo "selected";
-                                                }?>>
-                                                    <?php echo $posc->POSTCODE; ?>
-                                                </option>
-                                            <?php } ?>
-                                        </select>
+                                                            <td>
+                                                                <input class="form-control" type="text" name="cus_tel[]" onkeypress="return numberonly(event)" id="cus_tel" maxlength="11" value="<?php echo $et->cus_tel; ?>">
+                                                            </td>
+                                                            <td>
+                                                                <?php if ($i == 1) { ?><button type="button" name="add" id="add" class="btn btn-success"><i class="fa fa-plus"></i></button>
+                                                                <?php } else { ?>
+                                                                    <button type="button" name="remove" id="<?php echo $i; ?>" class="btn btn-danger btn_remove">X</button>
+                                                                <?php } ?>
+                                                            </td>
+                                                        </tr>
+                                                    <?php
+                                                        $i++;
+                                                    } ?>
+                                                </table>
+                                            </div>
+                                            <label>จังหวัด :</label>
+                                            <select class="form-control" id="province" name="province" onchange="am()">
+                                                <option value="">จังหวัด</option>
+                                                <?php foreach ($province as $p) { ?>
+                                                    <option value="<?php echo $p->PROVINCE_ID; ?>" <?php if ($e->Cus_Province == $p->PROVINCE_ID) {
+                                                                                                        echo "selected";
+                                                                                                    } ?>>
+                                                        <?php echo $p->PROVINCE_NAME; ?>
+                                                    </option>
+                                                <?php } ?>
+                                            </select>
+                                            <label>เขต :</label>
+                                            <select class="form-control" id="amphur" name="amphur" onchange="dis()">
+                                                <option value="">เขต</option>
+                                                <?php foreach ($amphur as $a) { ?>
+                                                    <option value="<?php echo $a->AMPHUR_ID; ?>" <?php if ($e->Cus_Amphur == $a->AMPHUR_ID) {
+                                                                                                        echo "selected";
+                                                                                                    } ?>>
+                                                        <?php echo $a->AMPHUR_NAME; ?>
+                                                    </option>
+                                                <?php } ?>
+                                            </select>
+                                            <label>แขวง :</label>
+                                            <select class="form-control" id="district" name="district" onchange="posc()">
+                                                <option value="">แขวง</option>
+                                                <?php foreach ($district as $d) { ?>
+                                                    <option value="<?php echo $d->DISTRICT_ID; ?>" <?php if ($e->Cus_District == $d->DISTRICT_ID) {
+                                                                                                        echo "selected";
+                                                                                                    } ?>>
+                                                        <?php echo $d->DISTRICT_NAME; ?>
+                                                    </option>
+                                                <?php } ?>
+                                            </select>
 
-                                        <label>รายละเอียด :</label>
-                                        <textarea class="form-control" name="cusaddress" id="cusaddress" >
-                                        <?php echo $e->Cus_Address?>
+                                            <label>รหัสไปรษณีย์ :</label>
+                                            <select class="form-control" id="postcode" name="postcode">
+                                                <option value="">รหัสไปรษณีย์</option>
+                                                <?php foreach ($district as $posc) { ?>
+                                                    <option value="<?php echo $posc->POSTCODE; ?>" <?php if ($e->Cus_Postcode == $posc->POSTCODE) {
+                                                                                                        echo "selected";
+                                                                                                    } ?>>
+                                                        <?php echo $posc->POSTCODE; ?>
+                                                    </option>
+                                                <?php } ?>
+                                            </select>
+
+                                            <label>รายละเอียด :</label>
+                                            <textarea class="form-control" name="cusaddress" id="cusaddress">
+                                        <?php echo $e->Cus_Address ?>
                                         </textarea>
-                                        <div class="form-group mt-4 mb-0">
-                                                
-                                        <button type="submit" class="btn btn-primary btn-block" value="<?php echo $e->Cus_Id;?>" name="Updateacc">แก้ไขข้อมูลลูกค้า</button>
-                                    </div>
-                                    </form>
-                                            <?php } ?>
+                                            <div class="form-group mt-4 mb-0">
+
+                                                <button type="submit" class="btn btn-primary btn-block" value="<?php echo $e->Cus_Id; ?>" name="Updateacc">แก้ไขข้อมูลลูกค้า</button>
+                                            </div>
+                                        </form>
+                                    <?php } ?>
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -165,20 +170,20 @@
             var button_id = $(this).attr("id");
             $('#newtel' + button_id + '').remove();
         });
-        $(function(){
-          $("input[name='cus_tel[]']").on('input',function(e){
-              $(this).val($(this).val().replace(/[^0-9]/g,''));
-          });
-      });
+        $(function() {
+            $("input[name='cus_tel[]']").on('input', function(e) {
+                $(this).val($(this).val().replace(/[^0-9]/g, ''));
+            });
+        });
     });
-    function numberonly(evt)
-      {
-         var charCode = (evt.which) ? evt.which : event.keyCode
-         if (charCode > 31 && (charCode < 48 || charCode > 57))
+
+    function numberonly(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode
+        if (charCode > 31 && (charCode < 48 || charCode > 57))
             return false;
 
-         return true;
-      }
+        return true;
+    }
 
 
 

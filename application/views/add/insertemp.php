@@ -32,8 +32,9 @@ body{
         <div style="margin-left: 20px">
             <div class="row justify-content-center">
                 <div class="col-5">
-                <img id = "preimage" width="150px" height="150px">
+                
                     <label>รูปภาพพนักงาน</label>
+                    <img id = "preimage" width="150px" height="150px">
                     <input type="file" name="empim" id="empim"accept="image/*" onchange="loadimg(event)" required oninvalid="this.setCustomValidity('กรุณาเลือกรูป')" oninput="setCustomValidity('')">
                     
                 </div>
@@ -160,8 +161,8 @@ body{
                     <select class="form-control" id="pos" name="pos" required oninvalid="this.setCustomValidity('กรุณาเลือกตำแหน่ง')" oninput="setCustomValidity('')">
                         <option value="">ตำแหน่ง</option>
                         <?php foreach ($pos as $p) { ?>
-                            <option value="<?php echo $p->Job_Id; ?>">
-                                <?php echo $p->job; ?>
+                            <option value="<?php echo $p->Pos_Id; ?>">
+                                <?php echo $p->Pos_Name; ?>
                             </option>
                         <?php } ?>
                     </select>
@@ -269,6 +270,20 @@ body{
             $('#newtel' + button_id + '').remove();
         });
     });
+
+    $('#nametitle').change(function(){
+          var ti = $('#nametitle').val();
+          console.log(ti);
+        if(ti == 'นาย'){
+            // $("#gender[value='ชาย']").prop('disabled',true);
+            $("#gender[value='ชาย']").prop("checked", true);
+            // $("#gender[value='หญิง']").prop('disabled',true);
+        }else{
+            // $("#gender[value='ชาย']").prop('disabled',true);
+            $("#gender[value='หญิง']").prop('checked',true);
+            // $("#gender[value='หญิง']").prop('disabled',true);
+        }
+      });
 
     function numberonly(evt)
       {

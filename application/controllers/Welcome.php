@@ -27,32 +27,40 @@ class Welcome extends CI_Controller
     function __construct()
     {
         parent::__construct();
+        $id = $this->session->userdata('id');
+        if(!$this->session->userdata('id')){
+            echo "<script> 
+            window.alert('กรุณาลงชื่อเข้าใช้งาน');
+            window.location.href='/ER_GOLDV1/index.php/auth/loginform';
+            </script>";
+        }
         $this->load->helper('url', 'form', 'html');   //เรียกมาใช้ 
         $this->load->library('session', 'upload');
         $this->load->model('ergold');
         $this->load->model('detail');
         $this->load->database();
-        // $txtsearch555 = $this->input->post('semp');
     }
 
     public function index()
     {
-        // $this->load->view('login.php');
-        $this->load->model('detail');
-        $start = 0;
-        $pageend = 4;
-        $data['numpage'] = 1;
-        $data['pageend'] = $pageend;
-        $search = "and e.Id like '%%'";
-
-        $count_all = $this->detail->count_all_emp($search);
-        foreach ($count_all as $value) {
-            $data['count_all'] = $value->Count;
-        }
-
-        $data['result'] = $this->detail->empdata($start, $pageend,  $search);
-        $data['view'] = "Detail/emp";
+        $per = $this->session->userdata('Permit');
+        $data['view'] = "Firstpage";
         $this->load->view('index', $data);
+        // $this->load->model('detail');
+        // $start = 0;
+        // $pageend = 3;
+        // $data['numpage'] = 1;
+        // $data['pageend'] = $pageend;
+        // $search = "and e.Id like '%%'";
+
+        // $count_all = $this->detail->count_all_emp($search);
+        // foreach ($count_all as $value) {
+        //     $data['count_all'] = $value->Count;
+        // }
+
+        // $data['result'] = $this->detail->empdata($start, $pageend,  $search);
+        // $data['view'] = "Detail/emp";
+        // $this->load->view('index', $data);
     }
 
     public function employee()
@@ -228,7 +236,7 @@ class Welcome extends CI_Controller
     {
         $this->load->model('partner');
         $start = 0;
-        $pageend = 2;
+        $pageend = 3;
         $data['numpage'] = 1;
         $data['pageend'] = $pageend;
         $search = "";
@@ -249,7 +257,7 @@ class Welcome extends CI_Controller
         $page = $this->input->get('num_page');
         $txtsearch = $this->input->post('hidesearch');
 
-        $pageend1 = 2;
+        $pageend1 = 3;
         if ($page != '') {
             $page = $page;
         } else {
@@ -414,7 +422,7 @@ class Welcome extends CI_Controller
         $page = $this->input->get('num_page');
         $txtsearch = $this->input->post('hidesearch');
 
-        $pageend1 = 2;
+        $pageend1 = 3;
         if ($page != '') {
             $page = $page;
         } else {

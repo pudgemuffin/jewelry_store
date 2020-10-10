@@ -103,7 +103,7 @@
                                 <td nowrap> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $p->Part_Name); ?> </td>
                                 <!-- <td nowrap> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $p->tel); ?> </td> -->
                                 <td>
-                                    <a class="btn btn-warning" name ="addcost" id="addcost"href="<?php echo site_url('company/cost/').$p->Part_Id?>"><i class="fa fa-cog"></i></a>
+                                    <a class="btn btn-success" name ="addcost" id="addcost"href="<?php echo site_url('company/cost/').$p->Part_Id?>"><i class="fa fa-plus-circle"></i></a>
                                 </td>
                                 <?php } ?>
                         <tr>   

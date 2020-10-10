@@ -125,6 +125,10 @@ class company extends CI_Controller
 
         $this->partner->updatepart($partid,$partname,$partemail, $province,$amphur,$district,$postcode,$partaddress);
         $this->partner->partteldel($partid);
+        $data1['getcheck'] = $this->partner->checkinsertpart($partname);
+        foreach ($data1['getcheck'] as $value) {
+            $count = $value->COUNT;
+            if ($count == 1) {
         foreach ($parttel as $pt) {
             $data = array(
                 'Part_tel' => $pt,
@@ -135,10 +139,15 @@ class company extends CI_Controller
                 $this->partner->parttel($partid, $pt);
             }
         }
-
         echo "<script> alert('แก้ไขข้อมูลบริษัทสำเร็จ');
-							window.location.href='/ER_GOLDV1/index.php/Welcome/partner';
-							</script>";
+                                window.location.href='/ER_GOLDV1/index.php/Welcome/partner';
+                                </script>";
+     } else{
+        echo "<script> alert ('พบชื่อ บริษัทซ้ำ ');
+                window.history.back();           
+                    </script>";
+                                }
+    }
     }
 
     public function deletepartner()
@@ -174,6 +183,7 @@ class company extends CI_Controller
             }
         }
         
+        
     }
 
     public function addcost()
@@ -182,6 +192,7 @@ class company extends CI_Controller
         $prodid = $this->input->post('prodid');
         // echo $partid."<br>";
         // print_r($prodid);
+
         foreach($prodid as $pd){
             $data = array(
                 'Prod_Id' => $pd,
@@ -192,6 +203,9 @@ class company extends CI_Controller
                 $this->partner->insertcost($partid,$pd);
             }
         }
+        echo "<script> alert('เพิ่มข้อมูลราคาทุนสำเร็จ');
+		 					window.location.href='/ER_GOLDV1/index.php/Welcome/cost';
+							 </script>";
 
     }
 
@@ -210,8 +224,9 @@ class company extends CI_Controller
                 $this->partner->insertcost($partid,$pd);
             }
         }
+        echo "<script> alert('เพิ่มข้อมูลราคาทุนสำเร็จ');
+		 					window.location.href='/ER_GOLDV1/index.php/Welcome/cost';
+							 </script>";
 
     }
 }
-
-?>

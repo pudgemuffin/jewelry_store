@@ -47,11 +47,12 @@
                 <div class="row justify-content-center">
                     <div class="col-5">
                         <table id="tel">
+                        <label>เบอร์โทร :</label>
                             <?php
                             $i = 1;
                             foreach ($edittel as $et) { ?>
                                 <tr id="newtel<?php echo $i; ?>">
-                                    <label>เบอร์โทร :</label>
+                                    
                                     <td>
                                         <input class="form-control" type="text" name="part_tel[]" onkeypress="return numberonly(event)" id="part_tel" size="40" maxlength="10" required oninvalid="this.setCustomValidity('กรุณากรอกเบอร์โทรให้ครบ 10 หลัก')" oninput="setCustomValidity('')" value="<?php echo $et->Part_tel; ?>">
                                     </td>

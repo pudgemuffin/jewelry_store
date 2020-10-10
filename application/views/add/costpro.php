@@ -22,19 +22,23 @@
             <div class="row justify-content-center">
                 <div class="col-5">
                     <label>บริษัทคู่ค้า :</label>
-                    <input class="form-control" style="color: red;" type=text value="<?php echo $p->Part_Name; ?>" disabled>
+                    <input type="text" name="partid" id="partid" value="<?php echo $p->Part_Id; ?>"hidden>
+                    <input class="form-control" style="color: red;" type=text value="<?php echo $p->Part_Name; ?>" readonly>
                 </div>
             </div>
 
             <div class="row justify-content-center">
                 <div class="col-5">
                     <table id="prod">
-                        <?php $i = 1; ?>
+                    <label>สินค้า :</label>
+                    <?php $i = 1; ?>
+                    <?php foreach ($productbyid as $pdi) { ?>
+                        
                         <tr id="newprod<?php echo $i; ?>">
-                            <label>สินค้า :</label>
+                            
                             <td><select class="form-control" id="prodid[]" name="prodid[]" required oninvalid="this.setCustomValidity('กรุณาเลือกสินค้า')" oninput="setCustomValidity('')">
                                     <option value="">กรุณาเลือกสินค้า</option>
-                                    <?php foreach ($productbyid as $pdi) { ?>
+                                    
                                     <?php foreach ($product as $pr) { ?>
                                         <option value="<?php echo $pr->Prod_Id; ?>" <?php if ($pdi->Prod_Id == $pr->Prod_Id) {
                                                                                         echo "selected";

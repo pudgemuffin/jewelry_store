@@ -53,7 +53,7 @@ class detail extends CI_Model
     
     function callposition()
     {
-        $query = "SELECT Pos_Id,Pos_Name from job";
+        $query = "SELECT Pos_Id,Pos_Name,permit from job";
         return $this->db->query($query)->result();
     }
 

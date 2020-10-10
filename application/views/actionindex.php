@@ -73,6 +73,7 @@
                                 <a class="nav-link" href="<?php echo site_url('Welcome/viewcust'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;">ทองคำหลุดจำนำ</a>
                             </nav>
                         </div>
+                        <a class="nav-link" href="<?php echo site_url('auth/logout'); ?>" style="font-size:16px;color:#ffffff;">ออกจากระบบ<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-right" style="font-size:18px;color:#ffffff;"></i></div></a>
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
                             <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                             Pages

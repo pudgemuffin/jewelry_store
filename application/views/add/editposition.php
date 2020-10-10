@@ -29,6 +29,54 @@
                 </div>
             </div><br>
             <div class="row justify-content-center">
+                <label>ชื่อตำแหน่ง</label>
+                <div class="col-2">
+                    <div class="checkbox">
+                        <input type="hidden" name="box1" id="box1" value="0">
+                        <label><input type="checkbox" name="box1" id="box1" value="1">การจัดการข้อมูลพนักงาน</label>      
+                    </div>
+                    <div class="checkbox">
+                        <input type="hidden" name="box2" id="box2" value="0" >
+                        <label><input type="checkbox" name="box2" id="box2" value="1">การจัดการข้อมูลลูกค้า</label>
+                    </div>
+                    <div class="checkbox">
+                        <input type="hidden" name="box3" id="box3" value="0" >
+                        <label><input type="checkbox" name="box3" id="box3" value="1" >การจัดการข้อมูลบริษัทคู่ค้า</label>
+                    </div>
+                    <div class="checkbox">
+                        <input type="hidden" name="box4" id="box4" value="0" >
+                        <label><input type="checkbox" name="box4" id="box4" value="1" >การจัดการข้อมูลตำแหน่ง</label>
+                    </div>
+                    <div class="checkbox">
+                        <input type="hidden" name="box5" id="box5" value="0" >
+                        <label><input type="checkbox" name="box5" id="box5" value="1" >การจัดการข้อมูลสินค้า</label>
+                    </div>
+                    
+                </div>
+                <div class="col-3">
+                    <div class="checkbox">
+                        <input type="hidden" name="box6" id="box6" value="0" >
+                        <label><input type="checkbox" name="box6" id="box6" value="1">การจำนำ</label>
+                    </div>
+                    <div class="checkbox">
+                        <input type="hidden" name="box7" id="box7" value="0" >
+                        <label><input type="checkbox" name="box7" id="box7" value="1">การขายสินค้า</label>
+                    </div>
+                    <div class="checkbox">
+                        <input type="hidden" name="box8" id="box8" value="0" >
+                        <label><input type="checkbox" name="box8" id="box8" value="1" >การสั่งซื้อสินค้า</label>
+                    </div>
+                    <div class="checkbox">
+                        <input type="hidden" name="box9" id="box9" value="0" >
+                        <label><input type="checkbox" name="box9" id="box9" value="1" >การออกรายงาน</label>
+                    </div>
+                    <div class="checkbox">
+                        <input type="hidden" name="box10" id="box10" value="0" >
+                        <label><input type="checkbox" name="box10" id="box10" value="1" >ทั้งหมด</label>
+                    </div>
+                </div>
+            </div><br>
+            <div class="row justify-content-center">
                 <div class="col-5">
 
                     <button type="submit" class="btn btn-info" name="updatejob" value="<?php echo $e->Pos_Id;?>">แก้ไขตำแหน่ง</button>

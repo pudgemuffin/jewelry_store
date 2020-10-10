@@ -26,8 +26,9 @@
             <div class="row justify-content-center">
                 <div class="col-5">
                     <label>รูปภาพพนักงาน</label>
-                    <input type="file" name="empim" id="empim" accept="image/*"onchange="loadimg(event)" >
                     <img id = "preimage" width="150px" height="150px" src="<?php echo base_url('/img/EMP/'.$r->Image);?>">
+                    <input type="file" name="empim" id="empim" accept="image/*"onchange="loadimg(event)" >
+                    
                     <input type="text" name="oldImg" id="oldImg" value="<?php echo $r->Image; ?>"hidden>
                 </div>
                 
@@ -148,11 +149,12 @@
                 <div class="row justify-content-center">
                     <div class="col-5">
                         <table id="tel">
+                        <label>เบอร์โทร :</label>
                             <?php
                             $i = 1;
                             foreach ($edittel as $et) { ?>
                                 <tr id="newtel<?php echo $i; ?>">
-                                    <label>เบอร์โทร :</label>
+                                   
                                     <td>
                                         <input class="form-control" type="text" name="emp_tel[]" onkeypress="return numberonly(event)" id="emp_tel" size="40" maxlength="10" required oninvalid="this.setCustomValidity('กรุณากรอกเบอร์โทรให้ครบ 10 หลัก')" oninput="setCustomValidity('')" value="<?php echo $et->emp_tel; ?>">
                                     </td>
@@ -324,6 +326,19 @@
 
          return true;
       }
+      $('#nametitle').change(function(){
+          var ti = $('#nametitle').val();
+          console.log(ti);
+        if(ti == 'นาย'){
+            // $("#gender[value='ชาย']").prop('disabled',true);
+            $("#gender[value='ชาย']").prop("checked", true);
+            // $("#gender[value='หญิง']").prop('disabled',true);
+        }else{
+            // $("#gender[value='ชาย']").prop('disabled',true);
+            $("#gender[value='หญิง']").prop('checked',true);
+            // $("#gender[value='หญิง']").prop('disabled',true);
+        }
+      });
     function loadimg(event){
         var output = document.getElementById('preimage');
         output.src = URL.createObjectURL(event.target.files[0]);
