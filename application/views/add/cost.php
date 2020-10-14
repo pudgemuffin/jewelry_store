@@ -39,6 +39,7 @@
                                     </option>
                                 <?php } ?>
                             </select></td>
+                            <td><input class="form-control" id="price[]" name="price[]" required oninvalid="this.setCustomValidity('กรุณากรอกราคา')" oninput="setCustomValidity('')"></td>
                         <td><button type="button" name="add" id="add" class="btn btn-success"><i class="fa fa-plus"></i></button></td>
                     </tr>
                 </table>
@@ -61,7 +62,7 @@
         var i = 1;
         $('#add').click(function() {
             i++;
-            var prod = '<tr id="newprod' + i + '"><td><select class="form-control" id="prodid[]" name="prodid[]" required "><option value="">กรุณาเลือกสินค้า</option><?php foreach ($product as $pr) { ?><option value="<?php echo $pr->Prod_Id; ?>"><?php echo $pr->Prod_Name; ?></option><?php } ?></select></td>  <td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">X</button></td></tr>'
+            var prod = '<tr id="newprod' + i + '"><td><select class="form-control" id="prodid[]" name="prodid[]" required "><option value="">กรุณาเลือกสินค้า</option><?php foreach ($product as $pr) { ?><option value="<?php echo $pr->Prod_Id; ?>"><?php echo $pr->Prod_Name; ?></option><?php } ?></select></td><td><input class="form-control" id="price[]" name="price[]" required "></td>  <td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">X</button></td></tr>'
             $('table').append(prod);
         });
         $(document).on('click', '.btn_remove', function() {

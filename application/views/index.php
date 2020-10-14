@@ -118,8 +118,9 @@
                     </div>
                 </div>
                 <div class="sb-sidenav-footer" style="background-color: #820115;">
-                    <div class="small">Logged in as:</div>
-                    Start Bootstrap
+                <?php  ?>
+                    <div class="small">ลงชื่อเข้าใช้โดย : <?php echo $fname.' - '.$sname; ?></div>
+                    <br>
                 </div>
             </nav>
         </div>

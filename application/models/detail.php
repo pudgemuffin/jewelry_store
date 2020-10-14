@@ -57,6 +57,13 @@ class detail extends CI_Model
         return $this->db->query($query)->result();
     }
 
+    function displaypermit()
+    {
+        $query = "SELECT permit from job";
+        return $this->db->query($query)->result();
+    }
+
+
     function count_all_position($search)
     {
         $query = "SELECT COUNT(*) as Count from( SELECT ROW_NUMBER()OVER ( ORDER By Pos_Id )as row ,Pos_Name

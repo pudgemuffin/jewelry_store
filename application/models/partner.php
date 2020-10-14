@@ -157,11 +157,11 @@ class partner extends CI_Model
             return $re->Count;
         }
     }
-    function insertcost($partid,$prodid)
+    function insertcost($partid,$prodid,$price)
     {
-        $query = "INSERT INTO cost(Part_Id,Prod_Id)
+        $query = "INSERT INTO cost(Part_Id,Prod_Id,Cost_Price)
                     VALUES
-                    ('$partid','$prodid')";
+                    ('$partid','$prodid','$price')";
 
         return $this->db->query($query);            
     }

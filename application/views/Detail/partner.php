@@ -75,7 +75,7 @@
 
 
                 </div><br>
-                <a class="btn btn-primary" target="_blank" href="<?php echo site_url('company/addpartner');?>">เพิ่มบริษัทคู่ค้า</a>
+                <a class="btn btn-primary"  href="<?php echo site_url('company/addpartner');?>">เพิ่มบริษัทคู่ค้า</a>
         </div>
         <p style="text-align: right;">ข้อมูลบริษัทคู่ค้าทั้งหมด <?php echo $count_all; ?> บริษัท</p>
 

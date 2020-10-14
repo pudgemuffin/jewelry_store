@@ -82,7 +82,7 @@
 
 
                 </div><br>
-                <a class="btn btn-primary" target="_blank" href="<?php echo site_url('Regis/insert'); ?>">เพิ่มพนักงาน</a>
+                <a class="btn btn-primary"  href="<?php echo site_url('Regis/insert'); ?>">เพิ่มพนักงาน</a>
         </div>
         <p style="text-align: right;">ข้อมูลพนักงานทั้งหมด <?php echo $count_all; ?> คน</p>
     </div>

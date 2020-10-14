@@ -25,8 +25,8 @@
             <div class="row justify-content-center">
                 <div class="col-5">
                     <label>ชื่อตำแหน่ง</label>
-                    <input class="form-control" type=text name="posi" id="posi" >
-                    <div class = "error"></div>
+                    <input class="form-control" type=text name="posi" id="posi" required oninvalid="this.setCustomValidity('กรุณากรอกชื่อตำแหน่ง')" oninput="setCustomValidity('')"> 
+                    <!-- <div class = "error"></div> -->
                 </div>
             </div><br>
             <div class="row justify-content-center">
@@ -34,11 +34,11 @@
                 <div class="col-2">
                     <div class="checkbox">
                         <input type="hidden" name="box1" id="box1" value="0">
-                        <label><input type="checkbox" name="box1" id="box1" value="1">การจัดการข้อมูลพนักงาน</label>      
+                        <label><input type="checkbox" name="box1" id="box1" value="1" >การจัดการข้อมูลพนักงาน</label>
                     </div>
                     <div class="checkbox">
                         <input type="hidden" name="box2" id="box2" value="0" >
-                        <label><input type="checkbox" name="box2" id="box2" value="1">การจัดการข้อมูลลูกค้า</label>
+                        <label><input type="checkbox" name="box2" id="box2" value="1" >การจัดการข้อมูลลูกค้า</label>
                     </div>
                     <div class="checkbox">
                         <input type="hidden" name="box3" id="box3" value="0" >
@@ -54,27 +54,33 @@
                     </div>
                     
                 </div>
+                
                 <div class="col-3">
-                    <div class="checkbox">
-                        <input type="hidden" name="box6" id="box6" value="0" >
-                        <label><input type="checkbox" name="box6" id="box6" value="1">การจำนำ</label>
+                <div class="checkbox">
+                    <input type="hidden" name="box6" id="box6" value="0" >
+                        <label><input type="checkbox" name="box6" id="box6" value="1" >การจัดการข้อมูลประเภทสินค้า</label>
                     </div>
-                    <div class="checkbox">
-                        <input type="hidden" name="box7" id="box7" value="0" >
-                        <label><input type="checkbox" name="box7" id="box7" value="1">การขายสินค้า</label>
+                <div class="checkbox">
+                <input type="hidden" name="box7" id="box7" value="0" >
+                        <label><input type="checkbox" name="box7" id="box7" value="1" >การจัดการราคาทุน</label>
                     </div>
                     <div class="checkbox">
                         <input type="hidden" name="box8" id="box8" value="0" >
-                        <label><input type="checkbox" name="box8" id="box8" value="1" >การสั่งซื้อสินค้า</label>
+                        <label><input type="checkbox" name="box8" id="box8" value="1" >การจำนำ</label>
                     </div>
                     <div class="checkbox">
                         <input type="hidden" name="box9" id="box9" value="0" >
-                        <label><input type="checkbox" name="box9" id="box9" value="1" >การออกรายงาน</label>
+                        <label><input type="checkbox" name="box9" id="box9" value="1" >การขายสินค้า</label>
                     </div>
                     <div class="checkbox">
                         <input type="hidden" name="box10" id="box10" value="0" >
-                        <label><input type="checkbox" name="box10" id="box10" value="1" >ทั้งหมด</label>
+                        <label><input type="checkbox" name="box10" id="box10" value="1" >การสั่งซื้อสินค้า</label>
                     </div>
+                    <div class="checkbox">
+                        <input type="hidden" name="box11" id="box11" value="0" >
+                        <label><input type="checkbox" name="box11" id="box11" value="1" >การออกรายงาน</label>
+                    </div>
+                    
                 </div>
             </div><br>
 
@@ -91,13 +97,34 @@
     </form>
 </body>
 <script>
-$(document).ready(function() {
-  $('#insert').click(function() {
-    if (!$('#posi').val()) {
-      $('.error').css('color','red');
-      $('.error').html('ไอ้สัสแตม');
-      return false;
+// $(document).ready(function() {
+//   $('#insert').click(function() {
+//     if (!$('#posi').val()) {
+//       $('.error').css('color','red');
+//       $('.error').html('ไอ้สัสแตม');
+//       return false;
+//     }
+//   })
+// });
+
+$('#box10').click(function() {
+    var checked = $(this).is(':checked');
+    console.log(checked);
+    if (checked == true) {
+        $('#box1').prop('checked', true);
+        alert("1"); 
+       
+
+    } else {
+        $('#box1').attr('checked', false);
+        $('#box2').attr('checked', false);
+        $('#box3').attr('checked', false);
+        $('#box4').attr('checked', false);
+        $('#box5').attr('checked', false);
+        $('#box6').attr('checked', false);
+        $('#box7').attr('checked', false);
+        $('#box8').attr('checked', false);
+        $('#box9').attr('checked', false);
     }
-  })
 });
 </script>

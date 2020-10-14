@@ -13,6 +13,20 @@ class customercon extends CI_Controller
         $this->load->library('session', 'upload');
         $this->load->model('detail');
         $this->load->database();
+        $id = $this->session->userdata('id');
+        $per = $this->session->userdata('Permit');
+        if (!$id) {
+            echo "<script> 
+            window.alert('กรุณาลงชื่อเข้าใช้งาน');
+            window.location.href='/ER_GOLDV1/index.php/auth/loginform';
+            </script>";
+        }
+        if ($per[1] != 1) {
+            echo "<script> 
+            window.alert('คุณไม่มีสิทธิ์ในการใช้งาน');
+            window.location.href='/ER_GOLDV1/index.php/Welcome';
+            </script>";
+        }
     }
 
     public function register()
@@ -21,7 +35,10 @@ class customercon extends CI_Controller
         $data['province'] = $this->detail->Province();
         $data['amphur'] = $this->detail->Amphur();
         $data['district'] = $this->detail->District();
-        $this->load->view('add/registers', $data);
+        $data['fname'] = $this->session->userdata('Firstname');
+        $data['sname']= $this->session->userdata('Surname');
+        $data['view'] = "add/registers";
+        $this->load->view('actionindex', $data);
     }
 
     public function cusidgen()
@@ -124,9 +141,11 @@ class customercon extends CI_Controller
         $data['province'] = $this->detail->Province();
         $data['amphur'] = $this->detail->Amphur();
         $data['district'] = $this->detail->District();
+        $data['fname'] = $this->session->userdata('Firstname');
+        $data['sname']= $this->session->userdata('Surname');
+        $data['view'] = "add/editcust";
+        $this->load->view('actionindex', $data);
 
-
-        $this->load->view('add/editcust', $data);
     }
 
     public function updatecust()

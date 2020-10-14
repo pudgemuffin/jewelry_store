@@ -18,6 +18,8 @@ class product extends CI_Controller
     {
         // $this->load->view('add/insertprotype');
         $data['view'] = "add/insertprotype";
+        $data['fname'] = $this->session->userdata('Firstname');
+        $data['sname']= $this->session->userdata('Surname');
         $this->load->view('actionindex', $data);
     }
 
@@ -57,6 +59,8 @@ class product extends CI_Controller
                 
                 // $this->load->view('add/insertprotype');
                 $data['view'] = "add/insertprotype";
+                $data['fname'] = $this->session->userdata('Firstname');
+            $data['sname']= $this->session->userdata('Surname');
                 $this->load->view('actionindex', $data);
             }
         }
@@ -66,6 +70,8 @@ class product extends CI_Controller
     {
         $data['edittype'] = $this->ergold->displaytype($Prot_Id);
         $data['view'] = "add/edittype";
+        $data['fname'] = $this->session->userdata('Firstname');
+        $data['sname']= $this->session->userdata('Surname');
         // $this->load->view('add/edittype', $data);
         $this->load->view('actionindex', $data);
     }
@@ -108,6 +114,8 @@ class product extends CI_Controller
         $data['protype'] = $this->ergold->protype();
         $data['weight'] = $this->ergold->weight();
         $data['view'] = "add/insertproduct";
+        $data['fname'] = $this->session->userdata('Firstname');
+        $data['sname']= $this->session->userdata('Surname');
         // $this->load->view('add/insertproduct', $data);
         $this->load->view('actionindex', $data);
     }
@@ -118,6 +126,8 @@ class product extends CI_Controller
         $data['size'] = $this->ergold->size();
         $data['weight'] = $this->ergold->weight();
         $data['view'] = "add/insertring";
+        $data['fname'] = $this->session->userdata('Firstname');
+        $data['sname']= $this->session->userdata('Surname');
         // $this->load->view('add/insertring', $data);
         $this->load->view('actionindex', $data);
         
@@ -315,6 +325,8 @@ class product extends CI_Controller
                 $data['protype'] = $this->ergold->protype();
                 $data['weight'] = $this->ergold->weight();
                 $data['view'] = "add/editproduct";
+                $data['fname'] = $this->session->userdata('Firstname');
+        $data['sname']= $this->session->userdata('Surname');
                 // $this->load->view('add/editproduct',$data);
                 $this->load->view('actionindex', $data);
 
@@ -324,6 +336,8 @@ class product extends CI_Controller
                 $data['weight'] = $this->ergold->weight();
                 $data['size'] = $this->ergold->size();
                 $data['view'] = "add/editring";
+                $data['fname'] = $this->session->userdata('Firstname');
+        $data['sname']= $this->session->userdata('Surname');
                 // $this->load->view('add/editring',$data);
                 $this->load->view('actionindex', $data);
             }

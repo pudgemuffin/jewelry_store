@@ -172,6 +172,8 @@ class company extends CI_Controller
                 $data['partnerbyid'] = $this->partner->partnerbyid($partid); 
                 $data['product'] = $this->ergold->product();
                 $data['view'] = "add/cost";
+                $data['fname'] = $this->session->userdata('Firstname');
+                $data['sname']= $this->session->userdata('Surname');
                 $this->load->view('actionindex', $data);
 
             }else{
@@ -179,6 +181,8 @@ class company extends CI_Controller
                 $data['productbyid'] = $this->ergold->productcostbyid($partid);
                 $data['product'] = $this->ergold->product();
                 $data['view'] = "add/costpro";
+                $data['fname'] = $this->session->userdata('Firstname');
+        $data['sname']= $this->session->userdata('Surname');
                 $this->load->view('actionindex', $data);
             }
         }
@@ -190,17 +194,19 @@ class company extends CI_Controller
     {
         $partid = $this->input->post('partid');
         $prodid = $this->input->post('prodid');
+        $price = $this->input->post('price');
         // echo $partid."<br>";
         // print_r($prodid);
 
         foreach($prodid as $pd){
             $data = array(
                 'Prod_Id' => $pd,
-                'Part_Id' => $partid
+                'Part_Id' => $partid,
+                'Cost_Price'=>$price
             );
             $checkcost = $this->partner->count_cost_check($partid,$pd);
             if($checkcost == 0){
-                $this->partner->insertcost($partid,$pd);
+                $this->partner->insertcost($partid,$pd,$price);
             }
         }
         echo "<script> alert('เพิ่มข้อมูลราคาทุนสำเร็จ');
@@ -213,16 +219,23 @@ class company extends CI_Controller
     {
         $partid = $this->input->post('partid');
         $prodid = $this->input->post('prodid');
+        $price = $this->input->post('price');
+        // print_r($price);
+        // print_r($prodid);
+        
         $this->partner->deletecost($partid);
-        foreach($prodid as $pd){
+        foreach($prodid as $pd => $value){
             $data = array(
-                'Prod_Id' => $pd,
-                'Part_Id' => $partid
+                'Prod_Id' => $value,
+                'Part_Id' => $partid,
+                'Cost_Price' => $price[$pd]
             );
-            $checkcost = $this->partner->count_cost_check($partid,$pd);
+            $checkcost = $this->partner->count_cost_check($partid,$value);
+            
             if($checkcost == 0){
-                $this->partner->insertcost($partid,$pd);
+                $this->partner->insertcost($partid,$value,$price[$pd]);
             }
+             
         }
         echo "<script> alert('เพิ่มข้อมูลราคาทุนสำเร็จ');
 		 					window.location.href='/ER_GOLDV1/index.php/Welcome/cost';

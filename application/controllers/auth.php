@@ -49,7 +49,14 @@ class auth extends CI_Controller
                 'Permit' =>$per
             );
             $this->session->set_userdata($session_data);
-            // echo $per[0]."<br>";
+            
+            
+        
+            // if($per[0] == 1){
+            //     echo "hello1";
+            // }else{
+            //     echo "0";
+            // }
             // echo $per[1]."<br>";
             // echo $per[2]."<br>";
             // echo $per[3]."<br>";

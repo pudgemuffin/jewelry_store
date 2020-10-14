@@ -17,7 +17,9 @@ class positioncon extends CI_Controller
     }
 
     public function insertviewposi()
-    {          
+    {   
+        $data['fname'] = $this->session->userdata('Firstname');
+        $data['sname']= $this->session->userdata('Surname');
         $data['view'] = "add/insertposition";
         $this->load->view('actionindex',$data);     
     }
@@ -85,6 +87,16 @@ class positioncon extends CI_Controller
     {
         $this->load->model('detail');
         $data['editjob'] = $this->detail->displayjobid($jobid);
+        // print_r($data['permission']);
+        // echo $data['permission']['0']->permit; 
+        // $permits = $this->detail->displaypermit();
+        // foreach($permits as $val){
+        //   echo  $per = $val->permit;
+        // }
+        // $split = str_split($per,1);
+        // print_r($split);
+        $data['fname'] = $this->session->userdata('Firstname');
+        $data['sname']= $this->session->userdata('Surname');
         $data['view'] = "add/editposition";
 
         $this->load->view('actionindex', $data);
@@ -104,9 +116,10 @@ class positioncon extends CI_Controller
         $box7 = $this->input->post('box7');
         $box8 = $this->input->post('box8');
         $box9 = $this->input->post('box9');
-        // $box10 = $this->input->post('box10');
+        $box10 = $this->input->post('box10');
+        $box11 = $this->input->post('box11');
 
-        $permit = $box1.$box2.$box3.$box4.$box5.$box6.$box7.$box8.$box9;
+        $permit = $box1.$box2.$box3.$box4.$box5.$box6.$box7.$box8.$box9.$box10.$box11;
 
         $this->detail->updatejob($jobid, $posi,$permit);
 

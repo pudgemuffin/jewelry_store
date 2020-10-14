@@ -82,8 +82,8 @@
 
 
                 </div><br>
-                <a class="btn btn-primary" target="_blank" href="<?php echo site_url('product/addproduct'); ?>">เพิ่มสินค้า</a>
-                <a class="btn btn-info" target="_blank" href="<?php echo site_url('product/addring'); ?>">เพิ่มสินค้าแหวน</a>
+                <a class="btn btn-primary" href="<?php echo site_url('product/addproduct'); ?>">เพิ่มสินค้า</a>
+                <a class="btn btn-info" href="<?php echo site_url('product/addring'); ?>">เพิ่มสินค้าแหวน</a>
         </div>
         <p style="text-align: right;">ข้อมูลสินค้าทั้งหมด <?php echo $count_all; ?></p>
     </div>

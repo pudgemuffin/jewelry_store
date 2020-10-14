@@ -72,10 +72,8 @@
                             <i class="fa fa-search"></i>
                         </button>
                     </div>
-
-
                 </div><br>
-                <a class="btn btn-primary" target="_blank" href="<?php echo site_url('product/insertprotype'); ?>">เพิ่มประเภท</a>
+                <a class="btn btn-primary" href="<?php echo site_url('product/insertprotype'); ?>">เพิ่มประเภท</a>
         </div>
 
     </div>

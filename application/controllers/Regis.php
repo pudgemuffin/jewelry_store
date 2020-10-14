@@ -13,21 +13,53 @@ class Regis extends CI_Controller
         $this->load->library('session', 'upload');
         $this->load->model('detail');
         $this->load->database();
+        $per = $this->session->userdata('Permit');
+        $id = $this->session->userdata('id');
+        if (!$this->session->userdata('id')) {
+            echo "<script> 
+            window.alert('กรุณาลงชื่อเข้าใช้งาน');
+            window.location.href='/ER_GOLDV1/index.php/auth/loginform';
+            </script>";
+            
+        }
+        if ($per[0] != 1) {
+                echo "<script> 
+                window.alert('คุณไม่มีสิทธิ์ในการใช้งาน');
+                window.location.href='/ER_GOLDV1/index.php/Welcome/employee';
+                </script>";
+            }
+
+        
     }
 
 
-    
+    public function delete()
+    {
+        
+        $Id = $this->input->post('Id');
+
+        $this->detail->delete($Id);
+
+        echo "<script> alert('ลบข้อมูลสำเร็จ');
+		 					window.location.href='/ER_GOLDV1/index.php';
+                             </script>";
+       
+    }
 
     public function insert()
     {
+      
         $data['pos']   = $this->detail->callposition();
         $data['province'] = $this->detail->Province();
         $data['amphur'] = $this->detail->Amphur();
         $data['district'] = $this->detail->District();
         $data['view'] = "add/insertemp";
+        $data['fname'] = $this->session->userdata('Firstname');
+        $data['sname']= $this->session->userdata('Surname');
         // $this->load->view('add/insertemp', $data);
         // $this->load->view('index',$data);
         $this->load->view('actionindex', $data);
+        
     }
 
     public function empidgen()
@@ -35,9 +67,9 @@ class Regis extends CI_Controller
         $max = $this->detail->maxid();
         $str = substr($max, 3) + 1;
         $txt = "EMP";
-        if($str == ''){
+        if ($str == '') {
             $empid = "EMP001";
-        }elseif ($str < 10) {
+        } elseif ($str < 10) {
             $empid = $txt . "00" . $str;
         } elseif ($str >= 10 && $str <= 99) {
             $empid = $txt . "0" . $str;
@@ -84,7 +116,7 @@ class Regis extends CI_Controller
         $config['max_width'] = '3000';
         $config['max_height'] = '3000';
         $config["overwrite"] = TRUE;
-        $config['file_name'] = $id.".jpg";
+        $config['file_name'] = $id . ".jpg";
         $this->load->library('upload', $config);
 
         if (!$this->upload->do_upload('empim')) {
@@ -99,8 +131,7 @@ class Regis extends CI_Controller
             // $data['district'] = $this->detail->District();
             // $this->load->view('add/insertemp', $data);
         } else {
-            $data = $this->upload->data();
-            $filename = $data['file_name'];
+
 
             $data1['getcheck'] = $this->detail->checkinsert($idcard);
 
@@ -109,7 +140,8 @@ class Regis extends CI_Controller
             foreach ($data1['getcheck'] as $value) {
                 $count = $value->COUNT;
                 if ($count == 0) {
-
+                    $data = $this->upload->data();
+                    $filename = $data['file_name'];
                     $data['insert'] = $this->detail->insertemp(
                         $id,
                         $idcard,
@@ -151,20 +183,10 @@ class Regis extends CI_Controller
                     echo "<script> alert('เพิ่มข้อมูลพนักงานสำเร็จ');
 						window.location.href='/ER_GOLDV1/index.php/Welcome/employee';
                     	</script>";
-                    // $this->load->helper('url');
-                    // redirect('employee', 'refresh');
                 } else {
                     echo "<script> alert ('พบพนักงานแล้ว')
                     window.history.back();
                     </script>";
-
-                    // $data['pos']   = $this->detail->Position();
-                    // $data['province'] = $this->detail->Province();
-                    // $data['amphur'] = $this->detail->Amphur();
-                    // $data['district'] = $this->detail->District();
-                    // $data['view'] = "add/insertemp";
-                    // $this->load->view('actionindex', $data);
-                    // $this->load->view('add/insertemp', $data);
                 }
             }
         }
@@ -172,17 +194,19 @@ class Regis extends CI_Controller
 
     public function edit($id)
     {
-
+        
         $data['edit'] = $this->detail->displaybyid($id);
         $data['edittel'] = $this->detail->emptelbyid($id);
         $data['province'] = $this->detail->Province();
         $data['amphur'] = $this->detail->Amphur();
         $data['district'] = $this->detail->District();
         $data['position'] = $this->detail->callposition();
-
+        $data['fname'] = $this->session->userdata('Firstname');
+        $data['sname']= $this->session->userdata('Surname');
         $data['view'] = "add/edit";
         // $this->load->view('add/edit', $data);
         $this->load->view('actionindex', $data);
+        
     }
 
     public function update()
@@ -213,10 +237,10 @@ class Regis extends CI_Controller
 
         if (empty($_FILES['empim']['name'])) {
 
-            
+
             $this->detail->updatenoimg($id, $idcard, $nametitle, $fname, $lname, $gender, $religion, $blood, $empdate, $email, $pos, $province, $amphur, $district, $postcode, $det, $status, $startdate, $salary, $national);
 
-            $this->detail->empteldel($id);           
+            $this->detail->empteldel($id);
             foreach ($emp_tel as $et) {
                 $data = array(
                     'emp_tel' => $et,
@@ -227,12 +251,10 @@ class Regis extends CI_Controller
                     $this->detail->emptel($id, $et);
                 }
             }
-            
+
             echo "<script> alert('แก้ไขข้อมูลพนักงานสำเร็จ');
             window.location.href='/ER_GOLDV1/index.php/Welcome/employee';
             </script>";
-        
-
         } else {
 
             $config['upload_path'] = './img/EMP/';
@@ -241,7 +263,7 @@ class Regis extends CI_Controller
             $config['max_width'] = '3000';
             $config['max_height'] = '3000';
             $config["overwrite"] = TRUE;
-            $config['file_name'] = $id.".jpg";
+            $config['file_name'] = $id . ".jpg";
             $this->load->library('upload', $config);
             if (!$this->upload->do_upload('empim')) {
                 $oldImg = $this->input->post('oldImg');
@@ -267,7 +289,7 @@ class Regis extends CI_Controller
                 // unlink('./img/EMP/' . $oldImg);
             }
 
-            $this->detail->empteldel($id);           
+            $this->detail->empteldel($id);
             foreach ($emp_tel as $et) {
                 $data = array(
                     'emp_tel' => $et,
@@ -280,7 +302,7 @@ class Regis extends CI_Controller
             }
 
 
-        echo "<script> alert('แก้ไขข้อมูลพนักงานสำเร็จ');
+            echo "<script> alert('แก้ไขข้อมูลพนักงานสำเร็จ');
         window.location.href='/ER_GOLDV1/index.php/Welcome/employee';
         </script>";
         }
@@ -292,40 +314,28 @@ class Regis extends CI_Controller
         $ye = substr(date("Y"), 2) . date("m");
         $this->load->model('customer');
         $max = $this->customer->maxid();
-        $str = substr($max, 3) +1;
+        $str = substr($max, 3) + 1;
         $txt = "CUS";
-        if($str == ''){
-            $cusid = "CUS".$ye."001";
-        }elseif ($str < 10) {
+        if ($str == '') {
+            $cusid = "CUS" . $ye . "001";
+        } elseif ($str < 10) {
             $cusid = $txt . $ye . "00" . $str;
         } elseif ($str >= 10 && $str <= 99) {
-            $cusid = $txt . $ye ."0" . $str;
+            $cusid = $txt . $ye . "0" . $str;
         } elseif ($str >= 100) {
             $cusid = $txt . $ye . $str;
         }
         echo $cusid;
         return $cusid;
-        
-        
-        
     }
 
 
-
-    public function delete()
-    {
-        $Id = $this->input->post('Id');
-
-        $this->detail->delete($Id);
-
-        echo "<script> alert('ลบข้อมูลสำเร็จ');
-		 					window.location.href='/ER_GOLDV1/index.php';
-							 </script>";
-    }
 
     
 
-   
+
+
+
 
 
     public function dept()
@@ -379,6 +389,4 @@ class Regis extends CI_Controller
         $data['result'] = $this->detail->postcodec($district);
         $this->load->view('change/changepos', $data);
     }
-
-    
 }

@@ -23,12 +23,12 @@ class Welcome extends CI_Controller
      * @see https://codeigniter.com/user_guide/general/urls.html
      */
 
- 
+
     function __construct()
     {
         parent::__construct();
         $id = $this->session->userdata('id');
-        if(!$this->session->userdata('id')){
+        if (!$id) {
             echo "<script> 
             window.alert('กรุณาลงชื่อเข้าใช้งาน');
             window.location.href='/ER_GOLDV1/index.php/auth/loginform';
@@ -43,9 +43,16 @@ class Welcome extends CI_Controller
 
     public function index()
     {
-        $per = $this->session->userdata('Permit');
+        // $per = $this->session->userdata('Permit');
+        $data['fname'] = $this->session->userdata('Firstname');
+        $data['sname'] = $this->session->userdata('Surname');
         $data['view'] = "Firstpage";
         $this->load->view('index', $data);
+        // if($per[0] == '1'){
+        //     echo "hello";
+        // }else{
+        //     echo "ez";
+        // }
         // $this->load->model('detail');
         // $start = 0;
         // $pageend = 3;
@@ -65,23 +72,32 @@ class Welcome extends CI_Controller
 
     public function employee()
     {
+        $per = $this->session->userdata('Permit');
+        if ($per[0] != 1) {
+            echo "<script> 
+            window.alert('คุณไม่มีสิทธิ์ในการใช้งาน');
+            window.history.back();
+            </script>";
+        } else {
+            $this->load->model('detail');
+            $start = 0;
+            $pageend = 3;
+            $data['numpage'] = 1;
+            $data['pageend'] = $pageend;
 
-        $this->load->model('detail');
-        $start = 0;
-        $pageend = 3;
-        $data['numpage'] = 1;
-        $data['pageend'] = $pageend;
+            $search = "and e.Id like '%%'";
 
-        $search = "and e.Id like '%%'";
+            $count_all = $this->detail->count_all_emp($search);
+            foreach ($count_all as $value) {
+                $data['count_all'] = $value->Count;
+            }
 
-        $count_all = $this->detail->count_all_emp($search);
-        foreach ($count_all as $value) {
-            $data['count_all'] = $value->Count;
+            $data['result'] = $this->detail->empdata($start, $pageend,  $search);
+            $data['view'] = "Detail/emp";
+            $data['fname'] = $this->session->userdata('Firstname');
+            $data['sname'] = $this->session->userdata('Surname');
+            $this->load->view('index', $data);
         }
-
-        $data['result'] = $this->detail->empdata($start, $pageend,  $search);
-        $data['view'] = "Detail/emp";
-        $this->load->view('index', $data);
     }
 
     public function pagingmain_emp()
@@ -102,12 +118,12 @@ class Welcome extends CI_Controller
         $data['pageend'] = $pageend1;
 
 
- 
+
 
         // $txtsearch = $this->input->post('semp');
-        if($txtsearch != ''){
+        if ($txtsearch != '') {
             $txtsearch = "and e.Id like'%$txtsearch%' or e.Firstname like'%$txtsearch%'or e.Surname like '%$txtsearch%' or e.Email like'%$txtsearch%'or e.Religion like'%$txtsearch%' or j.Pos_Name like '%$txtsearch%'";
-        }else{
+        } else {
             $txtsearch = '';
         }
 
@@ -124,22 +140,32 @@ class Welcome extends CI_Controller
 
     public function viewcust()
     {
-        $this->load->model('customer');
-        $start = 0;
-        $pageend = 3;
-        $data['numpage'] = 1;
-        $data['pageend'] = $pageend;
-        $search = '';
+        $per = $this->session->userdata('Permit');
+        if ($per[1] != 1) {
+            echo "<script> 
+            window.alert('คุณไม่มีสิทธิ์ในการใช้งาน');
+            window.history.back();
+            </script>";
+        } else {
+            $this->load->model('customer');
+            $start = 0;
+            $pageend = 3;
+            $data['numpage'] = 1;
+            $data['pageend'] = $pageend;
+            $search = '';
 
-        $count_all = $this->customer->count_all_customer($search);
-        foreach ($count_all as $value) {
-            $data['count_all'] = $value->Count;
+            $count_all = $this->customer->count_all_customer($search);
+            foreach ($count_all as $value) {
+                $data['count_all'] = $value->Count;
+            }
+
+            $data['result'] = $this->customer->allcust($start, $pageend,  $search);
+
+            $data['view'] = "Detail/cust";
+            $data['fname'] = $this->session->userdata('Firstname');
+            $data['sname'] = $this->session->userdata('Surname');
+            $this->load->view('index', $data);
         }
-
-        $data['result'] = $this->customer->allcust($start, $pageend,  $search);
-
-        $data['view'] = "Detail/cust";
-        $this->load->view('index', $data);
     }
 
     public function pagingmain_cus()
@@ -180,22 +206,31 @@ class Welcome extends CI_Controller
 
     public function viewposition()
     {
+        $per = $this->session->userdata('Permit');
+        if ($per[3] != 1) {
+            echo "<script> 
+            window.alert('คุณไม่มีสิทธิ์ในการใช้งาน');
+            window.history.back();
+            </script>";
+        } else {
+            $this->load->model('detail');
+            $start = 0;
+            $pageend = 4;
+            $data['numpage'] = 1;
+            $data['pageend'] = $pageend;
+            $search = '';
 
-        $this->load->model('detail');
-        $start = 0;
-        $pageend = 4;
-        $data['numpage'] = 1;
-        $data['pageend'] = $pageend;
-        $search = '';
+            $count_all = $this->detail->count_all_position($search);
+            foreach ($count_all as $value) {
+                $data['count_all'] = $value->Count;
+            }
 
-        $count_all = $this->detail->count_all_position($search);
-        foreach ($count_all as $value) {
-            $data['count_all'] = $value->Count;
+            $data['position'] = $this->detail->Position($start, $pageend,  $search);
+            $data['view'] = "Detail/position";
+            $data['fname'] = $this->session->userdata('Firstname');
+            $data['sname'] = $this->session->userdata('Surname');
+            $this->load->view('index', $data);
         }
-
-        $data['position'] = $this->detail->Position($start, $pageend,  $search);
-        $data['view'] = "detail/position";
-        $this->load->view('index', $data);
     }
 
     public function pagingmain_pos()
@@ -234,21 +269,31 @@ class Welcome extends CI_Controller
 
     public function partner()
     {
-        $this->load->model('partner');
-        $start = 0;
-        $pageend = 3;
-        $data['numpage'] = 1;
-        $data['pageend'] = $pageend;
-        $search = "";
+        $per = $this->session->userdata('Permit');
+        if ($per[2] != 1) {
+            echo "<script> 
+            window.alert('คุณไม่มีสิทธิ์ในการใช้งาน');
+            window.history.back();
+            </script>";
+        } else {
+            $this->load->model('partner');
+            $start = 0;
+            $pageend = 3;
+            $data['numpage'] = 1;
+            $data['pageend'] = $pageend;
+            $search = "";
 
-        $count_all = $this->partner->count_partner($search);
-        foreach ($count_all as $value) {
-            $data['count_all'] = $value->Count;
+            $count_all = $this->partner->count_partner($search);
+            foreach ($count_all as $value) {
+                $data['count_all'] = $value->Count;
+            }
+
+            $data['result'] = $this->partner->allpartner($start, $pageend,  $search);
+            $data['view'] = "Detail/partner";
+            $data['fname'] = $this->session->userdata('Firstname');
+            $data['sname'] = $this->session->userdata('Surname');
+            $this->load->view('index', $data);
         }
-
-        $data['result'] = $this->partner->allpartner($start, $pageend,  $search);
-        $data['view'] = "Detail/partner";
-        $this->load->view('index', $data);
     }
 
     public function pagingmain_part()
@@ -288,21 +333,31 @@ class Welcome extends CI_Controller
     }
     public function protype()
     {
-        $this->load->model('ergold');
-        $start = 0;
-        $pageend = 3;
-        $data['numpage'] = 1;
-        $data['pageend'] = $pageend;
-        $search = '';
+        $per = $this->session->userdata('Permit');
+        if ($per[5] != 1) {
+            echo "<script> 
+            window.alert('คุณไม่มีสิทธิ์ในการใช้งาน');
+            window.history.back();
+            </script>";
+        } else {
+            $this->load->model('ergold');
+            $start = 0;
+            $pageend = 3;
+            $data['numpage'] = 1;
+            $data['pageend'] = $pageend;
+            $search = '';
 
-        $count_all = $this->ergold->count_protype($search);
-        foreach ($count_all as $value) {
-            $data['count_all'] = $value->Count;
+            $count_all = $this->ergold->count_protype($search);
+            foreach ($count_all as $value) {
+                $data['count_all'] = $value->Count;
+            }
+
+            $data['result'] = $this->ergold->allprotype($start, $pageend,  $search);
+            $data['view'] = "Detail/protype";
+            $data['fname'] = $this->session->userdata('Firstname');
+            $data['sname'] = $this->session->userdata('Surname');
+            $this->load->view('index', $data);
         }
-
-        $data['result'] = $this->ergold->allprotype($start, $pageend,  $search);
-        $data['view'] = "Detail/protype";
-        $this->load->view('index', $data);
     }
 
     public function pagingmain_type()
@@ -344,21 +399,31 @@ class Welcome extends CI_Controller
 
     public function product()
     {
-        $this->load->model('ergold');
-        $start = 0;
-        $pageend = 3;
-        $data['numpage'] = 1;
-        $data['pageend'] = $pageend;
-        $search = '';
+        $per = $this->session->userdata('Permit');
+        if ($per[4] != 1) {
+            echo "<script> 
+            window.alert('คุณไม่มีสิทธิ์ในการใช้งาน');
+            window.history.back();
+            </script>";
+        } else {
+            $this->load->model('ergold');
+            $start = 0;
+            $pageend = 3;
+            $data['numpage'] = 1;
+            $data['pageend'] = $pageend;
+            $search = '';
 
-        $count_all = $this->ergold->count_product($search);
-        foreach ($count_all as $value) {
-            $data['count_all'] = $value->Count;
+            $count_all = $this->ergold->count_product($search);
+            foreach ($count_all as $value) {
+                $data['count_all'] = $value->Count;
+            }
+
+            $data['result'] = $this->ergold->allproduct($start, $pageend,  $search);
+            $data['view'] = "Detail/product";
+            $data['fname'] = $this->session->userdata('Firstname');
+            $data['sname'] = $this->session->userdata('Surname');
+            $this->load->view('index', $data);
         }
-
-        $data['result'] = $this->ergold->allproduct($start, $pageend,  $search);
-        $data['view'] = "Detail/product";
-        $this->load->view('index', $data);
     }
 
     public function pagingmain_product()
@@ -399,21 +464,31 @@ class Welcome extends CI_Controller
 
     public function cost()
     {
-        $this->load->model('partner');
-        $start = 0;
-        $pageend = 3;
-        $data['numpage'] = 1;
-        $data['pageend'] = $pageend;
-        $search = '';
+        $per = $this->session->userdata('Permit');
+        if ($per[6] != 1) {
+            echo "<script> 
+            window.alert('คุณไม่มีสิทธิ์ในการใช้งาน');
+            window.history.back();
+            </script>";
+        } else {
+            $this->load->model('partner');
+            $start = 0;
+            $pageend = 3;
+            $data['numpage'] = 1;
+            $data['pageend'] = $pageend;
+            $search = '';
 
-        $count_all = $this->partner->count_cost($search);
-        foreach ($count_all as $value) {
-            $data['count_all'] = $value->Count;
+            $count_all = $this->partner->count_cost($search);
+            foreach ($count_all as $value) {
+                $data['count_all'] = $value->Count;
+            }
+
+            $data['result'] = $this->partner->allcost($start, $pageend,  $search);
+            $data['view'] = "Detail/cost";
+            $data['fname'] = $this->session->userdata('Firstname');
+            $data['sname'] = $this->session->userdata('Surname');
+            $this->load->view('index', $data);
         }
-
-        $data['result'] = $this->partner->allcost($start, $pageend,  $search);
-        $data['view'] = "Detail/cost";
-        $this->load->view('index', $data);
     }
 
     public function pagingmain_cost()
