@@ -210,11 +210,100 @@ class ergold extends CI_Model
 
     function productcostbyid($partid)
     {
-        $query = "SELECT p.Prod_Id,p.Prod_Name FROM product p
+        $query = "SELECT p.Prod_Id,p.Prod_Name,c.Cost_Price as Price FROM product p
                     INNER JOIN cost c ON p.Prod_Id = c.Prod_Id
                     WHERE c.Part_Id = '$partid'";
 
         return $this->db->query($query)->result();
+    }
+
+    function maxpromid()
+    {
+        $query = "SELECT max(Promotion_Id) as PromId FROM promotion";
+        $result = $this->db->query($query)->result();
+        foreach ($result as $re) {
+            return $re->PromId;
+        }
+    }
+
+    function checksubpro($PromId,$prodid)
+    {
+        $query = "SELECT COUNT(*) as Count from sub_promotion where Prom_Id = '$PromId' and Prod_Id = '$prodid'";
+
+        $result =  $this->db->query($query)->result();
+       
+        foreach($result as $re){
+            return $re->Count;
+        }
+    }
+
+    function insertsubpro($PromId,$pd)
+    {
+        $query = "INSERT INTO sub_promotion(Prom_Id,Prod_Id)
+                    values
+                    ('$PromId','$pd')";
+        return $this->db->query($query);
+    }
+
+    function addpromotion($pmid,$pmname,$sdate,$edate,$discount)
+    {
+        $query = "INSERT INTO promotion(Promotion_Id,Prom_Name,Prom_Sdate,Prom_Ndate,Prom_Discount)
+                    values
+                    ('$pmid','$pmname','$sdate','$edate','$discount')";
+
+        return $this->db->query($query);
+    }
+    function updatepromotion($pmid,$pmname,$sdate,$edate,$discount)
+    {
+        $query = "UPDATE promotion SET Prom_Name = '$pmname',Prom_Sdate = '$sdate',Prom_Ndate = '$edate',Prom_Discount = '$discount'
+                    WHERE Promotion_Id = '$pmid'";
+        return $this->db->query($query);
+            
+    }
+    function prombyid($promid)
+    {
+        $query = "SELECT * from promotion where Promotion_Id = '$promid'";
+        return $this->db->query($query)->result();
+    }
+
+    function subprombyid($promid)
+    {
+        $query = "SELECT Prod_Id from sub_promotion where Prom_Id = '$promid'";
+        return $this->db->query($query)->result();
+    }
+    function subprodel($promid)
+    {
+        $query = "DELETE FROM sub_promotion WHERE Prom_Id = '$promid'";
+        return $this->db->query($query);
+    }
+
+    function allpromotion($start,$pageend,$search)
+    {
+        $query = "SELECT * from( SELECT ROW_NUMBER()OVER ( ORDER By Promotion_Id )as row ,Promotion_Id,Prom_Name,Prom_Sdate,Prom_Ndate,Prom_Discount
+                FROM promotion 
+                WHERE Promotion_Id like '%%' $search
+               )AA
+               where row > $start AND row <=$pageend order by row";
+
+        return $this->db->query($query)->result();
+    }
+
+    function count_promotion($search)
+    {
+        $query = "SELECT COUNT(*) as Count from( SELECT ROW_NUMBER()OVER ( ORDER By Promotion_Id )as row ,Promotion_Id,Prom_Name,Prom_Sdate,Prom_Ndate,Prom_Discount
+        FROM promotion 
+        WHERE Promotion_Id like '%%' $search
+       )AA";
+
+        return $this->db->query($query)->result();
+        
+    }
+    
+    function deletepromo($pmid)
+    {
+        $query = "DELETE FROM promotion WHERE Promotion_Id = '$pmid'";
+
+        return $this->db->query($query);
     }
 }
 

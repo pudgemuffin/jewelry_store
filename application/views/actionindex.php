@@ -56,7 +56,8 @@
                                 <a class="nav-link" href="<?php echo site_url('Welcome/partner'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;">บริษัทคู่ค้า</a>
                                 <a class="nav-link" href="<?php echo site_url('Welcome/viewposition'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;">ตำแหน่ง</a>
                                 <a class="nav-link" href="<?php echo site_url('Welcome/product'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;">สินค้า</a>
-                                <a class="nav-link" href="<?php echo site_url('Welcome/product'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;">ราคาทุน</a>
+                                <a class="nav-link" href="<?php echo site_url('Welcome/cost'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;">ราคาทุน</a>
+                                <a class="nav-link" href="<?php echo site_url('Welcome/promotion'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;">โปรโมชั่น</a>
 
                                 <?//ต้องส่งไปcontroller แล้วเรียกview?>
                             </nav>
@@ -120,8 +121,8 @@
                 </div>
                 
                 <div class="sb-sidenav-footer" style="background-color: #820115;">
-                    <div class="small">Logged in as: <?php echo $fname.' - '.$sname; ?></div>
-                    Start Bootstrap
+                    <div class="small">ลงชื่อเข้าใช้โดย : <?php echo $fname.' - '.$sname; ?></div>
+                    <br>
                 </div>
             </nav>
         </div>

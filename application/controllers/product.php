@@ -13,6 +13,21 @@ class product extends CI_Controller
         $this->load->library('session', 'upload');
         $this->load->model('ergold');
         $this->load->database();
+        $per = $this->session->userdata('Permit');
+        $id = $this->session->userdata('id');
+        if (!$this->session->userdata('id')) {
+            echo "<script> 
+            window.alert('กรุณาลงชื่อเข้าใช้งาน');
+            window.location.href='/ER_GOLDV1/index.php/auth/loginform';
+            </script>";
+            
+        }
+        if ($per[4] != 1) {
+                echo "<script> 
+                window.alert('คุณไม่มีสิทธิ์ในการใช้งาน');
+                window.location.href='/ER_GOLDV1/index.php/Welcome/employee';
+                </script>";
+            }
     }
     public function insertprotype()
     {
@@ -102,9 +117,9 @@ class product extends CI_Controller
     public function deletetype()
     {
         $protid = $this->input->post('Prot_Id');
-        $this->partner->deletetype($protid);
+        $this->ergold->deletetype($protid);
 
-            echo "<script> alert('Record Deleted');
+            echo "<script> alert('ลบข้อมูลสำเร็จ');
 		 					window.location.href='/ER_GOLDV1/index.php/Welcome/protype';
 							 </script>";
 
@@ -326,7 +341,7 @@ class product extends CI_Controller
                 $data['weight'] = $this->ergold->weight();
                 $data['view'] = "add/editproduct";
                 $data['fname'] = $this->session->userdata('Firstname');
-        $data['sname']= $this->session->userdata('Surname');
+                $data['sname']= $this->session->userdata('Surname');
                 // $this->load->view('add/editproduct',$data);
                 $this->load->view('actionindex', $data);
 
@@ -468,6 +483,120 @@ class product extends CI_Controller
 						</script>";
         }
         
+    }
+    public function genidpromotion()
+    {
+        $ye = substr(date("Y"), 2) . date("m");
+        $max = $this->ergold->maxpromid();
+        // $max = "PROM2010001";
+        $str = substr($max, 8) +1;
+        $txt = "PROM";
+        if($str == ''){
+            $promid = "PROM".$ye."001";
+        }elseif ($str < 10) {
+            $promid = $txt . $ye . "00" . $str;
+        } elseif ($str >= 10 && $str <= 99) {
+            $promid = $txt . $ye ."0" . $str;
+        } elseif ($str >= 100) {
+            $promid = $txt . $ye . $str;
+        }
+        // echo $promid."<br>";
+        // echo $str."<br>";
+        return $promid;
+    }
+
+    public function promotion()
+    {
+        $data['fname'] = $this->session->userdata('Firstname');
+        $data['sname']= $this->session->userdata('Surname');
+        $data['product'] = $this->ergold->product();
+        $data['view'] = "add/promotion";
+
+        $this->load->view('actionindex', $data);
+    }
+
+    public function insertpromotion()
+    {
+        $pmid = $this->genidpromotion();
+        $pmname = $this->input->post('pmname');
+        $sdate = $this->input->post('sdate');
+        $edate = $this->input->post('edate');
+        $discount = $this->input->post('dis');
+
+        $data['insert'] = $this->ergold->addpromotion(
+            $pmid,
+            $pmname,
+            $sdate,
+            $edate,
+            $discount
+        );
+
+        $PromId = $this->ergold->maxpromid();
+        $prodid = $this->input->post('prodid');
+
+        foreach($prodid as $pd){
+            $data = array(
+                'Prod_Id' => $pd,
+                'Prom_Id' => $PromId
+                
+            );
+            $checkprom = $this->ergold->checksubpro($PromId, $pd);
+            if ($checkprom == 0) {
+                $this->ergold->insertsubpro($PromId, $pd);
+            }
+        }
+        echo "<script> alert('เพิ่มข้อมูลโปรโมชั่นสำเร็จ');
+						window.location.href='/ER_GOLDV1/index.php/Welcome/promotion';
+						</script>";
+    }
+
+    public function editprom($promid)
+    {
+        $data['editprom'] = $this->ergold->prombyid($promid);
+        $data['subprom'] = $this->ergold->subprombyid($promid);
+        $data['product'] = $this->ergold->product();
+        $data['view'] = "add/editpromotion";
+        $data['fname'] = $this->session->userdata('Firstname');
+        $data['sname']= $this->session->userdata('Surname');
+        $this->load->view('actionindex', $data);
+    }
+
+    public function updateprom()
+    {
+        $pmid = $this->input->post('pmid');
+        $pmname = $this->input->post('pmname');
+        $sdate = $this->input->post('sdate');
+        $edate = $this->input->post('edate');
+        $discount = $this->input->post('dis');
+        $prodid = $this->input->post('prodid');
+
+        $this->ergold->updatepromotion($pmid,$pmname,$sdate,$edate,$discount);
+
+        $this->ergold->subprodel($pmid);
+        foreach($prodid as $pd){
+            $data = array(
+                'Prod_Id' => $pd,
+                'Prom_Id' => $pmid
+                
+            );
+            $checkprom = $this->ergold->checksubpro($pmid, $pd);
+            if ($checkprom == 0) {
+                $this->ergold->insertsubpro($pmid, $pd);
+            }
+        }
+        echo "<script> alert('แก้ไขข้อมูลโปรโมชั่นสำเร็จ');
+        window.location.href='/ER_GOLDV1/index.php/Welcome/promotion';
+        </script>";
+    }
+
+    public function deletepromo()
+    {
+        $pmid = $this->input->post('Promotion_Id');
+        $this->ergold->deletepromo($pmid);
+
+            echo "<script> alert('ลบข้อมูลสำเร็จ');
+		 					window.location.href='/ER_GOLDV1/index.php/Welcome/promotion';
+							 </script>";
     }
 
     public function testimg()

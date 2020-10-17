@@ -60,7 +60,7 @@
 <div class="card">
         <div class="card-body">
             <h1 style="text-align: center;">
-                ข้อมูลบริษัทคู่ค้า
+                ข้อมูลราคาทุน
             </h1>
                     <div class="row" style="padding-bottom: 1px;padding-left:5px;">
                     <div class="col-3">
@@ -75,7 +75,7 @@
 
 
                 </div><br>
-                <a class="btn btn-primary" href="<?php echo site_url('company/cost');?>">เพิ่มราคาทุน</a>
+                <!-- <a class="btn btn-primary" href="<?php echo site_url('company/cost');?>">เพิ่มราคาทุน</a> -->
         </div>
         <p style="text-align: right;">ข้อมูลบริษัทคู่ค้าทั้งหมด <?php echo $count_all; ?> บริษัท</p>
 

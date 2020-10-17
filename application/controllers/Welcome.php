@@ -511,7 +511,7 @@ class Welcome extends CI_Controller
 
         // $txtsearch = $this->input->post('spart');
         if ($txtsearch != '') {
-            $txtsearch = "and p.Part_Id like '%$txtsearch%' or p.Part_Name like '%$txtsearch%' or p.Part_Email like '%$txtsearch%' or pt.Part_tel like '%$txtsearch%' or p.Part_Address like '%$txtsearch%'";
+            $txtsearch = "and p.Part_Id like '%$txtsearch%' or p.Part_Name like '%$txtsearch%'";
         } else {
             $txtsearch = '';
         }
@@ -525,6 +525,72 @@ class Welcome extends CI_Controller
 
         $data['result'] = $this->partner->allpartner($start, $pageend,  $search);
         $this->load->view('Detail/cost', $data);
+    }
+
+
+    public function promotion()
+    {
+        $per = $this->session->userdata('Permit');
+        if ($per[4] != 1) {
+            echo "<script> 
+            window.alert('คุณไม่มีสิทธิ์ในการใช้งาน');
+            window.history.back();
+            </script>";
+        } else {
+            $this->load->model('ergold');
+            $start = 0;
+            $pageend = 3;
+            $data['numpage'] = 1;
+            $data['pageend'] = $pageend;
+            $search = '';
+
+            $count_all = $this->ergold->count_promotion($search);
+            foreach ($count_all as $value) {
+                $data['count_all'] = $value->Count;
+            }
+
+            $data['result'] = $this->ergold->allpromotion($start, $pageend,  $search);
+            $data['view'] = "Detail/promotion";
+            $data['fname'] = $this->session->userdata('Firstname');
+            $data['sname'] = $this->session->userdata('Surname');
+            $this->load->view('index', $data);
+        }
+    }
+
+    public function pagingmain_promo()
+    {
+        $this->load->model('ergold');
+        $page = $this->input->get('num_page');
+        $txtsearch = $this->input->post('hidesearch');
+
+        $pageend1 = 3;
+        if ($page != '') {
+            $page = $page;
+        } else {
+            $page = 1;
+        }
+        $start = ($page - 1) * $pageend1;
+        $pageend = $page * $pageend1;
+        $data['numpage'] = $page;
+        $data['pageend'] = $pageend1;
+
+
+        // $txtsearch = $this->input->post('spart');
+        if ($txtsearch != '') {
+            $txtsearch = "and Promotion_Id like '%$txtsearch%' or Prom_Name like '%$txtsearch%' or Prom_Discount like '%$txtsearch%'";
+        } else {
+            $txtsearch = '';
+        }
+        $search = $txtsearch;
+
+
+        $count_all = $this->ergold->count_promotion($search);
+        foreach ($count_all as $value) {
+            $data['count_all'] = $value->Count;
+        }
+
+        $data['result'] = $this->ergold->allpromotion($start, $pageend,  $search);
+        $this->load->view('Detail/promotion', $data);
     }
 
     public function lay()

@@ -57,6 +57,7 @@
                                 <a class="nav-link" href="<?php echo site_url('Welcome/viewposition'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;">ตำแหน่ง</a>
                                 <a class="nav-link" href="<?php echo site_url('Welcome/product'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;">สินค้า</a>
                                 <a class="nav-link" href="<?php echo site_url('Welcome/cost'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;">ราคาทุน</a>
+                                <a class="nav-link" href="<?php echo site_url('Welcome/promotion'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;">โปรโมชั่น</a>
 
                                 <?//ต้องส่งไปcontroller แล้วเรียกview?>
                             </nav>
@@ -138,7 +139,8 @@
                           $search = $this->input->post('spart');
                           $search = $this->input->post('spos'); 
                           $search = $this->input->post('stype');
-                          $search = $this->input->post('spartcost');?>
+                          $search = $this->input->post('spartcost');
+                          $search = $this->input->post('spromo');?>
                     <!-- <div id="search_form"> -->
                         <div class="card mb-4">
                             <input type="hidden" name="hidesearch" id="hidesearch" value="<?php if ($search != "")

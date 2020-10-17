@@ -21,6 +21,8 @@ class company extends CI_Controller
         $data['amphur'] = $this->detail->Amphur();
         $data['district'] = $this->detail->District();
         $data['view'] = "add/insertpartner";
+        $data['fname'] = $this->session->userdata('Firstname');
+        $data['sname']= $this->session->userdata('Surname');
         // $this->load->view('add/insertpartner',$data);
         $this->load->view('actionindex', $data);
     }
@@ -107,6 +109,8 @@ class company extends CI_Controller
         $data['amphur'] = $this->detail->Amphur();
         $data['district'] = $this->detail->District();
         $data['view'] = "add/editpartner";
+        $data['fname'] = $this->session->userdata('Firstname');
+        $data['sname']= $this->session->userdata('Surname');
         // $this->load->view('add/editpartner',$data);
         $this->load->view('actionindex', $data);
     }
@@ -198,15 +202,15 @@ class company extends CI_Controller
         // echo $partid."<br>";
         // print_r($prodid);
 
-        foreach($prodid as $pd){
+        foreach($prodid as $pd => $value){
             $data = array(
-                'Prod_Id' => $pd,
+                'Prod_Id' => $value,
                 'Part_Id' => $partid,
-                'Cost_Price'=>$price
+                'Cost_Price'=>$price[$pd]
             );
-            $checkcost = $this->partner->count_cost_check($partid,$pd);
+            $checkcost = $this->partner->count_cost_check($partid,$value);
             if($checkcost == 0){
-                $this->partner->insertcost($partid,$pd,$price);
+                $this->partner->insertcost($partid,$value,$price[$pd]);
             }
         }
         echo "<script> alert('เพิ่มข้อมูลราคาทุนสำเร็จ');

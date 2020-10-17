@@ -75,7 +75,7 @@
                 </div><br>
                 <a class="btn btn-primary" href="<?php echo site_url('product/insertprotype'); ?>">เพิ่มประเภท</a>
         </div>
-
+        <p style="text-align: right;">ข้อมูลประเภทสินค้าทั้งหมด <?php echo $count_all; ?> ประเภท</p>
     </div>
             <div class="table-responsive">
 

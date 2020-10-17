@@ -47,7 +47,7 @@
                                         </option>
                                         <?php } ?>
                                 </select></td>
-                                <td><input class="form-control" id="price[]" name="price[]" required oninvalid="this.setCustomValidity('กรุณากรอกราคา')" oninput="setCustomValidity('')"></td>
+                                <td><input class="form-control" id="price[]" name="price[]" required oninvalid="this.setCustomValidity('กรุณากรอกราคา')" oninput="setCustomValidity('')" value = "<?php echo $pdi->Price; ?>"></td>
                             <td><?php if ($i == 1) { ?><button type="button" name="add" id="add" class="btn btn-success"><i class="fa fa-plus"></i></button>
                                 <?php } else { ?>
                                     <button type="button" name="remove" id="<?php echo $i; ?>" class="btn btn-danger btn_remove">X</button>
