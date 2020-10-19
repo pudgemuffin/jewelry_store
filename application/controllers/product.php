@@ -285,11 +285,14 @@ class product extends CI_Controller
 
         if (!$this->upload->do_upload('prodim')) {
             // echo $this->upload->display_errors();
-            echo "<script> alert ('ไฟล์รูปภาพไม่ถูกต้อง')</script>";
+            // echo "<script> alert ('ไฟล์รูปภาพไม่ถูกต้อง')</script>";
+            echo "<script> alert ('ไฟล์รูปภาพไม่ถูกต้อง')
+            window.history.back();
+            </script>";
 
-            $data['protype'] = $this->ergold->protype();
-            $data['weight'] = $this->ergold->weight();
-            $this->load->view('add/insertring', $data);
+            // $data['protype'] = $this->ergold->protype();
+            // $data['weight'] = $this->ergold->weight();
+            // $this->load->view('add/insertring', $data);
         } else {
             $data = $this->upload->data();
             $filename = $data['file_name'];
@@ -316,14 +319,19 @@ class product extends CI_Controller
 						window.location.href='/ER_GOLDV1/index.php/Welcome/product';
 						</script>";
                 } else {
-                    echo "<script> alert ('พบชื่อสินค้าซ้ำ')</script>";
+                    // echo "<script> alert ('พบชื่อสินค้าซ้ำ')</script>";
 
-                    $data['size'] = $this->ergold->size();
-                    $data['protype'] = $this->ergold->ring();
-                    $data['weight'] = $this->ergold->weight();
-                    $data['view'] = "add/insertring";
-                    // $this->load->view('add/insertring', $data);
-                    $this->load->view('actionindex', $data);
+                    // $data['size'] = $this->ergold->size();
+                    // $data['protype'] = $this->ergold->ring();
+                    // $data['weight'] = $this->ergold->weight();
+                    // $data['view'] = "add/insertring";
+                    // $data['fname'] = $this->session->userdata('Firstname');
+                    //  $data['sname']= $this->session->userdata('Surname');
+                    // // $this->load->view('add/insertring', $data);
+                    // $this->load->view('actionindex', $data);
+                    echo "<script> alert ('พบชื่อสินค้าซ้ำ')
+                    window.history.back();
+                    </script>";
                 }
             }
         }
@@ -387,15 +395,20 @@ class product extends CI_Controller
             $this->load->library('upload', $config);
             if (!$this->upload->do_upload('prodim')) {
                 // echo $this->upload->display_errors();
-                echo "<script> alert ('ไฟล์รูปภาพไม่ถูกต้อง')</script>";
+                // echo "<script> alert ('ไฟล์รูปภาพไม่ถูกต้อง')</script>";
+                echo "<script> alert ('ไฟล์รูปภาพไม่ถูกต้อง')
+            window.history.back();
+            </script>";
     
-                $data['editprod'] = $this->ergold->prodbyid($prodid);
-                $data['protype'] = $this->ergold->protype();
-                $data['weight'] = $this->ergold->weight();
-                $data['view'] = "add/editproduct";
-                // $this->load->view('index', $data);
-                // $this->load->view('add/editproduct',$data);
-                $this->load->view('actionindex', $data);
+                // $data['editprod'] = $this->ergold->prodbyid($prodid);
+                // $data['protype'] = $this->ergold->protype();
+                // $data['weight'] = $this->ergold->weight();
+                // $data['view'] = "add/editproduct";
+                // $data['fname'] = $this->session->userdata('Firstname');
+                // $data['sname']= $this->session->userdata('Surname');
+                // // $this->load->view('index', $data);
+                // // $this->load->view('add/editproduct',$data);
+                // $this->load->view('actionindex', $data);
             }else{
                 $data = $this->upload->data();
                 $filename = $data['file_name'];
@@ -446,14 +459,19 @@ class product extends CI_Controller
             $this->upload->initialize($config);
             if (!$this->upload->do_upload('prodim')) {
                 // echo $this->upload->display_errors();
-                echo "<script> alert ('ไฟล์รูปภาพไม่ถูกต้อง')</script>";
+                // echo "<script> alert ('ไฟล์รูปภาพไม่ถูกต้อง')</script>";
+                echo "<script> alert ('ไฟล์รูปภาพไม่ถูกต้อง')
+            window.history.back();
+            </script>";
     
-                $data['editprod'] = $this->ergold->prodbyid($prodid);
-                $data['protype'] = $this->ergold->ring();
-                $data['weight'] = $this->ergold->weight();
-                $data['size'] = $this->ergold->size();
-                $data['view'] = "add/editring";
-                $this->load->view('actionindex', $data);
+                // $data['editprod'] = $this->ergold->prodbyid($prodid);
+                // $data['protype'] = $this->ergold->ring();
+                // $data['weight'] = $this->ergold->weight();
+                // $data['size'] = $this->ergold->size();
+                // $data['fname'] = $this->session->userdata('Firstname');
+                // $data['sname']= $this->session->userdata('Surname');
+                // $data['view'] = "add/editring";
+                // $this->load->view('actionindex', $data);
                 // $this->load->view('index', $data);
                 // $this->load->view('add/editring',$data);
             }else{

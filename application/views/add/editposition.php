@@ -105,7 +105,7 @@
                 <div class="row justify-content-center">
                     <div class="col-5">
 
-                        <button type="submit" class="btn btn-info" name="updatejob" value="<?php echo $e->Pos_Id; ?>">แก้ไขตำแหน่ง</button>
+                        <button type="submit" class="btn btn-warning" name="updatejob" value="<?php echo $e->Pos_Id; ?>">แก้ไขตำแหน่ง</button>
                         <a class="btn btn-danger" href="<?php echo site_url('Welcome/viewposition') ?>">ยกเลิก</a>
 
                     </div>

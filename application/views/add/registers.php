@@ -28,11 +28,11 @@
                                     <form action="<?php echo site_url('customercon/cusregis') ?>" method="post">
                                         <div class="form-group">
                                             <label>ชื่อ :</label>
-                                            <input class="form-control py-4" id="cusfname" name="cusfname" type="text" required=""  oninvalid="this.setCustomValidity('กรุณากรอกชื่อ')" oninput="setCustomValidity('')">
+                                            <input class="form-control py-4" id="cusfname" name="cusfname" type="text" required="" oninvalid="this.setCustomValidity('กรุณากรอกชื่อ')" oninput="setCustomValidity('')">
                                         </div>
                                         <div class="form-group">
                                             <label>นามสกุล :</label>
-                                            <input class="form-control py-4" id="cuslname" name="cuslname" type="text" required=""  oninvalid="this.setCustomValidity('กรุณากรอกนามสกุล')" oninput="setCustomValidity('')" />
+                                            <input class="form-control py-4" id="cuslname" name="cuslname" type="text" required="" oninvalid="this.setCustomValidity('กรุณากรอกนามสกุล')" oninput="setCustomValidity('')" />
                                         </div>
                                         <div class="form-group">
                                             <label>เพศ :</label>
@@ -48,13 +48,13 @@
 
                                         <div class="form-group">
                                             <label>อีเมล :</label>
-                                            <input class="form-control py-4" id="cusemail" name="cusemail" type="email" aria-describedby="emailHelp"   required oninvalid="this.setCustomValidity('กรุณากรอกอีเมลให้ถูกต้อง')" oninput="setCustomValidity('')" />
+                                            <input class="form-control py-4" id="cusemail" name="cusemail" type="email" aria-describedby="emailHelp" required oninvalid="this.setCustomValidity('กรุณากรอกอีเมลให้ถูกต้อง')" oninput="setCustomValidity('')" />
                                         </div>
                                         <div class="form-group">
                                             <table id="tel">
                                                 <tr>
                                                     <label>เบอร์โทร :</label>
-                                                    <td><input class="form-control" type="text" name="cus_tel[]" id="cus_tel" size="40" minlength="10" maxlength="10" onkeypress="return numberonly(event)" required oninvalid="this.setCustomValidity('กรุณากรอกเบอร์โทรให้ครบ 10 หลัก')" oninput="setCustomValidity('')" ></td>
+                                                    <td><input class="form-control" type="text" name="cus_tel[]" id="cus_tel" size="40" minlength="10" maxlength="10" onkeypress="return numberonly(event)" required oninvalid="this.setCustomValidity('กรุณากรอกเบอร์โทรให้ครบ 10 หลัก')" oninput="setCustomValidity('')"></td>
                                                     <td><button type="button" name="add" id="add" class="btn btn-success"><i class="fa fa-plus"></i></button></td>
                                                 </tr>
                                             </table>
@@ -98,19 +98,26 @@
 
                                             <label>รายละเอียด :</label>
                                             <textarea class="form-control" name="cusaddress" id="cusaddress">
-
                                         </textarea>
-                                            <div class="form-group mt-4 mb-0"><button type="submit" class="btn btn-primary btn-block">เพิ่มข้อมูลลูกค้า</button></div>
+                                            <br>
+                                            <div class="row justify-content-center">
+                                                <div class="col-5" style="margin-bottom: 15px;">
+
+                                                    <button type="submit" class="btn btn-info">เพิ่มข้อมูลลูกค้า</button>
+                                                    <a class="btn btn-danger" href="<?php echo site_url('') ?>">ยกเลิก</a>
+
+                                                </div>
+                                            </div>
                                     </form>
                                 </div>
-                               
+
                             </div>
                         </div>
                     </div>
                 </div>
             </main>
         </div>
-       
+
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
@@ -121,7 +128,6 @@
 </html>
 
 <script>
-    
     $(document).ready(function() {
         var i = 1;
         $('#add').click(function() {
@@ -141,14 +147,13 @@
         });
     });
 
-    function numberonly(evt)
-      {
-         var charCode = (evt.which) ? evt.which : event.keyCode
-         if (charCode > 31 && (charCode < 48 || charCode > 57))
+    function numberonly(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode
+        if (charCode > 31 && (charCode < 48 || charCode > 57))
             return false;
 
-         return true;
-      }
+        return true;
+    }
 
     function am() {
         var datas = "province=" + document.getElementById('province').value;

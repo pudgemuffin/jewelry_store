@@ -121,9 +121,14 @@
                                             <textarea class="form-control" name="cusaddress" id="cusaddress">
                                         <?php echo $e->Cus_Address ?>
                                         </textarea>
-                                            <div class="form-group mt-4 mb-0">
+                                        <br>
+                                            <div class="row justify-content-center">
+                                                <div class="col-5" style="margin-bottom: 15px;">
 
-                                                <button type="submit" class="btn btn-primary btn-block" value="<?php echo $e->Cus_Id; ?>" name="Updateacc">แก้ไขข้อมูลลูกค้า</button>
+                                                    <button type="submit" class="btn btn-warning">แก้ไขข้อมูลลูกค้า</button>
+                                                    <a class="btn btn-danger" href="<?php echo site_url('') ?>">ยกเลิก</a>
+
+                                                </div>
                                             </div>
                                         </form>
                                     <?php } ?>

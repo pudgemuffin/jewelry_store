@@ -32,7 +32,7 @@
             <div class="row justify-content-center">
                 <div class="col-5">
 
-                    <button type="submit" class="btn btn-info" value="<?php echo $et->Prot_Id; ?>" name="updatetype">แก้ไขประเภทสินค้า</button>
+                    <button type="submit" class="btn btn-warning" value="<?php echo $et->Prot_Id; ?>" name="updatetype">แก้ไขประเภทสินค้า</button>
                     <a class="btn btn-danger" href="<?php echo site_url('Welcome/protype') ?>">ยกเลิก</a>
 
                 </div>
