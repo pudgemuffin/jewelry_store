@@ -23,6 +23,7 @@ class company extends CI_Controller
         $data['view'] = "add/insertpartner";
         $data['fname'] = $this->session->userdata('Firstname');
         $data['sname']= $this->session->userdata('Surname');
+        $data['pos'] = $this->session->userdata('Pos');
         // $this->load->view('add/insertpartner',$data);
         $this->load->view('actionindex', $data);
     }
@@ -111,6 +112,7 @@ class company extends CI_Controller
         $data['view'] = "add/editpartner";
         $data['fname'] = $this->session->userdata('Firstname');
         $data['sname']= $this->session->userdata('Surname');
+        $data['pos'] = $this->session->userdata('Pos');
         // $this->load->view('add/editpartner',$data);
         $this->load->view('actionindex', $data);
     }
@@ -187,6 +189,7 @@ class company extends CI_Controller
                 $data['view'] = "add/costpro";
                 $data['fname'] = $this->session->userdata('Firstname');
         $data['sname']= $this->session->userdata('Surname');
+        $data['pos'] = $this->session->userdata('Pos');
                 $this->load->view('actionindex', $data);
             }
         }

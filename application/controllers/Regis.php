@@ -56,6 +56,7 @@ class Regis extends CI_Controller
         $data['view'] = "add/insertemp";
         $data['fname'] = $this->session->userdata('Firstname');
         $data['sname']= $this->session->userdata('Surname');
+        $data['pos'] = $this->session->userdata('Pos');
         // $this->load->view('add/insertemp', $data);
         // $this->load->view('index',$data);
         $this->load->view('actionindex', $data);
@@ -203,6 +204,7 @@ class Regis extends CI_Controller
         $data['position'] = $this->detail->callposition();
         $data['fname'] = $this->session->userdata('Firstname');
         $data['sname']= $this->session->userdata('Surname');
+        $data['pos'] = $this->session->userdata('Pos');
         $data['view'] = "add/edit";
         // $this->load->view('add/edit', $data);
         $this->load->view('actionindex', $data);
@@ -233,12 +235,13 @@ class Regis extends CI_Controller
         $salary = $this->input->post('salary');
         $national = $this->input->post('national');
         $emp_tel = $this->input->post('emp_tel');
+        $pass = $this->input->post('password');
 
 
         if (empty($_FILES['empim']['name'])) {
 
 
-            $this->detail->updatenoimg($id, $idcard, $nametitle, $fname, $lname, $gender, $religion, $blood, $empdate, $email, $pos, $province, $amphur, $district, $postcode, $det, $status, $startdate, $salary, $national);
+            $this->detail->updatenoimg($id, $idcard, $nametitle, $fname, $lname, $gender, $religion, $blood, $empdate, $email, $pos, $province, $amphur, $district, $postcode, $det, $status, $startdate, $salary, $national,$pass);
 
             $this->detail->empteldel($id);
             foreach ($emp_tel as $et) {
@@ -278,14 +281,13 @@ class Regis extends CI_Controller
                 // $data['amphur'] = $this->detail->Amphur();
                 // $data['district'] = $this->detail->District();
                 // $data['position'] = $this->detail->position();
-
-
                 //  $this->load->view('add/edit', $data);
+
             } else {
                 $data = $this->upload->data();
                 $filename = $data['file_name'];
                 // $oldImg = $this->input->post('oldImg');
-                $this->detail->update($id, $idcard, $nametitle, $fname, $lname, $gender, $religion, $blood, $empdate, $email, $pos, $province, $amphur, $district, $postcode, $det, $status, $startdate, $salary, $national, $filename);
+                $this->detail->update($id, $idcard, $nametitle, $fname, $lname, $gender, $religion, $blood, $empdate, $email, $pos, $province, $amphur, $district, $postcode, $det, $status, $startdate, $salary, $national, $filename,$pass);
                 // unlink('./img/EMP/' . $oldImg);
             }
 
@@ -303,8 +305,8 @@ class Regis extends CI_Controller
 
 
             echo "<script> alert('แก้ไขข้อมูลพนักงานสำเร็จ');
-        window.location.href='/ER_GOLDV1/index.php/Welcome/employee';
-        </script>";
+            window.location.href='/ER_GOLDV1/index.php/Welcome/employee';
+            </script>";
         }
     }
 

@@ -121,7 +121,7 @@
                                 <td nowrap style="text-align:center; vertical-align: middle;"> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->Prod_Name); ?></td>
                                 <td nowrap style="text-align:center; vertical-align: middle;"> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->Weight); ?></td>
                                 <td nowrap style="text-align:center; vertical-align: middle;"> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->Prod_Gram); ?> </td>
-                                <td nowrap style="text-align:center; vertical-align: middle;"> <?php echo $r->Fee; ?> </td>
+                                <td nowrap style="text-align:center; vertical-align: middle;"> <?php echo number_format($r->Fee,2) ; ?> </td>
 
                                 <td  style="text-align:center; vertical-align: middle;">
                                     <!-- <button type="button" class="btn btn-warning btn-sm " name="edit"data-toggle="modal" data-target="#edit" onclick="edit1(id='<?php $r->Prod_Id ?>')"><i class="fa fa-user"></i></button> -->

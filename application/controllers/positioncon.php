@@ -20,6 +20,7 @@ class positioncon extends CI_Controller
     {   
         $data['fname'] = $this->session->userdata('Firstname');
         $data['sname']= $this->session->userdata('Surname');
+        $data['pos'] = $this->session->userdata('Pos');
         $data['view'] = "add/insertposition";
         $this->load->view('actionindex',$data);     
     }
@@ -75,12 +76,23 @@ class positioncon extends CI_Controller
         // foreach($box as $re){
         //     echo "permit:$re<br>";
         // }
-
         
-        $this->detail->insertposition($posid,$posi,$permit);
-        echo '<script> alert("เพิ่มตำแหน่งสำเร็จ");
-						window.location.href="/ER_GOLDV1/index.php/Welcome/viewposition";
-						</script>';
+        $data1['getcheck'] = $this->detail->checkinsertpos($posi);
+        foreach ($data1['getcheck'] as $value) {
+            $count = $value->COUNT;
+            if ($count == 0) {
+        
+                $this->detail->insertposition($posid,$posi,$permit);
+    
+                echo '<script> alert("เพิ่มตำแหน่งสำเร็จ");
+                                window.location.href="/ER_GOLDV1/index.php/Welcome/viewposition";
+                                </script>';
+            }else{
+                echo "<script> alert ('พบชื่อตำแหน่งซ้ำ ');
+                window.history.back();           
+                    </script>";
+            }
+        }
     }
 
     public function editjob($jobid)
@@ -97,6 +109,7 @@ class positioncon extends CI_Controller
         // print_r($split);
         $data['fname'] = $this->session->userdata('Firstname');
         $data['sname']= $this->session->userdata('Surname');
+        $data['pos'] = $this->session->userdata('Pos');
         $data['view'] = "add/editposition";
 
         $this->load->view('actionindex', $data);

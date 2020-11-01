@@ -46,6 +46,7 @@ class Welcome extends CI_Controller
         // $per = $this->session->userdata('Permit');
         $data['fname'] = $this->session->userdata('Firstname');
         $data['sname'] = $this->session->userdata('Surname');
+        $data['pos'] = $this->session->userdata('Pos');
         $data['view'] = "Firstpage";
         $this->load->view('index', $data);
         // if($per[0] == '1'){
@@ -96,6 +97,7 @@ class Welcome extends CI_Controller
             $data['view'] = "Detail/emp";
             $data['fname'] = $this->session->userdata('Firstname');
             $data['sname'] = $this->session->userdata('Surname');
+            $data['pos'] = $this->session->userdata('Pos');
             $this->load->view('index', $data);
         }
     }
@@ -164,6 +166,7 @@ class Welcome extends CI_Controller
             $data['view'] = "Detail/cust";
             $data['fname'] = $this->session->userdata('Firstname');
             $data['sname'] = $this->session->userdata('Surname');
+            $data['pos'] = $this->session->userdata('Pos');
             $this->load->view('index', $data);
         }
     }
@@ -229,6 +232,7 @@ class Welcome extends CI_Controller
             $data['view'] = "Detail/position";
             $data['fname'] = $this->session->userdata('Firstname');
             $data['sname'] = $this->session->userdata('Surname');
+            $data['pos'] = $this->session->userdata('Pos');
             $this->load->view('index', $data);
         }
     }
@@ -292,6 +296,7 @@ class Welcome extends CI_Controller
             $data['view'] = "Detail/partner";
             $data['fname'] = $this->session->userdata('Firstname');
             $data['sname'] = $this->session->userdata('Surname');
+            $data['pos'] = $this->session->userdata('Pos');
             $this->load->view('index', $data);
         }
     }
@@ -356,6 +361,7 @@ class Welcome extends CI_Controller
             $data['view'] = "Detail/protype";
             $data['fname'] = $this->session->userdata('Firstname');
             $data['sname'] = $this->session->userdata('Surname');
+            $data['pos'] = $this->session->userdata('Pos');
             $this->load->view('index', $data);
         }
     }
@@ -422,6 +428,7 @@ class Welcome extends CI_Controller
             $data['view'] = "Detail/product";
             $data['fname'] = $this->session->userdata('Firstname');
             $data['sname'] = $this->session->userdata('Surname');
+            $data['pos'] = $this->session->userdata('Pos');
             $this->load->view('index', $data);
         }
     }
@@ -487,6 +494,7 @@ class Welcome extends CI_Controller
             $data['view'] = "Detail/cost";
             $data['fname'] = $this->session->userdata('Firstname');
             $data['sname'] = $this->session->userdata('Surname');
+            $data['pos'] = $this->session->userdata('Pos');
             $this->load->view('index', $data);
         }
     }
@@ -553,6 +561,7 @@ class Welcome extends CI_Controller
             $data['view'] = "Detail/promotion";
             $data['fname'] = $this->session->userdata('Firstname');
             $data['sname'] = $this->session->userdata('Surname');
+            $data['pos'] = $this->session->userdata('Pos');
             $this->load->view('index', $data);
         }
     }

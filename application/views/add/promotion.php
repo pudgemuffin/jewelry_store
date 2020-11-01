@@ -82,6 +82,8 @@
     </form>
 </body>
 <script>
+    sdate.max = new Date().toISOString().split("T")[0];
+    edate.min = new Date().toISOString().split("T")[0];
     $(document).ready(function() {
         var i = 1;
         $('#add').click(function() {

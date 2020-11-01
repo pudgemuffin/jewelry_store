@@ -44,7 +44,14 @@
                     </div>
                 </div>
             </div>
-
+            <div style="margin-left: 20px">
+            <div class="row justify-content-center">
+                    <div class="col-5">
+                        <label>รหัสผ่าน :</label>
+                        <input class="form-control" type="password" name="password" id="password" size="40" value="<?php echo $r->Password; ?>">
+                    </div>
+                </div>
+                </div>
             <div style="margin-left: 20px">
                 <div class="row justify-content-center">
                     <div class="col-5">

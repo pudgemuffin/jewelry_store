@@ -224,17 +224,17 @@ class detail extends CI_Model
         return $this->db->query($query)->result();
     }
 
-    function update($id,$idcard,$nametitle,$fname,$lname,$gender,$religion,$blood,$empdate,$email,$pos,$province,$amphur,$district,$postcode,$det,$status,$startdate,$salary,$national,$filename)
+    function update($id,$idcard,$nametitle,$fname,$lname,$gender,$religion,$blood,$empdate,$email,$pos,$province,$amphur,$district,$postcode,$det,$status,$startdate,$salary,$national,$filename,$pass)
     {
         $query = "UPDATE employee SET Idcard = '$idcard',Nametitle = '$nametitle',Firstname = '$fname',Surname = '$lname',Gender = '$gender',Religion = '$religion',Blood = '$blood'  
-        ,empdate = '$empdate',Email = '$email',Jobs = '$pos',Provinces = '$province',Countys = '$amphur',Districts = '$district',Postcodes = '$postcode',Address = '$det',Status = '$status',Startdate = '$startdate',Salary = '$salary',National = '$national',Image = '$filename' WHERE Id = '$id'";
+        ,empdate = '$empdate',Email = '$email',Jobs = '$pos',Provinces = '$province',Countys = '$amphur',Districts = '$district',Postcodes = '$postcode',Address = '$det',Status = '$status',Startdate = '$startdate',Salary = '$salary',National = '$national',Image = '$filename',Password = '$pass' WHERE Id = '$id'";
 
         return $this->db->query($query);
     }
-    function updatenoimg($id,$idcard,$nametitle,$fname,$lname,$gender,$religion,$blood,$empdate,$email,$pos,$province,$amphur,$district,$postcode,$det,$status,$startdate,$salary,$national)
+    function updatenoimg($id,$idcard,$nametitle,$fname,$lname,$gender,$religion,$blood,$empdate,$email,$pos,$province,$amphur,$district,$postcode,$det,$status,$startdate,$salary,$national,$pass)
     {
         $query = "UPDATE employee SET Idcard = '$idcard',Nametitle = '$nametitle',Firstname = '$fname',Surname = '$lname',Gender = '$gender',Religion = '$religion',Blood = '$blood'  
-        ,empdate = '$empdate',Email = '$email',Jobs = '$pos',Provinces = '$province',Countys = '$amphur',Districts = '$district',Postcodes = '$postcode',Address = '$det',Status = '$status',Startdate = '$startdate',Salary = '$salary',National = '$national' WHERE Id = '$id'";
+        ,empdate = '$empdate',Email = '$email',Jobs = '$pos',Provinces = '$province',Countys = '$amphur',Districts = '$district',Postcodes = '$postcode',Address = '$det',Status = '$status',Startdate = '$startdate',Salary = '$salary',National = '$national',Password = '$pass' WHERE Id = '$id'";
 
         return $this->db->query($query);
     }
@@ -245,6 +245,12 @@ class detail extends CI_Model
         return $this->db->query($query);
     }
 
-    
+    function checkinsertpos($posi)
+    {
+        $query = "SELECT COUNT(*) as COUNT
+            from job WHERE Pos_Name = '$posi'";
+
+        return $this->db->query($query)->result();
+    }
 }
 ?>

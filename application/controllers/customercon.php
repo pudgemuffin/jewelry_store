@@ -37,6 +37,7 @@ class customercon extends CI_Controller
         $data['district'] = $this->detail->District();
         $data['fname'] = $this->session->userdata('Firstname');
         $data['sname']= $this->session->userdata('Surname');
+        $data['pos'] = $this->session->userdata('Pos');
         $data['view'] = "add/registers";
         $this->load->view('actionindex', $data);
     }
@@ -143,6 +144,7 @@ class customercon extends CI_Controller
         $data['district'] = $this->detail->District();
         $data['fname'] = $this->session->userdata('Firstname');
         $data['sname']= $this->session->userdata('Surname');
+        $data['pos'] = $this->session->userdata('Pos');
         $data['view'] = "add/editcust";
         $this->load->view('actionindex', $data);
 

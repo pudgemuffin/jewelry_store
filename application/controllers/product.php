@@ -35,6 +35,7 @@ class product extends CI_Controller
         $data['view'] = "add/insertprotype";
         $data['fname'] = $this->session->userdata('Firstname');
         $data['sname']= $this->session->userdata('Surname');
+        $data['pos'] = $this->session->userdata('Pos');
         $this->load->view('actionindex', $data);
     }
 
@@ -76,6 +77,7 @@ class product extends CI_Controller
                 $data['view'] = "add/insertprotype";
                 $data['fname'] = $this->session->userdata('Firstname');
             $data['sname']= $this->session->userdata('Surname');
+            $data['pos'] = $this->session->userdata('Pos');
                 $this->load->view('actionindex', $data);
             }
         }
@@ -87,6 +89,7 @@ class product extends CI_Controller
         $data['view'] = "add/edittype";
         $data['fname'] = $this->session->userdata('Firstname');
         $data['sname']= $this->session->userdata('Surname');
+        $data['pos'] = $this->session->userdata('Pos');
         // $this->load->view('add/edittype', $data);
         $this->load->view('actionindex', $data);
     }
@@ -131,6 +134,7 @@ class product extends CI_Controller
         $data['view'] = "add/insertproduct";
         $data['fname'] = $this->session->userdata('Firstname');
         $data['sname']= $this->session->userdata('Surname');
+        $data['pos'] = $this->session->userdata('Pos');
         // $this->load->view('add/insertproduct', $data);
         $this->load->view('actionindex', $data);
     }
@@ -143,6 +147,7 @@ class product extends CI_Controller
         $data['view'] = "add/insertring";
         $data['fname'] = $this->session->userdata('Firstname');
         $data['sname']= $this->session->userdata('Surname');
+        $data['pos'] = $this->session->userdata('Pos');
         // $this->load->view('add/insertring', $data);
         $this->load->view('actionindex', $data);
         
@@ -216,13 +221,10 @@ class product extends CI_Controller
 
         if (!$this->upload->do_upload('prodim')) {
             // echo $this->upload->display_errors();
-            echo "<script> alert ('ไฟล์รูปภาพไม่ถูกต้อง')</script>";
 
-            $data['protype'] = $this->ergold->protype();
-            $data['weight'] = $this->ergold->weight();
-            $data['view'] = "add/insertproduct";
-            // $this->load->view('add/insertproduct', $data);
-            $this->load->view('actionindex', $data);
+            echo "<script> alert ('ไฟล์รูปภาพไม่ถูกต้อง')
+            window.history.back();
+            </script>";
         } else {
             $data = $this->upload->data();
             $filename = $data['file_name'];
@@ -245,14 +247,9 @@ class product extends CI_Controller
 						window.location.href='/ER_GOLDV1/index.php/Welcome/product';
 						</script>";
                 } else {
-                    echo "<script> alert ('พบชื่อสินค้าซ้ำ')</script>";
-
-
-                    $data['protype'] = $this->ergold->protype();
-                    $data['weight'] = $this->ergold->weight();
-                    $data['view'] = "add/insertproduct";
-                    // $this->load->view('add/insertproduct', $data);
-                    $this->load->view('actionindex', $data);
+                    echo "<script> alert ('พบชื่อสินค้าซ้ำ')
+                    window.history.back();
+                    </script>";
                 }
             }
         }
@@ -350,6 +347,7 @@ class product extends CI_Controller
                 $data['view'] = "add/editproduct";
                 $data['fname'] = $this->session->userdata('Firstname');
                 $data['sname']= $this->session->userdata('Surname');
+                $data['pos'] = $this->session->userdata('Pos');
                 // $this->load->view('add/editproduct',$data);
                 $this->load->view('actionindex', $data);
 
@@ -361,6 +359,7 @@ class product extends CI_Controller
                 $data['view'] = "add/editring";
                 $data['fname'] = $this->session->userdata('Firstname');
         $data['sname']= $this->session->userdata('Surname');
+        $data['pos'] = $this->session->userdata('Pos');
                 // $this->load->view('add/editring',$data);
                 $this->load->view('actionindex', $data);
             }
@@ -528,6 +527,7 @@ class product extends CI_Controller
         $data['fname'] = $this->session->userdata('Firstname');
         $data['sname']= $this->session->userdata('Surname');
         $data['product'] = $this->ergold->product();
+        $data['pos'] = $this->session->userdata('Pos');
         $data['view'] = "add/promotion";
 
         $this->load->view('actionindex', $data);
@@ -576,6 +576,7 @@ class product extends CI_Controller
         $data['view'] = "add/editpromotion";
         $data['fname'] = $this->session->userdata('Firstname');
         $data['sname']= $this->session->userdata('Surname');
+        $data['pos'] = $this->session->userdata('Pos');
         $this->load->view('actionindex', $data);
     }
 

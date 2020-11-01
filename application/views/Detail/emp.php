@@ -165,6 +165,13 @@
                 </select>
                 ทั้งหมด <?php echo $i - 1; ?> หน้า </p>
         </div>
+        <!-- <nav>
+        <ul class = "pagination">
+        <li>
+        <a href = "Welcome/pagingmain_emp?num_page=<?php echo $i;?>"><?php echo $i-1; ?></a></li>
+        </li>
+        </ul> -->
+        </nav>
         </div>
 
     </center>

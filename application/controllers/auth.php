@@ -41,12 +41,14 @@ class auth extends CI_Controller
                 $fname = $val->FNAME;
                 $sname = $val->SNAME;
                 $per = $val->per;
+                $pos = $val->Poname;
                 
             }$session_data = array(
                 'id' =>$id,
                 'Firstname' =>$fname,
                 'Surname' =>$sname,
-                'Permit' =>$per
+                'Permit' =>$per,
+                'Pos' =>$pos
             );
             $this->session->set_userdata($session_data);
             
@@ -63,7 +65,7 @@ class auth extends CI_Controller
             // echo $per[4]."<br>";
             // echo $per[5]."<br>";
             // echo $per[6]."<br>";
-
+                // echo $pos;
             redirect('Welcome');
         }else{
             echo "<script> alert ('ไม่พบข้อมูลผู้ใช้งาน')
