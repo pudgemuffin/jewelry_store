@@ -22,13 +22,26 @@
         <div class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0"></div>
         <!-- Navbar-->
         
-        <ul class="navbar-nav ml-auto ml-md-0">
+        <!-- <ul class="navbar-nav ml-auto ml-md-0">
             <li class="nav-item dropdown input-group-append">
                 <i class="fas fa-user fa-fw" style="vertical-align: middle; font-size: 20px;"></i><?php echo $pos;?>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                   
+                    <a class="dropdown-item" href="<?php echo site_url('auth/logout'); ?>">ออกจากระบบ</a>
+                </div>
                 
             </li>
+        </ul> -->
+
+        <ul class="navbar-nav ml-auto ml-md-0">
+            <li class="nav-item dropdown input-group-append">
+                <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw" style="color:black; font-size: 20px;"></i><?php echo $pos;?></a>
+                <div class="dropdown-menu dropdown-menu-right" style="background-color: #820115;" aria-labelledby="userDropdown">
+                    <a class="dropdown-item" style="background-color: #CD3838;" href="<?php echo site_url('auth/logout'); ?>">ออกจากระบบ</a>
+                </div>
+            </li>
         </ul>
-        </div>
+        
     </nav>
     <?php $per = $this->session->userdata('Permit'); ?>
     <div id="layoutSidenav">
@@ -133,7 +146,8 @@
                                     echo "hidden";}?>>สั่งซื้อสินค้า<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-right" style="font-size:18px;color:#ffffff;"></i></div></a>
                         <a class="nav-link" href="<?php echo site_url('Welcome/index'); ?>" style="font-size:16px;color:#ffffff;"<?php if ($per[8] != 1){  
                                     echo "hidden";}?>>ขายสินค้า<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-right" style="font-size:18px;color:#ffffff;"></i></div></a>
-                        <a class="nav-link" href="<?php echo site_url('auth/logout'); ?>" style="font-size:16px;color:#ffffff;">ออกจากระบบ<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-right" style="font-size:18px;color:#ffffff;"></i></div></a>
+                        <a class="nav-link" href="<?php echo site_url('Welcome/index'); ?>" style="font-size:16px;color:#ffffff;"<?php if ($per[10] != 1){  
+                                    echo "hidden";}?>>ออกรายงาน<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-right" style="font-size:18px;color:#ffffff;"></i></div></a>
                     </div>
                 </div>
                 <div class="sb-sidenav-footer" style="background-color: #820115;">
