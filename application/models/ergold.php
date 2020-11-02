@@ -75,24 +75,24 @@ class ergold extends CI_Model
         return $this->db->query($query)->result();
     }
 
-    function inserttype($typeid,$typename)
+    function inserttype($typeid,$typename,$cat)
     {
-        $query = "INSERT INTO protype (Prot_Id,Prot_Name)
+        $query = "INSERT INTO protype (Prot_Id,Prot_Name,Category)
                   VALUES
-                    ('$typeid','$typename')";
+                    ('$typeid','$typename','$cat')";
 
         return $this->db->query($query);  
     }
 
     function displaytype($Prot_Id)
     {
-        $query = "SELECT Prot_Id,Prot_Name FROM protype WHERE Prot_Id = '$Prot_Id'";
+        $query = "SELECT Prot_Id,Prot_Name,Category FROM protype WHERE Prot_Id = '$Prot_Id'";
         return $this->db->query($query)->result();
     }
 
-    function updatetype($typeid,$typename)
+    function updatetype($typeid,$typename,$cat)
     {
-        $query = "UPDATE protype SET Prot_Name = '$typename' WHERE Prot_Id = '$typeid'";
+        $query = "UPDATE protype SET Prot_Name = '$typename',Category = '$cat' WHERE Prot_Id = '$typeid'";
 
         return $this->db->query($query);
     }
@@ -103,12 +103,6 @@ class ergold extends CI_Model
         
         return $this->db->query($query);
 
-    }
-
-    function protype()
-    {
-        $query = "SELECT Prot_Id,Prot_Name FROM protype WHERE Prot_Name not like '%แหวน%'";
-        return $this->db->query($query)->result();
     }
 
     function weight()
@@ -145,7 +139,13 @@ class ergold extends CI_Model
 
     function ring()
     {
-        $query = "SELECT Prot_Id,Prot_Name FROM protype WHERE Prot_Name like '%แหวน%'";
+        $query = "SELECT Prot_Id,Prot_Name FROM protype WHERE Category = '1'";
+        return $this->db->query($query)->result();
+    }
+
+    function protype()
+    {
+        $query = "SELECT Prot_Id,Prot_Name FROM protype WHERE Category = '0'";
         return $this->db->query($query)->result();
     }
 

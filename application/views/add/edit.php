@@ -297,7 +297,7 @@
                     <div class="col-5">
 
                         <button type="submit" class="btn btn-warning" value="<?php echo $r->Id; ?>" name="updateId">แก้ไขข้อมูล</button>
-                        <a class="btn btn-danger" href="<?php echo site_url('') ?>">ยกเลิก</a>
+                        <a class="btn btn-danger" href="<?php echo site_url('Welcome/employee') ?>">ยกเลิก</a>
 
                     </div>
                 </div>

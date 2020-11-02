@@ -59,26 +59,29 @@ class product extends CI_Controller
     {
         $typeid = $this->genprotype();
         $typename = $this->input->post('ptype');
-
+        $cat = $this->input->post('cat');
         $data1['checkname'] = $this->ergold->checkinsert($typename);
 
         foreach ($data1['checkname'] as $value) {
             $count = $value->COUNT;
             if ($count == 0) {
-                $this->ergold->inserttype($typeid, $typename);
+                $this->ergold->inserttype($typeid, $typename,$cat);
 
                 echo "<script> alert('เพิ่มข้อมูลประเภทสำเร็จ');
 						window.location.href='/ER_GOLDV1/index.php/Welcome/protype';
 						</script>";
             } else {
-                echo "<script> alert ('ประเภทสิ้นค้าซ้ำ')</script>";
+            //     echo "<script> alert ('ประเภทสิ้นค้าซ้ำ')</script>";
                 
-                // $this->load->view('add/insertprotype');
-                $data['view'] = "add/insertprotype";
-                $data['fname'] = $this->session->userdata('Firstname');
-            $data['sname']= $this->session->userdata('Surname');
-            $data['pos'] = $this->session->userdata('Pos');
-                $this->load->view('actionindex', $data);
+            //     // $this->load->view('add/insertprotype');
+            //     $data['view'] = "add/insertprotype";
+            //     $data['fname'] = $this->session->userdata('Firstname');
+            // $data['sname']= $this->session->userdata('Surname');
+            // $data['pos'] = $this->session->userdata('Pos');
+            //     $this->load->view('actionindex', $data);
+            echo "<script> alert ('ชื่อประเภทซ้ำ')
+                window.history.back();
+                </script>";
             }
         }
     }
@@ -98,21 +101,24 @@ class product extends CI_Controller
     {
         $typeid = $this->input->post('updatetype');
         $typename = $this->input->post('ptype');
-
+        $cat = $this->input->post('cat');
         $data1['checkname'] = $this->ergold->checkinsert($typename);
 
         foreach ($data1['checkname'] as $value) {
             $count = $value->COUNT;
             if ($count == 0) {
-                $this->ergold->updatetype($typeid, $typename);
+                $this->ergold->updatetype($typeid, $typename,$cat);
 
                 echo "<script> alert('แก้ไขข้อมูลประเภทสำเร็จ');
 						window.location.href='/ER_GOLDV1/index.php/Welcome/protype';
 						</script>";
             } else {
-                echo "<script> alert('ชื่อประเภทซ้ำ');
-						window.location.href='/ER_GOLDV1/index.php/Welcome/protype';
-						</script>";
+                // echo "<script> alert('ชื่อประเภทซ้ำ');
+				// 		window.location.href='/ER_GOLDV1/index.php/Welcome/protype';
+                //         </script>";
+                echo "<script> alert ('ชื่อประเภทซ้ำ')
+                window.history.back();
+                </script>";
             }
         }
     }

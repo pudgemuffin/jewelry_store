@@ -28,7 +28,19 @@
                     <label>ชื่อประเภท :</label>
                     <input class="form-control" type=text name="ptype" id="ptype" value="<?php echo $et->Prot_Name; ?>" required >
                 </div>
-            </div><br>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-5">
+                <label>หมวดหมู่ :</label>
+                    <input type="radio" name="cat" id="cat" value="0" <?php if($et->Category == "0"){
+                        echo "checked";
+                    } ?>> ทั่วไป
+                    <input type="radio" name="cat" id="cat" value="1" <?php if($et->Category == "1"){
+                        echo "checked";
+                    } ?>> แหวน<br>
+                </div>
+                </div>
+                <br>
             <div class="row justify-content-center">
                 <div class="col-5">
 
@@ -37,6 +49,7 @@
 
                 </div>
             </div>
+            <br>
         </div>
         <?php } ?>
     </form>

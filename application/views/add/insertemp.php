@@ -238,7 +238,7 @@ body{
                 <div class="col-5" style="margin-bottom: 15px;">
 
                     <button type="submit"  class="btn btn-info">เพิ่มข้อมูลพนักงาน</button>
-                    <a class="btn btn-danger"  href="<?php echo site_url('') ?>">ยกเลิก</a>
+                    <a class="btn btn-danger"  href="<?php echo site_url('Welcome/employee') ?>">ยกเลิก</a>
 
                 </div>
             </div>

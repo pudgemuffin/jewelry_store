@@ -126,7 +126,7 @@
                                                 <div class="col-5" style="margin-bottom: 15px;">
 
                                                     <button type="submit" class="btn btn-warning">แก้ไขข้อมูลลูกค้า</button>
-                                                    <a class="btn btn-danger" href="<?php echo site_url('') ?>">ยกเลิก</a>
+                                                    <a class="btn btn-danger" href="<?php echo site_url('Welcome/viewcust') ?>">ยกเลิก</a>
 
                                                 </div>
                                             </div>

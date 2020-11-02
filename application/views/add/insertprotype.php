@@ -27,15 +27,22 @@
                     <label>ชื่อประเภท :</label>
                     <input class="form-control" type=text name="ptype" id="ptype" required>
                 </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-5">
+                <label>หมวดหมู่ :</label>
+                    <input type="radio" name="cat" id="cat" value="0" <?php echo "checked"?>> ทั่วไป
+                    <input type="radio" name="cat" id="cat" value="1"> แหวน<br>
+                </div>
             </div><br>
             <div class="row justify-content-center">
                 <div class="col-5">
-
                     <button type="submit" class="btn btn-info">เพิ่มประเภทสินค้า</button>
                     <a class="btn btn-danger" href="<?php echo site_url('Welcome/protype') ?>">ยกเลิก</a>
 
                 </div>
             </div>
+            <br>
         </div>
     </form>
 </body>
