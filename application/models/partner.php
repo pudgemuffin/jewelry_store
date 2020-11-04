@@ -125,9 +125,9 @@ class partner extends CI_Model
         return $this->db->query($query);
     }
 
-    function deletepartner($partid)
+    function deletepartner($Part_Id)
     {
-        $query = "DELETE FROM partner where Part_Id = '$partid'";
+        $query = "DELETE FROM partner where Part_Id = '$Part_Id'";
 
         return $this->db->query($query);
     }

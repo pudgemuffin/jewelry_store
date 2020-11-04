@@ -29,7 +29,7 @@ class ergold extends CI_Model
         FROM product p
             INNER JOIN protype t on p.Prod_Type = t.Prot_Id
 			INNER JOIN weight w on p.Prod_Weight = w.Weight_Id
-            WHERE p.Prod_Id like '%%' $search
+            WHERE p.Prod_Status = '1' $search
             )AA
             where row > $start AND row <=$pageend order by row";
         
@@ -42,7 +42,7 @@ class ergold extends CI_Model
         FROM product p
             INNER JOIN protype t on p.Prod_Type = t.Prot_Id
 			INNER JOIN weight w on p.Prod_Weight = w.Weight_Id
-            WHERE p.Prod_Id like '%%' $search
+            WHERE p.Prod_Status = '1' $search
             )AA";
 
         return $this->db->query($query)->result();
@@ -97,9 +97,9 @@ class ergold extends CI_Model
         return $this->db->query($query);
     }
 
-    function deletetype($protid)
+    function deletetype($Prot_Id)
     {
-        $query = "DELETE FROM protype WHERE Prot_Id = '$protid'";
+        $query = "DELETE FROM protype WHERE Prot_Id = '$Prot_Id'";
         
         return $this->db->query($query);
 
@@ -162,11 +162,11 @@ class ergold extends CI_Model
         return $this->db->query($query)->result();
     }
 
-    function insertprod($prodid,$prodtype,$prodname,$prodweight,$prodgram,$fee,$filename)
+    function insertprod($prodid,$prodtype,$prodname,$prodweight,$prodgram,$fee,$filename,$status)
     {
-        $query = "INSERT INTO product (Prod_Id,Prod_Type,Prod_Name,Prod_Weight,Prod_Gram,Fee,Prod_Img)
+        $query = "INSERT INTO product (Prod_Id,Prod_Type,Prod_Name,Prod_Weight,Prod_Gram,Fee,Prod_Img,Prod_Status)
                     values
-                    ('$prodid','$prodtype','$prodname','$prodweight','$prodgram','$fee','$filename')";
+                    ('$prodid','$prodtype','$prodname','$prodweight','$prodgram','$fee','$filename','$status')";
         return $this->db->query($query); 
     }
 
@@ -299,9 +299,16 @@ class ergold extends CI_Model
         
     }
     
-    function deletepromo($pmid)
+    function deletepromo($Promotion_Id)
     {
-        $query = "DELETE FROM promotion WHERE Promotion_Id = '$pmid'";
+        $query = "DELETE FROM promotion WHERE Promotion_Id = '$Promotion_Id'";
+
+        return $this->db->query($query);
+    }
+
+    function deleteprouct($prodid)
+    {
+        $query = "UPDATE product SET Prod_Status = '0' WHERE Prod_Id = '$prodid'";
 
         return $this->db->query($query);
     }

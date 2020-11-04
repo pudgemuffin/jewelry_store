@@ -110,7 +110,8 @@
                                 <td> <a class="btn btn-warning" name ="editpromo" id="editpromo"href="<?php echo site_url('product/editprom/').$pm->Promotion_Id?>"><i class="fa fa-cog"></i></a>
                                 </td>
                                 <td nowrap style="text-align:center; vertical-align: middle;">
-                                    <button type="button" class="btn btn-danger btn-sm " name="delete" onclick="deletepromo(id='<?php echo $pm->Promotion_Id ?>')"><i class="fa fa-trash"></i></button>
+                                    <!-- <button type="button" class="btn btn-danger btn-sm " name="delete" onclick="deletepromo(id='<?php echo $pm->Promotion_Id ?>')"><i class="fa fa-trash"></i></button> -->
+                                    <a class="btn btn-danger" onclick="return confirm('คุณต้องการลบข้อมูลนี้ หรือไม่ ?');" href="<?php echo site_url('product/deletepromo/') . $pm->Promotion_Id ?>"><i class="fa fa-trash"></i></a>
 
                                 </td>
                                 <?php } ?>

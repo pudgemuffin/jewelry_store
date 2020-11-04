@@ -20,21 +20,20 @@ class product extends CI_Controller
             window.alert('กรุณาลงชื่อเข้าใช้งาน');
             window.location.href='/ER_GOLDV1/index.php/auth/loginform';
             </script>";
-            
         }
         if ($per[4] != 1) {
-                echo "<script> 
+            echo "<script> 
                 window.alert('คุณไม่มีสิทธิ์ในการใช้งาน');
                 window.location.href='/ER_GOLDV1/index.php/Welcome/employee';
                 </script>";
-            }
+        }
     }
     public function insertprotype()
     {
         // $this->load->view('add/insertprotype');
         $data['view'] = "add/insertprotype";
         $data['fname'] = $this->session->userdata('Firstname');
-        $data['sname']= $this->session->userdata('Surname');
+        $data['sname'] = $this->session->userdata('Surname');
         $data['pos'] = $this->session->userdata('Pos');
         $this->load->view('actionindex', $data);
     }
@@ -65,21 +64,21 @@ class product extends CI_Controller
         foreach ($data1['checkname'] as $value) {
             $count = $value->COUNT;
             if ($count == 0) {
-                $this->ergold->inserttype($typeid, $typename,$cat);
+                $this->ergold->inserttype($typeid, $typename, $cat);
 
                 echo "<script> alert('เพิ่มข้อมูลประเภทสำเร็จ');
 						window.location.href='/ER_GOLDV1/index.php/Welcome/protype';
 						</script>";
             } else {
-            //     echo "<script> alert ('ประเภทสิ้นค้าซ้ำ')</script>";
-                
-            //     // $this->load->view('add/insertprotype');
-            //     $data['view'] = "add/insertprotype";
-            //     $data['fname'] = $this->session->userdata('Firstname');
-            // $data['sname']= $this->session->userdata('Surname');
-            // $data['pos'] = $this->session->userdata('Pos');
-            //     $this->load->view('actionindex', $data);
-            echo "<script> alert ('ชื่อประเภทซ้ำ')
+                //     echo "<script> alert ('ประเภทสิ้นค้าซ้ำ')</script>";
+
+                //     // $this->load->view('add/insertprotype');
+                //     $data['view'] = "add/insertprotype";
+                //     $data['fname'] = $this->session->userdata('Firstname');
+                // $data['sname']= $this->session->userdata('Surname');
+                // $data['pos'] = $this->session->userdata('Pos');
+                //     $this->load->view('actionindex', $data);
+                echo "<script> alert ('ชื่อประเภทซ้ำ')
                 window.history.back();
                 </script>";
             }
@@ -91,7 +90,7 @@ class product extends CI_Controller
         $data['edittype'] = $this->ergold->displaytype($Prot_Id);
         $data['view'] = "add/edittype";
         $data['fname'] = $this->session->userdata('Firstname');
-        $data['sname']= $this->session->userdata('Surname');
+        $data['sname'] = $this->session->userdata('Surname');
         $data['pos'] = $this->session->userdata('Pos');
         // $this->load->view('add/edittype', $data);
         $this->load->view('actionindex', $data);
@@ -107,14 +106,14 @@ class product extends CI_Controller
         foreach ($data1['checkname'] as $value) {
             $count = $value->COUNT;
             if ($count == 0) {
-                $this->ergold->updatetype($typeid, $typename,$cat);
+                $this->ergold->updatetype($typeid, $typename, $cat);
 
                 echo "<script> alert('แก้ไขข้อมูลประเภทสำเร็จ');
 						window.location.href='/ER_GOLDV1/index.php/Welcome/protype';
 						</script>";
             } else {
                 // echo "<script> alert('ชื่อประเภทซ้ำ');
-				// 		window.location.href='/ER_GOLDV1/index.php/Welcome/protype';
+                // 		window.location.href='/ER_GOLDV1/index.php/Welcome/protype';
                 //         </script>";
                 echo "<script> alert ('ชื่อประเภทซ้ำ')
                 window.history.back();
@@ -123,15 +122,14 @@ class product extends CI_Controller
         }
     }
 
-    public function deletetype()
+    public function deletetype($Prot_Id)
     {
-        $protid = $this->input->post('Prot_Id');
-        $this->ergold->deletetype($protid);
+        // $protid = $this->input->post('Prot_Id');
+        $this->ergold->deletetype($Prot_Id);
 
-            echo "<script> alert('ลบข้อมูลสำเร็จ');
+        echo "<script> alert('ลบข้อมูลสำเร็จ');
 		 					window.location.href='/ER_GOLDV1/index.php/Welcome/protype';
 							 </script>";
-
     }
     public function addproduct()
     {
@@ -139,7 +137,7 @@ class product extends CI_Controller
         $data['weight'] = $this->ergold->weight();
         $data['view'] = "add/insertproduct";
         $data['fname'] = $this->session->userdata('Firstname');
-        $data['sname']= $this->session->userdata('Surname');
+        $data['sname'] = $this->session->userdata('Surname');
         $data['pos'] = $this->session->userdata('Pos');
         // $this->load->view('add/insertproduct', $data);
         $this->load->view('actionindex', $data);
@@ -152,11 +150,10 @@ class product extends CI_Controller
         $data['weight'] = $this->ergold->weight();
         $data['view'] = "add/insertring";
         $data['fname'] = $this->session->userdata('Firstname');
-        $data['sname']= $this->session->userdata('Surname');
+        $data['sname'] = $this->session->userdata('Surname');
         $data['pos'] = $this->session->userdata('Pos');
         // $this->load->view('add/insertring', $data);
         $this->load->view('actionindex', $data);
-        
     }
 
     public function grams()
@@ -192,7 +189,7 @@ class product extends CI_Controller
             $prodid = $txt . "00" . $str;
         } elseif ($str >= 1000 && $str <= 9999) {
             $prodid = $txt . "0" . $str;
-        }elseif($str >= 10000){
+        } elseif ($str >= 10000) {
             $prodid = $txt . $str;
         }
 
@@ -208,6 +205,7 @@ class product extends CI_Controller
         $prodweight = $this->input->post('prodweight');
         $prodgram = $this->input->post('prodgram');
         $fee = $this->input->post('fee');
+        $status = 1;
 
         // echo $prodid."<br>";
         // echo $prodtype."<br>";
@@ -221,7 +219,7 @@ class product extends CI_Controller
         $config['max_size'] = '2000';
         $config['max_width'] = '3000';
         $config['max_height'] = '3000';
-        $config['file_name'] = $prodid.".jpg";
+        $config['file_name'] = $prodid . ".jpg";
         $this->load->library('upload', $config);
 
 
@@ -247,7 +245,8 @@ class product extends CI_Controller
                         $prodweight,
                         $prodgram,
                         $fee,
-                        $filename
+                        $filename,
+                        $status
                     );
                     echo "<script> alert('เพิ่มข้อมูลสินค้าสำเร็จ');
 						window.location.href='/ER_GOLDV1/index.php/Welcome/product';
@@ -269,6 +268,7 @@ class product extends CI_Controller
         $prodgram = $this->input->post('prodgram');
         $fee = $this->input->post('fee');
         $size = $this->input->post('size');
+        $status = 1;
 
         // echo $prodid."<br>";
         // echo $prodtype."<br>";
@@ -282,7 +282,7 @@ class product extends CI_Controller
         $config['max_size'] = '2000';
         $config['max_width'] = '3000';
         $config['max_height'] = '3000';
-        $config['file_name'] = $prodid.".jpg";
+        $config['file_name'] = $prodid . ".jpg";
         $this->load->library('upload', $config);
 
 
@@ -312,7 +312,8 @@ class product extends CI_Controller
                         $prodweight,
                         $prodgram,
                         $fee,
-                        $filename
+                        $filename,
+                        $status
                     );
                     $data['insert1'] = $this->ergold->insertring(
                         $prodid,
@@ -352,27 +353,25 @@ class product extends CI_Controller
                 $data['weight'] = $this->ergold->weight();
                 $data['view'] = "add/editproduct";
                 $data['fname'] = $this->session->userdata('Firstname');
-                $data['sname']= $this->session->userdata('Surname');
+                $data['sname'] = $this->session->userdata('Surname');
                 $data['pos'] = $this->session->userdata('Pos');
                 // $this->load->view('add/editproduct',$data);
                 $this->load->view('actionindex', $data);
-
-            }else{
+            } else {
                 $data['editprod'] = $this->ergold->ringbyid($prodid);
                 $data['protype'] = $this->ergold->ring();
                 $data['weight'] = $this->ergold->weight();
                 $data['size'] = $this->ergold->size();
                 $data['view'] = "add/editring";
                 $data['fname'] = $this->session->userdata('Firstname');
-        $data['sname']= $this->session->userdata('Surname');
-        $data['pos'] = $this->session->userdata('Pos');
+                $data['sname'] = $this->session->userdata('Surname');
+                $data['pos'] = $this->session->userdata('Pos');
                 // $this->load->view('add/editring',$data);
                 $this->load->view('actionindex', $data);
             }
         }
-
     }
-    
+
     public function updateproduct()
     {
         $prodid = $this->input->post('updatePro');
@@ -383,20 +382,20 @@ class product extends CI_Controller
         $fee = $this->input->post('fee');
 
         if (empty($_FILES['prodim']['name'])) {
-            
-            $this->ergold->updatepronoimg($prodid,$prodtype,$prodname,$prodweight,$prodgram,$fee);
+
+            $this->ergold->updatepronoimg($prodid, $prodtype, $prodname, $prodweight, $prodgram, $fee);
 
             echo "<script> alert('แก้ไขข้อมูลสินค้าสำเร็จ');
 						window.location.href='/ER_GOLDV1/index.php/Welcome/product';
 						</script>";
-        }else{
+        } else {
             $config['upload_path'] = './img/product';
             $config['allowed_types'] = 'gif|jpg|png';
             $config['max_size'] = '2000';
             $config['max_width'] = '3000';
             $config['max_height'] = '3000';
             $config["overwrite"] = TRUE;
-            $config['file_name'] = $prodid.".jpg";
+            $config['file_name'] = $prodid . ".jpg";
             $this->load->library('upload', $config);
             if (!$this->upload->do_upload('prodim')) {
                 // echo $this->upload->display_errors();
@@ -404,7 +403,7 @@ class product extends CI_Controller
                 echo "<script> alert ('ไฟล์รูปภาพไม่ถูกต้อง')
             window.history.back();
             </script>";
-    
+
                 // $data['editprod'] = $this->ergold->prodbyid($prodid);
                 // $data['protype'] = $this->ergold->protype();
                 // $data['weight'] = $this->ergold->weight();
@@ -414,11 +413,11 @@ class product extends CI_Controller
                 // // $this->load->view('index', $data);
                 // // $this->load->view('add/editproduct',$data);
                 // $this->load->view('actionindex', $data);
-            }else{
+            } else {
                 $data = $this->upload->data();
                 $filename = $data['file_name'];
                 // $oldImg = $this->input->post('oldImg');
-                $this->ergold->updatepro($prodid,$prodtype,$prodname,$prodweight,$prodgram,$fee,$filename);
+                $this->ergold->updatepro($prodid, $prodtype, $prodname, $prodweight, $prodgram, $fee, $filename);
                 // unlink('./img/product/' . $oldImg);
             }
         }
@@ -438,10 +437,10 @@ class product extends CI_Controller
         $size = $size = $this->input->post('size');
 
         if (empty($_FILES['prodim']['name'])) {
-            
-            $this->ergold->updatepronoimg($prodid,$prodtype,$prodname,$prodweight,$prodgram,$fee);
+
+            $this->ergold->updatepronoimg($prodid, $prodtype, $prodname, $prodweight, $prodgram, $fee);
             // $this->ergold->ringdel($prodid);
-            $this->ergold->updatering($prodid,$size);
+            $this->ergold->updatering($prodid, $size);
             // echo $prodid."<br>";
             // echo $prodtype."<br>";
             // echo $prodname."<br>";
@@ -452,14 +451,14 @@ class product extends CI_Controller
             echo "<script> alert('แก้ไขข้อมูลสินค้าสำเร็จ');
 						window.location.href='/ER_GOLDV1/index.php/Welcome/product';
 						</script>";
-        }else{
+        } else {
             $config['upload_path'] = './img/product';
             $config['allowed_types'] = 'gif|jpg|png';
             $config['max_size'] = '2000';
             $config['max_width'] = '3000';
             $config['max_height'] = '3000';
             $config["overwrite"] = TRUE;
-            $config['file_name'] = $prodid.".jpg";
+            $config['file_name'] = $prodid . ".jpg";
             $this->load->library('upload', $config);
             $this->upload->initialize($config);
             if (!$this->upload->do_upload('prodim')) {
@@ -468,7 +467,7 @@ class product extends CI_Controller
                 echo "<script> alert ('ไฟล์รูปภาพไม่ถูกต้อง')
             window.history.back();
             </script>";
-    
+
                 // $data['editprod'] = $this->ergold->prodbyid($prodid);
                 // $data['protype'] = $this->ergold->ring();
                 // $data['weight'] = $this->ergold->weight();
@@ -479,16 +478,15 @@ class product extends CI_Controller
                 // $this->load->view('actionindex', $data);
                 // $this->load->view('index', $data);
                 // $this->load->view('add/editring',$data);
-            }else{
+            } else {
                 $this->upload->initialize($config);
                 // $filename = $data['file_name'] = $prodid.".jpg";
                 $data = $this->upload->data();
                 $filename = $data['file_name'];
                 // $oldImg = $this->input->post('oldImg');
                 // unlink('./img/product/' . $oldImg);
-                $this->ergold->updatepro($prodid,$prodtype,$prodname,$prodweight,$prodgram,$fee,$filename);
-                $this->ergold->updatering($prodid,$size);
-                
+                $this->ergold->updatepro($prodid, $prodtype, $prodname, $prodweight, $prodgram, $fee, $filename);
+                $this->ergold->updatering($prodid, $size);
             }
 
             // echo $prodid."<br>";
@@ -505,21 +503,20 @@ class product extends CI_Controller
 						window.location.href='/ER_GOLDV1/index.php/Welcome/product';
 						</script>";
         }
-        
     }
     public function genidpromotion()
     {
         $ye = substr(date("Y"), 2) . date("m");
         $max = $this->ergold->maxpromid();
         // $max = "PROM2010001";
-        $str = substr($max, 8) +1;
+        $str = substr($max, 8) + 1;
         $txt = "PROM";
-        if($str == ''){
-            $promid = "PROM".$ye."001";
-        }elseif ($str < 10) {
+        if ($str == '') {
+            $promid = "PROM" . $ye . "001";
+        } elseif ($str < 10) {
             $promid = $txt . $ye . "00" . $str;
         } elseif ($str >= 10 && $str <= 99) {
-            $promid = $txt . $ye ."0" . $str;
+            $promid = $txt . $ye . "0" . $str;
         } elseif ($str >= 100) {
             $promid = $txt . $ye . $str;
         }
@@ -531,7 +528,7 @@ class product extends CI_Controller
     public function promotion()
     {
         $data['fname'] = $this->session->userdata('Firstname');
-        $data['sname']= $this->session->userdata('Surname');
+        $data['sname'] = $this->session->userdata('Surname');
         $data['product'] = $this->ergold->product();
         $data['pos'] = $this->session->userdata('Pos');
         $data['view'] = "add/promotion";
@@ -558,11 +555,11 @@ class product extends CI_Controller
         $PromId = $this->ergold->maxpromid();
         $prodid = $this->input->post('prodid');
 
-        foreach($prodid as $pd){
+        foreach ($prodid as $pd) {
             $data = array(
                 'Prod_Id' => $pd,
                 'Prom_Id' => $PromId
-                
+
             );
             $checkprom = $this->ergold->checksubpro($PromId, $pd);
             if ($checkprom == 0) {
@@ -581,7 +578,7 @@ class product extends CI_Controller
         $data['product'] = $this->ergold->product();
         $data['view'] = "add/editpromotion";
         $data['fname'] = $this->session->userdata('Firstname');
-        $data['sname']= $this->session->userdata('Surname');
+        $data['sname'] = $this->session->userdata('Surname');
         $data['pos'] = $this->session->userdata('Pos');
         $this->load->view('actionindex', $data);
     }
@@ -595,14 +592,14 @@ class product extends CI_Controller
         $discount = $this->input->post('dis');
         $prodid = $this->input->post('prodid');
 
-        $this->ergold->updatepromotion($pmid,$pmname,$sdate,$edate,$discount);
+        $this->ergold->updatepromotion($pmid, $pmname, $sdate, $edate, $discount);
 
         $this->ergold->subprodel($pmid);
-        foreach($prodid as $pd){
+        foreach ($prodid as $pd) {
             $data = array(
                 'Prod_Id' => $pd,
                 'Prom_Id' => $pmid
-                
+
             );
             $checkprom = $this->ergold->checksubpro($pmid, $pd);
             if ($checkprom == 0) {
@@ -614,18 +611,30 @@ class product extends CI_Controller
         </script>";
     }
 
-    public function deletepromo()
+    public function deletepromo($Promotion_Id)
     {
-        $pmid = $this->input->post('Promotion_Id');
-        $this->ergold->deletepromo($pmid);
+        // $pmid = $this->input->post('Promotion_Id');
+        $this->ergold->deletepromo($Promotion_Id);
 
-            echo "<script> alert('ลบข้อมูลสำเร็จ');
+        echo "<script> alert('ลบข้อมูลสำเร็จ');
 		 					window.location.href='/ER_GOLDV1/index.php/Welcome/promotion';
 							 </script>";
     }
 
+    public function delete($Prod_Id)
+    {
+
+        // $prodid = $this->input->post('Id');
+
+        $this->ergold->deleteprouct($Prod_Id);
+        // echo $Prod_Id;
+        echo "<script> alert('ลบข้อมูลสำเร็จ');
+		 					window.location.href='/ER_GOLDV1/index.php/Welcome/product';
+                             </script>";
+    }
+
     public function testimg()
     {
-        unlink('./img/product/test.jpg' );
+        unlink('./img/product/test.jpg');
     }
 }

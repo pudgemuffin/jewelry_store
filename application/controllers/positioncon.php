@@ -143,11 +143,11 @@ class positioncon extends CI_Controller
 							</script>";
     }
 
-    public function deletejob()
+    public function deletejob($Pos_Id)
     {
         $this->load->model('detail');
-        $jobid = $this->input->post('Pos_Id');
-        $this->detail->deletejob($jobid);
+        // $Pos_Id = $this->input->post('Pos_Id');
+        $this->detail->deletejob($Pos_Id);
 
         echo "<script> alert('ลบข้อมูลตำแหน่งสำเร็จ');
 						window.location.href='/ER_GOLDV1/index.php/Welcome/viewposition';

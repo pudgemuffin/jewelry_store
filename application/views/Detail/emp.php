@@ -133,7 +133,8 @@
                                     <a class="btn btn-warning" href="<?php echo site_url('Regis/edit/') . $r->Id ?>"><i class="fa fa-cog"></i></a>
                                 </td>
                                 <td nowrap style="text-align:center; vertical-align: middle;">
-                                    <button type="button" class="btn btn-danger btn-sm " name="delete" onclick="delete1(id='<?php echo $r->Id ?>')"><i class="fa fa-trash"></i></button>
+                                    <!-- <button type="button" class="btn btn-danger btn-sm " name="delete" onclick="delete1(id='<?php echo $r->Id ?>')"><i class="fa fa-trash"></i></button> -->
+                                    <a class="btn btn-danger" onclick="return confirm('คุณต้องการลบข้อมูลนี้ หรือไม่ ?');" href="<?php echo site_url('Regis/delete/') . $r->Id ?>"><i class="fa fa-trash"></i></a>
 
                                 </td>
                                 
@@ -229,14 +230,16 @@ function pageing123_emp() {
 
 
     function delete1(Id) {
-        var datas = "idcard=" + Id;
+        var Id = "idcard=" + Id;
+        // alert (Id);
         if (confirm("คุณต้องการลบข้อมูลนี้ หรือไม่")) {
             $.ajax({
                 type: "POST",
                 url: "<?php echo site_url('Regis/delete') ?>",
-                data: datas,
+                data: Id,
             }).done(function(data) {
                 $('#user_data').html(data);
+                console.log(Id);
             });
         }
     }

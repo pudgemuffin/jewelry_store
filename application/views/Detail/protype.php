@@ -102,7 +102,8 @@
                                     <a class="btn btn-warning" href="<?php echo site_url('product/editprotype/').$r->Prot_Id?>"><i class="fa fa-cog"></i></a>
                                 </td>
                                 <td nowrap style="text-align:center; vertical-align: middle;">
-                                    <button type="button" class="btn btn-danger btn-sm " name="delete" onclick="deletetype(id='<?php echo $r->Prot_Id ?>')"><i class="fa fa-trash"></i></button>
+                                    <!-- <button type="button" class="btn btn-danger btn-sm " name="delete" onclick="deletetype(id='<?php echo $r->Prot_Id ?>')"><i class="fa fa-trash"></i></button> -->
+                                    <a class="btn btn-danger" onclick="return confirm('คุณต้องการลบข้อมูลนี้ หรือไม่ ?');" href="<?php echo site_url('product/deletetype/') . $r->Prot_Id ?>"><i class="fa fa-trash"></i></a>
 
                                 </td>
 

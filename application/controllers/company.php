@@ -156,10 +156,10 @@ class company extends CI_Controller
     }
     }
 
-    public function deletepartner()
+    public function deletepartner($Part_Id)
     {
-        $partid = $this->input->post('Part_Id');
-        $this->partner->deletepartner($partid);
+        // $partid = $this->input->post('Part_Id');
+        $this->partner->deletepartner($Part_Id);
 
             echo "<script> alert('ลบข้อมูลบริษัทสำเร็จ');
 		 					window.location.href='/ER_GOLDV1/index.php/Welcome/partner';

@@ -195,11 +195,11 @@ class customercon extends CI_Controller
 							</script>";
     }
 
-    public function deletecust()
+    public function deletecust($Cus_Id)
     {
         $this->load->model('customer');
-        $cusid = $this->input->post('Cus_Id');
-        $this->customer->delete($cusid);
+        // $cusid = $this->input->post('Cus_Id');
+        $this->customer->deletecust($Cus_Id);
 
         echo "<script> alert('ลบข้อมูลสำเร็จ');
 		 					window.location.href='/ER_GOLDV1/index.php/Welcome/viewcust';

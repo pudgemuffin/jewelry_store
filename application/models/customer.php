@@ -5,7 +5,7 @@ class customer extends CI_Model
     {
         $query = "SELECT * from( SELECT ROW_NUMBER()OVER ( ORDER By Cus_Id )as row ,Cus_Id,Cus_fname,Cus_lname,Cus_Gender,Cus_Email,Cus_Address
                 FROM customer
-                  WHERE Cus_Id like '%%' $search )AA
+                  WHERE Cus_Status = '1' $search )AA
                  where row > $start AND row <=$pageend order by row";
 
         return $this->db->query($query)->result();
@@ -16,7 +16,7 @@ class customer extends CI_Model
         $query = "SELECT COUNT(*) as Count from( 
             SELECT ROW_NUMBER()OVER ( ORDER By Cus_Id )as row ,Cus_Id,Cus_fname,Cus_lname,Cus_Gender,Cus_Email,Cus_Address
                 FROM customer
-                  WHERE Cus_Id like '%%' $search )AA";
+                  WHERE Cus_Status = '1' $search )AA";
 
                 return $this->db->query($query)->result();
     }
@@ -95,9 +95,9 @@ class customer extends CI_Model
         return $this->db->query($query);
     }
 
-    function delete($cusid)
+    function deletecust($cusid)
     {
-        $query = "DELETE FROM customer WHERE Cus_Id ='$cusid'";
+        $query = "UPDATE customer SET Cus_Status = '0' WHERE Cus_Id ='$cusid'";
         return $this->db->query($query);
     }
 

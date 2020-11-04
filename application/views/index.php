@@ -16,7 +16,7 @@
 
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark" style="background-color: #820115;">
-        <a class="navbar-brand" href="index.php">ห้างทองทองดีเยาวราช</a>
+        <a class="navbar-brand" href="<?php echo site_url(''); ?>">ห้างทองทองดีเยาวราช</a>
         <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
         <!-- Navbar Search-->
         <div class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0"></div>
@@ -152,7 +152,7 @@
                 </div>
                 <div class="sb-sidenav-footer" style="background-color: #820115;">
                 <?php  ?>
-                    <div class="small">ลงชื่อเข้าใช้โดย : <?php echo $fname.' - '.$sname.$per[0].$per[1].$per[2].$per[3].$per[4].$per[5].$per[6].$per[7].$per[8].$per[9].$per[10]; ?></div>
+                    <div class="small">ลงชื่อเข้าใช้โดย : <?php echo $fname.' - '.$sname;//.$per[0].$per[1].$per[2].$per[3].$per[4].$per[5].$per[6].$per[7].$per[8].$per[9].$per[10] ?></div>
                     <br>
                 </div>
             </nav>

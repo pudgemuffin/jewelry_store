@@ -85,7 +85,7 @@
                 <a class="btn btn-primary" href="<?php echo site_url('product/addproduct'); ?>">เพิ่มสินค้า</a>
                 <a class="btn btn-info" href="<?php echo site_url('product/addring'); ?>">เพิ่มสินค้าแหวน</a>
         </div>
-        <p style="text-align: right;">ข้อมูลสินค้าทั้งหมด <?php echo $count_all; ?></p>
+        <p style="text-align: right;">ข้อมูลสินค้าทั้งหมด <?php echo $count_all; ?> ชิ้น </p>
     </div>
 
     <center>
@@ -128,7 +128,8 @@
                                     <a class="btn btn-warning" href="<?php echo site_url('product/editbutton/') . $r->Prod_Id ?>"><i class="fa fa-cog"></i></a>
                                 </td>
                                 <td nowrap style="text-align:center; vertical-align: middle;">
-                                    <button type="button" class="btn btn-danger btn-sm " name="delete" onclick="delete1(id='<?php echo $r->Prod_Id ?>')"><i class="fa fa-trash"></i></button>
+                                    <!-- <button type="button" class="btn btn-danger btn-sm " name="delete" onclick="delete1(id='<?php echo $r->Prod_Id ?>')"><i class="fa fa-trash"></i></button> -->
+                                    <a class="btn btn-danger" onclick="return confirm('คุณต้องการลบข้อมูลนี้ หรือไม่ ?');" href="<?php echo site_url('product/delete/') . $r->Prod_Id ?>"><i class="fa fa-trash"></i></a>
 
                                 </td>
                                 
@@ -215,12 +216,12 @@ function searchpro() {
 
     }
 
-    function delete1(Id) {
-        var datas = "idcard=" + Id;
+    function delete1(Prod_Id) {
+        var datas = "Prod_Id=" + Prod_Id;
         if (confirm("คุณต้องการลบข้อมูลนี้ หรือไม่")) {
             $.ajax({
                 type: "POST",
-                url: "<?php echo site_url('Regis/delete') ?>",
+                url: "<?php echo site_url('product/delete') ?>",
                 data: datas,
             }).done(function(data) {
                 $('#user_data').html(data);

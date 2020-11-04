@@ -54,6 +54,7 @@ body{
                 <div class="col-5">
                     <label>คำนำหน้าชื่อ : </label>
                     <select class="form-control" name="nametitle" id="nametitle">
+                        <option value = "" disabled selected>โปรดเลือก</option>
                         <option value="นาย">นาย</option>
                         <option value="นางสาว">นางสาว</option>
                         <option value="นาง">นาง</option>
@@ -78,8 +79,8 @@ body{
             <div class="row justify-content-center">
                 <div class="col-5">
                     <label>เพศ :</label>
-                    <input type="radio" name="gender" id="gender" value="ชาย" <?php echo "checked"?>> ชาย
-                    <input type="radio" name="gender" id="gender" value="หญิง"> หญิง<br>
+                    <input type="radio" name="gender" id="genderm" value="ชาย" <?php //echo "checked"?>> ชาย
+                    <input type="radio" name="gender" id="genderf" value="หญิง"> หญิง<br>
                 </div>
             </div>
 
@@ -160,7 +161,7 @@ body{
                     <label>ตำแหน่ง :</label>
                     <select class="form-control" id="pos" name="pos" required oninvalid="this.setCustomValidity('กรุณาเลือกตำแหน่ง')" oninput="setCustomValidity('')">
                         <option value="">ตำแหน่ง</option>
-                        <?php foreach ($pos as $p) { ?>
+                        <?php foreach ($posi as $p) { ?>
                             <option value="<?php echo $p->Pos_Id; ?>">
                                 <?php echo $p->Pos_Name; ?>
                             </option>
@@ -255,6 +256,28 @@ body{
 <script>
     empdate.max = new Date().toISOString().split("T")[0];
     empsdate.max = new Date().toISOString().split("T")[0];
+    
+
+    $(document).ready(function () {
+		$('#nametitle').change(function () {
+		var nameti = $('#nametitle').val()
+			if (nameti == "นาย") {
+              
+                $('#genderm').attr('checked',true)
+				$('#genderm').attr('disabled', false)
+                $('#genderf').attr('disabled', true)
+                $('#genderf').attr('checked',false)
+
+			} else if (nameti == "นางสาว" || nameti == "นาง") {
+
+                $('#genderf').attr('checked',true)
+                $('#genderf').attr('disabled', false)
+				$('#genderm').attr('disabled', true)
+                $('#genderm').attr('checked',false)
+                
+			}
+        });
+	});
 
  
 

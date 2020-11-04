@@ -33,23 +33,12 @@ class Regis extends CI_Controller
     }
 
 
-    public function delete()
-    {
-        
-        $Id = $this->input->post('Id');
-
-        $this->detail->delete($Id);
-
-        echo "<script> alert('ลบข้อมูลสำเร็จ');
-		 					window.location.href='/ER_GOLDV1/index.php';
-                             </script>";
-       
-    }
+    
 
     public function insert()
     {
       
-        $data['pos']   = $this->detail->callposition();
+        $data['posi']   = $this->detail->callposition();
         $data['province'] = $this->detail->Province();
         $data['amphur'] = $this->detail->Amphur();
         $data['district'] = $this->detail->District();
@@ -106,6 +95,7 @@ class Regis extends CI_Controller
         $national = $this->input->post('national');
         $user = $id;
         $pass = $id;
+        
         // echo $gender;
         $this->input->post('detail');
 
@@ -308,6 +298,19 @@ class Regis extends CI_Controller
             window.location.href='/ER_GOLDV1/index.php/Welcome/employee';
             </script>";
         }
+    }
+
+    public function delete($Id)
+    {
+        
+        // $Id = $this->input->post('Id');
+        // echo $Id;
+        $this->detail->delete($Id);
+
+        echo "<script> alert('ลบข้อมูลสำเร็จ');
+		 					window.location.href='/ER_GOLDV1/index.php/Welcome/employee';
+                             </script>";
+       
     }
 
     public function test()

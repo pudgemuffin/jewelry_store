@@ -93,9 +93,9 @@ class detail extends CI_Model
         return $this->db->query($query);
     }
 
-    function deletejob($jobid)
+    function deletejob($Pos_Id)
     {
-        $query = "DELETE FROM job WHERE Pos_Id = '$jobid'";
+        $query = "DELETE FROM job WHERE Pos_Id = '$Pos_Id'";
 
         return $this->db->query($query);
     }
@@ -241,7 +241,7 @@ class detail extends CI_Model
 
     function delete($Id)
     {
-        $query = "UPDATE employee SET Status = '0' WHERE Id ='$Id'";
+        $query = "UPDATE employee SET Status = 0 WHERE Id ='$Id'";
         return $this->db->query($query);
     }
 
