@@ -21,11 +21,11 @@ class customer extends CI_Model
                 return $this->db->query($query)->result();
     }
 
-    function insertcus($cusid, $cusfname, $cuslname, $cusgender, $cusemail, $province, $amphur, $district, $postcode, $cusaddress,$cusbdate)
+    function insertcus($cusid, $cusfname, $cuslname, $cusgender, $cusemail, $province, $amphur, $district, $postcode, $cusaddress,$cusbdate,$custstatus)
     {
-        $query = "INSERT INTO customer(Cus_Id,Cus_fname,Cus_lname,Cus_Gender,Cus_Email,Cus_Province,Cus_Amphur,Cus_District,Cus_Postcode,Cus_Address,Cus_Bdate)
+        $query = "INSERT INTO customer(Cus_Id,Cus_fname,Cus_lname,Cus_Gender,Cus_Email,Cus_Province,Cus_Amphur,Cus_District,Cus_Postcode,Cus_Address,Cus_Bdate,Cus_Status)
                     values
-                    ('$cusid','$cusfname','$cuslname','$cusgender','$cusemail','$province','$amphur','$district','$postcode','$cusaddress','$cusbdate')";
+                    ('$cusid','$cusfname','$cuslname','$cusgender','$cusemail','$province','$amphur','$district','$postcode','$cusaddress','$cusbdate','$custstatus')";
         return $this->db->query($query);
     }
 

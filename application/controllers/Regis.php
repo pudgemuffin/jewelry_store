@@ -68,6 +68,7 @@ class Regis extends CI_Controller
         }
 
         return $empid;
+        // echo $empid;
     }
 
     public function addemp()

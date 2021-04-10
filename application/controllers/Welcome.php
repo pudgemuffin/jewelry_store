@@ -86,7 +86,7 @@ class Welcome extends CI_Controller
             $data['numpage'] = 1;
             $data['pageend'] = $pageend;
 
-            $search = "and e.Id like '%%'";
+            $search = "";
 
             $count_all = $this->detail->count_all_emp($search);
             foreach ($count_all as $value) {
@@ -124,7 +124,9 @@ class Welcome extends CI_Controller
 
         // $txtsearch = $this->input->post('semp');
         if ($txtsearch != '') {
-            $txtsearch = "and e.Id like'%$txtsearch%' or e.Firstname like'%$txtsearch%'or e.Surname like '%$txtsearch%' or e.Email like'%$txtsearch%'or e.Religion like'%$txtsearch%' or j.Pos_Name like '%$txtsearch%'";
+            $txtsearch = "and e.Id like'%$txtsearch%' or e.Firstname like'%$txtsearch%'or e.Surname like '%$txtsearch%' or e.Email like'%$txtsearch%'or e.Religion like'%$txtsearch%' or j.Pos_Name like '%$txtsearch%'
+            or e.Gender like '%$txtsearch%'";
+            //or et.emp_tel like '%$txtsearch%'
         } else {
             $txtsearch = '';
         }
@@ -600,6 +602,202 @@ class Welcome extends CI_Controller
 
         $data['result'] = $this->ergold->allpromotion($start, $pageend,  $search);
         $this->load->view('Detail/promotion', $data);
+    }
+
+    public function order()
+    {
+        $per = $this->session->userdata('Permit');
+        if ($per[4] != 1) {
+            echo "<script> 
+            window.alert('คุณไม่มีสิทธิ์ในการใช้งาน');
+            window.history.back();
+            </script>";
+        } else {
+            $this->load->model('ergold');
+            $start = 0;
+            $pageend = 3;
+            $data['numpage'] = 1;
+            $data['pageend'] = $pageend;
+            $search = '';
+
+            $count_all = $this->detail->count_orders($search);
+            foreach ($count_all as $value) {
+                $data['count_all'] = $value->Count;
+            }
+
+            $data['result'] = $this->detail->ordersdata($start, $pageend,  $search);
+            $data['view'] = "Detail/orderdata";
+            $data['fname'] = $this->session->userdata('Firstname');
+            $data['sname'] = $this->session->userdata('Surname');
+            $data['pos'] = $this->session->userdata('Pos');
+            $this->load->view('index', $data);
+        }        
+
+    }
+
+    public function pagingmain_orders()
+    {
+        $page = $this->input->get('num_page');
+        $txtsearch = $this->input->post('hidesearch');
+
+        $pageend1 = 3;
+        if ($page != '') {
+            $page = $page;
+        } else {
+            $page = 1;
+        }
+        $start = ($page - 1) * $pageend1;
+        $pageend = $page * $pageend1;
+        $data['numpage'] = $page;
+        $data['pageend'] = $pageend1;
+
+
+        // $txtsearch = $this->input->post('spart');
+        if ($txtsearch != '') {
+            $txtsearch = "and Ord_Id like '%$txtsearch%' or Ord_Date like '%$txtsearch%' or partner.Part_Name like '%$txtsearch%'";
+        } else {
+            $txtsearch = '';
+        }
+        $search = $txtsearch;
+
+
+        $count_all = $this->detail->count_orders($search);
+        foreach ($count_all as $value) {
+            $data['count_all'] = $value->Count;
+        }
+
+        $data['result'] = $this->detail->ordersdata($start, $pageend,  $search);
+        $this->load->view('Detail/orderdata', $data);
+    }
+
+    public function receives()
+    {
+        $per = $this->session->userdata('Permit');
+        if ($per[4] != 1) {
+            echo "<script> 
+            window.alert('คุณไม่มีสิทธิ์ในการใช้งาน');
+            window.history.back();
+            </script>";
+        } else {
+            $this->load->model('ergold');
+            $start = 0;
+            $pageend = 3;
+            $data['numpage'] = 1;
+            $data['pageend'] = $pageend;
+            $search = '';
+
+            $count_all = $this->detail->count_receive($search);
+            foreach ($count_all as $value) {
+                $data['count_all'] = $value->Count;
+            }
+
+            $data['result'] = $this->detail->receivedata($start, $pageend,  $search);
+            $data['view'] = "Detail/receivedata";
+            $data['fname'] = $this->session->userdata('Firstname');
+            $data['sname'] = $this->session->userdata('Surname');
+            $data['pos'] = $this->session->userdata('Pos');
+            $this->load->view('index', $data);
+        }        
+    }
+
+    public function pagingmain_receives()
+    {
+        $page = $this->input->get('num_page');
+        $txtsearch = $this->input->post('hidesearch');
+
+        $pageend1 = 3;
+        if ($page != '') {
+            $page = $page;
+        } else {
+            $page = 1;
+        }
+        $start = ($page - 1) * $pageend1;
+        $pageend = $page * $pageend1;
+        $data['numpage'] = $page;
+        $data['pageend'] = $pageend1;
+
+
+        
+        if ($txtsearch != '') {
+            $txtsearch = "and Rec_Id like '%$txtsearch%' or Rec_Date like '%$txtsearch%' or Firstname like '%$txtsearch%'";
+        } else {
+            $txtsearch = '';
+        }
+        $search = $txtsearch;
+
+
+        $count_all = $this->detail->count_receive($search);
+        foreach ($count_all as $value) {
+            $data['count_all'] = $value->Count;
+        }
+
+        $data['result'] = $this->detail->receivedata($start, $pageend,  $search);
+        $this->load->view('Detail/receivedata', $data);
+    }
+    
+    public function lots()
+    {
+        $per = $this->session->userdata('Permit');
+        if ($per[4] != 1) {
+            echo "<script> 
+            window.alert('คุณไม่มีสิทธิ์ในการใช้งาน');
+            window.history.back();
+            </script>";
+        } else {
+            $this->load->model('ergold');
+            $start = 0;
+            $pageend = 3;
+            $data['numpage'] = 1;
+            $data['pageend'] = $pageend;
+            $search = '';
+
+            $count_all = $this->detail->count_lots($search);
+            foreach ($count_all as $value) {
+                $data['count_all'] = $value->Count;
+            }
+
+            $data['result'] = $this->detail->lots($start, $pageend,  $search);
+            $data['view'] = "Detail/lots";
+            $data['fname'] = $this->session->userdata('Firstname');
+            $data['sname'] = $this->session->userdata('Surname');
+            $data['pos'] = $this->session->userdata('Pos');
+            $this->load->view('index', $data);
+        }
+    }
+
+    public function pagingmain_lots()
+    {
+        $page = $this->input->get('num_page');
+        $txtsearch = $this->input->post('hidesearch');
+
+        $pageend1 = 3;
+        if ($page != '') {
+            $page = $page;
+        } else {
+            $page = 1;
+        }
+        $start = ($page - 1) * $pageend1;
+        $pageend = $page * $pageend1;
+        $data['numpage'] = $page;
+        $data['pageend'] = $pageend1;
+
+
+        
+        if ($txtsearch != '') {
+            $txtsearch = "and Lot_Id like '%$txtsearch%' or Lot_Date like '%$txtsearch%' or Lot_Cost like '%$txtsearch%'";
+        } else {
+            $txtsearch = '';
+        }
+        $search = $txtsearch;
+
+
+        $count_all = $this->detail->count_lots($search);
+        foreach ($count_all as $value) {
+            $data['count_all'] = $value->Count;
+        }
+
+        $data['result'] = $this->detail->lots($start, $pageend,  $search);
+        $this->load->view('Detail/lots', $data);
     }
 
     public function lay()

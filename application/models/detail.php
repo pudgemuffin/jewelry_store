@@ -252,5 +252,75 @@ class detail extends CI_Model
 
         return $this->db->query($query)->result();
     }
+
+    function ordersdata($start,$pageend,$search)
+    {
+        $query = "SELECT * from( SELECT ROW_NUMBER()OVER ( ORDER By Ord_Id )as row , Ord_Id, Ord_Date, Ord_Price, partner.Part_Name, orders.Id, employee.Firstname
+                    FROM orders
+                    INNER JOIN employee ON employee.Id = orders.Id 
+                    INNER JOIN partner  ON partner.Part_Id     = orders.Part_Id
+					WHERE Ord_Id like '%%' $search
+					GROUP BY Ord_Id  )AA
+                    where row > $start AND row <=$pageend order by row";
+
+        return $this->db->query($query)->result();
+    }
+
+    function count_orders($search)
+    {
+        $query = "SELECT Count(*) as Count from( SELECT ROW_NUMBER()OVER ( ORDER By Ord_Id )as row , Ord_Id, Ord_Date, Ord_Price, partner.Part_Name, orders.Id, employee.Firstname
+                    FROM orders
+                    INNER JOIN employee ON employee.Id = orders.Id 
+                    INNER JOIN partner  ON partner.Part_Id     = orders.Part_Id
+					WHERE Ord_Id like '%%' $search
+					GROUP BY Ord_Id  )AA";
+
+        return $this->db->query($query)->result();
+    }
+
+    function receivedata($start,$pageend,$search)
+    {
+        $query = "SELECT * from( SELECT ROW_NUMBER()OVER ( ORDER By receive.Rec_Id )as row , receive.Rec_Id, receive.Rec_Date, employee.Firstname
+        FROM receive
+        INNER JOIN employee ON employee.Id = receive.Id 
+        WHERE receive.Rec_Id like '%%' $search
+        GROUP BY receive.Rec_Id  )AA
+        where row > $start AND row <=$pageend order by row";
+
+        return $this->db->query($query)->result();
+
+    }
+
+    function count_receive($search)
+    {
+
+        $query = "SELECT Count(*) as Count from( SELECT ROW_NUMBER()OVER ( ORDER By receive.Rec_Id )as row , receive.Rec_Id, receive.Rec_Date, employee.Firstname
+        FROM receive
+        INNER JOIN employee ON employee.Id = receive.Id 
+        WHERE receive.Rec_Id like '%%' $search
+        GROUP BY receive.Rec_Id  )AA";
+
+        return $this->db->query($query)->result();
+    }
+
+    function lots($start, $pageend,  $search)
+    {
+        $query = "SELECT * from( SELECT ROW_NUMBER()OVER ( ORDER By lot.Lot_Id )as row , lot.Lot_Id, lot.Lot_Date, lot.Lot_Cost
+        FROM lot 
+        WHERE lot.Lot_Id like '%%' $search
+        GROUP BY lot.Lot_Id  )AA
+        where row > $start AND row <=$pageend order by row";
+
+        return $this->db->query($query)->result();
+    }
+
+    function count_lots($search)
+    {
+        $query = "SELECT Count(*) as Count from( SELECT ROW_NUMBER()OVER ( ORDER By lot.Lot_Id )as row , lot.Lot_Id, lot.Lot_Date, lot.Lot_Cost
+        FROM lot 
+        WHERE lot.Lot_Id like '%%' $search
+        GROUP BY lot.Lot_Id  )AA";
+
+        return $this->db->query($query)->result();
+    }
 }
-?>

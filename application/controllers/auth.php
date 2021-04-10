@@ -15,6 +15,7 @@ class auth extends CI_Controller
         $this->load->model('loginpermit');
         $this->load->database();
     }
+
     public function loginform()
     {
         if($this->session->userdata('id')){
@@ -23,6 +24,7 @@ class auth extends CI_Controller
         $this->load->view('login');
         }
     }
+    
     public function login()
     {
         if($this->session->userdata('id')){
@@ -37,7 +39,7 @@ class auth extends CI_Controller
 
         if($data[0]->EMP > 0){
             foreach ($data1 as $val){
-                $id = $val->Username;
+                $id = $val->Id;
                 $fname = $val->FNAME;
                 $sname = $val->SNAME;
                 $per = $val->per;

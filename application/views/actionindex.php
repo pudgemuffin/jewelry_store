@@ -15,7 +15,7 @@
 
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark" style="background-color: #820115;">
-        <a class="navbar-brand" href="<?php echo site_url(''); ?>">ห้างทองทองดีเยาวราช</a>
+    <img src="<?php echo base_url('img/TONGDEEee.png') ?>" style="height: 55px; width:80px;" class = "" >
         <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
         <!-- Navbar Search-->
         <div class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0"></div>
@@ -80,6 +80,8 @@
                                     echo "hidden";}?>>ราคาทุน</a>
                                 <a class="nav-link" href="<?php echo site_url('Welcome/promotion'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;"<?php if ($per[4] != 1){  
                                     echo "hidden";}?>>โปรโมชั่น</a>
+                                    <a class="nav-link" href="<?php echo site_url('Welcome/lots'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;"<?php if ($per[4] != 1){  
+                                    echo "hidden";}?>>ล็อต</a>
 
                                 <?//ต้องส่งไปcontroller แล้วเรียกview?>
                             </nav>
@@ -143,6 +145,8 @@
                                     echo "hidden";}?>>การจำนำ<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-right" style="font-size:18px;color:#ffffff;"></i></div></a>
                         <a class="nav-link" href="<?php echo site_url('Welcome/index'); ?>" style="font-size:16px;color:#ffffff;"<?php if ($per[9] != 1){  
                                     echo "hidden";}?>>สั่งซื้อสินค้า<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-right" style="font-size:18px;color:#ffffff;"></i></div></a>
+                                     <a class="nav-link" href="<?php echo site_url('Welcome/receives'); ?>" style="font-size:16px;color:#ffffff;"<?php if ($per[9] != 1){  
+                                    echo "hidden";}?>>รับสินค้า<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-right" style="font-size:18px;color:#ffffff;"></i></div></a>
                         <a class="nav-link" href="<?php echo site_url('Welcome/index'); ?>" style="font-size:16px;color:#ffffff;"<?php if ($per[8] != 1){  
                                     echo "hidden";}?>>ขายสินค้า<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-right" style="font-size:18px;color:#ffffff;"></i></div></a>
                         <a class="nav-link" href="<?php echo site_url('Welcome/index'); ?>" style="font-size:16px;color:#ffffff;"<?php if ($per[10] != 1){  
@@ -160,7 +164,8 @@
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid">
-                    <h1 class="mt-4">ยินดีต้อนรับ</h1>
+                    <br>
+                    <br>
                     <!-- <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item active">Dashboard</li>
                     </ol> -->
@@ -179,11 +184,11 @@
             <footer class="py-4 bg-light mt-auto">
                 <div class="container-fluid">
                     <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted">Copyright &copy; Your Website 2020</div>
+                        <!-- <div class="text-muted">Copyright &copy; Your Website 2020</div> -->
                         <div>
-                            <a href="#">Privacy Policy</a>
-                            &middot;
-                            <a href="#">Terms &amp; Conditions</a>
+                            <!-- <a href="#">Privacy Policy</a> -->
+                            <!-- &middot; -->
+                            <!-- <a href="#">Terms &amp; Conditions</a> -->
                         </div>
                     </div>
                 </div>

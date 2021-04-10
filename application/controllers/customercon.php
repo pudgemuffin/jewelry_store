@@ -61,6 +61,7 @@ class customercon extends CI_Controller
         // echo $cusid."<br>";
         // echo $str."<br>";
         return $cusid;
+        // echo $cusid;
     }
 
     public function cusregis()
@@ -78,6 +79,7 @@ class customercon extends CI_Controller
         $postcode = $this->input->post('postcode');
         $cusaddress = $this->input->post('cusaddress');
         $cusbdate = $this->input->post('cusbdate');
+        $custstatus = 1;
         $this->input->post('customer');
 
 
@@ -92,7 +94,8 @@ class customercon extends CI_Controller
             $district,
             $postcode,
             $cusaddress,
-            $cusbdate
+            $cusbdate,
+            $custstatus
         );
 
         $CusId = $this->customer->maxid();

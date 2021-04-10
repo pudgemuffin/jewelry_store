@@ -12,9 +12,9 @@ class loginpermit extends CI_Model
 
     function loginauth($user,$pass)
     {
-        $query = "SELECT e.Firstname as FNAME,e.Surname as SNAME,e.USername as Username,p.permit as per,p.Pos_Name as Poname FROM employee e
-                    INNER JOIN job p ON e.Jobs = p.Pos_Id
-                    WHERE e.Username = ".$this->db->escape($user)." and e.Password = ".$this->db->escape($pass)."";
+        $query = "SELECT employee.Id,employee.Firstname as FNAME,employee.Surname as SNAME,employee.Username as Username,job.permit as per,job.Pos_Name as Poname FROM employee 
+                    INNER JOIN job  ON employee.Jobs = job.Pos_Id
+                    WHERE employee.Username = ".$this->db->escape($user)." and employee.Password = ".$this->db->escape($pass)."";
 
         return $this->db->query($query)->result();
     }

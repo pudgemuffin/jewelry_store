@@ -24,7 +24,7 @@
             <div style="margin-left: 20px">
                 <div class="row justify-content-center">
                     <div class="col-5">
-                        <label>รหัสพนักงาน</label>
+                        <label>รหัสบริษัท</label>
                         <input class="form-control" style="color: red;" type=text value="<?php echo $p->Part_Id; ?>" disabled>
                     </div>
                 </div>

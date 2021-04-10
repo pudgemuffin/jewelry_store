@@ -188,8 +188,8 @@ class company extends CI_Controller
                 $data['product'] = $this->ergold->product();
                 $data['view'] = "add/costpro";
                 $data['fname'] = $this->session->userdata('Firstname');
-        $data['sname']= $this->session->userdata('Surname');
-        $data['pos'] = $this->session->userdata('Pos');
+                $data['sname']= $this->session->userdata('Surname');
+                $data['pos'] = $this->session->userdata('Pos');
                 $this->load->view('actionindex', $data);
             }
         }

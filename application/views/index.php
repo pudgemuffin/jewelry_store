@@ -82,6 +82,8 @@
                                     echo "hidden";}?>>ราคาทุน</a>
                                 <a class="nav-link" href="<?php echo site_url('Welcome/promotion'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;"<?php if ($per[4] != 1){  
                                     echo "hidden";}?>>โปรโมชั่น</a>
+                                    <a class="nav-link" href="<?php echo site_url('Welcome/lots'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;"<?php if ($per[4] != 1){  
+                                    echo "hidden";}?>>ล็อต</a>
 
                                 <?//ต้องส่งไปcontroller แล้วเรียกview?>
                             </nav>
@@ -143,8 +145,10 @@
                         </a> -->
                         <a class="nav-link" href="<?php echo site_url('Welcome/index'); ?>" style="font-size:16px;color:#ffffff;"<?php if ($per[7] != 1){  
                                     echo "hidden";}?>>การจำนำ<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-right" style="font-size:18px;color:#ffffff;"></i></div></a>
-                        <a class="nav-link" href="<?php echo site_url('Welcome/index'); ?>" style="font-size:16px;color:#ffffff;"<?php if ($per[9] != 1){  
+                        <a class="nav-link" href="<?php echo site_url('Welcome/order'); ?>" style="font-size:16px;color:#ffffff;"<?php if ($per[9] != 1){  
                                     echo "hidden";}?>>สั่งซื้อสินค้า<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-right" style="font-size:18px;color:#ffffff;"></i></div></a>
+                                    <a class="nav-link" href="<?php echo site_url('Welcome/receives'); ?>" style="font-size:16px;color:#ffffff;"<?php if ($per[9] != 1){  
+                                    echo "hidden";}?>>รับสินค้า<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-right" style="font-size:18px;color:#ffffff;"></i></div></a>
                         <a class="nav-link" href="<?php echo site_url('Welcome/index'); ?>" style="font-size:16px;color:#ffffff;"<?php if ($per[8] != 1){  
                                     echo "hidden";}?>>ขายสินค้า<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-right" style="font-size:18px;color:#ffffff;"></i></div></a>
                         <a class="nav-link" href="<?php echo site_url('Welcome/index'); ?>" style="font-size:16px;color:#ffffff;"<?php if ($per[10] != 1){  
@@ -173,8 +177,11 @@
                           $search = $this->input->post('spos'); 
                           $search = $this->input->post('stype');
                           $search = $this->input->post('spartcost');
-                          $search = $this->input->post('spromo');?>
-                    <!-- <div id="search_form"> -->
+                          $search = $this->input->post('spromo');
+                          $search = $this->input->post('orders');
+                          $search = $this->input->post('receives');
+                          $search = $this->input->post('lots');?>
+                    
                         <div class="card mb-4">
                             <input type="hidden" name="hidesearch" id="hidesearch" value="<?php if ($search != "")
                                                                             echo $search; ?>">
@@ -182,18 +189,18 @@
                                 <?php $this->load->view($view); ?>
                             </div>
                         </div>
-                    <!-- </div> -->
+                    
                     </form>
 
             </main>
             <footer class="py-4 bg-light mt-auto">
                 <div class="container-fluid">
                     <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted">Copyright &copy; Your Website 2020</div>
+                        <!-- <div class="text-muted">Copyright &copy; Your Website 2020</div> -->
                         <div>
-                            <a href="#">Privacy Policy</a>
-                            &middot;
-                            <a href="#">Terms &amp; Conditions</a>
+                            <!-- <a href="#">Privacy Policy</a> -->
+                            <!-- &middot; -->
+                            <!-- <a href="#">Terms &amp; Conditions</a> -->
                         </div>
                     </div>
                 </div>
