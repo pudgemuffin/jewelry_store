@@ -104,8 +104,6 @@
                     <div class="col-3">
                         <label>วันที่รับจำนำ :</label>
                         <input class="form-control" type="text" name="date" id="date" value="<?php echo date('Y-m-d'); ?>" readonly>
-                        <input class="lastdatecurrent" id="lastdaycurrent" name="lastdaycurrent" type="hidden" value="<?php echo date("t") ?>">
-                        <input class="lastdatenext" id="lastdatenext" name="lastdatenext" type="hidden" value="<?php echo date("t", strtotime("+1 month")) ?>">
                     </div>
                     <div class="col-3">
                         <label>ค่าดอก : *1เดือน=30วัน*</label>
