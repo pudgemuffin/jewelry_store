@@ -10,7 +10,7 @@ class pledgecon extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        
+
         $this->load->helper('url', 'form', 'html');   //เรียกมาใช้ 
         $this->load->library('session', 'upload');
         $this->load->model('pledgedb');
@@ -29,16 +29,15 @@ class pledgecon extends CI_Controller
         if ($str == '') {
             $plid = "PLE" . $ye . "0001";
         } elseif ($str < 10) {
-            $plid = $txt . $ye . "000" . $str.'<br>';
+            $plid = $txt . $ye . "000" . $str . '<br>';
         } elseif ($str >= 10 && $str <= 99) {
             $plid = $txt . $ye . "00" . $str;
-        } elseif ($str >= 100 && $str <=999 ) {
+        } elseif ($str >= 100 && $str <= 999) {
             $plid = $txt . $ye . "0" . $str;
-            echo "hi";
         } elseif ($str >= 1000) {
             $plid = $txt . $ye . $str;
         }
-        
+
         // echo $plid;
         return $plid;
     }
@@ -54,30 +53,105 @@ class pledgecon extends CI_Controller
         $data['pos'] = $this->session->userdata('Pos');
         $data['id'] = $this->session->userdata('id');
         $data['view'] = "add/pledge";
-        
+
         $this->load->view('actionindex', $data);
     }
 
-    public function caldate()
+    public function genexppro()
     {
-        // $month =  date('m');
-        $day = date('d');
-        $month = 4;
-        $ye = date('Y');
+        $ye = substr(date("Y"), 2) . date("m");
+        $max = $this->pledgedb->exppl();
 
-        $am = 3;
+        $str = substr($max, 7) + 1;
 
-        $total = $month + $am;
+        $txt = "EXP";
 
-        if ($total > 12){
-            $result = ($ye + 1) . "-" . ("0") . ( $total - 12) . '-' . $day;
-             
-        }else{
-            $result = $ye . '-' ."0" .$total . '-' . $day . 'eiei';
+        if ($str == '') {
+            $expd = "EXP" . $ye . "0001";
+        } elseif ($str < 10) {
+            $expd = $txt . $ye . "000" . $str . '<br>';
+        } elseif ($str >= 10 && $str <= 99) {
+            $expd = $txt . $ye . "00" . $str;
+        } elseif ($str >= 100 && $str <= 999) {
+            $expd = $txt . $ye . "0" . $str;
+        } elseif ($str >= 1000) {
+            $expd = $txt . $ye . $str;
         }
-        echo $result.'<br>';    
-        echo $ye.'<br>';
+
+        // echo $expd;
+        return $expd;
+    }
+
+    public function insertpledge()
+    {
+        $pledgeid = $this->genpledge();
+        $pledgedetail = $this->input->post('det');
+        $pledgeprice = $this->input->post('payout');
+        $pledgedebt = $this->input->post('debt');
+        $pledgedebtprice = $this->input->post('pay');
+        $pledgeSdate = $this->input->post('date');
+        $pledgeNdate = $this->input->post('endate');
+        $pledgeMonth = $this->input->post('month');
+        $pledgeemp = $this->input->post('id');
+        $pledgecus = $this->input->post('cust');
+        // $pledgestat = 1;
+
+        $pledgepro = $this->input->post('pled_pro');
+        $pledgeweightper = $this->input->post('weight_per');
+
+
+        $count = count($pledgepro);
+
+        // echo $count.'<br>';
+
+        // print_r($_POST);
+
+        $data['insertple'] = $this->pledgedb->addple(
+            $pledgeid,
+            $pledgedetail,
+            $pledgeprice,
+            $pledgedebt,
+            $pledgedebtprice,
+            $pledgeSdate,
+            $pledgeNdate,
+            $pledgeMonth,
+            $pledgeemp,
+            $pledgecus
+        );
+
+        for ($i = 0; $i < $count; $i++) {
+
+            $this->pledgedb->addplelist($pledgeid, $pledgeweightper[$i], $pledgepro[$i]);
+        }
+
+        echo "<script> alert('เพิ่มข้อมูลใบจำนำสำเร็จ');
+        window.location.href='/ER_GOLDV1/index.php/Welcome/receives';
+        </script>";
+    }
+
+    public function checkpledge()
+    {
+        $Ndate = $this->pledgedb->selectndate();
+
+        foreach ($Ndate as $r) {
+            $enddate = $r->Pledge_Ndate;
+        }
+
+        // $ndate = date_create($enddate);
+        $ndate = date_create($enddate);
+        date_add($ndate,date_interval_create_from_date_string("60 days"));
+        $check = date_format($ndate,"Y-m-d");
+        $today = date('Y-m-d');
+        // echo $today.'<br>';
+        echo $check.'<br>';
+
+        // echo gettype($check).'<br>';
+        // echo gettype($today).'<br>';
         
-        echo date('Y-m-d');
+        if ($check == $today){
+            echo "Equal";
+        }else{
+            echo "Not Equal";
+        }
     }
 }

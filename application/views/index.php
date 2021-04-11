@@ -143,7 +143,7 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                             Tables
                         </a> -->
-                        <a class="nav-link" href="<?php echo site_url('Welcome/index'); ?>" style="font-size:16px;color:#ffffff;"<?php if ($per[7] != 1){  
+                        <a class="nav-link" href="<?php echo site_url('Welcome/allpledge'); ?>" style="font-size:16px;color:#ffffff;"<?php if ($per[7] != 1){  
                                     echo "hidden";}?>>การจำนำ<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-right" style="font-size:18px;color:#ffffff;"></i></div></a>
                         <a class="nav-link" href="<?php echo site_url('Welcome/order'); ?>" style="font-size:16px;color:#ffffff;"<?php if ($per[9] != 1){  
                                     echo "hidden";}?>>สั่งซื้อสินค้า<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-right" style="font-size:18px;color:#ffffff;"></i></div></a>
@@ -180,7 +180,8 @@
                           $search = $this->input->post('spromo');
                           $search = $this->input->post('orders');
                           $search = $this->input->post('receives');
-                          $search = $this->input->post('lots');?>
+                          $search = $this->input->post('lots');
+                          $search = $this->input->post('ple');?>
                     
                         <div class="card mb-4">
                             <input type="hidden" name="hidesearch" id="hidesearch" value="<?php if ($search != "")

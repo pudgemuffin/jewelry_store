@@ -79,7 +79,7 @@
                                 <label>สินค้า :</label>
                                 <td><input class="form-control" type="text" name="pled_pro[]" id="pled_pro" required></td>
                                 <label style="padding-left: 27%;">น้ำหนัก :</label>
-                                <td><input class="form-control" id="weight_per" name="weight_per[]" required oninvalid="this.setCustomValidity('กรุณากรอกราคา')" oninput="setCustomValidity('')" ></td>
+                                <td><input class="form-control" id="weight_per" name="weight_per[]" required oninvalid="this.setCustomValidity('กรุณากรอกราคา')" oninput="setCustomValidity('')"></td>
                                 <td><button type="button" name="add" id="add" class="btn btn-success"><i class="fa fa-plus"></i></button></td>
                             </tr>
                         </table>
@@ -172,98 +172,5 @@
         format = result.toISOString();
         format = format.substr(0, 10);
         $(' .endate').val(format);
-        // console.log(format)
-
-
-
-        // am = parseInt($(this).val());
-        // month = 03;
-        // fulldate = $(' #date ').val();
-        // fulldate = new Date();
-        // ye = parseInt(fulldate.substr(0,4));
-        // month = parseInt(fulldate.substr(5,2));
-        // day = fulldate.substr(8,2);
-        // lastdaycurr = $('.lastdatecurrent').val();
-        // lastdaynext = $('.lastdatenext').val();
-        // lastdaynext = "30";
-        // day = "31";
-        //เอาสิ้นเดือนอย่างเดียว
-        // total = month + am;
-        // total = parseInt(total);
-
-        // alert(result);
-        // var secs = 30;
-        // new Date(secs * 1000);
-        // console.log(new Date(secs * 1000));
-
-        // if (day == "31" && lastdaynext == "30") {
-
-        //     alert("1");
-
-        //     if (total > 12) {
-
-        //         result = (ye + 1) + "-" + ("0") + (total - 12) + "-" + day;
-        //         alert(result + "haha");
-
-        //     } else {
-        //         // day = parseInt("30");
-        //         result = ye + "-" + "0" + (total + 1) + "-" + "01" ;
-        //         // result = "hahaha"
-        //         alert(result + "haha2");
-        //     }
-
-        // } else{
-        //     alert("2");
-        //     if (total > 12) {
-        //         result = (ye + 1) + "-" + ("0") + (total - 12) + "-" + day;
-        //         alert(result + "haha3");
-        //     } else {
-        //         result = ye + "-" + "0" + total + "-" + day;
-        //         alert(result + "haha4");
-        //         // result = "hahaha"
-        //     }
-
-        // }
-        // id = $(this).parents('tr').attr('id');
-        // total = 0;
-        // value = parseFloat($('#' + id + ' .recinput ').val());
-        // remain = parseFloat($('#' + id + ' .remaining ').val());
-        // price = parseFloat($('#' + id + ' .price').val());
-        // total1 = 0;
-
-        // remain = remain - value;
-        // total = value * price;
-
-
-        // $('#' + id + ' .orderTotal').val(total);
-        // $('#' + id + ' .remain').val(remain);
-
-
-        // $(' .orderTotal').each(function() {
-        //     total1 += parseFloat($(this).val());
-        // });
-        // $('.alltotal').val(total1);
-        // // $('#lotTotal').val(total1);
-    });
-
-    function numberonly(evt) {
-        var charCode = (evt.which) ? evt.which : event.keyCode
-        if (charCode > 31 && (charCode < 48 || charCode > 57))
-            return false;
-
-        return true;
-    }
-
-    $(document).ready(function() {
-        var i = 1;
-        $('#add').click(function() {
-            i++;
-            var pro = '<tr id="pro' + i + '"><td><input class="form-control" type="text"  name="pled_pro[]" id="pled_pro" required></td><td><input class="form-control" id="weight_per" name="weight_per[]"  required></td>  <td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove"><i class="fa fa-times" aria-hidden="true"></i></button></td></tr>'
-            $('table').append(pro);
-        });
-        $(document).on('click', '.btn_remove', function() {
-            var button_id = $(this).attr("id");
-            $('#pro' + button_id + '').remove();
-        });
     });
 </script>
