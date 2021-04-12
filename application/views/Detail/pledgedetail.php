@@ -88,7 +88,7 @@
                 <th class="tableFixHead">รหัสใบจำนำ</th>
                 <th class="tableFixHead">ชื่อ -
                     นามสุกล</th>
-                <th class="tableFixHead">ราคาจำนำ</th>
+                <th class="tableFixHead">ราคาไถ่ออก</th>
                 <th class="tableFixHead">เปอร์เซ็น</th>
                 <th class="tableFixHead">วันเริ่ม</th>
                 <th class="tableFixHead">จำนวนเดือน</th>
@@ -109,10 +109,10 @@
                         <td nowrap> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->Pledge_Debt.' %'); ?>
                         <td nowrap> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->Pledge_Sdate); ?> </td>
                         <td nowrap> <?php echo ($r->Pledge_Month)/30; ?> </td>
-                        <td nowrap> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->Pledge_Debt_Price); ?></td>
+                        <td nowrap> <?php echo number_format($r->Pledge_Debt_Price,2); ?></td>
 
                         <td>
-                            <a class="btn btn-warning" href="<?php echo site_url('pledgecon/updatepledge/') . $r->Pledge_Id ?>"><i class="fa fa-cog"></i></a>
+                            <a class="btn btn-warning" href="<?php echo site_url('pledgecon/selectpledge/') . $r->Pledge_Id ?>"><i class="fa fa-cog"></i></a>
                         </td>
 
 

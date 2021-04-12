@@ -17,60 +17,61 @@
     <h2>ราคาทุน</h2>
 </center>
 <?php foreach ($partner as $p) { ?>
-    
-        <form action="<?php echo site_url('company/existcost') ?>" method="post" enctype="multipart/form-data">
-            <div class="row justify-content-center">
-                <div class="col-5">
-                    <label>บริษัทคู่ค้า :</label>
-                    <input type="text" name="partid" id="partid" value="<?php echo $p->Part_Id; ?>"hidden>
-                    <input class="form-control" style="color: red;" type=text value="<?php echo $p->Part_Name; ?>" readonly>
-                </div>
-            </div>
 
-            <div class="row justify-content-center">
-                <div class="col-5">
-                    <table id="prod">
+    <form action="<?php echo site_url('company/existcost') ?>" method="post" enctype="multipart/form-data">
+        <div class="row justify-content-center">
+            <div class="col-5">
+                <label>บริษัทคู่ค้า :</label>
+                <input type="text" name="partid" id="partid" value="<?php echo $p->Part_Id; ?>" hidden>
+                <input class="form-control" style="color: red;" type=text value="<?php echo $p->Part_Name; ?>" readonly>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-5">
+                <table id="prod">
                     <label>สินค้า :</label>
                     <?php $i = 1; ?>
                     <?php foreach ($productbyid as $pdi) { ?>
-                        
+
                         <tr id="newprod<?php echo $i; ?>">
-                            
+
                             <td><select class="form-control" id="prodid[]" name="prodid[]" required oninvalid="this.setCustomValidity('กรุณาเลือกสินค้า')" oninput="setCustomValidity('')">
                                     <option value="">กรุณาเลือกสินค้า</option>
-                                    
+
                                     <?php foreach ($product as $pr) { ?>
                                         <option value="<?php echo $pr->Prod_Id; ?>" <?php if ($pdi->Prod_Id == $pr->Prod_Id) {
                                                                                         echo "selected";
                                                                                     } ?>>
                                             <?php echo $pr->Prod_Name; ?>
                                         </option>
-                                        <?php } ?>
+                                    <?php } ?>
                                 </select></td>
-                                <td><input class="form-control" id="price[]" name="price[]" required oninvalid="this.setCustomValidity('กรุณากรอกราคา')" oninput="setCustomValidity('')" value = "<?php echo $pdi->Price; ?>"></td>
+                            <td><input class="form-control" id="price[]" name="price[]" required oninvalid="this.setCustomValidity('กรุณากรอกราคา')" oninput="setCustomValidity('')" value="<?php echo $pdi->Price; ?>"></td>
                             <td><?php if ($i == 1) { ?><button type="button" name="add" id="add" class="btn btn-success"><i class="fa fa-plus"></i></button>
                                 <?php } else { ?>
                                     <button type="button" name="remove" id="<?php echo $i; ?>" class="btn btn-danger btn_remove">X</button>
-                                <?php } ?></td>
+                                <?php } ?>
+                            </td>
                         </tr>
                     <?php
-                                        $i++;
-                                    } ?>
-                    </table>
-                </div>
+                        $i++;
+                    } ?>
+                </table>
             </div>
-            <br>
-            <div class="row justify-content-center">
-                <div class="col-5" style="margin-bottom: 15px;">
+        </div>
+        <br>
+        <div class="row justify-content-center">
+            <div class="col-5" style="margin-bottom: 15px;">
 
-                    <button type="submit" class="btn btn-info">เพิ่มข้อมูลราคาทุน</button>
-                    <a class="btn btn-danger" href="<?php echo site_url('Welcome/cost') ?>">ยกเลิก</a>
+                <button type="submit" class="btn btn-info">เพิ่มข้อมูลราคาทุน</button>
+                <a class="btn btn-danger" href="<?php echo site_url('Welcome/cost') ?>">ยกเลิก</a>
 
-                </div>
             </div>
+        </div>
 
-        </form>
-    
+    </form>
+
 <?php } ?>
 <script>
     $(document).ready(function() {

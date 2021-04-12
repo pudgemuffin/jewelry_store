@@ -94,6 +94,7 @@ class pledgecon extends CI_Controller
         $pledgeMonth = $this->input->post('month');
         $pledgeemp = $this->input->post('id');
         $pledgecus = $this->input->post('cust');
+        $pledgeweight = $this->input->post('weight');
         // $pledgestat = 1;
 
         $pledgepro = $this->input->post('pled_pro');
@@ -116,7 +117,8 @@ class pledgecon extends CI_Controller
             $pledgeNdate,
             $pledgeMonth,
             $pledgeemp,
-            $pledgecus
+            $pledgecus,
+            $pledgeweight
         );
 
         for ($i = 0; $i < $count; $i++) {
@@ -129,29 +131,64 @@ class pledgecon extends CI_Controller
         </script>";
     }
 
+    public function selectpledge($plid)
+    {
+        $this->load->model('selldb');
+        $data['pledge'] = $this->pledgedb->selectpledge($plid);
+        $data['subpledge'] = $this->pledgedb->selectsubpledge($plid);
+        $data['cus'] = $this->selldb->custselect();
+        $data['fname'] = $this->session->userdata('Firstname');
+        $data['sname']= $this->session->userdata('Surname');
+        $data['pos'] = $this->session->userdata('Pos');
+        $data['view'] = "add/updatepledge";
+        $this->load->view('actionindex', $data);
+    }
+
+    public function contipledge()
+    {
+        $pledgeid = $this->input->post('pledgeid');
+        $pledgendd = $this->input->post('pledgeenddate');
+        $pledgeprice = $this->input->post('payout');
+        $pledgedebt = $this->input->post('debt');
+        $pledgedebtprice = $this->input->post('pay');
+        $pledgeweight = $this->input->post('weight');
+
+        // echo $pledgeprice;
+
+        
+       
+        $pledday = $this->input->post('month');
+        $time = strtotime($pledgendd);
+        $time = strtotime("+$pledday day", $time);
+        $date = date("Y-m-d",$time);
+        echo $date;
+        
+        $pledgepro = $this->input->post('pled_pro');
+        $pledgeweightper = $this->input->post('weight_per');
+        // print_r($_POST);
+        // $count = count($pledgepro);
+        // $data['update'] = $this->pledgedb->updatepledge(
+        //     $pledgeid,
+        //     $date,
+        //     $pledgeprice,
+        //     $pledgedebt,
+        //     $pledgedebtprice,
+        //     $pledgeweight,
+        //     $pledday
+        // );
+        // $this->pledgedb->deladdplelist($pledgeid);
+
+        // for ($i = 0; $i < $count; $i++) {
+
+        //     $this->pledgedb->addplelist($pledgeid, $pledgeweightper[$i], $pledgepro[$i]);
+        // }
+    }
+
     public function checkpledge()
     {
-        $Ndate = $this->pledgedb->selectndate();
+        $this->pledgedb->setpledgezero();
 
-        foreach ($Ndate as $r) {
-            $enddate = $r->Pledge_Ndate;
-        }
-
-        // $ndate = date_create($enddate);
-        $ndate = date_create($enddate);
-        date_add($ndate,date_interval_create_from_date_string("60 days"));
-        $check = date_format($ndate,"Y-m-d");
-        $today = date('Y-m-d');
-        // echo $today.'<br>';
-        echo $check.'<br>';
-
-        // echo gettype($check).'<br>';
-        // echo gettype($today).'<br>';
-        
-        if ($check == $today){
-            echo "Equal";
-        }else{
-            echo "Not Equal";
-        }
+        $this->pledgedb->setpledgelistzero();
+       
     }
 }

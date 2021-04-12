@@ -56,30 +56,93 @@ class pledgedb extends CI_Model
     }
 
     function addple($pledgeid, $pledgedetail, $pledgeprice, $pledgedebt, $pledgedebtprice ,$pledgeSdate , $pledgeNdate, 
-                    $pledgeMonth, $pledgeemp ,$pledgecus)
+                    $pledgeMonth, $pledgeemp ,$pledgecus, $pledgeweight)
     {
         $query = "INSERT INTO pledge (Pledge_Id, Pledge_Detail, Pledge_Price, Pledge_Debt, Pledge_Debt_Price, Pledge_Sdate, Pledge_Ndate
-                                    , Pledge_Month, Pledge_Emp, Pledge_Cus, Pledge_Status)
+                                    , Pledge_Month, Pledge_Emp, Pledge_Cus, Pledge_Status, Pledge_Weight)
                         VALUES ('$pledgeid', '$pledgedetail', '$pledgeprice', '$pledgedebt', '$pledgedebtprice', '$pledgeSdate', '$pledgeNdate', 
-                    '$pledgeMonth', '$pledgeemp', '$pledgecus', '1')";
+                    '$pledgeMonth', '$pledgeemp', '$pledgecus', '1', '$pledgeweight')";
 
         return $this->db->query($query);
     }
 
     function addplelist($pledgeid ,$pledgeweightper, $pledgepro)
     {
-        $query = "INSERT INTO pledge_list (Pledge_Id, Pledge_Weight_Per, Pledge_Pro, Pledge_Status)
+        $query = "INSERT INTO pledge_list (Pledge_Id, Pledge_Weight_Per, Pledge_Pro, Pledge_Stat)
                         VALUES ('$pledgeid', '$pledgeweightper', '$pledgepro', '1')";
 
         return $this->db->query($query);
     }
 
-    function selectndate()
+    function selectndate($search)
     {
         $query = "SELECT Pledge_Ndate from pledge
-                    WHERE Pledge_Id = 'PLE21040001'";
+                    WHERE Pledge_Id = '$search'";
 
         return $this->db->query($query)->result();
+    }
+
+    function countpledge()
+    {
+        $query = "SELECT Pledge_Id from pledge";
+
+        return $this->db->query($query)->result();
+    }
+
+    function checkpledge()
+    {
+        $query = "SELECT Pledge_Id, Pledge_Ndate, DATE_ADD(Pledge_Ndate,INTERVAL 90 DAY) as lastday from pledge";
+
+        return $this->db->query($query)->result();
+    }
+
+    function selectpledge($plid)
+    {
+        $query = "SELECT Pledge_Id, Pledge_Detail, Pledge_Price, Pledge_Debt, Pledge_Debt_Price, Pledge_Sdate, Pledge_Ndate, Pledge_Month, Pledge_Emp, Pledge_Cus
+        , Pledge_Weight
+                    FROM pledge
+                        WHERE Pledge_Id = '$plid'";
+
+        return $this->db->query($query)->result();
+    }
+
+    function selectsubpledge($plid)
+    {
+        $query = "SELECT Pledge_Id, Pledge_Weight_Per, Pledge_Pro FROM pledge_list
+                    WHERE Pledge_Id = '$plid'";
+
+        return $this->db->query($query)->result();
+    }
+
+    function setpledgezero()
+    {
+        $query = "UPDATE pledge
+        SET Pledge_Status = '0'
+        WHERE  Pledge_Id IN (SELECT Pledge_Id FROM pledge
+        WHERE  Pledge_Ndate < CURRENT_DATE
+        AND DATE_ADD(Pledge_Ndate,INTERVAL 90 DAY)  < CURRENT_DATE)";
+
+        return $this->db->query($query);
+    }
+
+    function setpledgelistzero()
+    {
+        $query = "UPDATE pledge_list
+        SET Pledge_Stat = '0'
+        WHERE  Pledge_Id IN (SELECT Pledge_Id FROM pledge
+        WHERE  Pledge_Ndate < CURRENT_DATE
+        AND DATE_ADD(Pledge_Ndate,INTERVAL 90 DAY)  < CURRENT_DATE)";
+
+        return $this->db->query($query);
+    }
+
+    function updatepledge($pledgeid, $date, $pledgeprice, $pledgedebt, $pledgedebtprice, $pledgeweight, $pledday)
+    {
+        $query = "UPDATE pledge SET Pledge_Ndate = '$date', Pledge_Price = '$pledgeprice' , Pledge_Debt = '$pledgedebt', 
+        Pledge_Debt_Price = '$pledgedebtprice', Pledge_Weight = '$pledgeweight', Pledge_Month = '$pledday'
+        WHERE Pledge_Id = '$pledgeid'";
+
+        return $this->db->query($query);
     }
 }
 ?>

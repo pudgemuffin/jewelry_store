@@ -64,7 +64,7 @@
                     </div>
                     <div class="col-1">
                         <label>น้ำหนัก :</label>
-                        <input type="text" class="form-control" id="weight" name="weight[]">
+                        <input type="text" class="weight form-control" id="weight" name="weight" readonly>
                     </div>
                     <div class="col-2">
                         <label>ยอดจำนำ :</label>
@@ -75,11 +75,11 @@
                 <div class="row justify-content-center">
                     <div class="col-6">
                         <table id="pro">
-                            <tr>
+                            <tr id="pro1">
                                 <label>สินค้า :</label>
                                 <td><input class="form-control" type="text" name="pled_pro[]" id="pled_pro" required></td>
                                 <label style="padding-left: 27%;">น้ำหนัก :</label>
-                                <td><input class="form-control" id="weight_per" name="weight_per[]" required oninvalid="this.setCustomValidity('กรุณากรอกราคา')" oninput="setCustomValidity('')" ></td>
+                                <td><input class="weight_per form-control" id="weight_per" name="weight_per[]" required oninvalid="this.setCustomValidity('กรุณากรอกราคา')" oninput="setCustomValidity('')"></td>
                                 <td><button type="button" name="add" id="add" class="btn btn-success"><i class="fa fa-plus"></i></button></td>
                             </tr>
                         </table>
@@ -141,6 +141,31 @@
 </body>
 
 <script>
+    $(document).on('change', '.weight_per', function() {
+        id = $(this).parents('tr').attr('id');
+        
+        weight = parseFloat($('#' + id + ' .weight_per').val());
+        if($(this).val()==''){
+            $(this).val(0); 
+        }
+      
+
+        var result = 0;
+        var weig = 0;
+
+        $('.weight_per').each(function(){
+            result = parseFloat($(this).val());
+            weig = weig+result;
+        });
+            
+        
+        weigcom = weig.toLocaleString();
+
+        
+
+        $(' .weight').val(weigcom);
+    });
+
     $(document).on('change ', '.month', function() {
 
 
@@ -153,14 +178,20 @@
 
         percent = (value / 100) * debt;
 
+
         det = percent * day;
-        result = percent + value;
+        result = det + value;
+
+        // console.log(det);
+        // console.log(percent);
+        // console.log(day);
+        // console.log(value);
 
         detcom = det.toLocaleString();
         resultcom = result.toLocaleString();
 
 
-        console.log(result);
+        // console.log(result);
 
         $(' .payout').val(result);
         $(' .payout1').val(resultcom);
@@ -258,7 +289,7 @@
         var i = 1;
         $('#add').click(function() {
             i++;
-            var pro = '<tr id="pro' + i + '"><td><input class="form-control" type="text"  name="pled_pro[]" id="pled_pro" required></td><td><input class="form-control" id="weight_per" name="weight_per[]"  required></td>  <td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove"><i class="fa fa-times" aria-hidden="true"></i></button></td></tr>'
+            var pro = '<tr id="pro' + i + '"><td><input class="form-control" type="text"  name="pled_pro[]" id="pled_pro" required></td><td><input class="weight_per form-control" id="weight_per" name="weight_per[]" value="0"  required></td>  <td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove"><i class="fa fa-times" aria-hidden="true" ></i></button></td></tr>'
             $('table').append(pro);
         });
         $(document).on('click', '.btn_remove', function() {
