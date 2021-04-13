@@ -68,8 +68,8 @@ class pledgedb extends CI_Model
 
     function addplelist($pledgeid ,$pledgeweightper, $pledgepro)
     {
-        $query = "INSERT INTO pledge_list (Pledge_Id, Pledge_Weight_Per, Pledge_Pro, Pledge_Stat)
-                        VALUES ('$pledgeid', '$pledgeweightper', '$pledgepro', '1')";
+        $query = "INSERT INTO pledge_list (Pledge_Id, Pledge_Weight_Per, Pledge_Pro, Pledge_Stat, Pledge_Stat_Stock)
+                        VALUES ('$pledgeid', '$pledgeweightper', '$pledgepro', '1', '0')";
 
         return $this->db->query($query);
     }
@@ -117,7 +117,7 @@ class pledgedb extends CI_Model
     function setpledgezero()
     {
         $query = "UPDATE pledge
-        SET Pledge_Status = '0'
+        SET Pledge_Status = '2'
         WHERE  Pledge_Id IN (SELECT Pledge_Id FROM pledge
         WHERE  Pledge_Ndate < CURRENT_DATE
         AND DATE_ADD(Pledge_Ndate,INTERVAL 90 DAY)  < CURRENT_DATE)";
@@ -128,7 +128,7 @@ class pledgedb extends CI_Model
     function setpledgelistzero()
     {
         $query = "UPDATE pledge_list
-        SET Pledge_Stat = '0'
+        SET Pledge_Stat = '2'
         WHERE  Pledge_Id IN (SELECT Pledge_Id FROM pledge
         WHERE  Pledge_Ndate < CURRENT_DATE
         AND DATE_ADD(Pledge_Ndate,INTERVAL 90 DAY)  < CURRENT_DATE)";
@@ -144,5 +144,31 @@ class pledgedb extends CI_Model
 
         return $this->db->query($query);
     }
+
+    function deladdplelist($plid)
+    {
+        $query = "DELETE pledge_list WHERE Pledge_Id = '$plid'";
+
+        return $this->db->query($query);
+
+    }
+
+    function selectlist()
+    {
+        $query = "SELECT pledge_list.Pledge_Pro, pledge_list.Pledge_Weight_Per, pledge.Pledge_Price, pledge.Pledge_Weight, pledge.Pledge_Id FROM pledge_list
+        LEFT JOIN pledge on pledge_list.Pledge_Id = pledge.Pledge_Id
+        WHERE  Pledge_Stat = '2' and Pledge_Stat_Stock = '0'";
+
+        return $this->db->query($query)->result();
+    }
+
+    function insertstock($id,$pledgepro,$result,$pledgeweightp,$plid)
+    {
+        $query = "INSERT INTO pledge_stock (ProdPL_Id, ProdPL_Name, ProdPL_Weight_Per, Pledge_Id, ProdPL_Status)
+            VALUES ('$id','$pledgepro','$result','$pledgeweightp','$plid','1')";
+
+return $this->db->query($query);    
+    }
+
 }
 ?>

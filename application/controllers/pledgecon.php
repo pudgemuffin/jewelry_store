@@ -166,29 +166,46 @@ class pledgecon extends CI_Controller
         $pledgepro = $this->input->post('pled_pro');
         $pledgeweightper = $this->input->post('weight_per');
         // print_r($_POST);
-        // $count = count($pledgepro);
-        // $data['update'] = $this->pledgedb->updatepledge(
-        //     $pledgeid,
-        //     $date,
-        //     $pledgeprice,
-        //     $pledgedebt,
-        //     $pledgedebtprice,
-        //     $pledgeweight,
-        //     $pledday
-        // );
-        // $this->pledgedb->deladdplelist($pledgeid);
+        $count = count($pledgepro);
+        $data['update'] = $this->pledgedb->updatepledge(
+            $pledgeid,
+            $date,
+            $pledgeprice,
+            $pledgedebt,
+            $pledgedebtprice,
+            $pledgeweight,
+            $pledday
+        );
+        $this->pledgedb->deladdplelist($pledgeid);
 
-        // for ($i = 0; $i < $count; $i++) {
+        for ($i = 0; $i < $count; $i++) {
 
-        //     $this->pledgedb->addplelist($pledgeid, $pledgeweightper[$i], $pledgepro[$i]);
-        // }
+            $this->pledgedb->addplelist($pledgeid, $pledgeweightper[$i], $pledgepro[$i]);
+        }
     }
 
     public function checkpledge()
     {
-        $this->pledgedb->setpledgezero();
+        // $this->pledgedb->setpledgezero();
 
-        $this->pledgedb->setpledgelistzero();
+        // $this->pledgedb->setpledgelistzero();
+        $data['insert'] = $this->pledgedb->selectlist();
+        foreach($data['insert'] as $i){
+            $pledgepro = $i->Pledge_Pro;
+            $pledgeweightp = $i->Pledge_Weight_Per.'<br>';
+            $float = (float)$i->Pledge_Price;
+            $price =  ($float/$i->Pledge_Weight);
+            $result = ($price*($i->Pledge_Weight_Per));
+            $result;
+            $plid = $i->Pledge_Id;           
+            // $id = $this->genexppro();
+            // echo $pledgepro.'<br>';
+            // echo $pledgeweightp.'<br>';
+            // echo $result.'<br>';
+            // echo $plid.'<br>';
+            // $this->pledgedb->insertstock($id,$pledgepro,$result,$pledgeweightp,$plid);
+        }
+
        
     }
 }
