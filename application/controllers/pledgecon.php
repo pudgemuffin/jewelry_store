@@ -127,7 +127,7 @@ class pledgecon extends CI_Controller
         }
 
         echo "<script> alert('เพิ่มข้อมูลใบจำนำสำเร็จ');
-        window.location.href='/ER_GOLDV1/index.php/Welcome/receives';
+        window.location.href='/ER_GOLDV1/index.php/Welcome/allpledge';
         </script>";
     }
 
@@ -161,7 +161,9 @@ class pledgecon extends CI_Controller
         $time = strtotime($pledgendd);
         $time = strtotime("+$pledday day", $time);
         $date = date("Y-m-d",$time);
-        echo $date;
+        // echo $date;
+        // echo $pledgeweight;
+        // echo $pledgeprice;
         
         $pledgepro = $this->input->post('pled_pro');
         $pledgeweightper = $this->input->post('weight_per');
@@ -182,30 +184,35 @@ class pledgecon extends CI_Controller
 
             $this->pledgedb->addplelist($pledgeid, $pledgeweightper[$i], $pledgepro[$i]);
         }
+
+        echo "<script> alert('ต่อดอกสำเร็จ');
+        window.location.href='/ER_GOLDV1/index.php/Welcome/allpledge';
+        </script>";
     }
 
     public function checkpledge()
     {
-        // $this->pledgedb->setpledgezero();
+        $this->pledgedb->setpledgezero();
 
-        // $this->pledgedb->setpledgelistzero();
+        $this->pledgedb->setpledgelistzero();
         $data['insert'] = $this->pledgedb->selectlist();
         foreach($data['insert'] as $i){
             $pledgepro = $i->Pledge_Pro;
-            $pledgeweightp = $i->Pledge_Weight_Per.'<br>';
+            $pledgeweightp = $i->Pledge_Weight_Per;
             $float = (float)$i->Pledge_Price;
             $price =  ($float/$i->Pledge_Weight);
             $result = ($price*($i->Pledge_Weight_Per));
             $result;
             $plid = $i->Pledge_Id;           
-            // $id = $this->genexppro();
+            $id = $this->genexppro();
             // echo $pledgepro.'<br>';
             // echo $pledgeweightp.'<br>';
             // echo $result.'<br>';
             // echo $plid.'<br>';
-            // $this->pledgedb->insertstock($id,$pledgepro,$result,$pledgeweightp,$plid);
+            $this->pledgedb->insertstock($id,$pledgepro,$result,$pledgeweightp,$plid);
+            
         }
-
+        $this->pledgedb->changestat($plid);
        
     }
 }

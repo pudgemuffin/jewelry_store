@@ -61,4 +61,20 @@ class selldb extends CI_Model
 
         return $this->db->query($query)->result();
     }
+
+    function selectexp()
+    {
+        $query = "SELECT ProdPL_Id, ProdPL_Name, ProdPL_Cost, ProdPL_Weight_Per FROM pledge_stock
+        WHERE ProdPL_Status = '1'";
+
+        return $this->db->query($query)->result();
+    }
+
+    function addexp($prodid)
+    {
+        $query = "SELECT ProdPL_Id, ProdPL_Name, ProdPL_Cost, ProdPL_Weight_Per FROM pledge_stock
+        WHERE ProdPL_Id = '$prodid'";
+
+        return $this->db->query($query)->result();
+    }
 }

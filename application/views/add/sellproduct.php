@@ -81,7 +81,7 @@
                 <div class="col-2">
                     <label> ราคากลาง :</label>
                     <?php foreach ($world as $w) { ?>
-                        <input class="form-control" type="text" value="<?php echo number_format($w->World_Price,2)  ?>" readonly>
+                        <input class="form-control" type="text" value="<?php echo number_format($w->World_Price, 2)  ?>" readonly>
                         <input class="world form-control" type="text" value="<?php echo $w->World_Price  ?>" hidden>
                     <?php } ?>
                 </div>
@@ -112,8 +112,8 @@
                                     ราคารวม
                                 </th>
                                 <th>
-                                    <input class="alltotal1 form-control" type="text"  readonly>
-                                    <input type="hidden" class="alltotal form-control" type="text" id="alltotal" name="alltotal[]"  >
+                                    <input class="alltotal1 form-control" type="text" readonly>
+                                    <input type="hidden" class="alltotal form-control" type="text" id="alltotal" name="alltotal[]">
                                 </th>
                                 <th></th>
 
@@ -121,7 +121,18 @@
                         </tfoot>
                     </table>
                 </div>
-                <button type="button" id="add" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg" disabled>เพิ่มสินค้า</button>
+                <div class="row">
+                    <div class="col-2">
+                        <button type="button" id="add" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg" disabled>เพิ่มสินค้า</button>
+                    </div>
+                    <div class="col-8"></div>
+                    <div class="col-2">
+                        <input type="radio" id="payt" name="payt" value="cash">
+                        <label for="cash">เงินสด</label>
+                        <input type="radio" id="payt" name="payt" value="credit">
+                        <label for="credit">เครดิต</label>
+                    </div>
+                </div>
             </div>
 
         </div>
@@ -226,9 +237,10 @@
     $(document).on('click', '.prodid', function() {
         prodid = $(this).val()
         prodids = prodid.substr(0, 9);
-        lotid = prodid.substr(9); 
+        lotid = prodid.substr(9);
         var idTr = $('.shows tr:last-child').attr('id');
         // alert(prodids);
+        // alert(lotid);
         // alert(partner);
 
         if (idTr == null) {
@@ -245,8 +257,9 @@
             var repeat = false;
             $('#product tbody tr').each(function() {
                 sellpro = $(this).find('input[name="idproduct[]"]').val();
-                lotpro = $(this).find('input[name = "lot[]"]').val();
-
+                lotpro = $(this).find('input[name = "Id[]"]').val();
+                // console.log(sellpro);
+                // console.log(lotpro);
                 if (sellpro == prodids && lotpro == lotid) {
                     repeat = true;
                     return false;
@@ -267,7 +280,7 @@
                 url: "<?php echo site_url('sell/addpro') ?>",
                 data: {
                     prod: prodids,
-                    lot : lotid,
+                    lot: lotid,
                     row: rowsd
                 },
                 success: function(data) {
@@ -281,58 +294,126 @@
 
     });
 
+    $(document).on('click', '.prodidexp', function() {
+        prodid = $(this).val()
+        // console.log(prodid);
+        var idTr = $('.shows tr:last-child').attr('id');
+
+        if (idTr == null) {
+            var rowsd = 1;
+        } else {
+            idTr = idTr.substr(5);
+            var rowsd = parseInt(idTr) + 1;
+        }
+        var count_body = $('#product tbody tr').length;
+        if (count_body == 0) {
+            addexp();
+        } else {
+            var repeat = false;
+            $('#product tbody tr').each(function() {
+                sellpro = $(this).find('input[name="Id[]"]').val();
+
+
+                if (sellpro == prodid) {
+                    repeat = true;
+                    return false;
+                }
+
+            });
+
+            if (repeat == false) {
+                addexp();
+            }
+        }
+
+        function addexp() {
+            $.ajax({
+                type: "POST",
+                url: "<?php echo site_url('sell/addproexp') ?>",
+                data: {
+                    prod: prodid,
+                    row: rowsd
+                },
+                success: function(data) {
+                    $('.shows').append(data);
+
+
+
+                    // alert(datas);
+                }
+            });
+        }
+
+
+    });
+
 
     $(document).on('change ', '.sellinput', function() {
-        // selt1 = $(this).closest('tr')
-        // selt2 = $(this).closest('tr')
-    
+
+
         id = $(this).parents('tr').attr('id');
         total = 0;
+        test = $('#' + id + ' .hello ').val();
+        testsub = test.substr(0, 3);
         value = parseFloat($('#' + id + ' .sellinput ').val());
         fee = parseFloat($('#' + id + ' .Fee').val());
         world = parseFloat($(' .world ').val());
         weight = parseFloat($('#' + id + ' .weight').val());
         discount = parseFloat($('#' + id + ' .discount').val());
+        pergram = (world * 0.0656);
+
         total1 = 0;
         totalcom = 0;
         totalcom1 = 0;
         priced = 0;
-        
-        
-        
-        percent = (world*weight*discount)/100;
-        price = world*weight;
-        // alert(percent);
-        
-        if(percent == null){
-            total = (((world * weight)-percent)*value) + (fee * value);
-        }else{
-            total = ((world * weight)*value) + (fee * value);
+        // console.log(testsub);
+        if (testsub == "LOT") {
+
+            percent = (world * weight * discount) / 100;
+            price = world * weight;
+
+
+            if (percent == null) {
+
+                total = ((world * weight) * value) + (fee * value);
+            } else {
+                total = (((world * weight) - percent) * value) + (fee * value);
+            }
+
+
+            totalcom = total
+            totalcom = totalcom.toLocaleString();
+            priced = price
+            priced = priced.toLocaleString();
+
+            $('#' + id + ' .priced').val(priced);
+            $('#' + id + ' .sellTotal').val(total);
+            $('#' + id + ' .sellTotal1').val(totalcom);
+
+        } else {
+            result = (weight * pergram) * 1
+            result1 = result.toLocaleString();
+
+            $('#' + id + ' .sellTotal').val(result);
+            $('#' + id + ' .sellTotal1').val(result1);
+            $('#' + id + ' .pricedple').val(result1);
         }
 
-        // selt1.find(' .sellTotal1 ').val(new Intl.NumberFormat().format(total));
-        totalcom = total
-        totalcom = totalcom.toLocaleString();
-        priced = price
-        priced = priced.toLocaleString();
 
-        $('#' + id + ' .priced').val(priced);
-        $('#' + id + ' .sellTotal').val(total);
-        $('#' + id + ' .sellTotal1').val(totalcom);
 
 
         $(' .sellTotal').each(function() {
             total1 += parseFloat($(this).val());
-            
+
         });
         totalcom1 = total1
         totalcom1 = totalcom1.toLocaleString();
 
         $(' .alltotal').val(total1);
         $(' .alltotal1').val(totalcom1);
-        
-        // selt2.find(' .alltotal1 ').val(new Intl.NumberFormat().format(total1));
-        // $('#lotTotal').val(total1);
+
+
+
     });
 
 

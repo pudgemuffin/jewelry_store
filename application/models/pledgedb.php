@@ -147,7 +147,7 @@ class pledgedb extends CI_Model
 
     function deladdplelist($plid)
     {
-        $query = "DELETE pledge_list WHERE Pledge_Id = '$plid'";
+        $query = "DELETE FROM pledge_list WHERE Pledge_Id = '$plid'";
 
         return $this->db->query($query);
 
@@ -164,11 +164,18 @@ class pledgedb extends CI_Model
 
     function insertstock($id,$pledgepro,$result,$pledgeweightp,$plid)
     {
-        $query = "INSERT INTO pledge_stock (ProdPL_Id, ProdPL_Name, ProdPL_Weight_Per, Pledge_Id, ProdPL_Status)
+        $query = "INSERT INTO pledge_stock (ProdPL_Id, ProdPL_Name, ProdPL_Cost, ProdPL_Weight_Per, Pledge_Id, ProdPL_Status)
             VALUES ('$id','$pledgepro','$result','$pledgeweightp','$plid','1')";
 
-return $this->db->query($query);    
+        return $this->db->query($query);    
+    }
+
+    function changestat($plid)
+    {
+        $query = "UPDATE pledge_list SET Pledge_Stat_Stock = '1' 
+                    WHERE Pledge_Id = '$plid'";
+
+        return $this->db->query($query);    
     }
 
 }
-?>

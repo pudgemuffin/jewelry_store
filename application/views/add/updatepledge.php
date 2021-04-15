@@ -67,7 +67,8 @@
                         </div>
                         <div class="col-1">
                             <label>น้ำหนัก :</label>
-                            <input type="text" class="form-control" id="weight" name="weight" value="<?php echo $p->Pledge_Weight; ?>" readonly>
+                            <input type="text" class="weight form-control" id="weight" name="weight" value="<?php echo $p->Pledge_Weight; ?>" readonly>
+                            
                         </div>
                         <div class="col-2">
                             <label>ยอดจำนำ :</label>
@@ -78,7 +79,7 @@
 
                     <div class="row justify-content-center">
                         <div class="col-6">
-                            <table id="pro">
+                            <table class="pledge" id="pro">
 
                                 <label>สินค้า :</label><label style="padding-left: 27%;">น้ำหนัก :</label>
                                 <?php $i = 1;
@@ -198,10 +199,10 @@
             
         
         weigcom = weig.toLocaleString();
-
+        
         
 
-        $(' .weight').val(weigcom);
+        $(' .weight').val(weig);
     });
 
     $(document).on('change ', '.month', function() {
@@ -210,7 +211,7 @@
         am = parseInt($(this).val());
         day = parseInt($(this).val());
         debt = parseInt($(' #debt').val());
-        value = parseInt($(' #price1 ').val());
+        value = parseInt($(' #price ').val());
         enddate = $(' #pledgeenddate ').val();
 
         day = (day / 30);
@@ -247,7 +248,12 @@
 
 
     $(document).ready(function() {
-        var i = 1;
+        // var i = 1;
+        
+        var d = $('.pledge tr:last-child').attr('id');
+        i = d.substr(3);
+        // console.log(i);
+
         $('#add').click(function() {
             i++;
             var pro = '<tr id="pro' + i + '"><td><input class="form-control" type="text"  name="pled_pro[]" id="pled_pro" required></td><td><input class="weight_per form-control" id="weight_per" name="weight_per[]" value="0"  required></td>  <td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove"><i class="fa fa-times" aria-hidden="true" ></i></button></td></tr>'
@@ -258,4 +264,12 @@
             $('#pro' + button_id + '').remove();
         });
     });
+
+    function numberonly(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode
+        if (charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
 </script>
