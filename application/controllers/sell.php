@@ -63,10 +63,10 @@ class sell extends CI_Controller
                 echo '<td>' . $r->Lot_Id . '</td>';
                 echo '<td>' . $r->Prod_Name . ' </td>';
                 echo '<td>' . $r->Weight_Name . '</td>';
-                echo '<td>' . number_format($r->Fee,2) . '</td>';
+                echo '<td>' . number_format($r->Fee, 2) . '</td>';
                 echo '<td>' . $r->Size . '</td>';
                 echo '<td>' . $r->Amount . '</td>';
-                echo '<td><button type="button" class="prodid" id="prodid" name="prodid" value="' . $r->Prod_Id.''.$r->Lot_Id . '">เพิ่ม</button></td>';
+                echo '<td><button type="button" class="prodid" id="prodid" name="prodid" value="' . $r->Prod_Id . '' . $r->Lot_Id . '">เพิ่ม</button></td>';
                 echo '</tr>';
             }
         } else {
@@ -76,8 +76,8 @@ class sell extends CI_Controller
             $data['expresult'] = $this->selldb->selectexp();
             echo '<table id="aaaa" class="display">';
             echo '<thead>';
-            echo '<tr>';        
-            echo '<th>รหัสสินค้า</th>'; 
+            echo '<tr>';
+            echo '<th>รหัสสินค้า</th>';
             echo '<th>ชื่อสินค้า</th>';
             echo '<th>น้ำหนัก</th>';
             echo '<th>ราคาทุน</th>';
@@ -86,17 +86,16 @@ class sell extends CI_Controller
             echo '</tr>';
             echo '</thead>';
             echo '<tbody class="show_part">';
-            foreach ($data['expresult'] as $p){
-            echo '<tr>';
-            echo '<td>'.$p->ProdPL_Id.'</td>';
-            echo '<td>'.$p->ProdPL_Name.'</td>';
-            echo '<td>'.$p->ProdPL_Weight_Per.'</td>';
-            echo '<td>'.number_format($p->ProdPL_Cost,2).'</td>';
-            // echo
-            echo '<td><button type="button" class="prodidexp" id="prodidexp" name="prodidexp" value="' . $p->ProdPL_Id.'">เพิ่ม</button></td>';
-            echo '</tr>';
+            foreach ($data['expresult'] as $p) {
+                echo '<tr>';
+                echo '<td>' . $p->ProdPL_Id . '</td>';
+                echo '<td>' . $p->ProdPL_Name . '</td>';
+                echo '<td>' . $p->ProdPL_Weight_Per . '</td>';
+                echo '<td>' . number_format($p->ProdPL_Cost, 2) . '</td>';
+                // echo
+                echo '<td><button type="button" class="prodidexp" id="prodidexp" name="prodidexp" value="' . $p->ProdPL_Id . '">เพิ่ม</button></td>';
+                echo '</tr>';
             }
-
         }
     }
     public function addpro()
@@ -105,27 +104,28 @@ class sell extends CI_Controller
         $lotid = $this->input->post('lot');
         $row = $this->input->post('row');
 
-        $data['result'] = $this->selldb->selectpro($prodid,$lotid);
+        $data['result'] = $this->selldb->selectpro($prodid, $lotid);
         foreach ($data['result'] as $r) {
             echo  '<tr id = "order' . $row . '">';
             echo  '<td><img style = "width: 100px; height:100px;" src = "http://localhost/ER_GOLDV1/img/product/' . $r->Prod_Img . '"></td>';
-            echo  '<td class="align-middle" style="text-align: center; "nowrap><input class = "hello form-control" type = "text" id = "Id" name = "Id[]" value = "'.$r->Lot_Id.'" readonly></td>';
+            echo  '<input type ="hidden" id="cat" name = "cat[]" value = "1">';
+            echo  '<td class="align-middle" style="text-align: center; "nowrap><input class = "hello form-control" type = "text" id = "Lotid" name = "Lotid[]" value = "' . $r->Lot_Id . '" readonly></td>';
             echo  '<td class="align-middle" style="text-align: center; "nowrap><input class="form-control" type="text" id="product" name="product[]" value="' . $r->Prod_Name . '" readonly></td>';
             echo  '<td class="align-middle" style="text-align: center; "nowrap>' . $r->Weight_Name . '</td>';
-            echo  '<input class="form-control" type="hidden" id="idproduct" name="idproduct[]" value="' . $r->Prod_Id . '" ><input class="form-control" type="hidden" id="type" name="type[]" value="' . $r->Prot_Name . '" >';
-            echo  '<td class="align-middle" style="text-align: center; "nowrap><input class="form-control" type="text" value="' . number_format($r->Fee,2) . '"readonly><input class="Fee form-control" type="hidden" id="Fee" name="Fee[]" value="' . $r->Fee . '"readonly></td>';
+            echo  '<input class="form-control" type="hidden" id="idproduct" name="idproduct[]" value="' . $r->Prod_Id . '" ><input class="form-control" type="hidden" id="type" name="type[]" value="' . $r->Prot_Id . '" >';
+            echo  '<td class="align-middle" style="text-align: center; "nowrap><input class="form-control" type="text" value="' . number_format($r->Fee, 2) . '"readonly><input class="Fee form-control" type="hidden" id="Fee" name="Fee[]" value="' . $r->Fee . '"readonly></td>';
             echo  '<td class="align-middle" style="text-align: center; "nowrap>' . $r->Size . '</td>';
-            echo  '<input type = "hidden" value = "' . $r->Amount . '">';
-            echo  '<input class = "weight" type = "hidden" value = "' . $r->Weight_Cal .'"><input class = "discount" type = "hidden" id = "discount" name = "discount[]" value = "' .$r->Prom_Discount. '">';
+            echo  '<input type = "hidden"  class = "amount"  value = "' . $r->Amount . '"><input type = "hidden" class = "left" id = "left" name = "left" value = "0">';
+            echo  '<input class = "weight" type = "hidden" value = "' . $r->Weight_Cal . '"><input class = "discount" type = "hidden" id = "discount" name = "discount[]" value = "' . $r->Prom_Discount . '">';
             echo  '<td class="align-middle" style="text-align: center; "nowrap><input class="sellinput form-control" type = "number" id="piece" name="piece[]" required value="0"  min = "0" max = "' . $r->Amount . '"  onkeypress="return numberonly(event)" required></td>';
-            echo  '<td class="align-middle" style="text-align: center; "nowrap><input class="priced form-control" type = "text" id="price" name="price[]" readonly></td>';
-            if($r->Prom_Discount != null){
-                echo  '<td class="align-middle" style="text-align: center; "nowrap><input class="discount form-control" type = "text" id="discount" name="discount[]" value = "'.$r->Prom_Discount.'%" readonly></td>';
-            } else{
+            echo  '<td class="align-middle" style="text-align: center; "nowrap><input class="priced form-control" type = "text" readonly><input class="price form-control" type = "hidden" id="price" name="price[]" value = "0" readonly></td>';
+            if ($r->Prom_Discount != null) {
+                echo  '<td class="align-middle" style="text-align: center; "nowrap><input class="discount form-control" type = "text" id="discount" name="discount[]" value = "' . $r->Prom_Discount . '%" readonly></td>';
+            } else {
                 echo  '<td class="align-middle" style="text-align: center; "nowrap><input class="discount form-control" type = "text" id="discount" name="discount[]" value = "0%" readonly></td>';
             }
             echo  '<td class="align-middle" style="text-align: center; "nowrap><input class="sellTotal1 form-control"  readonly value="0"></td><input class="sellTotal" id="total" name="total[]" type = "hidden" value = "0">';
-            
+
             // echo  '<td><button type="button" class="prodid" id="prodid" name="prodid" value="'. $r->Prod_Id . "" . $r->Part_Id.'">sdasd</button></td> </td>';
             echo '<td class="align-middle" style="text-align: center; "  width="6%">  <a href="#"class="btn btn-danger remove" style="border-radius: 5px; width: 60px; "> <i class="fas fa-minus-circle"></i></a> </td>';
             echo  '</tr>';
@@ -140,41 +140,108 @@ class sell extends CI_Controller
         foreach ($data['result'] as $r) {
             echo  '<tr id = "order' . $row . '">';
             echo  '<td></td>';
-            echo  '<td class="align-middle" style="text-align: center; "nowrap><input class = "hello form-control" type = "text" id = "Id" name = "Id[]" value = "'.$r->ProdPL_Id.'" readonly></td>';
-            echo  '<td class="align-middle" style="text-align: center; "nowrap><input class="form-control" type="text" id="product" name="product[]" value="' . $r->ProdPL_Name . '" readonly></td>';
+            echo  '<td class="align-middle" style="text-align: center; "nowrap><input class = "hello form-control" type = "text" id = "Expid" name = "Expid[]" value = "' . $r->ProdPL_Id . '" readonly></td>';
+            echo  '<input type ="hidden" id="cat" name = "cat[]" value = "2">';
+            echo  '<td class="align-middle" style="text-align: center; "nowrap><input class="form-control" type="text" id="product" name="product[]" value="' . $r->ProdPL_Name . '" readonly><input class="form-control" type="hidden" id="type" name="type[]" value="' . $r->Prot_Id . '" ></td>';
             echo  '<td class="align-middle" style="text-align: center; "nowrap><input class="weight form-control" type="text" id="weight" name="weight[]" value="' . $r->ProdPL_Weight_Per . '" readonly></td>';
-            echo  '<td class="align-middle" style="text-align: center; "nowrap><input class="form-control" type="text" value="' . number_format($r->ProdPL_Cost,2) . '"readonly><input class="Cost form-control" type="hidden" id="Cost" name="Cost[]" value="' . $r->ProdPL_Cost . '"readonly></td>';
+            echo  '<td class="align-middle" style="text-align: center; "nowrap><input class="form-control" type="text" value="' . number_format($r->ProdPL_Cost, 2) . '"readonly><input class="Cost form-control" type="hidden" id="Cost" name="Cost[]" value="' . $r->ProdPL_Cost . '"readonly></td>';
             echo  '<td></td>';
             echo  '<input class="form-control" type="hidden" id="idproduct" name="idproduct[]" value="' . $r->ProdPL_Id . '" >';
             echo  '<td class="align-middle" style="text-align: center; "nowrap><input class="sellinput form-control" type = "number" id="piece" name="piece[]" required value="0"  min = "1" max = "1"   required></td>';
-            echo  '<td class="align-middle" style="text-align: center; "nowrap><input class="pricedple form-control" type = "text" id="price" name="price[]" readonly></td>';
-            echo  '<td class="align-middle" style="text-align: center; "nowrap><input class="discount form-control" type = "text" id="discount" name="discount[]" value = "0%" readonly></td>';
+            echo  '<td class="align-middle" style="text-align: center; "nowrap><input class="pricedple form-control" type = "text"  readonly><input class="priceple form-control" type = "hidden" id="price" name="price[]" value = "0" readonly></td>';
+            echo  '<td class="align-middle" style="text-align: center; "nowrap><input class="discount form-control" type = "text" value = "0%" readonly><input type = "hidden" id ="discount" name="discount[]" value = "0"</td>';
             echo  '<td class="align-middle" style="text-align: center; "nowrap><input class="sellTotal1 form-control"  readonly value="0"></td><input class="sellTotal" id="total" name="total[]" type = "hidden" value = "0">';
-            
+
             // echo  '<td><button type="button" class="prodid" id="prodid" name="prodid" value="'. $r->Prod_Id . "" . $r->Part_Id.'">sdasd</button></td> </td>';
             echo '<td class="align-middle" style="text-align: center; "  width="6%">  <a href="#"class="btn btn-danger remove" style="border-radius: 5px; width: 60px; "> <i class="fas fa-minus-circle"></i></a> </td>';
             echo  '</tr>';
         }
+    }
 
+    public function genidrep()
+    {
+        $ye = date('ym');
+        $max = $this->selldb->maxrep();
+        if ($max == '') {
+            $repid = 'REP' . $ye . '0001';
+            return $repid;
+            // echo $repid;
+        } else {
+            $yeId = substr($max, 3, 4);
+            if ($yeId != $ye) {
+
+                return $repid = 'REP' . $ye . '0001';
+                // echo $repid;
+            } else {
+                $repid = substr($max, 7);
+                $repid += 1;
+                while (strlen($repid) < 4) {
+                    $repid = '0' . $repid;
+                }
+                $repid = 'REP' . $yeId . $repid;
+                return $repid;
+                // echo $repid;
+
+            }
+        }
     }
 
     public function sellpro()
     {
         $empid = $this->input->post('id');
         $cusid = $this->input->post('cust');
-        $prodid = $this->input->post('Id');
-        $amount = $this->input->post('piece');
-        $alltotal = $this->input->post('alltotal');
+        $repid = $this->genidrep();
         $date = $this->input->post('date');
-        $paymeny = $this->input->post('payt');
-        
-        $id = $prodid.substr(0,3);
-        if($id == 'LOT'){
+        $payment = $this->input->post('payt');
+        $alltotal = $this->input->post('alltotal');
+        $age = $this->selldb->age($cusid);
+        // echo $age;
 
-            $prottype = $this->input->post('type');
 
-        }else{
+        $lotid = $this->input->post('Lotid');
+        $type = $this->input->post('type');
+        $amount = $this->input->post('piece');
+        $prodid = $this->input->post('idproduct');
 
+
+
+
+
+
+        $dis = $this->input->post('discount');
+        $priceper = $this->input->post('price');
+        $totalper = $this->input->post('total');
+        $left = $this->input->post('left');
+
+        $this->selldb->receipt($repid, $payment, $date, $age, $alltotal, $empid, $cusid);
+        // echo $payment.'<br>';
+        // echo $alltotal.'<br>';
+        $cat = $this->input->post('cat');
+        $count = count($cat);
+
+        for ($i = 0; $i < $count; $i++) {
+
+            $this->selldb->receipt_list($i+1, $type[$i], $amount[$i], $dis[$i], $priceper[$i], $totalper[$i], $repid);
+
+
+            if ($cat[$i] == '1') {
+
+
+
+                // echo $prodid[$i] . '<br>';
+                // echo $lotid[$i] . '<br>';
+                $this->selldb->receipt_list_product($repid, $i + 1, $lotid[$i], $prodid[$i]);
+                $this->selldb->updateproduct($lotid[$i], $prodid[$i], $left[$i]);
+                // echo "1";
+            } else {
+
+
+                // echo $prodid[$i] . '<br>';
+                $this->selldb->receipt_list_pledge($repid, $i + 1, $prodid[$i]);
+                $this->selldb->updatepledgestock($prodid[$i]);
+                // echo "2";
+            }
         }
+        echo "DONE";
     }
 }

@@ -506,23 +506,30 @@ class product extends CI_Controller
     }
     public function genidpromotion()
     {
-        $ye = substr(date("Y"), 2) . date("m");
+        $ye = date('ym');
         $max = $this->ergold->maxpromid();
-        // $max = "PROM2010001";
-        $str = substr($max, 8) + 1;
-        $txt = "PROM";
-        if ($str == '') {
-            $promid = "PROM" . $ye . "001";
-        } elseif ($str < 10) {
-            $promid = $txt . $ye . "00" . $str;
-        } elseif ($str >= 10 && $str <= 99) {
-            $promid = $txt . $ye . "0" . $str;
-        } elseif ($str >= 100) {
-            $promid = $txt . $ye . $str;
+        if($max == ''){
+            $promid = 'PROM' . $ye . '001';
+            return $promid;
+            // echo $promid;
+        }else{
+            $yeId = substr($max, 4, 4);
+            if($yeId != $ye){
+
+                return $promid = 'PROM' . $ye . '001';
+                // echo $promid;
+            }else{
+                $promid = substr($max, 7);
+                $promid += 1;
+                while(strlen($promid) < 3){
+                    $promid = '0' . $promid;
+                }
+                $promid = 'PROM' . $yeId . $promid;
+                return $promid;
+                // echo $promid;
+                
+            }
         }
-        // echo $promid."<br>";
-        // echo $str."<br>";
-        return $promid;
     }
 
     public function promotion()

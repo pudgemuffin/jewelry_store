@@ -37,7 +37,7 @@ class selldb extends CI_Model
 
     function selectpro($prodid, $lotid)
     {
-        $query = "SELECT product.Prod_Img, product.Prod_Id, protype.Prot_Name, product.Prod_Name, product.Fee, weight.Weight_Name, size.Size, 
+        $query = "SELECT product.Prod_Img, product.Prod_Id, protype.Prot_Id, product.Prod_Name, product.Fee, weight.Weight_Name, size.Size, 
         IFNULL(sub_lot.Amount,0) as Amount, Weight.Weight_Cal, sub_lot.Lot_Id, promo.Prom_Discount, promo.Prom_Name from product
         LEFT JOIN sub_lot on sub_lot.Prod_Id = product.Prod_Id
         JOIN weight on weight.Weight_Id = product.Prod_Weight
@@ -72,9 +72,79 @@ class selldb extends CI_Model
 
     function addexp($prodid)
     {
-        $query = "SELECT ProdPL_Id, ProdPL_Name, ProdPL_Cost, ProdPL_Weight_Per FROM pledge_stock
+        $query = "SELECT ProdPL_Id, ProdPL_Name, ProdPL_Cost, ProdPL_Weight_Per, Prot_Id FROM pledge_stock
         WHERE ProdPL_Id = '$prodid'";
 
         return $this->db->query($query)->result();
+    }
+
+    function age($cusid)
+    {
+        $query = "SELECT TIMESTAMPDIFF(YEAR, Cus_Bdate, CURDATE()) AS age FROM customer
+        WHERE Cus_Id = '$cusid'";
+
+        $result = $this->db->query($query)->result();
+
+        foreach($result as $r){
+            return $r->age;
+        }
+    }
+
+    function maxrep()
+    {
+        $query = "SELECT max(Receipt_Id) as Id FROM receipt
+                    WHERE Receipt_Status = '1'";
+
+        $result = $this->db->query($query)->result();
+
+        foreach($result as $r){
+            return $r->Id;
+        }
+    }
+
+    function receipt($repid, $payment, $date, $age, $alltotal, $empid, $cusid)
+    {
+        $query = "INSERT INTO receipt (Receipt_Id, Receipt_Payment, Receipt_Date, Receipt_Age, Receipt_Total, Receipt_Status, Emp_Id, Cus_Id)
+                                VALUES ('$repid', '$payment', '$date', '$age', '$alltotal', '1', '$empid', '$cusid')";
+
+        return $this->db->query($query);
+    }
+
+    function receipt_list($i, $type, $amount, $dis, $priceper, $totalper, $repid)
+    {
+        $query = "INSERT INTO receipt_list (Receipt_No, Receipt_Type, Receipt_Amount, Receipt_Discount, Receipt_Price_Per, Receipt_Price_Total, Receipt_Id)
+                                VALUES('$i', '$type', '$amount', '$dis', '$priceper', '$totalper', '$repid')";
+
+        return $this->db->query($query);
+    }
+
+    function receipt_list_product($repid, $i, $lotid, $prodid)
+    {
+        $query = "INSERT INTO receipt_list_product (Receipt_Id, Receipt_No, Lot_Id, Prod_Id)
+                                VALUES ('$repid', '$i', '$lotid', '$prodid')";
+
+        return $this->db->query($query);
+    }
+
+    function receipt_list_pledge($repid, $i, $expid)
+    {
+        $query = "INSERT INTO receipt_list_pledge (Receipt_Id, Receipt_No, ProdPL_Id)
+                                VALUES ('$repid', '$i', '$expid')";
+
+        return $this->db->query($query);
+    }
+
+    function updateproduct($lotid,$prodid,$left)
+    {
+        $query = "UPDATE sub_lot SET Amount = '$left' WHERE Lot_Id = '$lotid' and Prod_Id = '$prodid'";
+
+        return $this->db->query($query);
+    }
+
+    function updatepledgestock($expid)
+    {
+        $query = "UPDATE pledge_stock SET ProdPL_Status = '0' WHERE ProdPL_Id = '$expid'";
+
+        return $this->db->query($query);
     }
 }

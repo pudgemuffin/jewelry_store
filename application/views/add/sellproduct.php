@@ -28,7 +28,7 @@
 </head>
 
 <body>
-    <form action="<?php echo site_url('ordercon/ordinsert') ?>" method="post">
+    <form action="<?php echo site_url('sell/sellpro') ?>" method="post">
         <div class="card boder-0 ">
             <div class="card-body">
                 <div style="margin-left: 20px">
@@ -47,7 +47,7 @@
                     <div class="row justify-content-center">
                         <div class="col-4">
                             <label>ลูกค้า :</label>
-                            <select class="form-control" type="select" name="cust" id="cust">
+                            <select class="form-control" type="select" name="cust" id="cust" required>
                                 <option value="" disabled selected>กรุณาเลือกลูกค้า</option>
                                 <?php foreach ($customer as $c) { ?>
                                     <option value="<?php echo $c->Cus_Id; ?>">
@@ -113,7 +113,7 @@
                                 </th>
                                 <th>
                                     <input class="alltotal1 form-control" type="text" readonly>
-                                    <input type="hidden" class="alltotal form-control" type="text" id="alltotal" name="alltotal[]">
+                                    <input type="hidden" class="alltotal form-control" type="text" id="alltotal" name="alltotal">
                                 </th>
                                 <th></th>
 
@@ -142,7 +142,7 @@
         <div class="row justify-content-center">
             <div style="margin-bottom: 15px;">
 
-                <button type="submit" class="btn btn-info">เพิ่มข้อมูลการสั่งซื้อ</button>
+                <button type="submit" class="btn btn-info">เพิ่มข้อมูลการขาย</button>
                 <a class="btn btn-danger" href="<?php echo site_url('Welcome/order') ?>">ยกเลิก</a>
 
             </div>
@@ -257,7 +257,7 @@
             var repeat = false;
             $('#product tbody tr').each(function() {
                 sellpro = $(this).find('input[name="idproduct[]"]').val();
-                lotpro = $(this).find('input[name = "Id[]"]').val();
+                lotpro = $(this).find('input[name = "Lotid[]"]').val();
                 // console.log(sellpro);
                 // console.log(lotpro);
                 if (sellpro == prodids && lotpro == lotid) {
@@ -311,7 +311,7 @@
         } else {
             var repeat = false;
             $('#product tbody tr').each(function() {
-                sellpro = $(this).find('input[name="Id[]"]').val();
+                sellpro = $(this).find('input[name="Expid[]"]').val();
 
 
                 if (sellpro == prodid) {
@@ -368,7 +368,9 @@
         priced = 0;
         // console.log(testsub);
         if (testsub == "LOT") {
-
+            amount = parseInt($('#' + id + ' .amount').val());
+            left = amount - value;
+            $('#' + id + ' .left').val(left);
             percent = (world * weight * discount) / 100;
             price = world * weight;
 
@@ -386,14 +388,17 @@
             priced = price
             priced = priced.toLocaleString();
 
+            $('#' + id + ' .price').val(price);
             $('#' + id + ' .priced').val(priced);
             $('#' + id + ' .sellTotal').val(total);
             $('#' + id + ' .sellTotal1').val(totalcom);
 
         } else {
             result = (weight * pergram) * 1
+            result = parseInt(result)
             result1 = result.toLocaleString();
 
+            $('#' + id + ' .priceple').val(result);
             $('#' + id + ' .sellTotal').val(result);
             $('#' + id + ' .sellTotal1').val(result1);
             $('#' + id + ' .pricedple').val(result1);

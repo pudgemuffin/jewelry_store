@@ -18,24 +18,30 @@ class ordercon extends CI_Controller
 
     public function ordergenid()
     {
-        $ye = substr(date("Y"), 2) . date("m");
+        $ye = date('ym');
         $max = $this->ordermod->maxid();
-        // $max = "ORD2103001";
-        // echo $max.'<br>';  
-        $str = substr($max, 8) + 1;
-        // echo $str.'<br>';
-        $txt = "ORD";
-        if ($str == '') {
-            $ordid = "ORD" . $ye . "001";
-        } elseif ($str < 10) {
-            $ordid = $txt . $ye . "00" . $str.'<br>';
-        } elseif ($str >= 10 && $str <= 99) {
-             $ordid = $txt . $ye . "0" . $str;
-        } elseif ($str >= 100) {
-             $ordid = $txt . $ye . $str;
+        if($max == ''){
+            $ordid = 'ORD' . $ye . '001';
+            return $ordid;
+            // echo $ordid;
+        }else{
+            $yeId = substr($max, 3, 4);
+            if($yeId != $ye){
+
+                return $ordid = 'ORD' . $ye . '001';
+                // echo $ordid;
+            }else{
+                $ordid = substr($max, 7);
+                $ordid += 1;
+                while(strlen($ordid) < 3){
+                    $ordid = '0' . $ordid;
+                }
+                $ordid = 'ORD' . $yeId . $ordid;
+                return $ordid;
+                // echo $ordid;
+                
+            }
         }
-        //  echo $ordid;
-        return $ordid;
     }
 
     public function addorder()
@@ -214,44 +220,59 @@ class ordercon extends CI_Controller
 
     public function genreceive()
     {
-        $ye = substr(date("Y"), 2) . date("m");
+        $ye = date('ym');
         $max = $this->ordermod->maxrec();
-      
-        $str = substr($max, 8) + 1;
-        
-        $txt = "REC";
-        if ($str == '') {
-            $recid = "REC" . $ye . "001";
-        } elseif ($str < 10) {
-            $recid = $txt . $ye . "00" . $str.'<br>';
-        } elseif ($str >= 10 && $str <= 99) {
-             $recid = $txt . $ye . "0" . $str;
-        } elseif ($str >= 100) {
-             $recid = $txt . $ye . $str;
+        if($max == ''){
+            $recid = 'REC' . $ye . '001';
+            return $recid;
+            // echo $recid;
+        }else{
+            $yeId = substr($max, 3, 4);
+            if($yeId != $ye){
+
+                return $recid = 'REC' . $ye . '001';
+                // echo $recid;
+            }else{
+                $recid = substr($max, 7);
+                $recid += 1;
+                while(strlen($recid) < 3){
+                    $recid = '0' . $recid;
+                }
+                $recid = 'REC' . $yeId . $recid;
+                return $recid;
+                // echo $recid;
+                
+            }
         }
-        // echo $recid;
-        return $recid;
     }
 
     public function genlot()
     {
-        $ye = substr(date("Y"), 2) . date("m");
+        $ye = date('ym');
         $max = $this->ordermod->maxlot();
-      
-        $str = substr($max, 8) + 1;
-        
-        $txt = "LOT";
-        if ($str == '') {
-            $lotid = "LOT" . $ye . "001";
-        } elseif ($str < 10) {
-            $lotid = $txt . $ye . "00" . $str.'<br>';
-        } elseif ($str >= 10 && $str <= 99) {
-             $lotid = $txt . $ye . "0" . $str;
-        } elseif ($str >= 100) {
-             $lotid = $txt . $ye . $str;
+        if($max == ''){
+            $lotid = 'LOT' . $ye . '001';
+            return $lotid;
+            // echo $lotid;
+        }else{
+            $yeId = substr($max, 3, 4);
+            if($yeId != $ye){
+
+                return $lotid = 'LOT' . $ye . '001';
+                // echo $lotid;
+            }else{
+                $lotid = substr($max, 7);
+                $lotid += 1;
+                while(strlen($lotid) < 3){
+                    $lotid = '0' . $lotid;
+                }
+                $lotid = 'LOT' . $yeId . $lotid;
+                return $lotid;
+                // echo $lotid;
+                // echo $yeId;
+                
+            }
         }
-        // echo $lotid;
-        return $lotid;
     }
 
     public function receive()

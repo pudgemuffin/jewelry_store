@@ -162,10 +162,18 @@ class pledgedb extends CI_Model
         return $this->db->query($query)->result();
     }
 
-    function insertstock($id,$pledgepro,$result,$pledgeweightp,$plid)
+    function selectype()
     {
-        $query = "INSERT INTO pledge_stock (ProdPL_Id, ProdPL_Name, ProdPL_Cost, ProdPL_Weight_Per, Pledge_Id, ProdPL_Status)
-            VALUES ('$id','$pledgepro','$result','$pledgeweightp','$plid','1')";
+        $query = "SELECT Prot_Id as type FROM protype
+        WHERE Prot_Name = 'จำนำ'";
+
+        return $this->db->query($query)->result();
+    }
+
+    function insertstock($id,$pledgepro,$result,$pledgeweightp,$plid,$type)
+    {
+        $query = "INSERT INTO pledge_stock (ProdPL_Id, ProdPL_Name, ProdPL_Cost, ProdPL_Weight_Per, Pledge_Id, ProdPL_Status, Prot_Id)
+            VALUES ('$id','$pledgepro','$result','$pledgeweightp','$plid','1', '$type')";
 
         return $this->db->query($query);    
     }

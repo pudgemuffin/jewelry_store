@@ -145,7 +145,8 @@ class ergold extends CI_Model
 
     function protype()
     {
-        $query = "SELECT Prot_Id,Prot_Name FROM protype WHERE Category = '0'";
+        $query = "SELECT Prot_Id,Prot_Name FROM protype WHERE Category = '0'
+        and Prot_Name != 'จำนำ'";
         return $this->db->query($query)->result();
     }
 
@@ -281,7 +282,7 @@ class ergold extends CI_Model
     {
         $query = "SELECT * from( SELECT ROW_NUMBER()OVER ( ORDER By Promotion_Id )as row ,Promotion_Id,Prom_Name,Prom_Sdate,Prom_Ndate,Prom_Discount
                 FROM promotion 
-                WHERE Promotion_Id like '%%' $search
+                WHERE Prom_Status = '1' $search
                )AA
                where row > $start AND row <=$pageend order by row";
 
@@ -292,7 +293,7 @@ class ergold extends CI_Model
     {
         $query = "SELECT COUNT(*) as Count from( SELECT ROW_NUMBER()OVER ( ORDER By Promotion_Id )as row ,Promotion_Id,Prom_Name,Prom_Sdate,Prom_Ndate,Prom_Discount
         FROM promotion 
-        WHERE Promotion_Id like '%%' $search
+        WHERE Prom_Status = '1' $search
        )AA";
 
         return $this->db->query($query)->result();
@@ -301,7 +302,7 @@ class ergold extends CI_Model
     
     function deletepromo($Promotion_Id)
     {
-        $query = "DELETE FROM promotion WHERE Promotion_Id = '$Promotion_Id'";
+        $query = "UPDATE promotion SET Prom_Status = '0' WHERE Promotion_Id = '$Promotion_Id'";
 
         return $this->db->query($query);
     }

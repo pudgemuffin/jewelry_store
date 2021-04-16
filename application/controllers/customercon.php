@@ -44,24 +44,32 @@ class customercon extends CI_Controller
 
     public function cusidgen()
     {
-        $ye = substr(date("Y"), 2) . date("m");
         $this->load->model('customer');
+        $ye = date('ym');
         $max = $this->customer->maxid();
-        $str = substr($max, 7) +1;
-        $txt = "CUS";
-        if($str == ''){
-            $cusid = "CUS".$ye."001";
-        }elseif ($str < 10) {
-            $cusid = $txt . $ye . "00" . $str;
-        } elseif ($str >= 10 && $str <= 99) {
-            $cusid = $txt . $ye ."0" . $str;
-        } elseif ($str >= 100) {
-            $cusid = $txt . $ye . $str;
+        if($max == ''){
+            $cusid = 'CUS' . $ye . '001';
+            return $cusid;
+            // echo $cusid;
+        }else{
+            $yeId = substr($max, 3, 4);
+            if($yeId != $ye){
+
+                return $cusid = 'CUS' . $ye . '001';
+                // echo $cusid;
+            }else{
+                $cusid = substr($max, 7);
+                $cusid += 1;
+                while(strlen($cusid) < 3){
+                    $cusid = '0' . $cusid;
+                }
+                $cusid = 'CUS' . $yeId . $cusid;
+                return $cusid;
+                // echo $cusid;
+                
+            }
         }
-        // echo $cusid."<br>";
-        // echo $str."<br>";
-        return $cusid;
-        // echo $cusid;
+
     }
 
     public function cusregis()

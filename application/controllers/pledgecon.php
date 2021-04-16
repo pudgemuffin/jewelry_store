@@ -19,27 +19,30 @@ class pledgecon extends CI_Controller
 
     public function genpledge()
     {
-        $ye = substr(date("Y"), 2) . date("m");
+        $ye = date('ym');
         $max = $this->pledgedb->maxpledge();
+        if($max == ''){
+            $plid = 'PLE' . $ye . '0001';
+            return $plid;
+            // echo $plid;
+        }else{
+            $yeId = substr($max, 3, 4);
+            if($yeId != $ye){
 
-        $str = substr($max, 7) + 1;
-
-        $txt = "PLE";
-
-        if ($str == '') {
-            $plid = "PLE" . $ye . "0001";
-        } elseif ($str < 10) {
-            $plid = $txt . $ye . "000" . $str . '<br>';
-        } elseif ($str >= 10 && $str <= 99) {
-            $plid = $txt . $ye . "00" . $str;
-        } elseif ($str >= 100 && $str <= 999) {
-            $plid = $txt . $ye . "0" . $str;
-        } elseif ($str >= 1000) {
-            $plid = $txt . $ye . $str;
+                return $plid = 'PLE' . $ye . '0001';
+                // echo $plid;
+            }else{
+                $plid = substr($max, 7);
+                $plid += 1;
+                while(strlen($plid) < 4){
+                    $plid = '0' . $plid;
+                }
+                $plid = 'PLE' . $yeId . $plid;
+                return $plid;
+                // echo $plid;
+                
+            }
         }
-
-        // echo $plid;
-        return $plid;
     }
 
     public function pledge()
@@ -59,27 +62,30 @@ class pledgecon extends CI_Controller
 
     public function genexppro()
     {
-        $ye = substr(date("Y"), 2) . date("m");
+        $ye = date('ym');
         $max = $this->pledgedb->exppl();
+        if($max == ''){
+            $expd = 'EXP' . $ye . '0001';
+            return $expd;
+            // echo $expd;
+        }else{
+            $yeId = substr($max, 3, 4);
+            if($yeId != $ye){
 
-        $str = substr($max, 7) + 1;
-
-        $txt = "EXP";
-
-        if ($str == '') {
-            $expd = "EXP" . $ye . "0001";
-        } elseif ($str < 10) {
-            $expd = $txt . $ye . "000" . $str . '<br>';
-        } elseif ($str >= 10 && $str <= 99) {
-            $expd = $txt . $ye . "00" . $str;
-        } elseif ($str >= 100 && $str <= 999) {
-            $expd = $txt . $ye . "0" . $str;
-        } elseif ($str >= 1000) {
-            $expd = $txt . $ye . $str;
+                return $expd = 'EXP' . $ye . '0001';
+                // echo $expd;
+            }else{
+                $expd = substr($max, 7);
+                $expd += 1;
+                while(strlen($expd) < 4){
+                    $expd = '0' . $expd;
+                }
+                $expd = 'EXP' . $yeId . $expd;
+                return $expd;
+                // echo $expd;
+                
+            }
         }
-
-        // echo $expd;
-        return $expd;
     }
 
     public function insertpledge()
@@ -195,6 +201,11 @@ class pledgecon extends CI_Controller
         $this->pledgedb->setpledgezero();
 
         $this->pledgedb->setpledgelistzero();
+        $data['type'] = $this->pledgedb->selectype();
+        foreach($data['type'] as $t){
+           $type =  $t->type;
+        //    echo $type;
+        }
         $data['insert'] = $this->pledgedb->selectlist();
         foreach($data['insert'] as $i){
             $pledgepro = $i->Pledge_Pro;
@@ -209,7 +220,7 @@ class pledgecon extends CI_Controller
             // echo $pledgeweightp.'<br>';
             // echo $result.'<br>';
             // echo $plid.'<br>';
-            $this->pledgedb->insertstock($id,$pledgepro,$result,$pledgeweightp,$plid);
+            $this->pledgedb->insertstock($id,$pledgepro,$result,$pledgeweightp,$plid,$type);
             
         }
         $this->pledgedb->changestat($plid);
