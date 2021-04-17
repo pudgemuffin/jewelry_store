@@ -112,17 +112,17 @@ class sell extends CI_Controller
             echo  '<td class="align-middle" style="text-align: center; "nowrap><input class = "hello form-control" type = "text" id = "Lotid" name = "Lotid[]" value = "' . $r->Lot_Id . '" readonly></td>';
             echo  '<td class="align-middle" style="text-align: center; "nowrap><input class="form-control" type="text" id="product" name="product[]" value="' . $r->Prod_Name . '" readonly></td>';
             echo  '<td class="align-middle" style="text-align: center; "nowrap>' . $r->Weight_Name . '</td>';
-            echo  '<input class="form-control" type="hidden" id="idproduct" name="idproduct[]" value="' . $r->Prod_Id . '" ><input class="form-control" type="hidden" id="type" name="type[]" value="' . $r->Prot_Id . '" >';
+            echo  '<input class="form-control" type="hidden" id="idproduct" name="idproduct[]" value="' . $r->Prod_Id . '" ><input class="form-control" type="hidden" id="type" name="type[]" value="1" >';
             echo  '<td class="align-middle" style="text-align: center; "nowrap><input class="form-control" type="text" value="' . number_format($r->Fee, 2) . '"readonly><input class="Fee form-control" type="hidden" id="Fee" name="Fee[]" value="' . $r->Fee . '"readonly></td>';
             echo  '<td class="align-middle" style="text-align: center; "nowrap>' . $r->Size . '</td>';
             echo  '<input type = "hidden"  class = "amount"  value = "' . $r->Amount . '"><input type = "hidden" class = "left" id = "left" name = "left" value = "0">';
-            echo  '<input class = "weight" type = "hidden" value = "' . $r->Weight_Cal . '"><input class = "discount" type = "hidden" id = "discount" name = "discount[]" value = "' . $r->Prom_Discount . '">';
+            echo  '<input class = "weight" type = "hidden" value = "' . $r->Weight_Cal . '">';
             echo  '<td class="align-middle" style="text-align: center; "nowrap><input class="sellinput form-control" type = "number" id="piece" name="piece[]" required value="0"  min = "0" max = "' . $r->Amount . '"  onkeypress="return numberonly(event)" required></td>';
             echo  '<td class="align-middle" style="text-align: center; "nowrap><input class="priced form-control" type = "text" readonly><input class="price form-control" type = "hidden" id="price" name="price[]" value = "0" readonly></td>';
             if ($r->Prom_Discount != null) {
-                echo  '<td class="align-middle" style="text-align: center; "nowrap><input class="discount form-control" type = "text" id="discount" name="discount[]" value = "' . $r->Prom_Discount . '%" readonly></td>';
+                echo  '<td class="align-middle" style="text-align: center; "nowrap><input class="discount form-control" type = "text"  value = "' . $r->Prom_Discount . '%" readonly><input class = "discount" type = "hidden" id = "discount" name = "discount[]" value = "' . $r->Prom_Discount . '"></td>';
             } else {
-                echo  '<td class="align-middle" style="text-align: center; "nowrap><input class="discount form-control" type = "text" id="discount" name="discount[]" value = "0%" readonly></td>';
+                echo  '<td class="align-middle" style="text-align: center; "nowrap><input class="discount form-control" type = "text"  value = "0%" readonly><input class = "discount" type = "hidden" id = "discount" name = "discount[]" value = "0"></td>';
             }
             echo  '<td class="align-middle" style="text-align: center; "nowrap><input class="sellTotal1 form-control"  readonly value="0"></td><input class="sellTotal" id="total" name="total[]" type = "hidden" value = "0">';
 
@@ -142,7 +142,7 @@ class sell extends CI_Controller
             echo  '<td></td>';
             echo  '<td class="align-middle" style="text-align: center; "nowrap><input class = "hello form-control" type = "text" id = "Expid" name = "Expid[]" value = "' . $r->ProdPL_Id . '" readonly></td>';
             echo  '<input type ="hidden" id="cat" name = "cat[]" value = "2">';
-            echo  '<td class="align-middle" style="text-align: center; "nowrap><input class="form-control" type="text" id="product" name="product[]" value="' . $r->ProdPL_Name . '" readonly><input class="form-control" type="hidden" id="type" name="type[]" value="' . $r->Prot_Id . '" ></td>';
+            echo  '<td class="align-middle" style="text-align: center; "nowrap><input class="form-control" type="text" id="product" name="product[]" value="' . $r->ProdPL_Name . '" readonly><input class="form-control" type="hidden" id="type" name="type[]" value="0" ></td>';
             echo  '<td class="align-middle" style="text-align: center; "nowrap><input class="weight form-control" type="text" id="weight" name="weight[]" value="' . $r->ProdPL_Weight_Per . '" readonly></td>';
             echo  '<td class="align-middle" style="text-align: center; "nowrap><input class="form-control" type="text" value="' . number_format($r->ProdPL_Cost, 2) . '"readonly><input class="Cost form-control" type="hidden" id="Cost" name="Cost[]" value="' . $r->ProdPL_Cost . '"readonly></td>';
             echo  '<td></td>';
@@ -205,8 +205,9 @@ class sell extends CI_Controller
 
 
 
-
-
+        // echo '<pre>';
+        // print_r($_POST);
+        // echo '</pre><br>';
 
         $dis = $this->input->post('discount');
         $priceper = $this->input->post('price');
@@ -220,13 +221,9 @@ class sell extends CI_Controller
         $count = count($cat);
 
         for ($i = 0; $i < $count; $i++) {
-
-            $this->selldb->receipt_list($i+1, $type[$i], $amount[$i], $dis[$i], $priceper[$i], $totalper[$i], $repid);
-
-
+            $this->selldb->receipt_list($i + 1, $type[$i], $amount[$i], $dis[$i], $priceper[$i], $totalper[$i], $repid);
+            // echo $dis[$i].'<br>';
             if ($cat[$i] == '1') {
-
-
 
                 // echo $prodid[$i] . '<br>';
                 // echo $lotid[$i] . '<br>';
@@ -242,6 +239,51 @@ class sell extends CI_Controller
                 // echo "2";
             }
         }
-        echo "DONE";
+        // echo "DONE";
+        echo "<script> alert('เพิ่มข้อมูลการขายสำเร็จ');
+		 					window.location.href='/ER_GOLDV1/index.php/Welcome/allreceipt';
+							 </script>";
+    }
+
+    public function viewreceiptlist($repid)
+    {
+        $data['receipt'] = $this->selldb->receipthead($repid);
+        $data['subreceiptpro'] = $this->selldb->receipt_list_pro($repid);
+        $count_pro = $this->selldb->receipt_pro_count($repid);
+        foreach ($count_pro as $value) {
+            $data['count_pro'] = $value->Count;
+        }
+        $data['subreceiptpledge'] = $this->selldb->receipt_list_ple($repid);
+        $count_ple = $this->selldb->receipt_ple_count($repid);
+        foreach ($count_ple as $value) {
+            $data['count_ple'] = $value->Count;
+        }
+
+        $data['fname'] = $this->session->userdata('Firstname');
+        $data['sname'] = $this->session->userdata('Surname');
+        $data['pos'] = $this->session->userdata('Pos');
+        $data['view'] = "add/receiptdetail";
+        $this->load->view('actionindex', $data);
+    }
+
+    public function cancelsell($repid)
+    {
+        $this->selldb->changestatrep($repid);
+        // echo $repid;
+        $data['amount'] = $this->selldb->getamountpro($repid);
+        // print_r($data['amount']);
+        foreach ($data['amount'] as $a) {
+
+            if ($a->Receipt_Type == '1') {
+                $this->selldb->updateprostock($a->Receipt_Amount,$a->Prod_Id,$a->Lot_Id);
+            } else {
+                
+                $this->selldb->updateplestock($a->ProdPL_Id);
+            }
+        }
+        
+        echo "<script> alert('ยกเลิกการขายสำเร็จ');
+		 					window.location.href='/ER_GOLDV1/index.php/Welcome/allreceipt';
+							 </script>";
     }
 }

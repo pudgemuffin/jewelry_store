@@ -147,7 +147,7 @@
                                     echo "hidden";}?>>สั่งซื้อสินค้า<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-right" style="font-size:18px;color:#ffffff;"></i></div></a>
                                      <a class="nav-link" href="<?php echo site_url('Welcome/receives'); ?>" style="font-size:16px;color:#ffffff;"<?php if ($per[9] != 1){  
                                     echo "hidden";}?>>รับสินค้า<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-right" style="font-size:18px;color:#ffffff;"></i></div></a>
-                        <a class="nav-link" href="<?php echo site_url('Welcome/index'); ?>" style="font-size:16px;color:#ffffff;"<?php if ($per[8] != 1){  
+                        <a class="nav-link" href="<?php echo site_url('Welcome/allreceipt'); ?>" style="font-size:16px;color:#ffffff;"<?php if ($per[8] != 1){  
                                     echo "hidden";}?>>ขายสินค้า<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-right" style="font-size:18px;color:#ffffff;"></i></div></a>
                         <a class="nav-link" href="<?php echo site_url('Welcome/index'); ?>" style="font-size:16px;color:#ffffff;"<?php if ($per[10] != 1){  
                                     echo "hidden";}?>>ออกรายงาน<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-right" style="font-size:18px;color:#ffffff;"></i></div></a>
