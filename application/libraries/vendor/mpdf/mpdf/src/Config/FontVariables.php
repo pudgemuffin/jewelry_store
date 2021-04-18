@@ -227,6 +227,13 @@ class FontVariables
 					'R' => "Tharlon-Regular.ttf",
 					'useOTL' => 0xFF,
 				],
+				"thsarabun" => array(/* Thai */
+
+
+					'R' => "THsarabunnew.ttf",
+				 
+				 
+				 ),
 				"padaukbook" => [/* Myanmar / Burmese */
 					'R' => "Padauk-book.ttf",
 					'useOTL' => 0xFF,
