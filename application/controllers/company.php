@@ -180,6 +180,8 @@ class company extends CI_Controller
                 $data['view'] = "add/cost";
                 $data['fname'] = $this->session->userdata('Firstname');
                 $data['sname']= $this->session->userdata('Surname');
+                $data['pos'] = $this->session->userdata('Pos');
+
                 $this->load->view('actionindex', $data);
 
             }else{
@@ -236,12 +238,17 @@ class company extends CI_Controller
                 'Prod_Id' => $value,
                 'Part_Id' => $partid,
                 'Cost_Price' => $price[$pd]
+                
             );
-            $checkcost = $this->partner->count_cost_check($partid,$value);
-            
-            if($checkcost == 0){
-                $this->partner->insertcost($partid,$value,$price[$pd]);
-            }
+            $this->partner->insertcost($partid,$value,$price[$pd]);
+            // $checkcost = $this->partner->count_cost_check($partid,$value);
+            // echo $checkcost.'<br>';
+            // if($checkcost == 0){
+            //     echo $partid.'<br>';
+            //     echo $value.'<br>';
+            //     echo $price[$pd].'<br>';
+            //     // 
+            // }
              
         }
         echo "<script> alert('เพิ่มข้อมูลราคาทุนสำเร็จ');

@@ -275,15 +275,17 @@ class sell extends CI_Controller
         foreach ($data['amount'] as $a) {
 
             if ($a->Receipt_Type == '1') {
-                $this->selldb->updateprostock($a->Receipt_Amount,$a->Prod_Id,$a->Lot_Id);
+                $this->selldb->updateprostock($a->Receipt_Amount, $a->Prod_Id, $a->Lot_Id);
             } else {
-                
+
                 $this->selldb->updateplestock($a->ProdPL_Id);
             }
         }
-        
+
         echo "<script> alert('ยกเลิกการขายสำเร็จ');
 		 					window.location.href='/ER_GOLDV1/index.php/Welcome/allreceipt';
 							 </script>";
     }
+
+    
 }

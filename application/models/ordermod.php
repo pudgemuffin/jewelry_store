@@ -25,7 +25,7 @@ class ordermod extends CI_Model
         LEFT JOIN rings  on rings.Prod_Id = cost.Prod_Id 
         JOIN product  on product.Prod_Id = cost.Prod_Id
         JOIN partner  on partner.Part_Id = cost.Part_Id
-        LEFT JOIN size  on size.Id = rings.Size";
+        LEFT JOIN size  on size.Id = rings.Size WHERE cost.Status = '1'";
 
         return $this->db->query($query)->result();
     }
@@ -36,7 +36,7 @@ class ordermod extends CI_Model
         LEFT JOIN rings  on rings.Prod_Id = cost.Prod_Id 
         JOIN product  on product.Prod_Id = cost.Prod_Id
         JOIN partner  on partner.Part_Id = cost.Part_Id
-        LEFT JOIN size  on size.Id = rings.Size WHERE partner.Part_Id like '%%' $partner ";
+        LEFT JOIN size  on size.Id = rings.Size WHERE partner.Part_Id like '%%' AND cost.Status = '1' $partner ";
 
         return $this->db->query($query)->result();
     }

@@ -149,7 +149,7 @@ class partner extends CI_Model
 
     function count_cost_check($partid,$prodid)
     {
-        $query = "SELECT COUNT(*) as Count from cost where Part_Id = '$partid' and Prod_Id = '$prodid'";
+        $query = "SELECT COUNT(*) as Count from cost where Part_Id = '$partid' and Prod_Id = '$prodid' AND Status = '0'";
   
         $result =  $this->db->query($query)->result();
        
@@ -159,15 +159,15 @@ class partner extends CI_Model
     }
     function insertcost($partid,$prodid,$price)
     {
-        $query = "INSERT INTO cost(Part_Id,Prod_Id,Cost_Price)
+        $query = "INSERT INTO cost(Part_Id,Prod_Id,Cost_Price,Status)
                     VALUES
-                    ('$partid','$prodid','$price')";
+                    ('$partid','$prodid','$price','1')";
 
         return $this->db->query($query);            
     }
     function deletecost($partid)
     {
-        $query = "DELETE FROM cost WHERE Part_Id = '$partid'";
+        $query = "UPDATE  cost SET Status = '0' WHERE Part_Id = '$partid'";
 
         return $this->db->query($query);
     }

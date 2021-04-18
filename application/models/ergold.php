@@ -213,7 +213,7 @@ class ergold extends CI_Model
     {
         $query = "SELECT p.Prod_Id,p.Prod_Name,c.Cost_Price as Price FROM product p
                     INNER JOIN cost c ON p.Prod_Id = c.Prod_Id
-                    WHERE c.Part_Id = '$partid'";
+                    WHERE c.Part_Id = '$partid' AND Status = '1'";
 
         return $this->db->query($query)->result();
     }
