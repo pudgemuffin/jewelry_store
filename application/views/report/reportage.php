@@ -25,9 +25,9 @@
 </head>
 
 <body>
-<h2 style="text-align: center;">สิ้นค้าจำนำขายดีตามช่วงเวลา</h2>
+<h2 style="text-align: center;">รายงานสรุปช่วงอายุ</h2>
     <br>
-    <form action="<?php echo site_url('callreport/inputdate') ?>" method="post">
+    <form action="<?php echo site_url('callreport/inputage') ?>" method="post">
         <div class="row justify-content-center">
             <div class="col-3">
                 วันเริ่มต้น : <input class="form-control" type="date" id="dates" name="dates" required>
@@ -35,15 +35,28 @@
             <div class="col-3">
                 วันสิ้นสุด : <input class="form-control" type="date" id="daten" name="daten" required>
             </div>
-            <button type="submit" class="btn btn-info">ค้นหา</button>
+
         </div>
+        <br>
+        <div class="row justify-content-center">
+            <div class="col-3">
+                <select class="form-control" name="age" id="age" required>
+                    <option value="18-29">18-29</option>
+                    <option value="30-60">30-60</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-info">ค้นหา</button>
 
-
+        </div>
     </form>
     <br>
-    <div class="row">
 
+    
+    <div class="row">
         <div class="col">
+        <div class="row justify-content-center">
+        <div id="piechart"></div>
+    </div>
             <div id="piechart"></div>
             <div class="card boder-0 ">
                 <table id="aaaa" class="table table-bordered table-striped">
@@ -58,16 +71,17 @@
 
                     </thead>
                     <tbody>
-                        <?php foreach ($reportpro as $rpr) { ?>
+                        <?php foreach ($agepro as $ap) { ?>
                             <tr>
-                                <td><?php echo $rpr->Prod_Name; ?> </td>
-                                <td><?php echo $rpr->amount; ?></td>
+                                <td><?php echo $ap->Prod_Name; ?> </td>
+                                <td><?php echo $ap->Amount; ?></td>
                             </tr>
                         <?php } ?>
                     </tbody>
                 </table>
             </div>
         </div>
+
         <div class="col">
             <div class="card boder-0 ">
                 <div id="piechart1"></div>
@@ -83,10 +97,10 @@
 
                     </thead>
                     <tbody>
-                        <?php foreach ($reportple as $rpe) { ?>
+                        <?php foreach ($ageple as $ape) { ?>
                             <tr>
-                                <td><?php echo $rpe->ProdPL_Name; ?> </td>
-                                <td><?php echo $rpe->amount; ?></td>
+                                <td><?php echo $ape->ProdPL_Name; ?> </td>
+                                <td><?php echo $ape->Amount; ?></td>
                             </tr>
                         <?php } ?>
                     </tbody>
@@ -96,7 +110,6 @@
     </div>
 </body>
 
-</html>
 <script>
     $(document).ready(function() {
         $('#aaaa').DataTable({
@@ -132,7 +145,7 @@
     function drawChart() {
         var data = google.visualization.arrayToDataTable([
             ['Task', 'Hours per Day'],
-            <?php foreach ($reportpro as $rpr) { ?>['<?php echo $rpr->Prod_Name; ?>', <?php echo $rpr->amount; ?>],
+            <?php foreach ($agepro as $ap) { ?>['<?php echo $ap->Prod_Name; ?>', <?php echo $ap->Amount; ?>],
             <?php } ?>
         ]);
 
@@ -157,7 +170,7 @@
     function drawChart1() {
         var data1 = google.visualization.arrayToDataTable([
             ['Task', 'Hours per Day'],
-            <?php foreach ($reportple as $rpe) { ?>['<?php echo $rpe->ProdPL_Name; ?>', <?php echo $rpe->amount; ?>],
+            <?php foreach ($ageple as $ape) { ?>['<?php echo $ape->ProdPL_Name; ?>', <?php echo $ape->Amount; ?>],
             <?php } ?>
         ]);
 

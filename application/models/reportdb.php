@@ -128,4 +128,82 @@ class reportdb extends CI_Model
         return $this->db->query($query)->result();
     }
 
+    function reportpledgeover($dates,$daten)
+    {
+        $query = "SELECT
+        pledge.Pledge_Id,
+        pledge.Pledge_Over,
+        ple.Pledge_Pro
+    FROM
+        pledge
+        LEFT JOIN ( SELECT 
+        pledge_list.Pledge_Pro, 
+        pledge_list.Pledge_Id 
+        FROM
+        pledge_list 
+        WHERE pledge_list.Pledge_Stat = 2 
+        ) ple ON pledge.Pledge_Id = ple.Pledge_Id
+        WHERE pledge.Pledge_Status = 2 AND pledge.Pledge_Over BETWEEN '$dates' AND '$daten'";
+
+        return $this->db->query($query)->result();
+    }
+
+    function reportagepro($a1,$a2,$dates,$daten)
+    {
+        $query = "SELECT product.Prod_Id,product.Prod_Name,IFNULL(SUM(rec.AMOUNT),0) as Amount FROM product
+        LEFT JOIN 
+        (
+        SELECT lot.Lot_Id,sub_lot.Prod_Id FROM lot
+        JOIN sub_lot ON lot.Lot_Id = sub_lot.Lot_Id
+        ) lt ON product.Prod_Id = lt.Prod_Id
+        LEFT JOIN
+        (
+        SELECT
+            receipt_list_product.Lot_Id,receipt_list_product.Prod_Id,SUM(receipt_list.Receipt_Amount) as AMOUNT
+        FROM
+            receipt
+            JOIN receipt_list ON receipt.Receipt_Id = receipt_list.Receipt_Id
+            JOIN receipt_list_product ON ( receipt_list.Receipt_Id = receipt_list_product.Receipt_Id AND receipt_list.Receipt_No = receipt_list_product.Receipt_No ) 
+        WHERE
+            (
+                receipt.Receipt_Age BETWEEN $a1 
+            AND $a2
+            )
+        AND receipt.Receipt_Status = '1'
+        AND (receipt.Receipt_Date BETWEEN '$dates' AND '$daten')
+        GROUP BY receipt_list_product.Lot_Id,receipt_list_product.Prod_Id
+        )rec ON lt.Lot_Id =  rec.Lot_Id AND lt.Prod_Id = rec.Prod_Id
+        GROUP BY product.Prod_Id";
+
+        return $this->db->query($query)->result();
+    }
+
+    function reportageple($a1,$a2,$dates,$daten)
+    {
+        $query = "SELECT
+        pledge_stock.ProdPL_Name,
+        IFNULL( SUM( rec.AMOUNT ), 0 ) AS Amount 
+    FROM
+        pledge_stock
+        LEFT JOIN (
+        SELECT
+            receipt_list_pledge.ProdPL_Id,
+            SUM( receipt_list.Receipt_Amount ) AS AMOUNT 
+        FROM
+            receipt
+            JOIN receipt_list ON receipt.Receipt_Id = receipt_list.Receipt_Id
+            JOIN receipt_list_pledge ON ( receipt_list.Receipt_Id = receipt_list_pledge.Receipt_Id AND receipt_list.Receipt_No = receipt_list_pledge.Receipt_No ) 
+        WHERE
+            ( receipt.Receipt_Age BETWEEN $a1 AND $a2 ) 
+            AND receipt.Receipt_Status = '1' 
+            AND (receipt.Receipt_Date BETWEEN '$dates' AND '$daten')
+        GROUP BY
+            receipt_list_pledge.ProdPL_Id 
+        ) rec ON pledge_stock.ProdPL_Id = rec.ProdPL_Id 
+    GROUP BY
+        pledge_stock.ProdPL_Id";
+
+        return $this->db->query($query)->result();
+    }
+
 }

@@ -932,6 +932,72 @@ class Welcome extends CI_Controller
         $this->load->view('Detail/receiptview', $data);
     }
 
+    public function pledge_over()
+    {
+        $per = $this->session->userdata('Permit');
+        if ($per[7] != 1) {
+            echo "<script> 
+            window.alert('คุณไม่มีสิทธิ์ในการใช้งาน');
+            window.history.back();
+            </script>";
+        } else {
+            $this->load->model('pledgedb');
+            $start = 0;
+            $pageend = 3;
+            $data['numpage'] = 1;
+            $data['pageend'] = $pageend;
+            $search = '';
+
+            $count_all = $this->pledgedb->countoverpledge($search);
+            foreach ($count_all as $value) {
+                $data['count_all'] = $value->Count;
+            }
+
+            $data['result'] = $this->pledgedb->overpledge($start, $pageend,  $search);
+            $data['view'] = "Detail/overpledge";
+            $data['fname'] = $this->session->userdata('Firstname');
+            $data['sname'] = $this->session->userdata('Surname');
+            $data['pos'] = $this->session->userdata('Pos');
+            $this->load->view('index', $data);
+        }
+    }
+
+    public function pagingmain_pledgeover()
+    {
+        $page = $this->input->get('num_page');
+        $txtsearch = $this->input->post('hidesearch');
+        $this->load->model('pledgedb');
+
+        $pageend1 = 3;
+        if ($page != '') {
+            $page = $page;
+        } else {
+            $page = 1;
+        }
+        $start = ($page - 1) * $pageend1;
+        $pageend = $page * $pageend1;
+        $data['numpage'] = $page;
+        $data['pageend'] = $pageend1;
+
+
+        
+        if ($txtsearch != '') {
+            $txtsearch = "and ProdPL_Id like '%$txtsearch%' or ProdPL_Name like '%$txtsearch%'";
+        } else {
+            $txtsearch = '';
+        }
+        $search = $txtsearch;
+
+
+        $count_all = $this->pledgedb->countoverpledge($search);
+        foreach ($count_all as $value) {
+            $data['count_all'] = $value->Count;
+        }
+
+        $data['result'] = $this->pledgedb->overpledge($start, $pageend,  $search);
+        $this->load->view('Detail/overpledge', $data);
+    }
+
     public function lay()
     {
         $this->load->view('layout-static');

@@ -25,6 +25,7 @@
 </head>
 
 <body>
+<h2 style="text-align: center;">ยอดขายสินค้าประจำปี</h2>
     <br>
     <form action="<?php echo site_url('callreport/inputcrosstab') ?>" method="post">
         <div class="row justify-content-center">
@@ -40,14 +41,12 @@
                     <?php $year--;
                     } ?>
                 </select>
-                </div>
+            </div>
             <button type="submit" class="btn btn-info">ค้นหา</button>
         </div>
-
-
     </form>
     <br>
-    <h2 style="text-align: center;">ยอดขายสินค้าประจำปี</h2>
+    
     <div class="row">
 
         <div class="col">

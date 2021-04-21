@@ -71,6 +71,66 @@ class callreport extends CI_Controller
         $this->load->view('actionindex', $data);
     }
 
+    public function reportpledge()
+    {
+        $ld = date('Y-m-d');
+        $dates = date('Y-m-01');
+        $daten =  date("Y-m-t", strtotime($ld));
+        $data['over'] = $this->reportdb->reportpledgeover($dates,$daten);
+        $data['fname'] = $this->session->userdata('Firstname');
+        $data['sname'] = $this->session->userdata('Surname');
+        $data['pos'] = $this->session->userdata('Pos');
+        $data['view'] = "report/reportpledge";
+        $this->load->view('actionindex', $data);
+    }
+
+    public function inputpledge()
+    {
+        $dates = $this->input->post('dates');
+        $daten = $this->input->post('daten');
+
+        $data['over'] = $this->reportdb->reportpledgeover($dates,$daten);
+
+
+        $data['fname'] = $this->session->userdata('Firstname');
+        $data['sname'] = $this->session->userdata('Surname');
+        $data['pos'] = $this->session->userdata('Pos');
+        $data['view'] = "report/reportpledge";
+        $this->load->view('actionindex', $data);
+    }
+
+    public function age()
+    {
+        $ld = date('Y-m-d');
+        $dates = date('Y-m-01');
+        $daten =  date("Y-m-t", strtotime($ld));
+        $a1 = 18;
+        $a2 = 29;
+        $data['agepro'] = $this->reportdb->reportagepro($a1,$a2,$dates,$daten);
+        $data['ageple'] = $this->reportdb->reportageple($a1,$a2,$dates,$daten);
+        $data['fname'] = $this->session->userdata('Firstname');
+        $data['sname'] = $this->session->userdata('Surname');
+        $data['pos'] = $this->session->userdata('Pos');
+        $data['view'] = "report/reportage";
+        $this->load->view('actionindex', $data);
+    }
+
+    public function inputage()
+    {
+        $dates = $this->input->post('dates');
+        $daten = $this->input->post('daten');
+        $select = $this->input->post('age');
+        $a1 = substr($select,0,2);
+        $a2 = substr($select,3);
+        $data['agepro'] = $this->reportdb->reportagepro($a1,$a2,$dates,$daten);
+        $data['ageple'] = $this->reportdb->reportageple($a1,$a2,$dates,$daten);
+        $data['fname'] = $this->session->userdata('Firstname');
+        $data['sname'] = $this->session->userdata('Surname');
+        $data['pos'] = $this->session->userdata('Pos');
+        $data['view'] = "report/reportage";
+        $this->load->view('actionindex', $data);
+    }
+
 
 }
 

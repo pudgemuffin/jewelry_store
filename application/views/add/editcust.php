@@ -22,7 +22,7 @@
                         <div class="col-lg-8">
                             <div class="card shadow-lg border-0 rounded-lg mt-5">
                                 <div class="card-header">
-                                    <h3 class="text-center font-weight-light my-4">Edit Account</h3>
+                                    <h3 class="text-center font-weight-light my-4">แก้ไขข้อมูลลูกค้า</h3>
                                 </div>
                                 <div class="card-body">
                                     <?php foreach ($editcust as $e) { ?>
@@ -125,7 +125,7 @@
                                             <div class="row justify-content-center">
                                                 <div class="col-5" style="margin-bottom: 15px;">
 
-                                                    <button type="submit" class="btn btn-warning">แก้ไขข้อมูลลูกค้า</button>
+                                                    <button type="submit" class="btn btn-warning" value="<?php echo $e->Cus_Id; ?>" id="Updateacc" name="Updateacc">แก้ไขข้อมูลลูกค้า</button>
                                                     <a class="btn btn-danger" href="<?php echo site_url('Welcome/viewcust') ?>">ยกเลิก</a>
 
                                                 </div>

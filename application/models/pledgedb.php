@@ -24,6 +24,23 @@ class pledgedb extends CI_Model
         return $this->db->query($query)->result();
 
     }
+
+    function overpledge($start,$pageend,$search)
+    {
+        $query = "SELECT * from( SELECT ROW_NUMBER()OVER ( ORDER By Pledge_Id )as row ,ProdPL_Id, ProdPL_Name, ProdPL_Cost, ProdPL_Weight_Per FROM pledge_stock
+        WHERE ProdPL_Status = '1' $search ) AA
+        where row > $start AND row <=$pageend order by row";
+
+        return $this->db->query($query)->result();
+    }
+
+    function countoverpledge($search)
+    {
+        $query = "SELECT Count(*) as Count from( SELECT ROW_NUMBER()OVER ( ORDER By Pledge_Id )as row ,ProdPL_Id, ProdPL_Name, ProdPL_Cost, ProdPL_Weight_Per FROM pledge_stock
+        WHERE ProdPL_Status = '1' $search ) AA";
+
+        return $this->db->query($query)->result();
+    }
     
 
     function maxpledge()

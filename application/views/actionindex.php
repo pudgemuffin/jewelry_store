@@ -15,15 +15,15 @@
 
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark" style="background-color: #820115;">
-    <img src="<?php echo base_url('img/TONGDEEee.png') ?>" style="height: 55px; width:80px;" class = "" >
+        <img src="<?php echo base_url('img/TONGDEEee.png') ?>" style="height: 55px; width:80px;" class="">
         <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
         <!-- Navbar Search-->
         <div class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0"></div>
         <!-- Navbar-->
-        
+
         <!-- <ul class="navbar-nav ml-auto ml-md-0">
             <li class="nav-item dropdown input-group-append">
-                <i class="fas fa-user fa-fw" style="vertical-align: middle; font-size: 20px;"></i><?php echo $pos;?>
+                <i class="fas fa-user fa-fw" style="vertical-align: middle; font-size: 20px;"></i><?php echo $pos; ?>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                    
                     <a class="dropdown-item" href="<?php echo site_url('auth/logout'); ?>">ออกจากระบบ</a>
@@ -34,13 +34,13 @@
 
         <ul class="navbar-nav ml-auto ml-md-0">
             <li class="nav-item dropdown input-group-append">
-                <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw" style="color:black; font-size: 20px;"></i><?php echo $pos;?></a>
+                <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw" style="color:black; font-size: 20px;"></i><?php echo $pos; ?></a>
                 <div class="dropdown-menu dropdown-menu-right" style="background-color: #820115;" aria-labelledby="userDropdown">
                     <a class="dropdown-item" style="background-color: #CD3838;" href="<?php echo site_url('auth/logout'); ?>">ออกจากระบบ</a>
                 </div>
             </li>
         </ul>
-        
+
     </nav>
     <?php $per = $this->session->userdata('Permit'); ?>
     <div id="layoutSidenav">
@@ -54,53 +54,65 @@
                             Dashboard
                         </a> -->
                         <div class="sb-sidenav-menu-heading">Interface</div>
-                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts"<?php if ($per[0] != 1 && $per[1] != 1 && $per[2] != 1 && $per[3] != 1 && $per[4] != 1 && $per[6] != 1){  
-                                  echo "hidden";  }?>>
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts" <?php if ($per[0] != 1 && $per[1] != 1 && $per[2] != 1 && $per[3] != 1 && $per[4] != 1 && $per[6] != 1) {
+                                                                                                                                                                                echo "hidden";
+                                                                                                                                                                            } ?>>
 
                             <p style="color:#ffffff;font-size:18px;">ข้อมูล</p>
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down" style="font-size:18px;color:#ffffff;"></i></div>
                         </a>
-                       
+
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion" style="background-color: #CD3838;">
                             <nav class="sb-sidenav-menu-nested nav">
                                 <!-- <a class="nav-link" href="<?php echo site_url('Welcome/lay'); ?>">Static Navigation</a> -->
-                                <a class="nav-link" href="<?php echo site_url('Welcome/employee'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;"<?php if ($per[0] != 1){  
-                                  echo "hidden";  }?>>พนักงาน</a>
-                               
-                                <a class="nav-link" href="<?php echo site_url('Welcome/viewcust'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;"<?php if ($per[1] != 1){  
-                                    echo "hidden";}?>>ลูกค้า</a>
-                                   
-                                <a class="nav-link" href="<?php echo site_url('Welcome/partner'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;"<?php if ($per[2] != 1){  
-                                    echo "hidden";}?>>บริษัทคู่ค้า</a>
-                                <a class="nav-link" href="<?php echo site_url('Welcome/viewposition'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;"<?php if ($per[3] != 1){  
-                                    echo "hidden";}?>>ตำแหน่ง</a>
-                                <a class="nav-link" href="<?php echo site_url('Welcome/product'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;"<?php if ($per[4] != 1){  
-                                    echo "hidden";}?>>สินค้า</a>
-                                <a class="nav-link" href="<?php echo site_url('Welcome/cost'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;"<?php if ($per[6] != 1){  
-                                    echo "hidden";}?>>ราคาทุน</a>
-                                <a class="nav-link" href="<?php echo site_url('Welcome/promotion'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;"<?php if ($per[4] != 1){  
-                                    echo "hidden";}?>>โปรโมชั่น</a>
-                                    <a class="nav-link" href="<?php echo site_url('Welcome/lots'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;"<?php if ($per[4] != 1){  
-                                    echo "hidden";}?>>ล็อต</a>
+                                <a class="nav-link" href="<?php echo site_url('Welcome/employee'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;" <?php if ($per[0] != 1) {
+                                                                                                                                                                            echo "hidden";
+                                                                                                                                                                        } ?>>พนักงาน</a>
+
+                                <a class="nav-link" href="<?php echo site_url('Welcome/viewcust'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;" <?php if ($per[1] != 1) {
+                                                                                                                                                                            echo "hidden";
+                                                                                                                                                                        } ?>>ลูกค้า</a>
+
+                                <a class="nav-link" href="<?php echo site_url('Welcome/partner'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;" <?php if ($per[2] != 1) {
+                                                                                                                                                                            echo "hidden";
+                                                                                                                                                                        } ?>>บริษัทคู่ค้า</a>
+                                <a class="nav-link" href="<?php echo site_url('Welcome/viewposition'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;" <?php if ($per[3] != 1) {
+                                                                                                                                                                                echo "hidden";
+                                                                                                                                                                            } ?>>ตำแหน่ง</a>
+                                <a class="nav-link" href="<?php echo site_url('Welcome/product'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;" <?php if ($per[4] != 1) {
+                                                                                                                                                                            echo "hidden";
+                                                                                                                                                                        } ?>>สินค้า</a>
+                                <a class="nav-link" href="<?php echo site_url('Welcome/cost'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;" <?php if ($per[6] != 1) {
+                                                                                                                                                                        echo "hidden";
+                                                                                                                                                                    } ?>>ราคาทุน</a>
+                                <a class="nav-link" href="<?php echo site_url('Welcome/promotion'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;" <?php if ($per[4] != 1) {
+                                                                                                                                                                            echo "hidden";
+                                                                                                                                                                        } ?>>โปรโมชั่น</a>
+                                <a class="nav-link" href="<?php echo site_url('Welcome/lots'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;" <?php if ($per[4] != 1) {
+                                                                                                                                                                        echo "hidden";
+                                                                                                                                                                    } ?>>ล็อต</a>
 
                                 <?//ต้องส่งไปcontroller แล้วเรียกview?>
                             </nav>
                         </div>
 
-                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsegoldtype" aria-expanded="false" aria-controls="collapseLayouts"<?php if ($per[5] != 1 && $per[7] != 1){  
-                                    echo "hidden";}?>>
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsegoldtype" aria-expanded="false" aria-controls="collapseLayouts" <?php if ($per[5] != 1 && $per[7] != 1) {
+                                                                                                                                                                                echo "hidden";
+                                                                                                                                                                            } ?>>
                             <p style="color:#ffffff;font-size:18px;">กลุ่มสินค้า</p>
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down" style="font-size:18px;color:#ffffff;"></i></div>
                         </a>
                         <div class="collapse" id="collapsegoldtype" aria-labelledby="headingOne" data-parent="#sidenavAccordion" style="background-color: #CD3838;">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="<?php echo site_url('Welcome/protype'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;"<?php if ($per[5] != 1){  
-                                    echo "hidden";}?>>ประเภททองคำ</a>
-                                <a class="nav-link" href="<?php echo site_url('Welcome/index'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;"<?php if ($per[7] != 1){  
-                                    echo "hidden";}?>>ทองคำหลุดจำนำ</a>
+                                <a class="nav-link" href="<?php echo site_url('Welcome/protype'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;" <?php if ($per[5] != 1) {
+                                                                                                                                                                            echo "hidden";
+                                                                                                                                                                        } ?>>ประเภททองคำ</a>
+                                <a class="nav-link" href="<?php echo site_url('Welcome/pledge_over'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;" <?php if ($per[7] != 1) {
+                                                                                                                                                                        echo "hidden";
+                                                                                                                                                                    } ?>>ทองคำหลุดจำนำ</a>
                             </nav>
                         </div>
-                        
+
                         <!-- <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
                             <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                             Pages
@@ -141,22 +153,50 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                             Tables
                         </a> -->
-                        <a class="nav-link" href="<?php echo site_url('Welcome/index'); ?>" style="font-size:16px;color:#ffffff;"<?php if ($per[7] != 1){  
-                                    echo "hidden";}?>>การจำนำ<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-right" style="font-size:18px;color:#ffffff;"></i></div></a>
-                        <a class="nav-link" href="<?php echo site_url('Welcome/index'); ?>" style="font-size:16px;color:#ffffff;"<?php if ($per[9] != 1){  
-                                    echo "hidden";}?>>สั่งซื้อสินค้า<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-right" style="font-size:18px;color:#ffffff;"></i></div></a>
-                                     <a class="nav-link" href="<?php echo site_url('Welcome/receives'); ?>" style="font-size:16px;color:#ffffff;"<?php if ($per[9] != 1){  
-                                    echo "hidden";}?>>รับสินค้า<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-right" style="font-size:18px;color:#ffffff;"></i></div></a>
-                        <a class="nav-link" href="<?php echo site_url('Welcome/allreceipt'); ?>" style="font-size:16px;color:#ffffff;"<?php if ($per[8] != 1){  
-                                    echo "hidden";}?>>ขายสินค้า<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-right" style="font-size:18px;color:#ffffff;"></i></div></a>
-                        <a class="nav-link" href="<?php echo site_url('Welcome/index'); ?>" style="font-size:16px;color:#ffffff;"<?php if ($per[10] != 1){  
-                                    echo "hidden";}?>>ออกรายงาน<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-right" style="font-size:18px;color:#ffffff;"></i></div></a>
+                        <a class="nav-link" href="<?php echo site_url('Welcome/index'); ?>" style="font-size:16px;color:#ffffff;" <?php if ($per[7] != 1) {
+                                                                                                                                        echo "hidden";
+                                                                                                                                    } ?>>การจำนำ<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-right" style="font-size:18px;color:#ffffff;"></i></div></a>
+                        <a class="nav-link" href="<?php echo site_url('Welcome/index'); ?>" style="font-size:16px;color:#ffffff;" <?php if ($per[9] != 1) {
+                                                                                                                                        echo "hidden";
+                                                                                                                                    } ?>>สั่งซื้อสินค้า<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-right" style="font-size:18px;color:#ffffff;"></i></div></a>
+                        <a class="nav-link" href="<?php echo site_url('Welcome/receives'); ?>" style="font-size:16px;color:#ffffff;" <?php if ($per[9] != 1) {
+                                                                                                                                            echo "hidden";
+                                                                                                                                        } ?>>รับสินค้า<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-right" style="font-size:18px;color:#ffffff;"></i></div></a>
+                        <a class="nav-link" href="<?php echo site_url('Welcome/allreceipt'); ?>" style="font-size:16px;color:#ffffff;" <?php if ($per[8] != 1) {
+                                                                                                                                            echo "hidden";
+                                                                                                                                        } ?>>ขายสินค้า<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-right" style="font-size:18px;color:#ffffff;"></i></div></a>
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts1" aria-expanded="false" aria-controls="collapseLayouts" <?php if ($per[10] != 1) {
+                                                                                                                                                                                echo "hidden";
+                                                                                                                                                                            } ?>>
+
+                            <p style="color:#ffffff;font-size:18px;">ออกรายงาน</p>
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down" style="font-size:18px;color:#ffffff;"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseLayouts1" aria-labelledby="headingOne" data-parent="#sidenavAccordion" style="background-color: #CD3838;">
+                            <nav class="sb-sidenav-menu-nested nav">
+
+                                <a class="nav-link" href="<?php echo site_url('callreport/crosstab'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;" <?php if ($per[10] != 1) {
+                                                                                                                                                                                echo "hidden";
+                                                                                                                                                                            } ?>>รายงานยอดขายสินค้าขายดีประจำปี</a>
+                                <a class="nav-link" href="<?php echo site_url('callreport/callreportamount'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;" <?php if ($per[10] != 1) {
+                                                                                                                                                                                        echo "hidden";
+                                                                                                                                                                                    } ?>>รายงานยอดขายสินค้าขายดีตามช่วงเวลา</a>
+                                <a class="nav-link" href="<?php echo site_url('callreport/reportpledge'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;" <?php if ($per[10] != 1) {
+                                                                                                                                                                                    echo "hidden";
+                                                                                                                                                                                } ?>>รายงานสินค้าจำนำตามช่วงเวลา</a>
+                                <a class="nav-link" href="<?php echo site_url('callreport/age'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;" <?php if ($per[10] != 1) {
+                                                                                                                                                                            echo "hidden";
+                                                                                                                                                                        } ?>>รายงานสินค้าตามช่วงอายุ</a>
+
+                                <?//ต้องส่งไปcontroller แล้วเรียกview?>
+                            </nav>
+                        </div>
                     </div>
-                    
+
                 </div>
-                
+
                 <div class="sb-sidenav-footer" style="background-color: #820115;">
-                    <div class="small">ลงชื่อเข้าใช้โดย : <?php echo $fname.' - '.$sname; ?></div>
+                    <div class="small">ลงชื่อเข้าใช้โดย : <?php echo $fname . ' - ' . $sname; ?></div>
                     <br>
                 </div>
             </nav>
@@ -170,7 +210,7 @@
                         <li class="breadcrumb-item active">Dashboard</li>
                     </ol> -->
 
-                    
+
                     <div id="search_form">
                         <div class="card mb-4">
                             <div id="all" class="content">
@@ -178,7 +218,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
 
             </main>
             <footer class="py-4 bg-light mt-auto">
@@ -227,7 +267,6 @@
 
 </html>
 <script>
-
     // function add() {
 
 

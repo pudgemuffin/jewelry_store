@@ -97,7 +97,7 @@ class selldb extends CI_Model
 
     function addexp($prodid)
     {
-        $query = "SELECT ProdPL_Id, ProdPL_Name, ProdPL_Cost, ProdPL_Weight_Per, Prot_Id FROM pledge_stock
+        $query = "SELECT ProdPL_Id, ProdPL_Name, ProdPL_Cost, ProdPL_Weight_Per FROM pledge_stock
         WHERE ProdPL_Id = '$prodid'";
 
         return $this->db->query($query)->result();

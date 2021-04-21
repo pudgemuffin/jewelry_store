@@ -109,7 +109,7 @@
                                 <a class="nav-link" href="<?php echo site_url('Welcome/protype'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;" <?php if ($per[5] != 1) {
                                                                                                                                                                             echo "hidden";
                                                                                                                                                                         } ?>>ประเภททองคำ</a>
-                                <a class="nav-link" href="<?php echo site_url('Welcome/index'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;" <?php if ($per[7] != 1) {
+                                <a class="nav-link" href="<?php echo site_url('Welcome/pledge_over'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;" <?php if ($per[7] != 1) {
                                                                                                                                                                         echo "hidden";
                                                                                                                                                                     } ?>>ทองคำหลุดจำนำ</a>
                             </nav>
@@ -177,9 +177,18 @@
                         <div class="collapse" id="collapseLayouts1" aria-labelledby="headingOne" data-parent="#sidenavAccordion" style="background-color: #CD3838;">
                             <nav class="sb-sidenav-menu-nested nav">
 
-                                <a class="nav-link" href="<?php echo site_url('callreport/callreportamount'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;" <?php if ($per[4] != 1) {
+                                <a class="nav-link" href="<?php echo site_url('callreport/crosstab'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;" <?php if ($per[10] != 1) {
+                                                                                                                                                                                echo "hidden";
+                                                                                                                                                                            } ?>>รายงานยอดขายสินค้าขายดีประจำปี</a>
+                                <a class="nav-link" href="<?php echo site_url('callreport/callreportamount'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;" <?php if ($per[10] != 1) {
                                                                                                                                                                                         echo "hidden";
-                                                                                                                                                                                    } ?>>รายงานยอดขายสินค้าขายดีตามช่วงเลลา</a>
+                                                                                                                                                                                    } ?>>รายงานยอดขายสินค้าขายดีตามช่วงเวลา</a>
+                                <a class="nav-link" href="<?php echo site_url('callreport/reportpledge'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;" <?php if ($per[10] != 1) {
+                                                                                                                                                                                    echo "hidden";
+                                                                                                                                                                                } ?>>รายงานสินค้าจำนำตามช่วงเวลา</a>
+                                <a class="nav-link" href="<?php echo site_url('callreport/age'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;" <?php if ($per[10] != 1) {
+                                                                                                                                                                                    echo "hidden";
+                                                                                                                                                                                } ?>>รายงานสินค้าตามช่วงอายุ</a>
 
                                 <?//ต้องส่งไปcontroller แล้วเรียกview?>
                             </nav>
