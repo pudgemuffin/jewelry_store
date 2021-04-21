@@ -59,6 +59,18 @@ class callreport extends CI_Controller
         $this->load->view('actionindex', $data);
     }
 
+    public function inputcrosstab()
+    {
+        $year = $this->input->post('year');
+        $data['cross'] = $this->reportdb->reportcrosspro($year);
+        $data['ple'] = $this->reportdb->reportcrossple($year);
+        $data['fname'] = $this->session->userdata('Firstname');
+        $data['sname'] = $this->session->userdata('Surname');
+        $data['pos'] = $this->session->userdata('Pos');
+        $data['view'] = "report/reportcrosstab";
+        $this->load->view('actionindex', $data);
+    }
+
 
 }
 

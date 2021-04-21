@@ -178,8 +178,8 @@
                             <nav class="sb-sidenav-menu-nested nav">
 
                                 <a class="nav-link" href="<?php echo site_url('callreport/callreportamount'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;" <?php if ($per[4] != 1) {
-                                                                                                                                                                        echo "hidden";
-                                                                                                                                                                    } ?>>รายงานยอดขายสินค้าขายดีตามช่วงเลลา</a>
+                                                                                                                                                                                        echo "hidden";
+                                                                                                                                                                                    } ?>>รายงานยอดขายสินค้าขายดีตามช่วงเลลา</a>
 
                                 <?//ต้องส่งไปcontroller แล้วเรียกview?>
                             </nav>
@@ -273,19 +273,10 @@
 
 </html>
 <script>
-    // function add() {
-
-
-    // $.ajax({
-    //     type: "POST",
-    //     url: window.open("<?php echo site_url('Regis/add') ?>"),
-    //     data: datas,
-    // }).done(function(data) {
-
-    //     $('#viewmodal').html(data);
-    //     // console.log(data);
-    //     document.getElementById('id01').style.display = 'block'
-
-    // });
-    // }
+    function over() {
+        $.ajax({
+            url: "<?php echo site_url('pledgecon/checkpledge') ?>",
+        });
+    }
+    setInterval(over, 300000)
 </script>

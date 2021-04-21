@@ -21,26 +21,26 @@ class pledgecon extends CI_Controller
     {
         $ye = date('ym');
         $max = $this->pledgedb->maxpledge();
-        if($max == ''){
+        if ($max == '') {
             $plid = 'PLE' . $ye . '0001';
             return $plid;
             // echo $plid;
-        }else{
+        } else {
             $yeId = substr($max, 3, 4);
-            if($yeId != $ye){
+            if ($yeId != $ye) {
 
                 return $plid = 'PLE' . $ye . '0001';
                 // echo $plid;
-            }else{
+            } else {
                 $plid = substr($max, 7);
                 $plid += 1;
-                while(strlen($plid) < 4){
+                while (strlen($plid) < 4) {
                     $plid = '0' . $plid;
                 }
                 $plid = 'PLE' . $yeId . $plid;
                 return $plid;
                 // echo $plid;
-                
+
             }
         }
     }
@@ -64,26 +64,26 @@ class pledgecon extends CI_Controller
     {
         $ye = date('ym');
         $max = $this->pledgedb->exppl();
-        if($max == ''){
+        if ($max == '') {
             $expd = 'EXP' . $ye . '0001';
             return $expd;
             // echo $expd;
-        }else{
+        } else {
             $yeId = substr($max, 3, 4);
-            if($yeId != $ye){
+            if ($yeId != $ye) {
 
                 return $expd = 'EXP' . $ye . '0001';
                 // echo $expd;
-            }else{
+            } else {
                 $expd = substr($max, 7);
                 $expd += 1;
-                while(strlen($expd) < 4){
+                while (strlen($expd) < 4) {
                     $expd = '0' . $expd;
                 }
                 $expd = 'EXP' . $yeId . $expd;
                 return $expd;
                 // echo $expd;
-                
+
             }
         }
     }
@@ -144,7 +144,7 @@ class pledgecon extends CI_Controller
         $data['subpledge'] = $this->pledgedb->selectsubpledge($plid);
         $data['cus'] = $this->selldb->custselect();
         $data['fname'] = $this->session->userdata('Firstname');
-        $data['sname']= $this->session->userdata('Surname');
+        $data['sname'] = $this->session->userdata('Surname');
         $data['pos'] = $this->session->userdata('Pos');
         $data['view'] = "add/updatepledge";
         $this->load->view('actionindex', $data);
@@ -161,16 +161,16 @@ class pledgecon extends CI_Controller
 
         // echo $pledgeprice;
 
-        
-       
+
+
         $pledday = $this->input->post('month');
         $time = strtotime($pledgendd);
         $time = strtotime("+$pledday day", $time);
-        $date = date("Y-m-d",$time);
+        $date = date("Y-m-d", $time);
         // echo $date;
         // echo $pledgeweight;
         // echo $pledgeprice;
-        
+
         $pledgepro = $this->input->post('pled_pro');
         $pledgeweightper = $this->input->post('weight_per');
         // print_r($_POST);
@@ -201,29 +201,27 @@ class pledgecon extends CI_Controller
         $this->pledgedb->setpledgezero();
 
         $this->pledgedb->setpledgelistzero();
-        $data['type'] = $this->pledgedb->selectype();
-        foreach($data['type'] as $t){
-           $type =  $t->type;
-        //    echo $type;
-        }
+
         $data['insert'] = $this->pledgedb->selectlist();
-        foreach($data['insert'] as $i){
-            $pledgepro = $i->Pledge_Pro;
-            $pledgeweightp = $i->Pledge_Weight_Per;
-            $float = (float)$i->Pledge_Price;
-            $price =  ($float/$i->Pledge_Weight);
-            $result = ($price*($i->Pledge_Weight_Per));
-            $result;
-            $plid = $i->Pledge_Id;           
-            $id = $this->genexppro();
-            // echo $pledgepro.'<br>';
-            // echo $pledgeweightp.'<br>';
-            // echo $result.'<br>';
-            // echo $plid.'<br>';
-            $this->pledgedb->insertstock($id,$pledgepro,$result,$pledgeweightp,$plid,$type);
-            
+        if ($data['insert'] != null) {
+
+            foreach ($data['insert'] as $i) {
+
+                $pledgepro = $i->Pledge_Pro;
+                $pledgeweightp = $i->Pledge_Weight_Per;
+                $float = (float)$i->Pledge_Price;
+                $price =  ($float / $i->Pledge_Weight);
+                $result = ($price * ($i->Pledge_Weight_Per));
+                $result;
+                $plid = $i->Pledge_Id;
+                $id = $this->genexppro();
+                // echo $pledgepro.'<br>';
+                // echo $pledgeweightp.'<br>';
+                // echo $result.'<br>';
+                // echo $plid.'<br>';
+                $this->pledgedb->insertstock($id, $pledgepro, $result, $pledgeweightp, $plid);
+            }
+            $this->pledgedb->changestat($plid);
         }
-        $this->pledgedb->changestat($plid);
-       
     }
 }

@@ -25,23 +25,33 @@
 </head>
 
 <body>
-<br>
-    <form action="<?php echo site_url('callreport/inputdate') ?>" method="post">
+    <br>
+    <form action="<?php echo site_url('callreport/inputcrosstab') ?>" method="post">
         <div class="row justify-content-center">
             <div class="col-3">
-                ปี : <input class="form-control" type="year" id="years" name="years">
-            </div>
+                <select class="custom-select text-danger" name="year" id="year" required>
+                    <option value="" class='input-center' disabled="disabled">เลือกปีที่ต้องการออกรายงาน</option>
+                    <?php
+                    $this_y = date("Y");
+                    $year = date("Y");
+                    ?>
+                    <?php for ($i = 0; $i <= 10; $i++) { ?>
+                        <option value="<?= $year ?>"><?= $year ?></option>
+                    <?php $year--;
+                    } ?>
+                </select>
+                </div>
             <button type="submit" class="btn btn-info">ค้นหา</button>
         </div>
 
 
     </form>
-    <br>    
+    <br>
     <h2 style="text-align: center;">ยอดขายสินค้าประจำปี</h2>
     <div class="row">
 
         <div class="col">
-       
+
             <!-- <div id="piechart"></div> -->
             <div class="card boder-0 ">
                 <table id="aaaa" class="table table-bordered table-striped">
@@ -58,24 +68,24 @@
                         <th>Sep</th>
                         <th>Oct</th>
                         <th>Nov</th>
-                        <th>Dec</th>                    
+                        <th>Dec</th>
                     </thead>
                     <tbody>
                         <?php foreach ($cross as $cr) { ?>
                             <tr>
                                 <td><?php echo $cr->Prod_Name; ?> </td>
-                                <td><?php echo number_format($cr->Jan,2); ?></td>
-                                <td><?php echo number_format($cr->Feb,2); ?></td>
-                                <td><?php echo number_format($cr->Mar,2); ?></td>
-                                <td><?php echo number_format($cr->Apr,2); ?></td>
-                                <td><?php echo number_format($cr->May,2); ?></td>
-                                <td><?php echo number_format($cr->Jun,2); ?></td>
-                                <td><?php echo number_format($cr->Jul,2); ?></td>
-                                <td><?php echo number_format($cr->Aug,2); ?></td>
-                                <td><?php echo number_format($cr->Sep,2); ?></td>
-                                <td><?php echo number_format($cr->Oct,2); ?></td>
-                                <td><?php echo number_format($cr->Nov,2); ?></td>
-                                <td><?php echo number_format($cr->Dec,2); ?></td>
+                                <td><?php echo number_format($cr->Jan, 2); ?></td>
+                                <td><?php echo number_format($cr->Feb, 2); ?></td>
+                                <td><?php echo number_format($cr->Mar, 2); ?></td>
+                                <td><?php echo number_format($cr->Apr, 2); ?></td>
+                                <td><?php echo number_format($cr->May, 2); ?></td>
+                                <td><?php echo number_format($cr->Jun, 2); ?></td>
+                                <td><?php echo number_format($cr->Jul, 2); ?></td>
+                                <td><?php echo number_format($cr->Aug, 2); ?></td>
+                                <td><?php echo number_format($cr->Sep, 2); ?></td>
+                                <td><?php echo number_format($cr->Oct, 2); ?></td>
+                                <td><?php echo number_format($cr->Nov, 2); ?></td>
+                                <td><?php echo number_format($cr->Dec, 2); ?></td>
                             </tr>
                         <?php } ?>
                     </tbody>
@@ -86,10 +96,10 @@
     <br>
     <br>
     <h2 style="text-align: center;">ยอดขายสินค้าจำนำประจำปี</h2>
-        <div class="row">
+    <div class="row">
 
         <div class="col">
-       
+
             <!-- <div id="piechart"></div> -->
             <div class="card boder-0 ">
                 <table id="bbbb" class="table table-bordered table-striped">
@@ -106,36 +116,36 @@
                         <th>Sep</th>
                         <th>Oct</th>
                         <th>Nov</th>
-                        <th>Dec</th>                    
+                        <th>Dec</th>
                     </thead>
                     <tbody>
                         <?php foreach ($ple as $pl) { ?>
                             <tr>
                                 <td><?php echo $pl->ProdPL_Name; ?> </td>
-                                <td><?php echo number_format($pl->Jan,2); ?></td>
-                                <td><?php echo number_format($pl->Feb,2); ?></td>
-                                <td><?php echo number_format($pl->Mar,2); ?></td>
-                                <td><?php echo number_format($pl->Apr,2); ?></td>
-                                <td><?php echo number_format($pl->May,2); ?></td>
-                                <td><?php echo number_format($pl->Jun,2); ?></td>
-                                <td><?php echo number_format($pl->Jul,2); ?></td>
-                                <td><?php echo number_format($pl->Aug,2); ?></td>
-                                <td><?php echo number_format($pl->Sep,2); ?></td>
-                                <td><?php echo number_format($pl->Oct,2); ?></td>
-                                <td><?php echo number_format($pl->Nov,2); ?></td>
-                                <td><?php echo number_format($pl->Dec,2); ?></td>
+                                <td><?php echo number_format($pl->Jan, 2); ?></td>
+                                <td><?php echo number_format($pl->Feb, 2); ?></td>
+                                <td><?php echo number_format($pl->Mar, 2); ?></td>
+                                <td><?php echo number_format($pl->Apr, 2); ?></td>
+                                <td><?php echo number_format($pl->May, 2); ?></td>
+                                <td><?php echo number_format($pl->Jun, 2); ?></td>
+                                <td><?php echo number_format($pl->Jul, 2); ?></td>
+                                <td><?php echo number_format($pl->Aug, 2); ?></td>
+                                <td><?php echo number_format($pl->Sep, 2); ?></td>
+                                <td><?php echo number_format($pl->Oct, 2); ?></td>
+                                <td><?php echo number_format($pl->Nov, 2); ?></td>
+                                <td><?php echo number_format($pl->Dec, 2); ?></td>
                             </tr>
                         <?php } ?>
                     </tbody>
                 </table>
             </div>
         </div>
-        </div>
+    </div>
 </body>
+
 </html>
 
 <script>
-
     $(document).ready(function() {
         $('#aaaa').DataTable({
             pageLength: 5,
@@ -160,7 +170,7 @@
         });
     });
 
-    
+
     // google.charts.load('current', {
     //     'packages': ['corechart']
     // });
@@ -173,7 +183,7 @@
     //         <?php foreach ($cross as $cr) { ?>
     //             ['<?php echo $cr->Prod_Name; ?>',<?php echo $cr->Jan; ?>],
     //             ['<?php echo $cr->Prod_Name; ?>',<?php echo $cr->Feb; ?>],
-    //             <?php }?>
+    //             <?php } ?>
     //     ]);
 
     //     // Optional; add a title and set the width and height of the chart
@@ -187,5 +197,4 @@
     //     var chart = new google.visualization.PieChart(document.getElementById('piechart'));
     //     chart.draw(data, options);
     // }
-
 </script>

@@ -193,4 +193,11 @@
             });
         }
     }
+
+    function over() {
+        $.ajax({
+            url: "<?php echo site_url('pledgecon/checkpledge') ?>",
+        });
+    }
+    setInterval(over, 300000)
 </script>

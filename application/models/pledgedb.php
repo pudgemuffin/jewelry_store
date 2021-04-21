@@ -117,7 +117,7 @@ class pledgedb extends CI_Model
     function setpledgezero()
     {
         $query = "UPDATE pledge
-        SET Pledge_Status = '2'
+        SET Pledge_Status = '2', Pledge_Over = CURRENT_DATE
         WHERE  Pledge_Id IN (SELECT Pledge_Id FROM pledge
         WHERE  Pledge_Ndate < CURRENT_DATE
         AND DATE_ADD(Pledge_Ndate,INTERVAL 90 DAY)  < CURRENT_DATE)";
@@ -170,10 +170,10 @@ class pledgedb extends CI_Model
         return $this->db->query($query)->result();
     }
 
-    function insertstock($id,$pledgepro,$result,$pledgeweightp,$plid,$type)
+    function insertstock($id,$pledgepro,$result,$pledgeweightp,$plid)
     {
-        $query = "INSERT INTO pledge_stock (ProdPL_Id, ProdPL_Name, ProdPL_Cost, ProdPL_Weight_Per, Pledge_Id, ProdPL_Status, Prot_Id)
-            VALUES ('$id','$pledgepro','$result','$pledgeweightp','$plid','1', '$type')";
+        $query = "INSERT INTO pledge_stock (ProdPL_Id, ProdPL_Name, ProdPL_Cost, ProdPL_Weight_Per, Pledge_Id, ProdPL_Status)
+            VALUES ('$id','$pledgepro','$result','$pledgeweightp','$plid','1' )";
 
         return $this->db->query($query);    
     }
