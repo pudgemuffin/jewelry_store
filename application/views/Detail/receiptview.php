@@ -108,6 +108,7 @@
                                 <td>
                                     <a class="btn btn-success" name ="viewreceipt" id="viewreceipt"href="<?php echo site_url('sell/viewreceiptlist/').$p->Receipt_Id?>"><i class="fas fa-book-open"></i></a>
                                     <a class="btn btn-danger" name ="cancelsell" id="cancelsell"href="<?php echo site_url('sell/cancelsell/').$p->Receipt_Id?>"><i class="fas fa-times"></i></a>
+                                    <a class="btn btn-primary" name ="print" id="print"href="<?php echo site_url('callpdf/printreceipt/').$p->Receipt_Id?>"><i class="fa fa-clone"></i></a>
                                 </td>
                                 <?php } ?>
                         <tr>   

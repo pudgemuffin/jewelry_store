@@ -228,7 +228,7 @@ class sell extends CI_Controller
                 // echo $prodid[$i] . '<br>';
                 // echo $lotid[$i] . '<br>';
                 $this->selldb->receipt_list_product($repid, $i + 1, $lotid[$i], $prodid[$i]);
-                $this->selldb->updateproduct($lotid[$i], $prodid[$i], $left[$i]);
+                $this->selldb->updateproduct($lotid[$i], $prodid[$i], $amount[$i]);
                 // echo "1";
             } else {
 
@@ -248,16 +248,8 @@ class sell extends CI_Controller
     public function viewreceiptlist($repid)
     {
         $data['receipt'] = $this->selldb->receipthead($repid);
-        $data['subreceiptpro'] = $this->selldb->receipt_list_pro($repid);
-        $count_pro = $this->selldb->receipt_pro_count($repid);
-        foreach ($count_pro as $value) {
-            $data['count_pro'] = $value->Count;
-        }
-        $data['subreceiptpledge'] = $this->selldb->receipt_list_ple($repid);
-        $count_ple = $this->selldb->receipt_ple_count($repid);
-        foreach ($count_ple as $value) {
-            $data['count_ple'] = $value->Count;
-        }
+        $data['subreceiptpro'] = $this->selldb->receiptdetailv2($repid);
+              
 
         $data['fname'] = $this->session->userdata('Firstname');
         $data['sname'] = $this->session->userdata('Surname');
@@ -286,6 +278,5 @@ class sell extends CI_Controller
 		 					window.location.href='/ER_GOLDV1/index.php/Welcome/allreceipt';
 							 </script>";
     }
-
     
 }

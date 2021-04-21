@@ -35,14 +35,15 @@ class selldb extends CI_Model
         // GROUP BY product.Prod_Id";
 
         $query = "SELECT product.Prod_Img, product.Prod_Id, protype.Prot_Name, product.Prod_Name, product.Fee, weight.Weight_Name, size.Size, 
-        IFNULL(sub_lot.Amount,0) as Amount, Weight.Weight_Cal, sub_lot.Lot_Id, promo.Prom_Discount, promo.Prom_Name from product
+        IFNULL(sub_lot.Amount,0) as Amount, Weight.Weight_Cal, sub_lot.Lot_Id, promo.Prom_Discount, promo.Prom_Name, promo.Prom_Status from product
         LEFT JOIN sub_lot on sub_lot.Prod_Id = product.Prod_Id
-        JOIN weight on weight.Weight_Id = product.Prod_Weight
+        LEFT JOIN weight on weight.Weight_Id = product.Prod_Weight
         LEFT JOIN rings on rings.Prod_Id = product.Prod_Id
         LEFT JOIN size on size.Id = rings.Size
-        JOIN protype on protype.Prot_Id = product.Prod_Type
-		LEFT JOIN (SELECT sub_promotion.Prod_Id, sub_promotion.Prom_Id, promotion.Prom_Discount, promotion.Prom_Name from sub_promotion
-		JOIN promotion on promotion.Promotion_Id = sub_promotion.Prom_Id) promo 
+      LEFT JOIN protype on protype.Prot_Id = product.Prod_Type
+		LEFT JOIN (SELECT sub_promotion.Prod_Id, sub_promotion.Prom_Id, promotion.Prom_Discount, promotion.Prom_Name, promotion.Prom_Status from sub_promotion
+		LEFT JOIN promotion on promotion.Promotion_Id = sub_promotion.Prom_Id
+		WHERE promotion.Prom_Status != 0) promo 
 		on promo.Prod_Id = product.Prod_Id
 		WHERE sub_lot.Amount != 0
         GROUP BY product.Prod_Id, sub_lot.Lot_Id";
@@ -60,17 +61,18 @@ class selldb extends CI_Model
 
     function selectpro($prodid, $lotid)
     {
-        $query = "SELECT product.Prod_Img, product.Prod_Id, protype.Prot_Id, product.Prod_Name, product.Fee, weight.Weight_Name, size.Size, 
-        IFNULL(sub_lot.Amount,0) as Amount, Weight.Weight_Cal, sub_lot.Lot_Id, promo.Prom_Discount, promo.Prom_Name from product
+        $query = "SELECT product.Prod_Img, product.Prod_Id, protype.Prot_Name, product.Prod_Name, product.Fee, weight.Weight_Name, size.Size, 
+        IFNULL(sub_lot.Amount,0) as Amount, Weight.Weight_Cal, sub_lot.Lot_Id, promo.Prom_Discount, promo.Prom_Name, promo.Prom_Status from product
         LEFT JOIN sub_lot on sub_lot.Prod_Id = product.Prod_Id
-        JOIN weight on weight.Weight_Id = product.Prod_Weight
+        LEFT JOIN weight on weight.Weight_Id = product.Prod_Weight
         LEFT JOIN rings on rings.Prod_Id = product.Prod_Id
         LEFT JOIN size on size.Id = rings.Size
-        JOIN protype on protype.Prot_Id = product.Prod_Type
-		LEFT JOIN (SELECT sub_promotion.Prod_Id, sub_promotion.Prom_Id, promotion.Prom_Discount, promotion.Prom_Name from sub_promotion
-		JOIN promotion on promotion.Promotion_Id = sub_promotion.Prom_Id) promo 
+      LEFT JOIN protype on protype.Prot_Id = product.Prod_Type
+		LEFT JOIN (SELECT sub_promotion.Prod_Id, sub_promotion.Prom_Id, promotion.Prom_Discount, promotion.Prom_Name, promotion.Prom_Status from sub_promotion
+		LEFT JOIN promotion on promotion.Promotion_Id = sub_promotion.Prom_Id
+		WHERE promotion.Prom_Status != 0) promo 
 		on promo.Prod_Id = product.Prod_Id
-        WHERE product.Prod_Id = '$prodid' and sub_lot.Lot_Id = '$lotid'
+		WHERE sub_lot.Amount != 0 AND product.Prod_Id = '$prodid' AND sub_lot.Lot_Id = '$lotid'
         GROUP BY product.Prod_Id, sub_lot.Lot_Id";
 
 
@@ -156,9 +158,9 @@ class selldb extends CI_Model
         return $this->db->query($query);
     }
 
-    function updateproduct($lotid,$prodid,$left)
+    function updateproduct($lotid,$prodid,$amount)
     {
-        $query = "UPDATE sub_lot SET Amount = '$left' WHERE Lot_Id = '$lotid' and Prod_Id = '$prodid'";
+        $query = "UPDATE sub_lot SET Amount = Amount - $amount WHERE Lot_Id = '$lotid' and Prod_Id = '$prodid'";
 
         return $this->db->query($query);
     }
@@ -251,5 +253,18 @@ class selldb extends CI_Model
                     WHERE ProdPL_Id = '$expid'";
 
         return $this->db->query($query);
+    }
+
+    function receiptdetailv2($repid)
+    {
+        $query = "SELECT receipt_list.Receipt_Type, receipt_list.Receipt_Amount,product.Prod_Name,pledge_stock.ProdPL_Name,receipt_list.Receipt_Price_Total FROM receipt_list
+        LEFT JOIN receipt_list_product ON (receipt_list.Receipt_Id = receipt_list_product.Receipt_Id AND receipt_list.Receipt_No = receipt_list_product.Receipt_No)
+        LEFT JOIN receipt_list_pledge ON (receipt_list.Receipt_Id = receipt_list_pledge.Receipt_Id AND receipt_list.Receipt_No = receipt_list_pledge.Receipt_No)
+        JOIN receipt ON receipt.Receipt_Id = receipt_list.Receipt_Id
+        LEFT JOIN product ON receipt_list_product.Prod_Id = product.Prod_Id
+        LEFT JOIN pledge_stock ON receipt_list_pledge.ProdPL_Id = pledge_stock.ProdPL_Id
+        WHERE receipt.Receipt_Id = '$repid'";
+
+        return $this->db->query($query)->result();
     }
 }
