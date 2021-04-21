@@ -49,8 +49,9 @@ class callreport extends CI_Controller
 
     public function crosstab()
     {
-        $y = date('y');
+        $y = date('Y');
         $data['cross'] = $this->reportdb->reportcrosspro($y);
+        $data['ple'] = $this->reportdb->reportcrossple($y);
         $data['fname'] = $this->session->userdata('Firstname');
         $data['sname'] = $this->session->userdata('Surname');
         $data['pos'] = $this->session->userdata('Pos');

@@ -165,7 +165,7 @@
 
         // Optional; add a title and set the width and height of the chart
         var options1 = {
-            'title': 'สิ้นค้าขายดีตามช่วงเวลา',
+            'title': 'สิ้นค้าจำนำขายดีตามช่วงเวลา',
             'width': 550,
             'height': 400
         };

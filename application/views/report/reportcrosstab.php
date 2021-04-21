@@ -29,54 +29,107 @@
     <form action="<?php echo site_url('callreport/inputdate') ?>" method="post">
         <div class="row justify-content-center">
             <div class="col-3">
-                วันเริ่มต้น : <input class="form-control" type="date" id="dates" name="dates">
-            </div>
-            <div class="col-3">
-                วันสิ้นสุด : <input class="form-control" type="date" id="daten" name="daten">
+                ปี : <input class="form-control" type="year" id="years" name="years">
             </div>
             <button type="submit" class="btn btn-info">ค้นหา</button>
         </div>
 
 
     </form>
-    <br>
+    <br>    
+    <h2 style="text-align: center;">ยอดขายสินค้าประจำปี</h2>
     <div class="row">
 
         <div class="col">
-            <div id="piechart"></div>
+       
+            <!-- <div id="piechart"></div> -->
             <div class="card boder-0 ">
                 <table id="aaaa" class="table table-bordered table-striped">
                     <thead>
-                        <th>
-                            สินค้า
-                        </th>
-                        <th>
-                            จำนวนชิ้น
-                        </th>
-
-
+                        <th>สินค้า</th>
+                        <th>Jan</th>
+                        <th>Feb</th>
+                        <th>Mar</th>
+                        <th>Apr</th>
+                        <th>May</th>
+                        <th>Jun</th>
+                        <th>Jul</th>
+                        <th>Aug</th>
+                        <th>Sep</th>
+                        <th>Oct</th>
+                        <th>Nov</th>
+                        <th>Dec</th>                    
                     </thead>
                     <tbody>
                         <?php foreach ($cross as $cr) { ?>
                             <tr>
                                 <td><?php echo $cr->Prod_Name; ?> </td>
-                                <td><?php echo $cr->Jan; ?></td>
-                                <td><?php echo $cr->Feb; ?></td>
-                                <td><?php echo $cr->Mar; ?></td>
-                                <td><?php echo $cr->Apr; ?></td>
-                                <td><?php echo $cr->May; ?></td>
-                                <td><?php echo $cr->Jun; ?></td>
-                                <td><?php echo $cr->Jul; ?></td>
-                                <td><?php echo $cr->Aug; ?></td>
-                                <td><?php echo $cr->Sep; ?></td>
-                                <td><?php echo $cr->Oct; ?></td>
-                                <td><?php echo $cr->Nov; ?></td>
-                                <td><?php echo $cr->Dec; ?></td>
+                                <td><?php echo number_format($cr->Jan,2); ?></td>
+                                <td><?php echo number_format($cr->Feb,2); ?></td>
+                                <td><?php echo number_format($cr->Mar,2); ?></td>
+                                <td><?php echo number_format($cr->Apr,2); ?></td>
+                                <td><?php echo number_format($cr->May,2); ?></td>
+                                <td><?php echo number_format($cr->Jun,2); ?></td>
+                                <td><?php echo number_format($cr->Jul,2); ?></td>
+                                <td><?php echo number_format($cr->Aug,2); ?></td>
+                                <td><?php echo number_format($cr->Sep,2); ?></td>
+                                <td><?php echo number_format($cr->Oct,2); ?></td>
+                                <td><?php echo number_format($cr->Nov,2); ?></td>
+                                <td><?php echo number_format($cr->Dec,2); ?></td>
                             </tr>
                         <?php } ?>
                     </tbody>
                 </table>
             </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <h2 style="text-align: center;">ยอดขายสินค้าจำนำประจำปี</h2>
+        <div class="row">
+
+        <div class="col">
+       
+            <!-- <div id="piechart"></div> -->
+            <div class="card boder-0 ">
+                <table id="bbbb" class="table table-bordered table-striped">
+                    <thead>
+                        <th>สินค้า</th>
+                        <th>Jan</th>
+                        <th>Feb</th>
+                        <th>Mar</th>
+                        <th>Apr</th>
+                        <th>May</th>
+                        <th>Jun</th>
+                        <th>Jul</th>
+                        <th>Aug</th>
+                        <th>Sep</th>
+                        <th>Oct</th>
+                        <th>Nov</th>
+                        <th>Dec</th>                    
+                    </thead>
+                    <tbody>
+                        <?php foreach ($ple as $pl) { ?>
+                            <tr>
+                                <td><?php echo $pl->ProdPL_Name; ?> </td>
+                                <td><?php echo number_format($pl->Jan,2); ?></td>
+                                <td><?php echo number_format($pl->Feb,2); ?></td>
+                                <td><?php echo number_format($pl->Mar,2); ?></td>
+                                <td><?php echo number_format($pl->Apr,2); ?></td>
+                                <td><?php echo number_format($pl->May,2); ?></td>
+                                <td><?php echo number_format($pl->Jun,2); ?></td>
+                                <td><?php echo number_format($pl->Jul,2); ?></td>
+                                <td><?php echo number_format($pl->Aug,2); ?></td>
+                                <td><?php echo number_format($pl->Sep,2); ?></td>
+                                <td><?php echo number_format($pl->Oct,2); ?></td>
+                                <td><?php echo number_format($pl->Nov,2); ?></td>
+                                <td><?php echo number_format($pl->Dec,2); ?></td>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
         </div>
 </body>
 </html>
@@ -94,6 +147,45 @@
                 "emptyTable": "ไม่พบข้อมูลสินค้า"
             }
         });
+
+        $('#bbbb').DataTable({
+            pageLength: 5,
+            lengthMenu: [
+                [5, 10, 20, -1],
+                [5, 10, 20, "All Data"]
+            ],
+            language: {
+                "emptyTable": "ไม่พบข้อมูลสินค้า"
+            }
+        });
     });
+
+    
+    // google.charts.load('current', {
+    //     'packages': ['corechart']
+    // });
+    // google.charts.setOnLoadCallback(drawChart);
+
+    // // Draw the chart and set the chart values
+    // function drawChart() {
+    //     var data = google.visualization.arrayToDataTable([
+    //         ['Task', 'Hours per Day'],
+    //         <?php foreach ($cross as $cr) { ?>
+    //             ['<?php echo $cr->Prod_Name; ?>',<?php echo $cr->Jan; ?>],
+    //             ['<?php echo $cr->Prod_Name; ?>',<?php echo $cr->Feb; ?>],
+    //             <?php }?>
+    //     ]);
+
+    //     // Optional; add a title and set the width and height of the chart
+    //     var options = {
+    //         'title': 'ยอดขายสินค้าประจำปี',
+    //         'width': 550,
+    //         'height': 400
+    //     };
+
+    //     // Display the chart inside the <div> element with id="piechart"
+    //     var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+    //     chart.draw(data, options);
+    // }
 
 </script>
