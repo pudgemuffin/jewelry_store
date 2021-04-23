@@ -175,7 +175,7 @@
         result = pledge - det;
         resultcom = result.toLocaleString();
         $(' #price1').val(result);
-        $(' .pledge').val(resultcom);
+        $(' .pledge').val(result);
             
 
     });
