@@ -248,9 +248,9 @@ class ergold extends CI_Model
 
     function addpromotion($pmid,$pmname,$sdate,$edate,$discount)
     {
-        $query = "INSERT INTO promotion(Promotion_Id,Prom_Name,Prom_Sdate,Prom_Ndate,Prom_Discount)
+        $query = "INSERT INTO promotion(Promotion_Id,Prom_Name,Prom_Sdate,Prom_Ndate,Prom_Discount,Prom_Status)
                     values
-                    ('$pmid','$pmname','$sdate','$edate','$discount')";
+                    ('$pmid','$pmname','$sdate','$edate','$discount','1')";
 
         return $this->db->query($query);
     }

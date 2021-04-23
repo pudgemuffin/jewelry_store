@@ -110,8 +110,8 @@
                                                                                                                                                                             echo "hidden";
                                                                                                                                                                         } ?>>ประเภททองคำ</a>
                                 <a class="nav-link" href="<?php echo site_url('Welcome/pledge_over'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;" <?php if ($per[7] != 1) {
-                                                                                                                                                                        echo "hidden";
-                                                                                                                                                                    } ?>>ทองคำหลุดจำนำ</a>
+                                                                                                                                                                                echo "hidden";
+                                                                                                                                                                            } ?>>ทองคำหลุดจำนำ</a>
                             </nav>
                         </div>
 
@@ -187,8 +187,11 @@
                                                                                                                                                                                     echo "hidden";
                                                                                                                                                                                 } ?>>รายงานสินค้าจำนำตามช่วงเวลา</a>
                                 <a class="nav-link" href="<?php echo site_url('callreport/age'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;" <?php if ($per[10] != 1) {
-                                                                                                                                                                                    echo "hidden";
-                                                                                                                                                                                } ?>>รายงานสินค้าตามช่วงอายุ</a>
+                                                                                                                                                                            echo "hidden";
+                                                                                                                                                                        } ?>>รายงานสินค้าตามช่วงอายุ</a>
+                                <a class="nav-link" href="<?php echo site_url('callreport/profit'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;" <?php if ($per[10] != 1) {
+                                                                                                                                                                            echo "hidden";
+                                                                                                                                                                        } ?>>รายงานกำไรขาดทุนตามช่วงเวลา</a>
 
                                 <?//ต้องส่งไปcontroller แล้วเรียกview?>
                             </nav>
@@ -287,5 +290,5 @@
             url: "<?php echo site_url('pledgecon/checkpledge') ?>",
         });
     }
-    setInterval(over, 300000)
+    setInterval(over, 1000)
 </script>

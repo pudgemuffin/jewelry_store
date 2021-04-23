@@ -102,7 +102,7 @@
                             <tr nowrap>
                                 <td nowrap> <?php echo $p->Lot_Id; ?> </td>
                                 <td nowrap> <?php echo $p->Lot_Date; ?> </td>
-                                <td nowrap> <?php echo $p->Lot_Cost; ?> </td>
+                                <td nowrap> <?php echo number_format($p->Lot_Cost,2); ?> </td>
                                 <td>
                                     <a class="btn btn-success" name ="viewdata" id="viewdata"href="<?php echo site_url('ordercon/viewlots/').$p->Lot_Id?>"><i class="fas fa-book-open"></i></a>
                                 </td>

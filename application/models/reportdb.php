@@ -42,9 +42,11 @@ class reportdb extends CI_Model
             receipt
             JOIN receipt_list ON receipt.Receipt_Id = receipt_list.Receipt_Id
          JOIN receipt_list_pledge ON ( receipt.Receipt_Id = receipt_list_pledge.Receipt_Id AND receipt_list.Receipt_No = receipt_list_pledge.Receipt_No )
-         WHERE receipt.Receipt_Status = 1 AND (receipt.Receipt_Date BETWEEN '$dates' AND '$daten')
+				 JOIN pledge_stock ON pledge_stock.ProdPL_Id = receipt_list_pledge.ProdPL_Id
+         WHERE receipt.Receipt_Status = 1 AND pledge_stock.ProdPL_Status = 0 AND (receipt.Receipt_Date BETWEEN '$dates' AND '$daten')
          GROUP BY receipt_list_pledge.ProdPL_Id
     )rec ON pledge_stock.ProdPL_Id = rec.ProdPL_Id
+
         GROUP BY pledge_stock.ProdPL_Id";
 
         return $this->db->query($query)->result();
@@ -119,8 +121,10 @@ class reportdb extends CI_Model
         JOIN receipt_list ON receipt.Receipt_Id = receipt_list.Receipt_Id
         JOIN receipt_list_pledge ON ( receipt_list_pledge.Receipt_Id = receipt_list.Receipt_Id 
             AND receipt_list_pledge.Receipt_No = receipt_list.Receipt_No ) 
+            JOIN pledge_stock ON pledge_stock.ProdPL_Id = receipt_list_pledge.ProdPL_Id
     WHERE
         YEAR ( receipt.Receipt_Date ) = '$y'
+        AND pledge_stock.ProdPL_Status = 0
         GROUP BY receipt_list_pledge.ProdPL_Id
         )rep ON rep.ProdPL_Id = pledge_stock.ProdPL_Id
         GROUP BY pledge_stock.ProdPL_Id";
@@ -192,16 +196,53 @@ class reportdb extends CI_Model
         FROM
             receipt
             JOIN receipt_list ON receipt.Receipt_Id = receipt_list.Receipt_Id
-            JOIN receipt_list_pledge ON ( receipt_list.Receipt_Id = receipt_list_pledge.Receipt_Id AND receipt_list.Receipt_No = receipt_list_pledge.Receipt_No ) 
+            JOIN receipt_list_pledge ON ( receipt_list.Receipt_Id = receipt_list_pledge.Receipt_Id AND receipt_list.Receipt_No = receipt_list_pledge.Receipt_No )
+            JOIN pledge_stock ON pledge_stock.ProdPL_Id = receipt_list_pledge.ProdPL_Id 
         WHERE
             ( receipt.Receipt_Age BETWEEN $a1 AND $a2 ) 
-            AND receipt.Receipt_Status = '1' 
+            AND receipt.Receipt_Status = '1' AND pledge_stock.ProdPL_Status = 0 
             AND (receipt.Receipt_Date BETWEEN '$dates' AND '$daten')
         GROUP BY
             receipt_list_pledge.ProdPL_Id 
         ) rec ON pledge_stock.ProdPL_Id = rec.ProdPL_Id 
     GROUP BY
         pledge_stock.ProdPL_Id";
+
+        return $this->db->query($query)->result();
+    }
+
+    function reportproductprofit($dates,$daten)
+    {
+        $query = "SELECT product.Prod_Id,
+        product.Prod_Name, 
+        IFNULL(SUM(profits.profit),0) as Total
+        FROM product
+        LEFT JOIN
+        (
+        SELECT sub_lot.Lot_Id, receipt_list_product.Receipt_Id , receipt_list_product.Receipt_No,sub_lot.Prod_Id,  sub_lot.Price_Per, receipt_list.Receipt_Amount,receipt_list.Receipt_Price_Total,
+        (sub_lot.Price_Per*receipt_list.Receipt_Amount) as cost,
+        (receipt_list.Receipt_Price_Total - (sub_lot.Price_Per*receipt_list.Receipt_Amount)) as profit
+        FROM sub_lot
+        JOIN receipt_list_product ON (sub_lot.Lot_Id = receipt_list_product.Lot_Id AND sub_lot.Prod_Id = receipt_list_product.Prod_Id)
+        JOIN receipt_list ON (receipt_list.Receipt_Id = receipt_list_product.Receipt_Id AND receipt_list.Receipt_No = receipt_list_product.Receipt_No)
+        JOIN receipt ON receipt.Receipt_Id = receipt_list.Receipt_Id
+        WHERE receipt.Receipt_Date BETWEEN '$dates' AND '$daten'
+        ) as profits ON profits.Prod_Id = product.Prod_Id
+        GROUP BY product.Prod_Id";
+
+        return $this->db->query($query)->result();
+    }
+
+    function reportpledgeprofit($dates,$daten)
+    {
+        $query = "SELECT pledge_stock.ProdPL_Id,pledge_stock.ProdPL_Name,pledge_stock.ProdPL_Cost,receipt_list.Receipt_Amount,receipt_list.Receipt_Price_Total,
+        pledge_stock.ProdPL_Status,receipt.Receipt_Id,
+        (receipt_list.Receipt_Price_Total - pledge_stock.ProdPL_Cost) as profit
+        FROM pledge_stock
+        JOIN receipt_list_pledge ON (pledge_stock.ProdPL_Id = receipt_list_pledge.ProdPL_Id)
+        JOIN receipt_list ON (receipt_list.Receipt_Id = receipt_list_pledge.Receipt_Id AND receipt_list.Receipt_No = receipt_list_pledge.Receipt_No)
+        JOIN receipt ON receipt.Receipt_Id = receipt_list.Receipt_Id
+        WHERE pledge_stock.ProdPL_Status = 0 AND receipt.Receipt_Date BETWEEN '$dates' AND '$daten'";
 
         return $this->db->query($query)->result();
     }

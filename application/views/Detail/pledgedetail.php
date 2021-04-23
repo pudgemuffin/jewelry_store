@@ -113,6 +113,8 @@
 
                         <td>
                             <a class="btn btn-warning" href="<?php echo site_url('pledgecon/selectpledge/') . $r->Pledge_Id ?>"><i class="fa fa-cog"></i></a>
+                            <a class="btn btn-danger" href="<?php echo site_url('pledgecon/returnpledge/') . $r->Pledge_Id ?>"><i class="fa fa-times"></i></a>
+                            <a class="btn btn-primary" name ="print" id="print"href="<?php echo site_url('callpdf/printpledge/').$r->Pledge_Id?>"><i class="fa fa-clone"></i></a>
                         </td>
 
 

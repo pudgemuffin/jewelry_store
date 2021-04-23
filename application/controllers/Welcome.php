@@ -607,7 +607,7 @@ class Welcome extends CI_Controller
     public function order()
     {
         $per = $this->session->userdata('Permit');
-        if ($per[4] != 1) {
+        if ($per[9] != 1) {
             echo "<script> 
             window.alert('คุณไม่มีสิทธิ์ในการใช้งาน');
             window.history.back();
@@ -673,7 +673,7 @@ class Welcome extends CI_Controller
     public function receives()
     {
         $per = $this->session->userdata('Permit');
-        if ($per[4] != 1) {
+        if ($per[9] != 1) {
             echo "<script> 
             window.alert('คุณไม่มีสิทธิ์ในการใช้งาน');
             window.history.back();
@@ -869,7 +869,7 @@ class Welcome extends CI_Controller
     public function allreceipt()
     {
         $per = $this->session->userdata('Permit');
-        if ($per[7] != 1) {
+        if ($per[8] != 1) {
             echo "<script> 
             window.alert('คุณไม่มีสิทธิ์ในการใช้งาน');
             window.history.back();

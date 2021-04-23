@@ -38,17 +38,7 @@
 
         </div>
         <br>
-        <div class="row justify-content-center">
-            <div class="col-3">
-                <select class="form-control" name="age" id="age" required>
-                    <option value="" selected disabled>กรุณาเลือกช่วงอายุ</option>
-                    <option value="18-29">18-29</option>
-                    <option value="30-60">30-60</option>
-                </select>
-            </div>
             <button type="submit" class="btn btn-info">ค้นหา</button>
-
-        </div>
     </form>
     <br>
 
@@ -66,16 +56,16 @@
                             สินค้า
                         </th>
                         <th>
-                            จำนวนชิ้น
+                            กำไร/ขาดทุน
                         </th>
 
 
                     </thead>
                     <tbody>
-                        <?php foreach ($agepro as $ap) { ?>
+                        <?php foreach ($profit as $pr) { ?>
                             <tr>
-                                <td><?php echo $ap->Prod_Name; ?> </td>
-                                <td><?php echo $ap->Amount; ?></td>
+                                <td><?php echo $pr->Prod_Name; ?> </td>
+                                <td><?php echo number_format($pr->Total,2); ?></td>
                             </tr>
                         <?php } ?>
                     </tbody>
@@ -92,16 +82,16 @@
                             สินค้า
                         </th>
                         <th>
-                            จำนวนชิ้น
+                            กำไร/ขาดทุน
                         </th>
 
 
                     </thead>
                     <tbody>
-                        <?php foreach ($ageple as $ape) { ?>
+                        <?php foreach ($plefit as $pl) { ?>
                             <tr>
-                                <td><?php echo $ape->ProdPL_Name; ?> </td>
-                                <td><?php echo $ape->Amount; ?></td>
+                                <td><?php echo $pl->ProdPL_Name; ?> </td>
+                                <td><?php echo number_format($pl->profit,2); ?></td>
                             </tr>
                         <?php } ?>
                     </tbody>
@@ -146,7 +136,7 @@
     function drawChart() {
         var data = google.visualization.arrayToDataTable([
             ['Task', 'Hours per Day'],
-            <?php foreach ($agepro as $ap) { ?>['<?php echo $ap->Prod_Name; ?>', <?php echo $ap->Amount; ?>],
+            <?php foreach ($profit as $pr) { ?>['<?php echo $pr->Prod_Name; ?>', <?php echo $pr->Total; ?>],
             <?php } ?>
         ]);
 
@@ -171,7 +161,7 @@
     function drawChart1() {
         var data1 = google.visualization.arrayToDataTable([
             ['Task', 'Hours per Day'],
-            <?php foreach ($ageple as $ape) { ?>['<?php echo $ape->ProdPL_Name; ?>', <?php echo $ape->Amount; ?>],
+            <?php foreach ($plefit as $pl) { ?>['<?php echo $pl->ProdPL_Name; ?>', <?php echo $pl->profit; ?>],
             <?php } ?>
         ]);
 

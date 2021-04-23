@@ -224,4 +224,12 @@ class pledgecon extends CI_Controller
             $this->pledgedb->changestat($plid);
         }
     }
+
+    public function returnpledge($plid)
+    {
+        $this->pledgedb->returnpledge($plid);
+        echo "<script> alert('ไถ่คืนสำเร็จ');
+        window.location.href='/ER_GOLDV1/index.php/Welcome/allpledge';
+        </script>";
+    }
 }

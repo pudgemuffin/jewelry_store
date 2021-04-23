@@ -154,7 +154,7 @@
                 <div class="row justify-content-center">
                     <div style="margin-bottom: 15px;">
 
-                        <button type="submit" class="btn btn-info">เพิ่มข้อมูลการสั่งซื้อ</button>
+                        <button type="submit" class="btn btn-info">ต่อดอก</button>
                         <a class="btn btn-danger" href="<?php echo site_url('Welcome/order') ?>">ยกเลิก</a>
 
                     </div>

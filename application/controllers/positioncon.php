@@ -60,9 +60,10 @@ class positioncon extends CI_Controller
         $box7 = $this->input->post('box7');
         $box8 = $this->input->post('box8');
         $box9 = $this->input->post('box9');
-        // $box10 = $this->input->post('box10');
+        $box10 = $this->input->post('box10');
+        $box11 = $this->input->post('box11');
 
-        $permit = $box1.$box2.$box3.$box4.$box5.$box6.$box7.$box8.$box9;
+        $permit = $box1.$box2.$box3.$box4.$box5.$box6.$box7.$box8.$box9.$box10.$box11;
 
         // echo $posid."<br>";
         // echo $posi."<br>";
@@ -133,7 +134,7 @@ class positioncon extends CI_Controller
         $box11 = $this->input->post('box11');
 
         $permit = $box1.$box2.$box3.$box4.$box5.$box6.$box7.$box8.$box9.$box10.$box11;
-
+        // echo $permit;
         $this->detail->updatejob($jobid, $posi,$permit);
 
         

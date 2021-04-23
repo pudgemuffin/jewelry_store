@@ -131,6 +131,34 @@ class callreport extends CI_Controller
         $this->load->view('actionindex', $data);
     }
 
+    public function profit()
+    {
+        $ld = date('Y-m-d');
+        $dates = date('Y-m-01');
+        $daten =  date("Y-m-t", strtotime($ld));
+
+        $data['profit'] = $this->reportdb->reportproductprofit($dates,$daten);
+        $data['plefit'] = $this->reportdb->reportpledgeprofit($dates,$daten);
+        $data['fname'] = $this->session->userdata('Firstname');
+        $data['sname'] = $this->session->userdata('Surname');
+        $data['pos'] = $this->session->userdata('Pos');
+        $data['view'] = "report/reportprofit";
+        $this->load->view('actionindex', $data);
+    }
+
+    public function inputprofit()
+    {
+        $dates = $this->input->post('dates');
+        $daten = $this->input->post('daten');
+        $data['profit'] = $this->reportdb->reportproductprofit($dates,$daten);
+        $data['plefit'] = $this->reportdb->reportpledgeprofit($dates,$daten);
+        $data['fname'] = $this->session->userdata('Firstname');
+        $data['sname'] = $this->session->userdata('Surname');
+        $data['pos'] = $this->session->userdata('Pos');
+        $data['view'] = "report/reportprofit";
+        $this->load->view('actionindex', $data);
+    }
+
 
 }
 

@@ -2,7 +2,7 @@
 class pledgedb extends CI_Model
 {
 
-    function allpledge($start,$pageend,$search)
+    function allpledge($start, $pageend, $search)
     {
         $query = "SELECT * from( SELECT ROW_NUMBER()OVER ( ORDER By Pledge_Id )as row ,Pledge_Id, Pledge_Detail, Pledge_Price, Pledge_Debt, Pledge_Debt_Price, Pledge_Sdate, Pledge_Ndate, Pledge_Month, employee.Firstname, CONCAT(customer.Cus_fname,'  ',customer.Cus_lname) as Name FROM pledge
         JOIN employee ON employee.Id = pledge.Pledge_Emp
@@ -11,7 +11,6 @@ class pledgedb extends CI_Model
         where row > $start AND row <=$pageend order by row";
 
         return $this->db->query($query)->result();
-
     }
 
     function count_allpledge($search)
@@ -22,10 +21,9 @@ class pledgedb extends CI_Model
         WHERE Pledge_Status = '1' $search) AA";
 
         return $this->db->query($query)->result();
-
     }
 
-    function overpledge($start,$pageend,$search)
+    function overpledge($start, $pageend, $search)
     {
         $query = "SELECT * from( SELECT ROW_NUMBER()OVER ( ORDER By Pledge_Id )as row ,ProdPL_Id, ProdPL_Name, ProdPL_Cost, ProdPL_Weight_Per FROM pledge_stock
         WHERE ProdPL_Status = '1' $search ) AA
@@ -41,7 +39,7 @@ class pledgedb extends CI_Model
 
         return $this->db->query($query)->result();
     }
-    
+
 
     function maxpledge()
     {
@@ -49,7 +47,7 @@ class pledgedb extends CI_Model
 
         $result = $this->db->query($query)->result();
 
-        foreach($result as $r){
+        foreach ($result as $r) {
             return $r->Id;
         }
     }
@@ -60,7 +58,7 @@ class pledgedb extends CI_Model
 
         $result = $this->db->query($query)->result();
 
-        foreach($result as $r){
+        foreach ($result as $r) {
             return $r->Id;
         }
     }
@@ -72,9 +70,19 @@ class pledgedb extends CI_Model
         return $this->db->query($query)->result();
     }
 
-    function addple($pledgeid, $pledgedetail, $pledgeprice, $pledgedebt, $pledgedebtprice ,$pledgeSdate , $pledgeNdate, 
-                    $pledgeMonth, $pledgeemp ,$pledgecus, $pledgeweight)
-    {
+    function addple(
+        $pledgeid,
+        $pledgedetail,
+        $pledgeprice,
+        $pledgedebt,
+        $pledgedebtprice,
+        $pledgeSdate,
+        $pledgeNdate,
+        $pledgeMonth,
+        $pledgeemp,
+        $pledgecus,
+        $pledgeweight
+    ) {
         $query = "INSERT INTO pledge (Pledge_Id, Pledge_Detail, Pledge_Price, Pledge_Debt, Pledge_Debt_Price, Pledge_Sdate, Pledge_Ndate
                                     , Pledge_Month, Pledge_Emp, Pledge_Cus, Pledge_Status, Pledge_Weight)
                         VALUES ('$pledgeid', '$pledgedetail', '$pledgeprice', '$pledgedebt', '$pledgedebtprice', '$pledgeSdate', '$pledgeNdate', 
@@ -83,7 +91,7 @@ class pledgedb extends CI_Model
         return $this->db->query($query);
     }
 
-    function addplelist($pledgeid ,$pledgeweightper, $pledgepro)
+    function addplelist($pledgeid, $pledgeweightper, $pledgepro)
     {
         $query = "INSERT INTO pledge_list (Pledge_Id, Pledge_Weight_Per, Pledge_Pro, Pledge_Stat, Pledge_Stat_Stock)
                         VALUES ('$pledgeid', '$pledgeweightper', '$pledgepro', '1', '0')";
@@ -118,6 +126,18 @@ class pledgedb extends CI_Model
         $query = "SELECT Pledge_Id, Pledge_Detail, Pledge_Price, Pledge_Debt, Pledge_Debt_Price, Pledge_Sdate, Pledge_Ndate, Pledge_Month, Pledge_Emp, Pledge_Cus
         , Pledge_Weight
                     FROM pledge
+                        WHERE Pledge_Id = '$plid'";
+
+        return $this->db->query($query)->result();
+    }
+
+    function selecetpledgereceipt($plid)
+    {
+        $query = "SELECT Pledge_Id, Pledge_Price, Pledge_Debt, Pledge_Debt_Price, Pledge_Ndate, Pledge_Month, employee.Firstname, customer.Cus_fname
+        , Pledge_Weight
+                    FROM pledge
+										JOIN customer ON customer.Cus_Id = pledge.Pledge_Cus
+										JOIN employee ON employee.Id = pledge.Pledge_Emp
                         WHERE Pledge_Id = '$plid'";
 
         return $this->db->query($query)->result();
@@ -167,7 +187,6 @@ class pledgedb extends CI_Model
         $query = "DELETE FROM pledge_list WHERE Pledge_Id = '$plid'";
 
         return $this->db->query($query);
-
     }
 
     function selectlist()
@@ -187,12 +206,12 @@ class pledgedb extends CI_Model
         return $this->db->query($query)->result();
     }
 
-    function insertstock($id,$pledgepro,$result,$pledgeweightp,$plid)
+    function insertstock($id, $pledgepro, $result, $pledgeweightp, $plid)
     {
         $query = "INSERT INTO pledge_stock (ProdPL_Id, ProdPL_Name, ProdPL_Cost, ProdPL_Weight_Per, Pledge_Id, ProdPL_Status)
             VALUES ('$id','$pledgepro','$result','$pledgeweightp','$plid','1' )";
 
-        return $this->db->query($query);    
+        return $this->db->query($query);
     }
 
     function changestat($plid)
@@ -200,7 +219,14 @@ class pledgedb extends CI_Model
         $query = "UPDATE pledge_list SET Pledge_Stat_Stock = '1' 
                     WHERE Pledge_Id = '$plid'";
 
-        return $this->db->query($query);    
+        return $this->db->query($query);
     }
 
+    function returnpledge($plid)
+    {
+        $query = "UPDATE pledge SET Pledge_Status = 0
+        WHERE Pledge_Id = '$plid'";
+
+        return $this->db->query($query);
+    }
 }

@@ -104,7 +104,7 @@
                             <tr nowrap>
                                 <td nowrap> <?php echo $p->Ord_Id; ?> </td>
                                 <td nowrap> <?php echo $p->Ord_Date; ?> </td>
-                                <td nowrap> <?php echo $p->Ord_Price; ?> </td>
+                                <td nowrap> <?php echo number_format($p->Ord_Price,2); ?> </td>
                                 <td nowrap> <?php echo $p->Part_Name; ?> </td>
                                 <td nowrap> <?php echo $p->Firstname; ?> </td>
                                 <td>

@@ -80,7 +80,7 @@
                             <tr>
                                 <th colspan="3"></th>
                                 <th>
-                                    Total
+                                    รวมราคา
                                 </th>
                                 <th>
                                     <input class="alltotal form-control" type="text" name="alltotal" id="alltotal" readonly>
