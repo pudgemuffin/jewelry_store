@@ -519,7 +519,7 @@ class product extends CI_Controller
                 return $promid = 'PROM' . $ye . '001';
                 // echo $promid;
             }else{
-                $promid = substr($max, 7);
+                $promid = substr($max, 8);
                 $promid += 1;
                 while(strlen($promid) < 3){
                     $promid = '0' . $promid;
@@ -527,6 +527,7 @@ class product extends CI_Controller
                 $promid = 'PROM' . $yeId . $promid;
                 return $promid;
                 // echo $promid;
+                
                 
             }
         }

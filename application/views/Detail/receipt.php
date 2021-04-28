@@ -86,7 +86,7 @@
             </tbody>
         </table>
         <hr>
-        <table style="width: 100%;">
+        <table style="width: 100%;" >
             <thead>
                 <tr>
                     <th class="left">สินค้า</th>

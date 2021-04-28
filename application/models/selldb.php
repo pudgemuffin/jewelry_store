@@ -267,4 +267,25 @@ class selldb extends CI_Model
 
         return $this->db->query($query)->result();
     }
+
+    function worldprice()
+    {
+        $query = "SELECT Id,World_Price FROM world_price";
+
+        return $this->db->query($query)->result();
+    }
+
+    function updateworldsell($sell)
+    {
+        $query = "UPDATE world_price SET World_Price = '$sell' WHERE Id = 1 ";
+
+        return $this->db->query($query);
+    }
+
+    function updateworldbuy($buy)
+    {
+        $query = "UPDATE world_price SET World_Price = '$buy' WHERE Id = 2 ";
+
+        return $this->db->query($query);
+    }
 }

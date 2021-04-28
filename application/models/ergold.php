@@ -25,25 +25,33 @@ class ergold extends CI_Model
 
     function allproduct($start,$pageend,$search)
     {
-        $query = "SELECT * from( SELECT ROW_NUMBER()OVER ( ORDER By p.Prod_Id )as row ,p.Prod_Id,p.Prod_Name,p.Prod_Gram,p.Fee,p.Prod_Img,t.Prot_Name as Type,w.Weight_Name as Weight
-        FROM product p
-            INNER JOIN protype t on p.Prod_Type = t.Prot_Id
-			INNER JOIN weight w on p.Prod_Weight = w.Weight_Id
-            WHERE p.Prod_Status = '1' $search
-            )AA
-            where row > $start AND row <=$pageend order by row";
+        $query = "SELECT * from( SELECT ROW_NUMBER()OVER ( ORDER By product.Prod_Id )as row ,product.Prod_Img, product.Prod_Id, protype.Prot_Name, product.Prod_Name, product.Fee, weight.Weight_Name, size.Size,weight.Weight_Grams,  
+        IFNULL(sum(sub_lot.Amount),0) as Amount from product
+        LEFT JOIN sub_lot on sub_lot.Prod_Id = product.Prod_Id
+        JOIN weight on weight.Weight_Id = product.Prod_Weight
+        LEFT JOIN rings on rings.Prod_Id = product.Prod_Id
+        LEFT JOIN size on size.Id = rings.Size
+        JOIN protype on protype.Prot_Id = product.Prod_Type
+        WHERE product.Prod_Status = 1 $search
+        GROUP BY product.Prod_Id 
+           )AA
+        where row > $start AND row <=$pageend order by row";
         
         return $this->db->query($query)->result();
     }
 
     function count_product( $search)
     {
-        $query = "SELECT COUNT(*) as Count from( SELECT ROW_NUMBER()OVER ( ORDER By p.Prod_Id )as row ,p.Prod_Id,p.Prod_Name,p.Prod_Gram,p.Fee,p.Prod_Img,t.Prot_Name as Type,w.Weight_Name as Weight
-        FROM product p
-            INNER JOIN protype t on p.Prod_Type = t.Prot_Id
-			INNER JOIN weight w on p.Prod_Weight = w.Weight_Id
-            WHERE p.Prod_Status = '1' $search
-            )AA";
+        $query = "SELECT COUNT(*) as Count from( SELECT ROW_NUMBER()OVER ( ORDER By product.Prod_Id )as row ,product.Prod_Img, product.Prod_Id, protype.Prot_Name, product.Prod_Name, product.Fee, weight.Weight_Name, size.Size, weight.Weight_Grams, 
+        IFNULL(sum(sub_lot.Amount),0) as Amount from product
+        LEFT JOIN sub_lot on sub_lot.Prod_Id = product.Prod_Id
+        JOIN weight on weight.Weight_Id = product.Prod_Weight
+        LEFT JOIN rings on rings.Prod_Id = product.Prod_Id
+        LEFT JOIN size on size.Id = rings.Size
+        JOIN protype on protype.Prot_Id = product.Prod_Type
+        WHERE product.Prod_Status = 1 $search
+        GROUP BY product.Prod_Id 
+           )AA";
 
         return $this->db->query($query)->result();
         

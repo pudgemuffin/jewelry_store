@@ -91,8 +91,12 @@
                                 <a class="nav-link" href="<?php echo site_url('Welcome/lots'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;" <?php if ($per[4] != 1) {
                                                                                                                                                                         echo "hidden";
                                                                                                                                                                     } ?>>ล็อต</a>
+                                <a class="nav-link" href="<?php echo site_url('sell/worldprice'); ?>" style="background-color: #CD3838;font-size:16px;color:#ffffff;" <?php if ($per[4] != 1) {
+                                                                                                                                                                            echo "hidden";
+                                                                                                                                                                        } ?>>ราคากลาง</a>
 
-                                <?//ต้องส่งไปcontroller แล้วเรียกview?>
+                                <? //ต้องส่งไปcontroller แล้วเรียกview
+                                ?>
                             </nav>
                         </div>
 
@@ -191,7 +195,8 @@
                                                                                                                                                                             echo "hidden";
                                                                                                                                                                         } ?>>รายงานกำไรขาดทุนตามช่วงเวลา</a>
 
-                                <?//ต้องส่งไปcontroller แล้วเรียกview?>
+                                <? //ต้องส่งไปcontroller แล้วเรียกview
+                                ?>
                             </nav>
                         </div>
                     </div>
@@ -248,21 +253,7 @@
     <script src="<?php echo base_url('assets/demo/datatables-demo.js') ?>"></script>
 
 
-    <!-- <div class="modal fade" id="Addprotype" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h3 class="modal-title" id="exampleModalLabel">Add protype</h3>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <?php// $this->load->view('registers'); ?>
-                    </div>
-                </div>
-            </div>
-        </div> -->
+
 
 
 

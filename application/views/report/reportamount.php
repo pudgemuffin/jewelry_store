@@ -25,7 +25,7 @@
 </head>
 
 <body>
-<h2 style="text-align: center;">สิ้นค้าจำนำขายดีตามช่วงเวลา</h2>
+<h2 style="text-align: center;">สิ้นค้าขายดีตามช่วงเวลา</h2>
     <br>
     <form action="<?php echo site_url('callreport/inputdate') ?>" method="post">
         <div class="row justify-content-center">

@@ -84,7 +84,7 @@
                                         ราคารวม
                                     </th>
                                     <th>
-                                        <input class="alltotal form-control" type="text" name="alltotal" id="alltotal" value="<?php echo $v->Ord_Price; ?>" readonly>
+                                        <input class="alltotal form-control" type="text" name="alltotal" id="alltotal" value="<?php echo number_format($v->Ord_Price,2); ?>" readonly>
                                     </th>
                                     
 
@@ -103,7 +103,7 @@
                 <div style="margin-bottom: 15px;">
 
                     <!-- <button type="submit" class="btn btn-info">เพิ่มข้อมูลการสั่งซื้อ</button> -->
-                    <a class="btn btn-danger" href="<?php echo site_url('Welcome/lots') ?>">ยกเลิก</a>
+                    <a class="btn btn-danger" href="<?php echo site_url('Welcome/order') ?>">ยกเลิก</a>
 
                 </div>
             </div>

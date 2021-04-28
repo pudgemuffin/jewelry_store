@@ -60,7 +60,7 @@
 <div class="card">
         <div class="card-body">
             <h1 style="text-align: center;">
-                ข้อมูลใบรับสินค้า
+                ข้อมูลสินค้าหลุดจำนำ
             </h1>
                     <div class="row" style="padding-bottom: 1px;padding-left:5px;">
                     <div class="col-3">

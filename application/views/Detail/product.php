@@ -104,6 +104,7 @@
                             <th class="tableFixHead">ชื่อสินค้า</th>
                             <th class="tableFixHead">น้ำหนัก</th>
                             <th class="tableFixHead">น้ำหนักสินค้า</th>
+                            <th class="tableFixHead">จำนวน</th>
                             <th class="tableFixHead">ค่ากำเหน็จ</th>
                             <th class="tableFixHead">แก้ไข</th>
                             <th class="tableFixHead">ลบ</th>                            
@@ -117,10 +118,15 @@
                                 <td nowrap style="text-align:center; vertical-align: middle;"> <img style="width: 100px; height:100px;" src="<?php echo base_url('/img/product/'.$r->Prod_Img);?>"></td>
                                 <td nowrap style="text-align:center; vertical-align: middle;"> <?php echo $r->Prod_Id; ?></td>
                            
-                                <td nowrap style="text-align:center; vertical-align: middle;"> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->Type); ?> 
+                                <td nowrap style="text-align:center; vertical-align: middle;"> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->Prot_Name); ?> 
                                 <td nowrap style="text-align:center; vertical-align: middle;"> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->Prod_Name); ?></td>
-                                <td nowrap style="text-align:center; vertical-align: middle;"> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->Weight); ?></td>
-                                <td nowrap style="text-align:center; vertical-align: middle;"> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->Prod_Gram); ?> </td>
+                                <td nowrap style="text-align:center; vertical-align: middle;"> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->Weight_Name); ?></td>
+                                <td nowrap style="text-align:center; vertical-align: middle;"> <?php echo iconv('utf-8//ignore', 'utf-8//ignore', $r->Weight_Grams); ?> </td>
+                                <?php if ($r->Amount < 5){
+                                    echo '<td nowrap style="text-align:center;  vertical-align: middle;  color: red;">'.$r->Amount.'</td>';
+                                }else{
+                                    echo '<td nowrap style="text-align:center;  vertical-align: middle; color:green;">'.$r->Amount.'</td>';
+                                } ?>
                                 <td nowrap style="text-align:center; vertical-align: middle;"> <?php echo number_format($r->Fee,2) ; ?> </td>
 
                                 <td  style="text-align:center; vertical-align: middle;">

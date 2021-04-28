@@ -58,6 +58,33 @@ class callpdf extends CI_Controller
        $mpdf->Output();
 
     }
+
+    public function orderpdf($ordid)
+    {
+        $this->load->model('ordermod');
+        $data['vieworder'] = $this->ordermod->vieworder($ordid);
+        $data['suborder'] = $this->ordermod->viewsuborder($ordid); 
+
+        $view = $this->load->view('Detail/printorder',$data,true);
+
+        $mpdf = new \Mpdf\Mpdf;
+
+        $mpdf->WriteHTML($view);
+        $mpdf->Output();
+    }
+
+    public function receivepdf($recid)
+    {
+        $this->load->model('ordermod');
+        $data['viewreceive'] = $this->ordermod->viewreceive($recid);
+        $data['viewsubreceive'] = $this->ordermod->viewsubreceive($recid);
+        $view = $this->load->view('Detail/printreceive',$data,true);
+
+        $mpdf = new \Mpdf\Mpdf;
+
+        $mpdf->WriteHTML($view);
+        $mpdf->Output();
+    }
 }
 
 ?>

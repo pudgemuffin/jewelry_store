@@ -20,13 +20,12 @@ class sell extends CI_Controller
     {
         $data['customer'] = $this->selldb->custselect();
         $data['world'] = $this->selldb->selectworldprice();
-        // $ordid = $this->ordergenid();
-        // $data['partner'] = $this->partner->partnerdetail();
+       
         $data['fname'] = $this->session->userdata('Firstname');
         $data['sname'] = $this->session->userdata('Surname');
         $data['pos'] = $this->session->userdata('Pos');
         $data['id'] = $this->session->userdata('id');
-        // $data['result'] = $this->ordermod->Part();
+
         $data['view'] = "add/sellproduct";
 
         $this->load->view('actionindex', $data);
@@ -276,6 +275,29 @@ class sell extends CI_Controller
 
         echo "<script> alert('ยกเลิกการขายสำเร็จ');
 		 					window.location.href='/ER_GOLDV1/index.php/Welcome/allreceipt';
+							 </script>";
+    }
+
+    public function worldprice()
+    {
+        $data['world'] = $this->selldb->worldprice();
+        $data['fname'] = $this->session->userdata('Firstname');
+        $data['sname'] = $this->session->userdata('Surname');
+        $data['pos'] = $this->session->userdata('Pos');
+        $data['view'] = "add/worldprice";
+        $this->load->view('actionindex', $data);
+    }
+
+    public function updateworldprice()
+    {
+        $sell = $this->input->post('sell');
+        $buy = $this->input->post('buy');
+
+        $this->selldb->updateworldsell($sell);
+        $this->selldb->updateworldbuy($buy);
+
+        echo "<script> alert('แก้ไขราคากลางสำเร็จ');
+		 					window.location.href='/ER_GOLDV1/index.php/Welcome';
 							 </script>";
     }
     

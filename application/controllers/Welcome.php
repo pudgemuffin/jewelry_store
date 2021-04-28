@@ -455,7 +455,7 @@ class Welcome extends CI_Controller
 
         // $txtsearch = $this->input->post('spro');
         if ($txtsearch != '') {
-            $txtsearch = "and  p.Prod_Id LIKE '%$txtsearch%' or p.Prod_Name LIKE '%$txtsearch%' or p.Prod_Gram LIKE '%$txtsearch%' or t.Prot_Name LIKE '%$txtsearch%' or w.Weight_Name like '%$txtsearch%' or Fee like '%$txtsearch%' ";
+            $txtsearch = "and  product.Prod_Id LIKE '%$txtsearch%' or product.Prod_Name LIKE '%$txtsearch%' or weight.Weight_Grams LIKE '%$txtsearch%' or protype.Prot_Name LIKE '%$txtsearch%' or weight.Weight_Name like '%$txtsearch%' or product.Fee like '%$txtsearch%' ";
         } else {
             $txtsearch = '';
         }

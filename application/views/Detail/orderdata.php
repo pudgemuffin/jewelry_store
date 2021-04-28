@@ -109,6 +109,7 @@
                                 <td nowrap> <?php echo $p->Firstname; ?> </td>
                                 <td>
                                     <a class="btn btn-success" name ="viewdata" id="viewdata"href="<?php echo site_url('ordercon/viewdata/').$p->Ord_Id?>"><i class="fas fa-book-open"></i></a>
+                                    <a class="btn btn-primary" name ="print" id="print"href="<?php echo site_url('callpdf/orderpdf/').$p->Ord_Id?>"><i class="fa fa-clone"></i></a>
                                 </td>
                                 <?php } ?>
                         <tr>   

@@ -93,7 +93,7 @@
                 <div style="margin-bottom: 15px;">
 
                     <!-- <button type="submit" class="btn btn-info">เพิ่มข้อมูลการสั่งซื้อ</button> -->
-                    <a class="btn btn-danger" href="<?php echo site_url('Welcome/order') ?>">ยกเลิก</a>
+                    <a class="btn btn-danger" href="<?php echo site_url('Welcome/receives') ?>">ยกเลิก</a>
 
                 </div>
             </div>

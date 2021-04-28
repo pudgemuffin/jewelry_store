@@ -7,14 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Page Title - SB Admin</title>
+    <title>แก้ไขข้อมูลพนักงาน</title>
     <!-- <link href="assets/css/styles.css" rel="stylesheet" /> -->
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
     <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 </head>
 <center>
-    <h2>Edit</h2>
+    <h2>แก้ไขข้อมูลพนักงาน</h2>
 </center>
 
 <body>

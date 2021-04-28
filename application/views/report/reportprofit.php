@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>รายงานสินค้าขายดีตามช่วงเวลา</title>
+    <title>รายงานกำไรขาดทุน</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -25,9 +25,9 @@
 </head>
 
 <body>
-<h2 style="text-align: center;">รายงานสรุปช่วงอายุ</h2>
+<h2 style="text-align: center;">รายงานกำไรขาดทุน</h2>
     <br>
-    <form action="<?php echo site_url('callreport/inputage') ?>" method="post">
+    <form action="<?php echo site_url('callreport/inputprofit') ?>" method="post">
         <div class="row justify-content-center">
             <div class="col-3">
                 วันเริ่มต้น : <input class="form-control" type="date" id="dates" name="dates" required>
@@ -35,10 +35,10 @@
             <div class="col-3">
                 วันสิ้นสุด : <input class="form-control" type="date" id="daten" name="daten" required>
             </div>
-
+            <button type="submit" class="btn btn-info">ค้นหา</button>
         </div>
         <br>
-            <button type="submit" class="btn btn-info">ค้นหา</button>
+            
     </form>
     <br>
 
@@ -46,9 +46,9 @@
     <div class="row">
         <div class="col">
         <div class="row justify-content-center">
-        <div id="piechart"></div>
+        <!-- <div id="barchart"></div> -->
     </div>
-            <div id="piechart"></div>
+            <div id="barchart"></div>
             <div class="card boder-0 ">
                 <table id="aaaa" class="table table-bordered table-striped">
                     <thead>
@@ -75,7 +75,7 @@
 
         <div class="col">
             <div class="card boder-0 ">
-                <div id="piechart1"></div>
+                <div id="barchar1"></div>
                 <table id="bbbb" class="table table-bordered table-striped">
                     <thead>
                         <th>
@@ -127,53 +127,114 @@
         });
     });
 
+    // google.charts.load('current', {
+    //     'packages': ['corechart']
+    // });
+    // google.charts.setOnLoadCallback(drawChart);
+
+    // // Draw the chart and set the chart values
+    // function drawChart() {
+    //     var data = google.visualization.arrayToDataTable([
+    //         ['Task', 'Hours per Day'],
+    //         <?php foreach ($profit as $pr) { ?>['<?php echo $pr->Prod_Name; ?>', <?php echo $pr->Total; ?>],
+    //         <?php } ?>
+    //     ]);
+
+    //     // Optional; add a title and set the width and height of the chart
+    //     var options = {
+    //         'title': 'กำไร/ขาดทุนของสินค้า',
+    //         'width': 550,
+    //         'height': 400
+    //     };
+
+    //     // Display the chart inside the <div> element with id="piechart"
+    //     var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+    //     chart.draw(data, options);
+    // }
+
+    // google.charts.load('current', {
+    //     'packages': ['corechart']
+    // });
+    // google.charts.setOnLoadCallback(drawChart1);
+
+    // // Draw the chart and set the chart values
+    // function drawChart1() {
+    //     var data1 = google.visualization.arrayToDataTable([
+    //         ['Task', 'Hours per Day'],
+    //         <?php foreach ($plefit as $pl) { ?>['<?php echo $pl->ProdPL_Name; ?>', <?php echo $pl->profit; ?>],
+    //         <?php } ?>
+    //     ]);
+
+    //     // Optional; add a title and set the width and height of the chart
+    //     var options1 = {
+    //         'title': 'กำไร/ขาดทุนของสินค้าจำนำ',
+    //         'width': 550,
+    //         'height': 400
+    //     };
+
+    //     // Display the chart inside the <div> element with id="piechart"
+    //     var chart1 = new google.visualization.PieChart(document.getElementById('piechart1'));
+    //     chart1.draw(data1, options1);
+    // }
+
+           
     google.charts.load('current', {
-        'packages': ['corechart']
-    });
-    google.charts.setOnLoadCallback(drawChart);
+                'packages': ['bar']
+            });
+            google.charts.setOnLoadCallback(prodbar);
+            google.charts.setOnLoadCallback(pledge);
 
-    // Draw the chart and set the chart values
-    function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-            ['Task', 'Hours per Day'],
-            <?php foreach ($profit as $pr) { ?>['<?php echo $pr->Prod_Name; ?>', <?php echo $pr->Total; ?>],
-            <?php } ?>
-        ]);
+            function prodbar() {
+                var data = google.visualization.arrayToDataTable([
+                    ['สินค้า', 'กำไร/ขาดทุน'],
+                    <?php
+                    $prod = '';
+                    // $rowprod = 0;
+                    foreach ($profit as $pr) {
+                            $prod .= "['$pr->Prod_Name',$pr->Total],";
+                            // $rowprod++;
+                        }
+                        
+                   
+                    echo $prod;
+                    ?>
+                ]);
+                var options = {
+                    chart: {
+                        title: 'กำไร/ขาดทุน',
+                    },
+                    bars: 'vertical' // Required for Material Bar Charts.
+                };
 
-        // Optional; add a title and set the width and height of the chart
-        var options = {
-            'title': 'สิ้นค้าขายดีตามช่วงเวลา',
-            'width': 550,
-            'height': 400
-        };
+                var chart = new google.charts.Bar(document.getElementById('barchart'));
 
-        // Display the chart inside the <div> element with id="piechart"
-        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-        chart.draw(data, options);
-    }
+                chart.draw(data, google.charts.Bar.convertOptions(options));
+            }
 
-    google.charts.load('current', {
-        'packages': ['corechart']
-    });
-    google.charts.setOnLoadCallback(drawChart1);
+            function pledge() {
+                var data1 = google.visualization.arrayToDataTable([
+                    ['สินค้า', 'กำไร/ขาดทุน'],
+                    <?php
+                    $pled = '';
+                    $rowpled = 0;
+                    foreach ($plefit as $pl) {
+                            $pled .= "['$pl->ProdPL_Name',$pl->profit],";
+                            $rowpled++;
+                        }
+                        
+                   
+                    echo $pled;
+                    ?>
+                ]);
+                var options1 = {
+                    chart: {
+                        title: 'กำไร/ขาดทุน',
+                    },
+                    bars: 'vertical' // Required for Material Bar Charts.
+                };
 
-    // Draw the chart and set the chart values
-    function drawChart1() {
-        var data1 = google.visualization.arrayToDataTable([
-            ['Task', 'Hours per Day'],
-            <?php foreach ($plefit as $pl) { ?>['<?php echo $pl->ProdPL_Name; ?>', <?php echo $pl->profit; ?>],
-            <?php } ?>
-        ]);
+                var chart1 = new google.charts.Bar(document.getElementById('barchar1'));
 
-        // Optional; add a title and set the width and height of the chart
-        var options1 = {
-            'title': 'สิ้นค้าจำนำขายดีตามช่วงเวลา',
-            'width': 550,
-            'height': 400
-        };
-
-        // Display the chart inside the <div> element with id="piechart"
-        var chart1 = new google.visualization.PieChart(document.getElementById('piechart1'));
-        chart1.draw(data1, options1);
-    }
+                chart1.draw(data1, google.charts.Bar.convertOptions(options1));
+            }
 </script>

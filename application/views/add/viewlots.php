@@ -71,9 +71,9 @@
                                     <td class="align-middle" style="text-align: center;"><?php echo $sl->Rec_Id; ?></td>
                                     <td class="align-middle" style="text-align: center;"><?php echo $sl->Prod_Name; ?></td>
                                     <td><input class="price form-control" type="text" value="<?php echo $sl->Amount; ?>" readonly></td>
-                                    <td><input class="orderinput form-control" type="number" value="<?php echo $sl->Price_Per; ?>" readonly></td>
+                                    <td><input class="orderinput form-control" type="number" value="<?php echo number_format($sl->Price_Per,2); ?>" readonly></td>
 
-                                    <td><input class="orderTotal form-control" id="total" name="total" value="<?php echo $sl->All_per; ?>" readonly></td>
+                                    <td><input class="orderTotal form-control" id="total" name="total" value="<?php echo number_format($sl->All_per,2); ?>" readonly></td>
 
                                 </tbody>
                             <?php } ?>
@@ -81,10 +81,10 @@
                                 <tr>
                                     <th colspan="3"></th>
                                     <th>
-                                        Total
+                                        ราคารวม
                                     </th>
                                     <th>
-                                        <input class="alltotal form-control" type="text" name="alltotal" id="alltotal" value="<?php echo $v->Lot_Cost; ?>" readonly>
+                                        <input class="alltotal form-control" type="text" name="alltotal" id="alltotal" value="<?php echo number_format($v->Lot_Cost,2); ?>" readonly>
                                     </th>
                                     <Th></Th>
 
